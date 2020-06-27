@@ -2,7 +2,7 @@
     <nav id="navbar-main"
         class="navbar navbar-main navbar-expand-lg navbar-transparent bg-darker navbar-dark headroom headroom--top headroom--pinned">
         <div class="container">
-            <a class="navbar-brand mr-lg-5" href="index.html">
+            <a class="navbar-brand mr-lg-5" href="/">
                 <img src="../../../../assets/front_end/assets/img/brand/logo-white.svg" alt="Vendease"
                     srcset="../../../../assets/front_end/assets/img/brand/logo-white.svg" />
             </a>
@@ -14,8 +14,9 @@
                 <div class="navbar-collapse-header">
                     <div class="row">
                         <div class="col-6 collapse-brand">
-                            <a href="index.html">
-                                <img src="../../../../assets/front_end/assets/img/brand/logo.png" alt="Vendease">
+                            <a href="/">
+                                <!-- ../../../../assets/front_end/assets/img/brand/logo.png -->
+                                <img src="../../../../../assets/front_end/assets/img/brand/logo-white.svg" alt="Vendease">
                             </a>
                         </div>
                         <div class="col-6 collapse-close">
@@ -31,19 +32,19 @@
                 <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
 
                     <li class="nav-item">
-                        <a href="about.html" class="nav-link no-caret px-1">
+                        <a href="/about" class="nav-link no-caret px-1">
                             <i class="ni ni-world-2 d-lg-none"></i>
                             <span class="nav-link-inner--text text-nowrap">About Us</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="guarantee.html" class="nav-link no-caret px-1">
+                        <a href="/guarantee" class="nav-link no-caret px-1">
                             <i class="ni ni-paper-diploma d-lg-none"></i>
                             <span class="nav-link-inner--text text-nowrap">Vendease Guarantee</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="contact.html" class="nav-link no-caret px-1">
+                        <a href="/contact" class="nav-link no-caret px-1">
                             <i class="ni ni-email-83 d-lg-none"></i>
                             <span class="nav-link-inner--text text-nowrap">Contact Us</span>
                         </a>
@@ -53,11 +54,11 @@
 
             </div>
             <div class="btn-wrapper d-none d-xl-block">
-                <a href="/login" class="btn btn-outline-primary btn-icon mb-3 mb-sm-0">
+                <a routerLink="/login" class="btn btn-outline-primary btn-icon mb-3 mb-sm-0">
                     <span class="btn-inner--text" style="text-transform: capitalize;">Sign In</span>
                 </a>
 
-                <a href="/register" class="btn btn-primary btn-icon mb-3 mb-sm-0 ml-2">
+                <a routerLink="/register" class="btn btn-primary btn-icon mb-3 mb-sm-0 ml-2">
                     <span class="btn-inner--text" style="text-transform: capitalize;">Register</span>
                 </a>
             </div>

@@ -23,6 +23,8 @@ const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+ 
+  
 
   
   //Site routes goes here 
@@ -44,9 +46,12 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     children: [
       { path: 'welcome', component: HomeComponent },
+      { path: 'about', component: AboutUsComponent },
+      { path: 'contact', component: ContactUsComponent },
+      { path: 'guarantee', component: GuaranteeComponent },
     ]
   },
-
+  { path: '**', redirectTo: '/welcome' }
 ];
 
 @NgModule({
