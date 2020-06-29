@@ -1,8 +1,3 @@
-<a routerLink="https://api.whatsapp.com/send?phone=+2348111113316">
-    <div class="fab"
-        style="background-image: url('../../../assets/front_end/assets/img/icons/whatsapp.svg'); background-size: cover;">
-    </div>
-</a>
 <div class="container-scroller">
     <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
@@ -14,7 +9,7 @@
                             </h2>
                             <br>
                             <p class="text-vendease-p" style="margin-top: -20px;">It only takes a few steps.</p>
-                            <a routerLink="register" class="btn btn-primary mb-3 mb-sm-0">
+                            <a routerLink="/register" class="btn btn-primary mb-3 mb-sm-0">
                                 <span class="btn-inner--text" style="text-transform: capitalize;">Register as
                                     Business</span>
                             </a>
@@ -27,11 +22,15 @@
                         style="border: 1px solid #0E32E5 !important; border-radius: 12px !important; opacity: 1 !important;">
                         <div class="auth-form- text-left p-3">
                             <div class="brand-logo" style="margin-bottom: 9px;">
-                                <a routerLink="index">
-                                    <img src="static/front_end/assets/img/brand/logo-white.svg" alt="logo">
+                                <a routerLink="/">
+                                    <img src="../../../assets/front_end/assets/img/brand/logo-white.svg" alt="logo">
                                 </a>
                             </div>
+
+
                             <form id="example-form" method="post" action="#">
+                                <input type="hidden" name="csrfmiddlewaretoken"
+                                    value="RnL0LcB9YFzksvpX0QmtcK2ExU5MEBAnEoTMd4cT0h6mcS8v0AzyYFNhoYpdO1f2">
                                 <div role="application" class="wizard clearfix" id="steps-uid-0">
                                     <div class="steps clearfix">
                                         <ul role="tablist">
@@ -258,6 +257,12 @@
                                                 <input type="number" name="bvn" class="form-control form-control-lg"
                                                     placeholder="Bvn" required="" id="id_bvn">
                                             </div>
+                                            <div class="form-group">
+                                                <input type="checkbox" name="terms" class="" placeholder="Terms"
+                                                    required="" id="id_terms">I have read and agreed to the <a routerLink="#"
+                                                    data-toggle="modal" data-target="#termsCondition">terms &amp;
+                                                    conditions </a>
+                                            </div>
                                         </section>
                                     </div>
                                     <div class="actions clearfix">
@@ -271,9 +276,235 @@
                                         </ul>
                                     </div>
                                 </div>
-
-
                             </form>
+                            <div class="modal fade" id="termsCondition" tabindex="-1" role="dialog"
+                                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-top modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title font-weight-lighter" id="exampleModalLongTitle">Our
+                                                Terms and Conditions</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h2 class="text-center">VENDEASE TERMS &amp; CONDITIONS FOR USE OF THE
+                                                PROCUREMENT PLATFORM</h2>
+                                            <h4>PLEASE ENSURE THAT YOU HAVE READ AND UNDERSTAND ALL THESE TERMS AND
+                                                CONDITIONS (HEREINAFTER T&amp;Cs) BEFORE YOU SIGN UP FOR THE VENDEASE
+                                                PROCUREMENT SOLUTION AND ALLIED SERVICES - YOU SHALL BE BOUND BY ALL THE
+                                                T&amp;Cs CONTAINED HEREIN - PLEASE DO NOT ENROLL IF YOU DO NOT ACCEPT
+                                                ANY OF THE T&amp;CS.</h4>
+                                            <h4>1. CONTRACTUAL RELATIONSHIP</h4>
+                                            <p>1.1 Vendease is a Company that provides modern-day solutions for
+                                                businesses, individual and other entities and currently operates a
+                                                procurement platform in the address (https://vendease.co). These
+                                                Vendease terms and conditions (“T&amp;Cs”) apply to your participation
+                                                in the Vendease platform, solution and any other incidental business
+                                                conducted or procured by Vendeas Limited (“VENDEASE”, “we”, “us” or
+                                                “our”).</p>
+                                            <p>1.2 Your sign-up and continued participation in the Vendease
+                                                Solution/platform indicates your consent to be bound by these T&amp;Cs.
+                                                Your agreement to these T&amp;Cs shall operate as a binding agreement
+                                                between you and VENDEASE in respect of your use of Vendease platform,
+                                                any of its solution and any other incidental rights or obligations
+                                                arising from the relationship with Vendease Limited (“VENDEASE”, “we”,
+                                                “us” or “our”).
+                                            </p>
+                                            <p>1.3 You agree that VENDEASE may immediately terminate these T&amp;Cs or
+                                                any services rendered to you or generally, cease offering or deny access
+                                                to its services and physical/digital assets or any portion thereof, at
+                                                any time for any reason and without notice.
+                                            </p>
+                                            <p>1.4 You agree that VENDEASE may amend the Terms related to the
+                                                procurement and services and your continued access to Vendease and
+                                                allied services.
+                                            </p>
+                                            <p>1.5 Our collection and use of personal information in connection with
+                                                your interaction with the Vendease platform shall be under our privacy
+                                                policy. You can read our Privacy Policy HERE.
+                                            </p>
+                                            <h4>2. THE SERVICES
+                                            </h4>
+                                            <p>2.1 VENDEASE is a Limited Liability company that provides modern-day
+                                                solutions for businesses, individual and other entities to facilitate
+                                                transformation through technology and innovative thinking.
+                                            </p>
+                                            <p>2.2 Vendease Limited currently owns a Procurement platform (at
+                                                https://vendease.co) which provides a transparent process for hotels and
+                                                restaurants to get the best quality products at the best possible
+                                                prices. (“the platform”).
+                                            </p>
+                                            <h4>3. BASIS OF THESE TERMS AND CONDITIONS
+                                            </h4>
+                                            <p> 3.1. VENDEASE is to provide the above-mentioned platform but without any
+                                                obligation or promises of consummating procurements or assisting the
+                                                vendors signed up on the platform in any way whatsoever.
+                                            </p>
+                                            <p>3.2. For interaction with the Vendease solutions or allied services, you
+                                                shall be regarded as a “user”. You may sign up as a business or vendor
+                                                after fulfilling the prerequisites of enrollment including the
+                                                acceptance of these terms and conditions.
+                                            </p>
+                                            <h4>4. OBLIGATIONS
+                                            </h4>
+                                            <p>4.1. The user shall maintain reasonable behaviour while using the
+                                                Vendease platform and its allied services or assets. The user undertakes
+                                                not to perform (or cause to be performed) any illegal or prohibited
+                                                activities. VENDEASE shall not be responsible for any losses or damages
+                                                arising out of the User’s misuse of the platform and the user hereby
+                                                undertakes to indemnify Vendease for any liability arising from his
+                                                non-compliance with these terms.
+                                            </p>
+                                            <p>4.2. The User shall abide by the rules and regulations of VENDEASE and
+                                                other incidental rules which may be imposed from time to time and shall
+                                                co-operate with VENDEASE in all matters relating to the use of the
+                                                platform and provision of its services or allied assistance.
+                                            </p>
+                                            <p>4.3 Each party warrants that for this Terms and Conditions it shall
+                                                comply with the provisions of the Data Protection Legislation.
+                                            </p>
+                                            <p>4.4 Vendease owes no obligation to the user concerning the services it
+                                                renders until a further contract is negotiated between Vendease and the
+                                                user irrespective of his registration on the platform.
+                                            </p>
+                                            <h4>5. INTELLECTUAL PROPERTY
+                                            </h4>
+                                            <p>5.1. All confidential information, copyright works, database rights,
+                                                toolsets, inventions and patent rights and all other intellectual
+                                                property rights subsisting at the commencement of the Services and which
+                                                may be utilized by either party in the course of performing the Services
+                                                or use of the platform shall remain the property of Vendease.
+                                            </p>
+                                            <p>5.2. Notwithstanding any provision to the contrary, nothing in these
+                                                Conditions or concerning any project or the provision of Services shall
+                                                deprive VENDEASE or grant the User rights to any of the VENDEASE’s
+                                                research, know-how functionality or methodology document, supplementary
+                                                knowledge and design or technology process including as used by VENDEASE
+                                                in its general business or for its platform.
+                                            </p>
+                                            <p>5.3 The User grants VENDEASE an irrevocable, unlimited and royalty-free
+                                                license to use the User Data provided to VENDEASE on the platform.
+                                            </p>
+                                            <p>5.4 The User acknowledges that its information may be used by VENDEASE on
+                                                an anonymous basis without limitation including compiling and publishing
+                                                reports.
+                                            </p>
+                                            <h4>6. LIABILITIES:
+                                            </h4>
+                                            <p>6.1 VENDEASE shall not be liable whether, in tort (including for
+                                                negligence or breach of statutory duty), contract, misrepresentation,
+                                                restitution or otherwise for any loss of profits, loss of business, loss
+                                                of income, depletion of goodwill and/or similar losses or loss or
+                                                corruption of data or information, or pure economic loss, or for any
+                                                special, indirect or consequential loss, costs, damages, charges or
+                                                expenses however arising;
+                                            </p>
+                                            <h4>7. TERMINATION
+                                            </h4>
+                                            <p>7.1. Without affecting any other right or remedy available to it, either
+                                                party to the Service may terminate the relationship by giving written
+                                                notice to the other party where:
+                                            </p>
+                                            <p>7.1. the other party commits a material breach of any of the terms and
+                                                conditions which breach is irremediable or (if such breach is
+                                                remediable) fails to remedy that breach within 15 calendar days after
+                                                being notified to do so;
+                                            </p>
+                                            <p>7.2. the other party takes any step or action in connection with its
+                                                entering administration, provisional liquidation, bankruptcy or any
+                                                composition or arrangement with its creditors (other than concerning a
+                                                solvent restructuring), being wound up (whether voluntarily or by order
+                                                of the court, unless for a solvent restructuring), having a receiver
+                                                appointed to any of its assets or ceases to carry on business or, if the
+                                                step or action is taken in another jurisdiction, in connection with an
+                                                analogous procedure in the relevant jurisdiction;
+                                            </p>
+                                            <p>7.3. The other party suspends, or threatens to suspend, or ceases or
+                                                threatens to cease to carry on all or a substantial part of its
+                                                business; or
+                                            </p>
+                                            <h4>8. WAIVER
+                                            </h4>
+                                            <p>No failure or delay by Vendease to exercise any right or remedy provided
+                                                under the Terms and Conditions or by law shall constitute a waiver of
+                                                that or any other right or remedy, nor shall it prevent or restrict the
+                                                further exercise of that or any other right or remedy. No single or
+                                                partial exercise of such right or remedy shall prevent or restrict the
+                                                further exercise of that or any other right or remedy.
+                                            </p>
+                                            <h4>9. SEVERANCE
+                                            </h4>
+                                            <p>If any provision or part-provision of the Terms and Conditions is or
+                                                becomes invalid, illegal or unenforceable, it shall be deemed deleted,
+                                                but that shall not affect the validity and enforceability of the rest of
+                                                the Terms and Condition.
+                                            </p>
+                                            <h4>10. ENTIRE AGREEMENT
+                                            </h4>
+                                            <p>10.1. This Terms and Conditions shall constitute the entire Terms and
+                                                Conditions between the parties and supersedes and extinguishes all
+                                                previous Terms and Conditions, promises, assurances, warranties,
+                                                representations and understandings between them, whether written or
+                                                oral, relating to its subject matter.
+                                            </p>
+                                            <p>10.2. The User acknowledges that in accepting these Terms and Conditions
+                                                it does not rely on, and shall have no remedies in respect of, any
+                                                statement, representation, assurance or warranty (whether made
+                                                innocently or negligently) that is not set out in this Terms and
+                                                Conditions.
+                                            </p>
+                                            <h4>11. ASSIGNMENT AND SUBCONTRACTING
+                                            </h4>
+                                            <p>11.1. The User shall not, without the prior written consent of VENDEASE,
+                                                assign, transfer, charge, sub-contract or deal in any other manner with
+                                                all or any of its rights or obligations under the Terms and Conditions,
+                                                such consent may be withheld in VENDEASE's sole discretion.
+                                            </p>
+                                            <p>11.2. VENDEASE may at any time assign, transfer, charge, sub-contract or
+                                                deal in any other manner with all or any of its rights or obligations
+                                                under the Terms and Conditions.
+                                            </p>
+                                            <h4>11. NO PARTNERSHIP OR AGENCY
+                                            </h4>
+                                            <p>11.1. Nothing in this Terms and Conditions is intended to or shall
+                                                operate to create a partnership between the parties, or authorize either
+                                                party to act as agent for the other, and neither party shall have the
+                                                authority to act in the name or on behalf of or otherwise to bind the
+                                                other in any way (including, but not limited to, the making of any
+                                                representation or warranty, the assumption of any obligation or
+                                                liability and the exercise of any right or power) until a separate
+                                                agreement is entered into between the parties.
+                                            </p>
+                                            <h4>12. THIRD-PARTY RIGHTS
+                                            </h4>
+                                            <p>This Terms and Conditions do not confer any rights on any person or party
+                                                (other than the parties to this Terms and Condition.
+                                            </p>
+                                            <h4>13. NOTICES
+                                            </h4>
+                                            <p>13.1. Any notice required to be given under the Terms and Condition shall
+                                                be in writing and shall be delivered by hand or sent by post or email to
+                                                the other party at its address on the platform or the email:
+                                                gatumi@vendease.co
+                                            </p>
+                                            <h4>14. GOVERNING LAW
+                                            </h4>
+                                            <p>These Terms and Conditions shall be governed and construed under the laws
+                                                of Nigeria, without regard to its conflict of law provisions.
+                                            </p>
+
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 

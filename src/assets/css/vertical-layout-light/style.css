@@ -13579,7 +13579,7 @@ input[type="button"].btn-block {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-  color: #aaa;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .navbar-dark .navbar-nav .nav-link:hover, .navbar-dark .navbar-nav .nav-link:focus {
@@ -19498,16 +19498,16 @@ code {
 
 /* Footer */
 .footer {
-  background: #ededed;
+  /* background: #ededed;
   padding: 30px 2.45rem;
   transition: all 0.25s ease;
   -moz-transition: all 0.25s ease;
   -webkit-transition: all 0.25s ease;
-  -ms-transition: all 0.25s ease;
-  font-size: calc(0.875rem - 0.05rem);
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  -ms-transition: all 0.25s ease; */
+  /* font-size: calc(0.875rem - 0.05rem); */
+  /* font-family: "Roboto", sans-serif; */
+  /* font-weight: 400; */
+  /* border-top: 1px solid rgba(0, 0, 0, 0.06); */
 }
 
 .footer a {

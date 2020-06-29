@@ -549,7 +549,7 @@ h6,
 {
     font-family: 'CustomFontBold';
     font-weight: 400;
-    line-height: 1.5;
+    line-height: 1.5 !important;
 
     margin-bottom: .5rem;
 
@@ -17787,8 +17787,7 @@ textarea[resize='horizontal']
 }
 .navbar-nav .nav-link .nav-link-inner--text
 {
-    margin-left: 4.25rem;
-    font-family: CustomFont;
+    margin-left: .25rem;
 }
 
 .navbar-brand

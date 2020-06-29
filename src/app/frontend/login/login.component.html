@@ -17,13 +17,12 @@
                   </a>
                 </div>
 
-                <h4 class="mt-4">Welcome back!</h4>
-                <h6 class="font-weight-light">Happy to see you again!</h6>
+                <h4 class="mt-4" style="font-size: 1.125rem;">Welcome back!</h4>
+                <p class="font-weight-light" style="    font-size: .9375rem !important; font-weight: 300 !important;  margin-top: -15px;;">Happy to see you again!</p>
 
 
                 <form class="pt-3" method="post">
-                  <input type="hidden" name="csrfmiddlewaretoken"
-                    value="s9UEdM57KgktFw8ugxIuQP6PWH70GWuWde9CLXO9pW5SUULjoEy6FcZXlujynxGf">
+                 
                   <div class="form-group">
                     <label for="exampleInputEmail">Email</label>
                     <div class="input-group">
@@ -32,7 +31,7 @@
                           <i class="ti-user text-primary"></i>
                         </span>
                       </div>
-                      <input type="email" name="email" class="form-control form-control-lg border-left-0"
+                      <input type="email" name="email" class="form-control2 form-control-lg border-left-0"
                         placeholder="Email" required id="id_email">
                     </div>
                   </div>
@@ -44,7 +43,7 @@
                           <i class="ti-lock text-primary"></i>
                         </span>
                       </div>
-                      <input type="password" name="password" class="form-control form-control-lg border-left-0"
+                      <input type="password" name="password" class="form-control2 form-control-lg border-left-0"
                         placeholder="Password" required id="id_password">
                     </div>
                   </div>
@@ -58,8 +57,8 @@
                   </div>
                   <div class="text-center mt-4 font-weight-light">
                     Don't have an account? <br />
-                    <a routerLink="register" class="text-primary">Sign Up as Business</a> |
-                    <a routerLink="vendor_register" class="text-primary">Sign up as vendor</a>
+                    <a routerLink="/register" class="text-primary">Sign Up as Business</a> |
+                    <a routerLink="/vendor_register" class="text-primary">Sign up as vendor</a>
                   </div>
                 </form>
 

@@ -10,6 +10,7 @@ import { ContactUsComponent } from './frontend/contact-us/contact-us.component';
 import { GuaranteeComponent } from './frontend/guarantee/guarantee.component';
 import { MainComponent } from './layout/backend/main/main.component';
 import { LoginRegisterComponent } from './layout/frontend/loginRegister/login-register/login-register.component';
+import { RegisterVendorComponent } from './frontend/register-vendor/register-vendor.component';
 
 
 
@@ -23,7 +24,7 @@ const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
- 
+  { path: 'vendor_register', component: RegisterVendorComponent },
   
 
   
