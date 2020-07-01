@@ -7,9 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterVendorComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    document.body.style.background = "#efefef";
+   }
 
   ngOnInit() {
   }
 
+  onStep1Next(ev){
+
+  }
+  
+  onStep2Next(ev){
+    
+  }
+  
+  onStep3Next(ev){
+    
+  }
+  
+  onComplete(ev){
+    
+  }
 }
+

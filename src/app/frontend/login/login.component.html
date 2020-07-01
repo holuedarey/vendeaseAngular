@@ -1,7 +1,5 @@
 <div class="container-scroller">
-    <a routerLink="https://api.whatsapp.com/send?phone=+2348111113316">
-      <div class="fab" style="background-image: url('../../../assets/front_end/assets/img/icons/whatsapp.svg'); background-size: cover;"></div>
-    </a>
+   
     <div class="container-fluid page-body-wrapper full-page-wrapper">
       <div class="content-wrapper d-flex align-items-stretch auth auth-img-"
         style="background: #E1EFF8; padding: 0px !important;">
@@ -21,7 +19,7 @@
                 <p class="font-weight-light" style="    font-size: .9375rem !important; font-weight: 300 !important;  margin-top: -15px;;">Happy to see you again!</p>
 
 
-                <form class="pt-3" method="post">
+                <form class="pt-3"  [formGroup]=loginForm>
                  
                   <div class="form-group">
                     <label for="exampleInputEmail">Email</label>
@@ -31,8 +29,9 @@
                           <i class="ti-user text-primary"></i>
                         </span>
                       </div>
-                      <input type="email" name="email" class="form-control2 form-control-lg border-left-0"
-                        placeholder="Email" required id="id_email">
+                      <input type="email"  class="form-control2 form-control-lg border-left-0"
+                        placeholder="Email" formControlName="email"
+                        [class.invalid]="!loginForm.controls.email.valid && (loginForm.controls.email.dirty || submitAttempt)">
                     </div>
                   </div>
                   <div class="form-group">
@@ -43,8 +42,8 @@
                           <i class="ti-lock text-primary"></i>
                         </span>
                       </div>
-                      <input type="password" name="password" class="form-control2 form-control-lg border-left-0"
-                        placeholder="Password" required id="id_password">
+                      <input type="password"  class="form-control2 form-control-lg border-left-0"
+                        placeholder="Password" formControlName="password"  [class.invalid]="!loginForm.controls.password.valid && (loginForm.controls.password.dirty || submitAttempt)">
                     </div>
                   </div>
                   <div class="my-2 d-flex justify-content-between align-items-center">
@@ -53,7 +52,7 @@
                   </div>
                   <div class="my-3">
                     <button type="submit"
-                      class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">LOGIN</button>
+                      class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"  [disabled]="loginForm.invalid" color="primary"  shape="round" expand="full" (click)="signIn()">LOGIN</button>
                   </div>
                   <div class="text-center mt-4 font-weight-light">
                     Don't have an account? <br />

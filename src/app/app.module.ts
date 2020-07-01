@@ -19,6 +19,17 @@ import { LoginRegisterComponent } from './layout/frontend/loginRegister/login-re
 import { HeaderWelcomeComponent } from './layout/frontend/welcome/header-welcome/header-welcome.component';
 import { FooterWelcomeComponent } from './layout/frontend/welcome/footer-welcome/footer-welcome.component';
 import { RegisterVendorComponent } from './frontend/register-vendor/register-vendor.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { RequestInterceptorService } from './_service/request-interceptor.service';
+import { JwtModule } from "@auth0/angular-jwt";
+import { Constants } from './common/constant';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormWizardModule } from 'angular-wizard-form';
+
+export function tokenGetter() {
+  return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
+}
+ 
 
 @NgModule({
   declarations: [
@@ -42,8 +53,24 @@ import { RegisterVendorComponent } from './frontend/register-vendor/register-ven
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+    FormWizardModule,
+    
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter: tokenGetter,
+    //     blacklistedRoutes: ["login", "register"],
+    //   },
+    // }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, 
+      useClass: RequestInterceptorService, 
+      multi: true 
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

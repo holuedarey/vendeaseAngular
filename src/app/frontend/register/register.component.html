@@ -1,9 +1,5 @@
 <div class="container-scroller">
-    <a routerLink="https://api.whatsapp.com/send?phone=+2348111113316">
-        <div class="fab"
-            style="background-image: url('../../../assets/front_end/assets/img/icons/whatsapp.svg'); background-size: cover;">
-        </div>
-    </a>
+    
     <div class="container-fluid page-body-wrapper full-page-wrapper" >
         <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
             <div class="row flex-grow">
@@ -33,61 +29,68 @@
 
                             </div>
 
-                            <form class="pt-3" method="post">
+                            <form class="pt-3" [formGroup]=signUpForm>
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" name="first_name" class="form-control form-control-lg"
-                                                placeholder="First Name" required id="id_first_name">
+                                            <input type="text"  class="form-control form-control-lg"
+                                                placeholder="First Name" formControlName="firstName"
+                                                [class.invalid]="!signUpForm.controls.firstName.valid && (signUpForm.controls.firstName.dirty || submitAttempt)">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" name="last_name" class="form-control form-control-lg"
-                                                placeholder="Last Name" required id="id_last_name">
+                                            <input type="text" class="form-control form-control-lg"
+                                                placeholder="Last Name" formControlName="lastName"
+                                                [class.invalid]="!signUpForm.controls.lastName.valid && (signUpForm.controls.lastName.dirty || submitAttempt)">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" name="email" class="form-control form-control-lg"
-                                        placeholder="Email" required id="id_email">
+                                    <input type="email"  class="form-control form-control-lg"
+                                        placeholder="Email" formControlName="email"
+                                        [class.invalid]="!signUpForm.controls.email.valid && (signUpForm.controls.email.dirty || submitAttempt)">
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="password" name="password" class="form-control form-control-lg"
-                                                placeholder="Password" required id="id_password">
+                                            <input type="password"  class="form-control form-control-lg"
+                                                placeholder="Password" formControlName="password"
+                                                [class.invalid]="!signUpForm.controls.password.valid && (signUpForm.controls.password.dirty || submitAttempt)">
                                         </div>
 
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="password" name="confirm_password"
-                                                class="form-control form-control-lg" placeholder="Confirm Password"
-                                                required id="id_confirm_password">
+                                            <input type="password" 
+                                                class="form-control form-control-lg" placeholder="Confirm Password" formControlName="ConfrimPassword"
+                                                [class.invalid]="!signUpForm.controls.ConfrimPassword.valid && (signUpForm.controls.ConfrimPassword.dirty || submitAttempt)" >
                                         </div>
                                     </div>
                                 </div>
 
 
                                 <div class="form-group">
-                                    <input type="text" name="company" class="form-control form-control-lg"
-                                        placeholder="Company" required id="id_company">
+                                    <input type="text"  class="form-control form-control-lg"
+                                        placeholder="Company"  formControlName="company"
+                                        [class.invalid]="!signUpForm.controls.company.valid && (signUpForm.controls.company.dirty || submitAttempt)">
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="number" name="phone" class="form-control form-control-lg"
-                                                placeholder="Phone" required id="id_phone">
+                                            <input type="number"  class="form-control form-control-lg"
+                                                placeholder="Phone" formControlName="phone"
+                                                [class.invalid]="!signUpForm.controls.phone.valid && (signUpForm.controls.phone.dirty || submitAttempt)">
                                         </div>
 
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text" name="address" class="form-control form-control-lg"
-                                                placeholder="Address" required id="id_address">
+                                            <input type="text"  class="form-control form-control-lg"
+                                                placeholder="Address"formControlName="address"
+                                                [class.invalid]="!signUpForm.controls.address.valid && (signUpForm.controls.address.dirty || submitAttempt)">
                                         </div>
                                     </div>
                                 </div>
@@ -99,7 +102,7 @@
                                     <div class="col-md-6">
                                         <button type="submit"
                                             class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn custom-btn"
-                                            id="load"
+                                            id="load" [disabled]="signUpForm.invalid" (click)="signUp()"
                                             data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Submitting ...">Continue
                                         </button>
                                     </div>
