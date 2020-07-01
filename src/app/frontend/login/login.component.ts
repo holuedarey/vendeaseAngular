@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_service/auth.service';
 import { StorageService } from 'src/app/_service/storage.service';
-
+import { OverlayModule } from '@angular/cdk/overlay';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
   submitAttempt: boolean;
+  display = true;
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
@@ -49,7 +50,7 @@ export class LoginComponent implements OnInit {
       this.validateAllFormFields(this.loginForm);
       return;
     }
-
+    // this.display = true;
     this.authService.signIn(
       {
         email: this.loginForm.value.email,
@@ -58,12 +59,14 @@ export class LoginComponent implements OnInit {
       }).subscribe(user => {
         //hide loader and navigate to dash board Page
         // this.loader.hideLoader();
+        // this.display = false;
         this.router.navigate(['/dashboard']);
 
 
       }, error => {
         // this.loader.hideLoader();  
         console.log('Error : ', error.error)
+        // this.display = false;
         // this.loader.presentToast(error.error.error);
         // this.loader.presentToast(error.error.message);
       });

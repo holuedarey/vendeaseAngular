@@ -11,6 +11,7 @@ import { GuaranteeComponent } from './frontend/guarantee/guarantee.component';
 import { MainComponent } from './layout/backend/main/main.component';
 import { LoginRegisterComponent } from './layout/frontend/loginRegister/login-register/login-register.component';
 import { RegisterVendorComponent } from './frontend/register-vendor/register-vendor.component';
+import { AuthGuard } from './guard/auth.guard';
 
 
 
@@ -32,7 +33,7 @@ const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
     ]
@@ -44,7 +45,6 @@ const routes: Routes = [
   {
     path: '',
     component: LoginRegisterComponent,
-    // canActivate: [AuthGuard],
     children: [
       { path: 'welcome', component: HomeComponent },
       { path: 'about', component: AboutUsComponent },

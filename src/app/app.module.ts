@@ -25,6 +25,8 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { Constants } from './common/constant';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormWizardModule } from 'angular-wizard-form';
+import {AtomSpinnerModule} from 'angular-epic-spinners';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
@@ -57,7 +59,8 @@ export function tokenGetter() {
     ReactiveFormsModule,
     FormsModule,
     FormWizardModule,
-    
+    AtomSpinnerModule,
+    BrowserAnimationsModule
     // JwtModule.forRoot({
     //   config: {
     //     tokenGetter: tokenGetter,
