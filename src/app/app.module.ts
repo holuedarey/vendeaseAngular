@@ -27,6 +27,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormWizardModule } from 'angular-wizard-form';
 import {AtomSpinnerModule} from 'angular-epic-spinners';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { RootComponent } from './root/root/root.component';
+
+import { ToastrModule } from 'ngx-toastr';
 
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
@@ -52,6 +55,7 @@ export function tokenGetter() {
     LoginRegisterComponent,
     RegisterVendorComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -60,7 +64,14 @@ export function tokenGetter() {
     FormsModule,
     FormWizardModule,
     AtomSpinnerModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      easing:'ease-in',
+      progressAnimation:"decreasing"
+    })
     // JwtModule.forRoot({
     //   config: {
     //     tokenGetter: tokenGetter,
@@ -74,6 +85,7 @@ export function tokenGetter() {
       multi: true 
     }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [RootComponent]
 })
 export class AppModule { }

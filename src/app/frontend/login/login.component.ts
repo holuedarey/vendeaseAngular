@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/_service/auth.service';
 import { StorageService } from 'src/app/_service/storage.service';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,15 +16,17 @@ export class LoginComponent implements OnInit {
   passwordType: string = 'password';
   passwordIcon: string = 'eye-off';
   submitAttempt: boolean;
-  display = true;
+  display = false;
+  show = true;
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
     private authService: AuthService,
     public storage: StorageService,
+    private toastr: ToastrService
   ) {
     if (this.authService.isAuthenticated()) {
-      router.navigate(['/dashboard'])
+      router.navigate([''])
     }
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required])],
@@ -32,6 +36,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
@@ -50,7 +55,8 @@ export class LoginComponent implements OnInit {
       this.validateAllFormFields(this.loginForm);
       return;
     }
-    // this.display = true;
+    this.display = true;
+    this.show = false;
     this.authService.signIn(
       {
         email: this.loginForm.value.email,
@@ -59,17 +65,29 @@ export class LoginComponent implements OnInit {
       }).subscribe(user => {
         //hide loader and navigate to dash board Page
         // this.loader.hideLoader();
-        // this.display = false;
-        this.router.navigate(['/dashboard']);
-
-
+        console.log(' got here')
+        this.display = false;
+        this.show = true;
+        this.router.navigate(['']);
+        // this.toastr.success('Login Successfully', 'Success', {
+        //   timeOut: 3000,
+        //   closeButton:true
+        // });
       }, error => {
         // this.loader.hideLoader();  
         console.log('Error : ', error.error)
-        // this.display = false;
+        this.display = false;
+        this.show = true;
+        console.log('error : ', error.error.data.message);
+        
+        this.toastr.error(error.error.data.message, 'Error', {
+          timeOut: 3000,
+          closeButton:true
+        });
         // this.loader.presentToast(error.error.error);
         // this.loader.presentToast(error.error.message);
       });
   }
+
 
 }
