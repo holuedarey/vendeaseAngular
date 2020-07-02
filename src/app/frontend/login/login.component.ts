@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
         console.log(' got here')
         this.display = false;
         this.show = true;
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['']);
         // this.toastr.success('Login Successfully', 'Success', {
         //   timeOut: 3000,
         //   closeButton:true
