@@ -1,5 +1,47 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/ngx-toastr/toastr.css";
 
+@import "./assets/dashboard/vendors/bundle.css";
+@import "./assets/dashboard/vendors/slick/slick.css";
+@import "./assets/dashboard/vendors/slick/slick-theme.css";
+@import "./assets/dashboard/vendors/datepicker/daterangepicker.css";
+@import "./assets/dashboard/vendors/dataTable/datatables.min.css";
+@import "./assets/dashboard/assets/css/app.min.css";
+@import "./assets/vendors/ti-icons/css/themify-icons.css";
+@import "./assets/vendors/css/vendor.bundle.base.css";
+/* @import "./assets/vendors/font-awesome/css/font-awesome.min.css"; */
+
+@import "./assets/dashboard/custom.css";
+
+    .pagination {
+      display: inline-block;
+    }
+
+    .pagination a {
+      color: black;
+      float: left;
+      padding: 8px 16px;
+      text-decoration: none;
+      border: 1px solid #ddd;
+    }
+
+    .pagination a.active {
+      background-color: #4CAF50;
+      color: white;
+      border: 1px solid #4CAF50;
+    }
+
+    .pagination a:hover:not(.active) {background-color: #ddd;}
+
+    .pagination a:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+    }
+
+    .pagination a:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+    }
+
 html, body { height: 100%; }
 body { margin: 0;  }

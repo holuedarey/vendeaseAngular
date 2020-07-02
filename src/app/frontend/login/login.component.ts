@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/_service/auth.service';
-import { StorageService } from 'src/app/_service/storage.service';
-import { OverlayModule } from '@angular/cdk/overlay';
+import { AuthService } from '../../_service/auth.service';
+
+import { StorageService } from '../../_service/storage.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService
   ) {
     if (this.authService.isAuthenticated()) {
-      router.navigate([''])
+      router.navigate(['/dashboard'])
     }
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required])],
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit {
         console.log(' got here')
         this.display = false;
         this.show = true;
-        this.router.navigate(['']);
+        this.router.navigate(['/dashboard']);
         // this.toastr.success('Login Successfully', 'Success', {
         //   timeOut: 3000,
         //   closeButton:true
