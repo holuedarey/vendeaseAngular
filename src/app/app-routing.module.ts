@@ -26,7 +26,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'vendor_register', component: RegisterVendorComponent },
-  
 
   
   //Site routes goes here 
@@ -38,8 +37,6 @@ const routes: Routes = [
       { path: 'dashboard', component: DashboardComponent },
     ]
   },
-  
-
   
   //Site routes goes here 
   {

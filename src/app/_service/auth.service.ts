@@ -24,14 +24,13 @@ export class AuthService {
         }
       }).pipe(
         map(data => {
-          this.processLogin(data);
+          // this.processLogin(data);
           return data;
         }));
   }
 
   processLogin(response: any) {
-    this.storageService.set(Constants.STORAGE_VARIABLES.TOKEN, response.accessToken);
-    this.storageService.set(Constants.STORAGE_VARIABLES.USER, JSON.stringify(response.user));
+   
 
   }
 

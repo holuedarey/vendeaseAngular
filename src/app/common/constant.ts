@@ -14,3 +14,7 @@ export const Constants = {
         FIRSTTIME:"FIRSTTIME"
     }
 }
+
+export const Path = {
+    DASHBOARD : 'dashboard',
+}

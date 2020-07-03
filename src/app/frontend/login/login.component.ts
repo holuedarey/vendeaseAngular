@@ -5,6 +5,7 @@ import { AuthService } from '../../_service/auth.service';
 
 import { StorageService } from '../../_service/storage.service';
 import { ToastrService } from 'ngx-toastr';
+import { Constants, Path } from '../../common/constant';
 
 @Component({
   selector: 'app-login',
@@ -64,15 +65,14 @@ export class LoginComponent implements OnInit {
         strategy: 'local'
       }).subscribe(user => {
         //hide loader and navigate to dash board Page
-        // this.loader.hideLoader();
         console.log(' got here')
         this.display = false;
         this.show = true;
-        this.router.navigate(['']);
-        // this.toastr.success('Login Successfully', 'Success', {
-        //   timeOut: 3000,
-        //   closeButton:true
-        // });
+        console.log('user data : ', user);
+        
+        localStorage.setItem('TOKEN', user.accessToken);
+        localStorage.setItem('USER', JSON.stringify(user.user));
+        this.router.navigate(['/dashboard']);
       }, error => {
         // this.loader.hideLoader();  
         console.log('Error : ', error.error)
