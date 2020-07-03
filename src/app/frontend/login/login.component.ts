@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     private toastr: ToastrService
   ) {
     if (this.authService.isAuthenticated()) {
-      router.navigate(['/dashboard'])
+      // router.navigate(['/dashboard'])
     }
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required])],
