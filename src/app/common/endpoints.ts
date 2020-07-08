@@ -13,9 +13,9 @@ export const Endpoint = {
     },
 
     DASHBOARD: {
-        contribution: `${BASE_URL}/reports/contributions?`,
-        recent_contribution: `${BASE_URL}/reports/contributions/recent?membershipCode=`,
-        member_contribution: `${BASE_URL}/contributions/member/`,
+        invoice: `${BASE_URL}/invoice`,
+        dashboard_graph: `${BASE_URL}/graph-data`,
+        analytics: `${BASE_URL}/analytics`,
         loan:  `${BASE_URL}/reports/loans?`,
         loan_repayment:  `${BASE_URL}/reports/loanrepayments?`,
     },

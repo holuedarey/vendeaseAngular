@@ -29,10 +29,7 @@ export class AuthService {
         }));
   }
 
-  processLogin(response: any) {
-   
-
-  }
+ 
 
   processRegister(response: any) {
     this.storageService.set(Constants.STORAGE_VARIABLES.REGISTER, '1');

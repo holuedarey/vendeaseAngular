@@ -1,70 +1,6 @@
 <!-- begin::main -->
 <div class="layout-wrapper">
 
-    <!-- begin::header -->
-    <div class="header d-print-none">
-
-        <div class="header-left">
-            <div class="navigation-toggler">
-                <a href="#" data-action="navigation-toggler">
-                    <i class="menu"></i>
-                </a>
-            </div>
-            <div class="header-logo">
-                <a href=dashboard>
-                    <img class="logo" src="../../../assets/dashboard/assets/media/image/logo_.svg" alt="logo">
-                    <img class="logo-dashboard" src=" ../../../assets/dashboard/assets/media/image/logo_.svg"
-                        alt="dashboard logo">
-                </a>
-            </div>
-        </div>
-
-        <div class="header-body">
-            <div class="header-body-left">
-                <div class="page-title">
-                    <h4>Dashboard</h4>
-                </div>
-            </div>
-            <div class="header-body-right text-black-50">
-                <ul class="navbar-nav">
-                    <!-- begin::header search -->
-                    <li class="nav-item text-black-50 mr-3">
-                        <a href="change_password" class="text-primary" data-toggle="tooltip" data-placement="top"
-                            title="My Settings">
-                            <i class="user"></i>
-                        </a>
-                    </li>
-
-                    <li class="nav-item text-black-50 mr-3">
-                        <a href="settings" class="text-primary" data-toggle="tooltip" data-placement="top"
-                            title="System Settings">
-                            <i class="settings"></i>
-                        </a>
-                    </li>
-
-                    <li class="nav-item text-black-50">
-                        <a href="sign_out" class="text-danger" data-toggle="tooltip" data-placement="top"
-                            title="Logout">
-                            <i class="log-out"></i>
-                        </a>
-                    </li>
-                    <!-- end::header search -->
-                </ul>
-
-                <!-- begin::mobile header toggler -->
-                <ul class="navbar-nav d-flex align-items-center">
-                    <li class="nav-item header-toggler">
-                        <a href="#" class="nav-link">
-                            <i class="arrow-down"></i>
-                        </a>
-                    </li>
-                </ul>
-                <!-- end::mobile header toggle -->
-            </div>
-        </div>
-
-    </div>
-    <!-- end::header -->
 
     <div class="content-wrapper">
 
@@ -249,7 +185,7 @@
                                     <div class="card-body" style="padding: .6rem;">
                                         <div class="d-flex justify-content-center m-t-10">
                                             <div>
-                                                <p class="text-muted font-size-25">Welcome back Gatunmi!</p>
+                                                <p class="text-muted font-size-25">Welcome back {{ username}}!</p>
                                             </div>
                                         </div>
                                     </div>
@@ -368,8 +304,8 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
+                                <tbody *ngIf="invoices.length">
+                                    <tr *ngFor="let item of invoices    ">
                                         <td>
                                             #PO158335749901
                                         </td>
@@ -392,78 +328,9 @@
                                             </a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            #PO158335749902
-                                        </td>
-                                        <td>
-                                            FEB. 10, 2020. 2:49 PM
-                                        </td>
-                                        <td><span class="btn btn-success btn-sm">Approved</span></td>
-                                        <td>ENDEN LIFE</td>
-                                        <td>
-                                            <span></span>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-white btn btn-danger btn-xs" data-toggle="tooltip"
-                                                title="Edit">
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                            <a href="#" class="text-white  btn btn-success btn-xs" data-toggle="tooltip"
-                                                title="Delete">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            #PO158335749903
-                                        </td>
-                                        <td>
-                                            FEB. 10, 2020. 2:49 PM
-                                        </td>
-                                        <td><span class="btn btn-success btn-sm">Approved</span></td>
-                                        <td>ENDEN LIFE</td>
-                                        <td>
-                                            <span></span>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-white btn btn-danger btn-xs" data-toggle="tooltip"
-                                                title="Edit">
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                            <a href="#" class="text-white  btn btn-success btn-xs" data-toggle="tooltip"
-                                                title="Delete">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            #PO158335749904
-                                        </td>
-                                        <td>
-                                            FEB. 10, 2020. 2:49 PM
-                                        </td>
-                                        <td><span class="btn btn-success btn-sm">Approved</span></td>
-                                        <td>ENDEN LIFE</td>
-                                        <td>
-                                            <span></span>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-white btn btn-danger btn-xs" data-toggle="tooltip"
-                                                title="Edit">
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                            <a href="#" class="text-white  btn btn-success btn-xs" data-toggle="tooltip"
-                                                title="Delete">
-                                                <i class="fa fa-check"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-
                                 </tbody>
                             </table>
+                            <p class="alert alert-info" *ngIf="!invoices.length">No Record available</p>
                         </div>
                     </div>
                 </div>

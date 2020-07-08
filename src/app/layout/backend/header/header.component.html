@@ -1,1 +1,64 @@
-<p>header works!</p>
+<!-- begin::header -->
+<div class="header d-print-none">
+
+    <div class="header-left">
+        <div class="navigation-toggler">
+            <a href="#" data-action="navigation-toggler">
+                <i class="feather-menu"></i>
+            </a>
+        </div>
+        <div class="header-logo">
+            <a routerLink="dashboard">
+                <img class="logo" src="../../../assets/dashboard/assets/media/image/logo_.svg" alt="logo">
+                <img class="logo-dashboard" src="../../../assets/dashboard/assets/media/image/logo_.svg"
+                    alt="dashboard logo">
+            </a>
+        </div>
+    </div>
+
+    <div class="header-body">
+        <div class="header-body-left">
+            <div class="page-title">
+                <h4>Dashboard</h4>
+            </div>
+        </div>
+        <div class="header-body-right text-black-50">
+            <ul class="navbar-nav">
+                <!-- begin::header search -->
+                <li class="nav-item text-black-50 mr-3">
+                    <a routerLink="change_password" class="text-primary" data-toggle="tooltip"
+                        data-placement="top" title="My Settings">
+                        <i class="feather-user"></i>
+                    </a>
+                </li>
+                
+                <li class="nav-item text-black-50 mr-3" *ngIf="userData.type == 'system'">
+                    <a routerLink="settings" class="text-primary" data-toggle="tooltip" data-placement="top"
+                        title="System Settings">
+                        <i class="feather-settings"></i>
+                    </a>
+                </li>
+                
+                <li class="nav-item text-black-50">
+                    <a (click)="logOut()" class="text-danger" data-toggle="tooltip" data-placement="top"
+                        title="Logout">
+                        <i class="feather-log-out"></i>
+                    </a>
+                </li>
+                <!-- end::header search -->
+            </ul>
+
+            <!-- begin::mobile header toggler -->
+            <ul class="navbar-nav d-flex align-items-center">
+                <li class="nav-item header-toggler">
+                    <a routerLink="#" class="nav-link">
+                        <i data-feather="arrow-down"></i>
+                    </a>
+                </li>
+            </ul>
+            <!-- end::mobile header toggle -->
+        </div>
+    </div>
+
+</div>
+<!-- end::header -->
