@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +15,8 @@ import { HeaderComponent } from './layout/backend/header/header.component';
 import { FooterComponent } from './layout/backend/footer/footer.component';
 import { SidebarComponent } from './layout/backend/sidebar/sidebar.component';
 
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 import { LoginRegisterComponent } from './layout/frontend/loginRegister/login-register/login-register.component';
 import { HeaderWelcomeComponent } from './layout/frontend/welcome/header-welcome/header-welcome.component';
 import { FooterWelcomeComponent } from './layout/frontend/welcome/footer-welcome/footer-welcome.component';
@@ -25,12 +27,24 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { Constants } from './common/constant';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { FormWizardModule } from 'angular-wizard-form';
-import {AtomSpinnerModule} from 'angular-epic-spinners';
+import { AtomSpinnerModule} from 'angular-epic-spinners';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { RootComponent } from './root/root/root.component';
 
 import { ToastrModule } from 'ngx-toastr';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
 
+
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+import { MatRadioModule} from '@angular/material/radio'
+import {MatSliderModule} from '@angular/material/slider'
+import {MatButtonModule} from '@angular/material/button';
+import {MatNativeDateModule} from '@angular/material/core'; 
+import { ChartsModule } from 'ng2-charts';
+
+
+  import { from } from 'rxjs';
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
 }
@@ -65,6 +79,11 @@ export function tokenGetter() {
     FormWizardModule,
     AtomSpinnerModule,
     BrowserAnimationsModule,
+    MatDatepickerModule,MatInputModule,MatNativeDateModule,
+    MatProgressSpinnerModule,MatSliderModule,MatRadioModule,
+    MatButtonModule,
+    MatProgressBarModule,
+    ChartsModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-top-right',

@@ -55,8 +55,8 @@
                 </div>
                 <div class="my-3">
                   <div *ngIf="display" class=" offset-lg-5 offset-md-5 offset-sm-5">
-                    <app-atom-spinner [animationDuration]="1000" [size]="60" [color]="'#ff1d5e'">
-                    </app-atom-spinner>
+                    <mat-progress-spinner mode="indeterminate" diameter='40'
+                    strokeWidth='3'></mat-progress-spinner>
                   </div>
                   <button type="submit" *ngIf="show"
                     class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn"

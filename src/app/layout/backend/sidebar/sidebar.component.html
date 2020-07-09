@@ -1,119 +1,159 @@
-<!-- BEGIN: Sidebar Group -->
-<div class="sidebar-group">
+  <!-- begin::navigation -->
+  <div class="navigation">
+    <div class="navigation-menu-tab" style="width: 35%;">
+        <ul>
+            <li>
+                <a href="dashboard" style="justify-content: left;">
+                    <i class="feather-monitor" style="margin-right: 5px"> </i> Dashboard
+                </a>
+            </li>
+            <li>
+                <a style="justify-content: left;" class="text-left" href="user_list' 0 50  %}"
+                    data-toggle="tooltip" data-placement="right" title="Users">
+                    <i class="feather-users" style="margin-right: 5px"> </i> Users
+                </a>
 
-    <!-- BEGIN: Settings -->
-    <div class="sidebar" id="settings">
-        <div class="card">
-            <div class="card-body">
-                <h6 class="card-title">Settings</h6>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item pl-0 pr-0">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                            <label class="custom-control-label" for="customSwitch1">Allow notifications.</label>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" href="company_vendor_list' 'vendor' 0 50 %}"
+                    data-toggle="tooltip" data-placement="right" title="Suppliers">
+                    <i class="feather-user-plus" style="margin-right: 5px"> </i> Suppliers
+                </a>
+            </li>
+            <li>
+                <a style="justify-content: left;" href="company_vendor_list' 'company' 0 50 %}"
+                    data-toggle="tooltip" data-placement="right" title="Companies">
+                    <i class="feather-user-check" style="margin-right: 5px"> </i> Company
+                </a>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="right"
+                    title="Products" data-nav-target="#products">
+                    <i class="feather-database" style="margin-right: 5px"> </i> Products
+                </a>
+
+            </li>
+            <li>
+                <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="right"
+                    title="Purchase Order" data-nav-target="#p_order">
+                    <i class="feather-list" style="margin-right: 5px"> </i> Orders
+                </a>
+            </li>
+            <li>
+                <a style="justify-content: left;" href="purchase_order_list' 0 50 %}" data-toggle="tooltip"
+                    data-placement="right" title="Reorder">
+                    <i class="feather-link" style="margin-right: 5px"> </i> Reorder
+                </a>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" href="invoice_list' 'all' 'invoices' 0 50 %}"
+                    data-toggle="tooltip" data-placement="right" title="Receipt/Invoice">
+                    <i class="feather-edit-3" style="margin-right: 5px"> </i> Invoice
+                </a>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" href="delivery' 'all' 'delivery' 0 50 %}"
+                    data-toggle="tooltip" data-placement="right" title="Delivery">
+                    <i class="feather-shopping-bag" style="margin-right: 5px"> </i> Delivery
+                </a>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" href="claim_list" data-toggle="tooltip" data-placement="right"
+                    title="Claims">
+                    <i class="feather-gift" style="margin-right: 5px"> </i> Claim
+                </a>
+            </li>
+            <li>
+                <a style="justify-content: left;" href="user_report" data-toggle="tooltip"
+                    data-placement="right" title="Report">
+                    <i class="feather-book" style="margin-right: 5px"></i> Report
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="navigation-menu-body text-white" style="width: 100%">
+        <div class="navigation-menu-group" style="color: #ffffff !important;">
+            <div id="dashboard">
+                <ul>
+                    <li> <a class="active" href="dashboard">Dashboard</a></li>
+                    <div class="">
+                        <div class="col-md-10 offset-md-1">
+                            <div class="border-cover" style="position:relative">
+
+                                <!-- <img class="profile-image m-t-b-20" src="{{ user_details.user.avatar }}" alt="Profile" /> -->
+
+                                <img class="profile-image m-t-b-20"
+                                    src="../../../assets/dashboard/assets/media/image/user_icon.png"
+                                    alt="Profile" />
+
+                                <div style="position:absolute;margin-left: 53px;margin-top:-20px;"
+                                    data-toggle="tooltip">
+                                    <i class="fa fa-camera text-black position-absolute"></i>
+                                    <form method="post" action="upload_avatar" enctype="multipart/form-data">
+
+                                        <input type="file" name="avatar" id="avatar"
+                                            class="custom-file-input" />
+                                        <button type="submit" name="btn-avatar" id="btn-avatar"
+                                            class="btn btn-primary" hidden></button>
+                                    </form>
+                                </div>
+                            </div>
+
+                            <h4 class="m-t-30 text-white"></h4>
+
+                            <p class="text-white ml-2" style="margin-top: -12px;">Systems</p>
+
+                            <p class="text-white ml-2" style="margin-top: -12px;"></p>
+
+                            <p class="text-white ml-2" style="margin-top: -12px;"></p>
+
+                            <div class="m-t-20">
+                                <div class="ml-1">
+                                    <p class="text-white text-left"><i class="phone"></i>: <br /></p>
+                                    <p class="text-white text-left"><i class="mail"></i>:<br /> </p>
+
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                </ul>
+            </div>
+            <div id="products">
+                <ul>
+                    <li class="navigation-divider d-flex align-items-center">
+                        <i class="mr-2 text-white" class="fa fa-desktop" class="database"></i> Products
                     </li>
-                    <li class="list-group-item pl-0 pr-0">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch2">
-                            <label class="custom-control-label" for="customSwitch2">Hide user requests</label>
-                        </div>
+
+                    <li>
+                        <a class="text-white" href="product_create">New Products</a>
                     </li>
-                    <li class="list-group-item pl-0 pr-0">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch3" checked>
-                            <label class="custom-control-label" for="customSwitch3">Speed up demands</label>
-                        </div>
-                    </li>
-                    <li class="list-group-item pl-0 pr-0">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch4" checked>
-                            <label class="custom-control-label" for="customSwitch4">Hide menus</label>
-                        </div>
-                    </li>
-                    <li class="list-group-item pl-0 pr-0">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch5">
-                            <label class="custom-control-label" for="customSwitch5">Remember next visits</label>
-                        </div>
-                    </li>
-                    <li class="list-group-item pl-0 pr-0">
-                        <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="customSwitch6">
-                            <label class="custom-control-label" for="customSwitch6">Enable report
-                                generation.</label>
-                        </div>
+
+                    <li>
+                        <a class="text-white" href="product_list' 0 50 %}">Product List</a>
                     </li>
                 </ul>
             </div>
+            <div id="p_order">
+                <ul>
+                    <li class="navigation-divider d-flex align-items-center">
+                        <i class="mr-2 text-white" class="list"></i> Purchase Order
+                    </li>
+
+                    <li>
+                        <a class="text-white" href="raise_po">New Purchase Order</a></li>
+                    <li>
+
+                        <a class="text-white" href="purchase_order_list' 0 50 %}">All Purchase Order</a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div>
-    <!-- END: Settings -->
-
 </div>
-<!-- END: Sidebar Group -->
-
-    <!-- begin::header -->
-    <div class="header d-print-none">
-
-        <div class="header-left">
-            <div class="navigation-toggler">
-                <a href="#" data-action="navigation-toggler">
-                    <i class="menu"></i>
-                </a>
-            </div>
-            <div class="header-logo">
-                <a href=dashboard>
-                    <img class="logo" src="../../../assets/dashboard/assets/media/image/logo_.svg" alt="logo">
-                    <img class="logo-dashboard" src=" ../../../assets/dashboard/assets/media/image/logo_.svg"
-                        alt="dashboard logo">
-                </a>
-            </div>
-        </div>
-
-        <div class="header-body">
-            <div class="header-body-left">
-                <div class="page-title">
-                    <h4>Dashboard</h4>
-                </div>
-            </div>
-            <div class="header-body-right text-black-50">
-                <ul class="navbar-nav">
-                    <!-- begin::header search -->
-                    <li class="nav-item text-black-50 mr-3">
-                        <a href="change_password" class="text-primary" data-toggle="tooltip" data-placement="top"
-                            title="My Settings">
-                            <i class="user"></i>
-                        </a>
-                    </li>
-
-                    <li class="nav-item text-black-50 mr-3">
-                        <a href="settings" class="text-primary" data-toggle="tooltip" data-placement="top"
-                            title="System Settings">
-                            <i class="settings"></i>
-                        </a>
-                    </li>
-
-                    <li class="nav-item text-black-50">
-                        <a href="sign_out" class="text-danger" data-toggle="tooltip" data-placement="top"
-                            title="Logout">
-                            <i class="log-out"></i>
-                        </a>
-                    </li>
-                    <!-- end::header search -->
-                </ul>
-
-                <!-- begin::mobile header toggler -->
-                <ul class="navbar-nav d-flex align-items-center">
-                    <li class="nav-item header-toggler">
-                        <a href="#" class="nav-link">
-                            <i class="arrow-down"></i>
-                        </a>
-                    </li>
-                </ul>
-                <!-- end::mobile header toggle -->
-            </div>
-        </div>
-
-    </div>
-    <!-- end::header -->

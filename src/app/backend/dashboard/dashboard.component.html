@@ -4,188 +4,21 @@
 
     <div class="content-wrapper">
 
-        <!-- begin::navigation -->
-        <div class="navigation">
-            <div class="navigation-menu-tab" style="width: 35%;">
-                <ul>
-                    <li>
-                        <a href="dashboard" style="justify-content: left;">
-                            <i class="feather-monitor" style="margin-right: 5px"> </i> Dashboard
-                        </a>
-                    </li>
-                    <li>
-                        <a style="justify-content: left;" class="text-left" href="user_list' 0 50  %}"
-                            data-toggle="tooltip" data-placement="right" title="Users">
-                            <i class="feather-users" style="margin-right: 5px"> </i> Users
-                        </a>
-
-                    </li>
-
-                    <li>
-                        <a style="justify-content: left;" href="company_vendor_list' 'vendor' 0 50 %}"
-                            data-toggle="tooltip" data-placement="right" title="Suppliers">
-                            <i class="feather-user-plus" style="margin-right: 5px"> </i> Suppliers
-                        </a>
-                    </li>
-                    <li>
-                        <a style="justify-content: left;" href="company_vendor_list' 'company' 0 50 %}"
-                            data-toggle="tooltip" data-placement="right" title="Companies">
-                            <i class="feather-user-check" style="margin-right: 5px"> </i> Company
-                        </a>
-                    </li>
-
-                    <li>
-                        <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="right"
-                            title="Products" data-nav-target="#products">
-                            <i class="feather-database" style="margin-right: 5px"> </i> Products
-                        </a>
-
-                    </li>
-                    <li>
-                        <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="right"
-                            title="Purchase Order" data-nav-target="#p_order">
-                            <i class="feather-list" style="margin-right: 5px"> </i> Orders
-                        </a>
-                    </li>
-                    <li>
-                        <a style="justify-content: left;" href="purchase_order_list' 0 50 %}" data-toggle="tooltip"
-                            data-placement="right" title="Reorder">
-                            <i class="feather-link" style="margin-right: 5px"> </i> Reorder
-                        </a>
-                    </li>
-
-                    <li>
-                        <a style="justify-content: left;" href="invoice_list' 'all' 'invoices' 0 50 %}"
-                            data-toggle="tooltip" data-placement="right" title="Receipt/Invoice">
-                            <i class="feather-edit-3" style="margin-right: 5px"> </i> Invoice
-                        </a>
-                    </li>
-
-                    <li>
-                        <a style="justify-content: left;" href="delivery' 'all' 'delivery' 0 50 %}"
-                            data-toggle="tooltip" data-placement="right" title="Delivery">
-                            <i class="feather-shopping-bag" style="margin-right: 5px"> </i> Delivery
-                        </a>
-                    </li>
-
-                    <li>
-                        <a style="justify-content: left;" href="claim_list" data-toggle="tooltip" data-placement="right"
-                            title="Claims">
-                            <i class="feather-gift" style="margin-right: 5px"> </i> Claim
-                        </a>
-                    </li>
-                    <li>
-                        <a style="justify-content: left;" href="user_report" data-toggle="tooltip"
-                            data-placement="right" title="Report">
-                            <i class="feather-book" style="margin-right: 5px"></i> Report
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="navigation-menu-body text-white" style="width: 100%">
-                <div class="navigation-menu-group" style="color: #ffffff !important;">
-                    <div id="dashboard">
-                        <ul>
-                            <li> <a class="active" href="dashboard">Dashboard</a></li>
-                            <div class="">
-                                <div class="col-md-10 offset-md-1">
-                                    <div class="border-cover" style="position:relative">
-
-                                        <!-- <img class="profile-image m-t-b-20" src="{{ user_details.user.avatar }}" alt="Profile" /> -->
-
-                                        <img class="profile-image m-t-b-20"
-                                            src="../../../assets/dashboard/assets/media/image/user_icon.png"
-                                            alt="Profile" />
-
-                                        <div style="position:absolute;margin-left: 53px;margin-top:-20px;"
-                                            data-toggle="tooltip">
-                                            <i class="fa fa-camera text-black position-absolute"></i>
-                                            <form method="post" action="upload_avatar" enctype="multipart/form-data">
-
-                                                <input type="file" name="avatar" id="avatar"
-                                                    class="custom-file-input" />
-                                                <button type="submit" name="btn-avatar" id="btn-avatar"
-                                                    class="btn btn-primary" hidden></button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                    <h4 class="m-t-30 text-white"></h4>
-
-                                    <p class="text-white ml-2" style="margin-top: -12px;">Systems</p>
-
-                                    <p class="text-white ml-2" style="margin-top: -12px;"></p>
-
-                                    <p class="text-white ml-2" style="margin-top: -12px;"></p>
-
-                                    <div class="m-t-20">
-                                        <div class="ml-1">
-                                            <p class="text-white text-left"><i class="phone"></i>: <br /></p>
-                                            <p class="text-white text-left"><i class="mail"></i>:<br /> </p>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ul>
-                    </div>
-                    <div id="products">
-                        <ul>
-                            <li class="navigation-divider d-flex align-items-center">
-                                <i class="mr-2 text-white" class="fa fa-desktop" class="database"></i> Products
-                            </li>
-
-                            <li>
-                                <a class="text-white" href="product_create">New Products</a>
-                            </li>
-
-                            <li>
-                                <a class="text-white" href="product_list' 0 50 %}">Product List</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="p_order">
-                        <ul>
-                            <li class="navigation-divider d-flex align-items-center">
-                                <i class="mr-2 text-white" class="list"></i> Purchase Order
-                            </li>
-
-                            <li>
-                                <a class="text-white" href="raise_po">New Purchase Order</a></li>
-                            <li>
-
-                                <a class="text-white" href="purchase_order_list' 0 50 %}">All Purchase Order</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <app-sidebar></app-sidebar>
         <!-- end::navigation -->
         <div class="content-body">
             <div class="content">
-
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb breadcrumb-custom bg-inverse-primary">
-                        <li class="breadcrumb-item text-black-50"><a href="dashboard">Dashboard</a></li>
-
-                        <li class="breadcrumb-item text-black active" aria-current="page"></li>
-
-                    </ol>
-                </nav>
 
                 <div class="row">
                     <div class="col-md-12">
 
                         <div class="row">
-                            <div class="col-lg-7 col-md-12">
-                                <div class="card">
-                                    <div class="card-body" style="padding: .6rem;">
+                            <div class="col-lg-6 col-md-12">
+                                <div class="">
+                                    <div class="" style="padding: .6rem;">
                                         <div class="d-flex justify-content-center m-t-10">
                                             <div>
-                                                <p class="text-muted font-size-25">Welcome back {{ username}}!</p>
+                                                <p class="text-muted font-size-25">Hi {{ username }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -195,40 +28,69 @@
                                     <div class="col-md-4 col-sm-12 m-t-10">
                                         <div class="order-right">
                                             <p class="text-muted">Today</p>
-                                            <p class="text-muted m-t-20 font-size-22 neg-magin-2">&#x20A6; 59,400</p>
+                                            <p class="text-muted m-t-20 font-size-22 neg-magin-2">&#x20A6;
+                                                232222
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm12 m-t-10">
                                         <div class="order-right">
-                                            <p class="text-muted">This Week</p>
-                                            <p class="text-muted m-t-20 font-size-22 neg-magin-2">&#x20A6; 136,800</p>
+                                            <p class="text-muted">Last 7 Day's</p>
+                                            <p class="text-muted m-t-20 font-size-22 neg-magin-2">&#x20A6;
+                                                23222
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm12 m-t-10">
                                         <div class="">
-                                            <p class="text-muted">This Month</p>
+                                            <p class="text-muted">Last 30 Day's</p>
                                             <p class="text-muted m-t-20 font-size-22 neg-magin-2">
-                                                &#x20A6; 897,750 <span class="btn btn-success font-size-13 btn-m"><i
-                                                        class="fa fa-arrow-up"></i>15%</span>
+                                                &#x20A6; 321122
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-5 col-md-12">
+                            <div class="col-lg-6 col-md-12">
+                                <form method="GET" style="margin-bottom: 20px">
+
+                                    <div class="input-group input-daterange d-flex align-items-center">
+                                        <!-- <!-- <input matInput [matDatepicker]="picker"> -->
+                                        <div class="col-lg-5">
+                                            <mat-form-field>
+                                                <input [value]="date.value" matInput [matDatepicker]="picker"
+                                                    placeholder="Start date">
+                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-lg-5">
+                                            <mat-form-field>
+                                                <input [value]="date.value" matInput [matDatepicker]="myPicker"
+                                                    placeholder="End date">
+                                                <mat-datepicker-toggle matSuffix [for]="myPicker">
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #myPicker></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                        <!-- <div class="input-group-addon mx-4 p-md-2 float-left">to</div> -->
+                                        <div class="col-lg-2">
+                                            <button mat-raised-button color="primary">Filter</button>
+                                            <!-- <button type="submit" class="float-right text-center col-md-2 btn btn-primary">Filter</button> -->
+                                        </div>
+
+                                    </div>
+                                </form>
                                 <div class="card" style="background: #283EB1; height: 140px;">
                                     <div>
                                         <div class="card-body">
                                             <div class="d-flex justify-content-between mb-3">
                                                 <div>
-                                                    <h2 class="text-white col-md-7 font-weight-bold">Get 15%
-                                                        discount</h2>
-                                                    <p class="text-white col-md-8"
-                                                        style="line-height: 17px; font-size: 13px;">on specific
-                                                        items with this code : #22334098</p>
+                                                    <h2 class="text-white col-md-12 font-weight-bold">Mobile
+                                                        Applications coming soon
+                                                    </h2>
                                                 </div>
                                                 <div>
-
                                                     <img style="margin-top: -30px; width: 150px;"
                                                         src="../../../assets/dashboard/assets/media/image/dashboard_icon.png"
                                                         alt="">
@@ -243,13 +105,18 @@
 
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-lg-4 col-md-12">
                         <div class="card">
                             <div class="card-bodys p-t-b-20">
+
                                 <div class="">
                                     <p class="text-muted">Invoice Raised</p>
-                                    <h6 class="card-title neg-magin-2 font-size-25">&#x20A6;12,000,000</h6>
+                                    <h6 class="card-title neg-magin-2 font-size-25" *ngIf="!isLoadingBulk">
+                                        {{ invoiceRaised | currency : "&#x20A6;" }}</h6>
+                                    <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate" diameter='30'
+                                        strokeWidth='3'></mat-progress-spinner>
                                 </div>
                             </div>
                         </div>
@@ -257,15 +124,22 @@
                             <div class="card-bodys">
                                 <div class="">
                                     <p class="text-muted">Invoice Paid</p>
-                                    <h6 class="card-title neg-magin-2 font-size-25">&#x20A6;2,600,000</h6>
+                                    <h6 class="card-title neg-magin-2 font-size-25">
+                                        {{  invoicePaid | currency : "&#x20A6;" }}</h6>
+                                    <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate" diameter='30'
+                                        strokeWidth='3'></mat-progress-spinner>
                                 </div>
                             </div>
                         </div>
                         <div class="card neg-magin">
                             <div class="card-bodys">
                                 <div class="">
-                                    <p class="text-muted">Invoice Approved</p>
-                                    <h6 class="card-title neg-magin-2 font-size-25">&#x20A6;2,600,000</h6>
+                                    <p class="text-muted">Invoice Unpaid</p>
+                                    <h6 class="card-title neg-magin-2 font-size-25">
+                                        {{  invoiceUnpaid | currency : "&#x20A6;" }}
+                                    </h6>
+                                    <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate" diameter='30'
+                                        strokeWidth='3'></mat-progress-spinner>
                                 </div>
                             </div>
                         </div>
@@ -273,63 +147,102 @@
                     <div class="col-lg-8 col-md-12">
                         <div class="card">
                             <div class="card-body" style="padding-bottom: 0px;">
-                                <div class="row">
-                                    <div class="col-lg-5">
-                                        <div class="p-t-b-50">
-                                            <p class="m-t-20 font-size-13">You have <span class="text-success">15%
-                                                    growth</span> in comparison with previous month. </p>
+                                <div class="row" *ngIf="userData.type == 'vendor'">
+                                    <div class="col-lg-6">
+                                        <div style="display: block">
+                                            <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels"
+                                                [chartType]="pieChartType"></canvas>
                                         </div>
                                     </div>
-                                    <div class="col-lg-7">
-                                        <div id="chart"></div>
+                                    <div class="col-lg-6">
+                                        <div style="display: block">
+                                            <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels"
+                                                [chartType]="pieChartType"></canvas>
+                                        </div>
                                     </div>
                                 </div>
+                                <!-- show this for other type of users -->
+                                <div class="row" *ngIf="userData.type != 'vendor'">
+                                    <div class="col-lg-12">
+                                        <div style="display: block;">
+                                            <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                                                [options]="lineChartOptions" [colors]="lineChartColors"
+                                                [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                                                (chartClick)="chartClicked($event)"></canvas>
+                                        </div>
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
 
                     </div>
 
                 </div>
+
+
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
                             <table class="table table-lg">
                                 <thead>
                                     <tr>
-                                        <th>Order ID</th>
-                                        <th>Credit Date</th>
-                                        <th>Status</th>
+                                        <th>Invoice ID</th>
+                                        <th>Created Date</th>
+                                        <th>Payment</th>
                                         <th>Company</th>
-                                        <th>Supplier </th>
+                                        <th *ngIf="userData.type == 'system'">Suppliers</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="invoices.length">
-                                    <tr *ngFor="let item of invoices    ">
+                                <tbody *ngIf="invoices.length  && !isLoadingInvoice">
+                                    <tr *ngFor="let item of invoices">
                                         <td>
-                                            #PO158335749901
+                                            #{{ item.order_number}}
                                         </td>
+                                        <td>{{ item.createdAt}} </td>
+                                        <td><span class="btn  btn-sm" [ngClass]="{'btn-success': item.paid == true, 
+                                            'btn-danger': item.paid != true
+                                            }">{{item.paid ? 'Paid': 'Unpaid'}}</span></td>
+                                        <td>{{ item.company_details.name}}</td>
+                                        <td *ngIf="userData.type == 'system'">{{ item.company_details.name }}</td>
                                         <td>
-                                            FEB. 10, 2020. 2:49 PM
-                                        </td>
-                                        <td><span class="btn btn-success btn-sm">Approved</span></td>
-                                        <td>ENDEN LIFE</td>
-                                        <td>
-                                            <span></span>
-                                        </td>
-                                        <td>
-                                            <a href="#" class="text-white btn btn-danger btn-xs" data-toggle="tooltip"
-                                                title="Edit">
-                                                <i class="fa fa-times"></i>
+                                            <a href="#" class="text-white btn btn-primary btn-xs" data-toggle="tooltip"
+                                                title="view">
+                                                <i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="#" class="text-white  btn btn-success btn-xs" data-toggle="tooltip"
-                                                title="Delete">
-                                                <i class="fa fa-check"></i>
-                                            </a>
+
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="col-md-12">
+                                <div class="col-md-4 offset-md-4">
+                                    <mat-progress-spinner *ngIf="isLoadingInvoice" mode="indeterminate" diameter='30'
+                                        strokeWidth='3'></mat-progress-spinner>
+                                </div>
+                                <nav>
+                                    <ul class="pagination pagination-rounded" style="display: inline !important;">
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
+                                                <i class="ti-angle-left"></i>
+                                            </a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item active" aria-current="page">
+                                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="#">
+                                                <i class="ti-angle-right"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                                
+                            </div>
                             <p class="alert alert-info" *ngIf="!invoices.length">No Record available</p>
                         </div>
                     </div>
