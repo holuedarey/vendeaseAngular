@@ -20,20 +20,22 @@ export class DasboardService {
   }
 
   getGraph(): Observable<any> {
-    return this.http.get(Endpoint.DASHBOARD.dashboard_graph).pipe(
+    console.log('link : ', Endpoint.DASHBOARD.dashboard_graph);
+    
+    return this.http.post(Endpoint.DASHBOARD.dashboard_graph,{}).pipe(
       map(data => {
         return data;
       }));
   }
 
-  analytics(payload): Observable<any> {
-    return this.http.post(Endpoint.DASHBOARD.analytics,payload).pipe(
+  analytics(): Observable<any> {
+    return this.http.post(Endpoint.DASHBOARD.analytics, {}).pipe(
       map(data => {
         return data;
       }));
   }
   
-  bulkAnalytics(payload): Observable<any> {
+  bulkAnalytics(payload?): Observable<any> {
     return this.http.post(Endpoint.DASHBOARD.analytics, payload).pipe(
       map(data => {
         return data;

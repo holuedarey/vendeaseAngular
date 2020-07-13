@@ -12,6 +12,7 @@ import { MainComponent } from './layout/backend/main/main.component';
 import { LoginRegisterComponent } from './layout/frontend/loginRegister/login-register/login-register.component';
 import { RegisterVendorComponent } from './frontend/register-vendor/register-vendor.component';
 import { AuthGuard } from './guard/auth.guard';
+import { UserManagementComponent } from './backend/user-management/user-management.component';
 
 
 
@@ -35,6 +36,7 @@ const routes: Routes = [
     // canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'user-list', component: UserManagementComponent },
     ]
   },
   

@@ -3,12 +3,12 @@
     <div class="navigation-menu-tab" style="width: 35%;">
         <ul>
             <li>
-                <a href="dashboard" style="justify-content: left;">
+                <a routerLink="/dashboard" style="justify-content: left;">
                     <i class="feather-monitor" style="margin-right: 5px"> </i> Dashboard
                 </a>
             </li>
             <li>
-                <a style="justify-content: left;" class="text-left" href="user_list' 0 50  %}"
+                <a style="justify-content: left;" class="text-left" routerLink="/user-list"
                     data-toggle="tooltip" data-placement="right" title="Users">
                     <i class="feather-users" style="margin-right: 5px"> </i> Users
                 </a>
@@ -16,13 +16,13 @@
             </li>
 
             <li>
-                <a style="justify-content: left;" href="company_vendor_list' 'vendor' 0 50 %}"
+                <a style="justify-content: left;" routerLink="company_vendor_list"
                     data-toggle="tooltip" data-placement="right" title="Suppliers">
                     <i class="feather-user-plus" style="margin-right: 5px"> </i> Suppliers
                 </a>
             </li>
             <li>
-                <a style="justify-content: left;" href="company_vendor_list' 'company' 0 50 %}"
+                <a style="justify-content: left;" routerLink="company_vendor_list"
                     data-toggle="tooltip" data-placement="right" title="Companies">
                     <i class="feather-user-check" style="margin-right: 5px"> </i> Company
                 </a>
@@ -36,40 +36,40 @@
 
             </li>
             <li>
-                <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="right"
+                <a style="justify-content: left;" routerLink="#" data-toggle="tooltip" data-placement="right"
                     title="Purchase Order" data-nav-target="#p_order">
                     <i class="feather-list" style="margin-right: 5px"> </i> Orders
                 </a>
             </li>
             <li>
-                <a style="justify-content: left;" href="purchase_order_list' 0 50 %}" data-toggle="tooltip"
+                <a style="justify-content: left;" routerLink="purchase_order_list' 0 50 %}" data-toggle="tooltip"
                     data-placement="right" title="Reorder">
                     <i class="feather-link" style="margin-right: 5px"> </i> Reorder
                 </a>
             </li>
 
             <li>
-                <a style="justify-content: left;" href="invoice_list' 'all' 'invoices' 0 50 %}"
+                <a style="justify-content: left;" routerLink="invoice_list' 'all' 'invoices' 0 50 %}"
                     data-toggle="tooltip" data-placement="right" title="Receipt/Invoice">
                     <i class="feather-edit-3" style="margin-right: 5px"> </i> Invoice
                 </a>
             </li>
 
             <li>
-                <a style="justify-content: left;" href="delivery' 'all' 'delivery' 0 50 %}"
+                <a style="justify-content: left;" routerLink="delivery' 'all' 'delivery' 0 50 %}"
                     data-toggle="tooltip" data-placement="right" title="Delivery">
                     <i class="feather-shopping-bag" style="margin-right: 5px"> </i> Delivery
                 </a>
             </li>
 
             <li>
-                <a style="justify-content: left;" href="claim_list" data-toggle="tooltip" data-placement="right"
+                <a style="justify-content: left;" routerLink="claim_list" data-toggle="tooltip" data-placement="right"
                     title="Claims">
                     <i class="feather-gift" style="margin-right: 5px"> </i> Claim
                 </a>
             </li>
             <li>
-                <a style="justify-content: left;" href="user_report" data-toggle="tooltip"
+                <a style="justify-content: left;" routerLink="user_report" data-toggle="tooltip"
                     data-placement="right" title="Report">
                     <i class="feather-book" style="margin-right: 5px"></i> Report
                 </a>
@@ -81,7 +81,7 @@
         <div class="navigation-menu-group" style="color: #ffffff !important;">
             <div id="dashboard">
                 <ul>
-                    <li> <a class="active" href="dashboard">Dashboard</a></li>
+                    <li> <a class="active" routerLink="dashboard">Dashboard</a></li>
                     <div class="">
                         <div class="col-md-10 offset-md-1">
                             <div class="border-cover" style="position:relative">
@@ -131,11 +131,11 @@
                     </li>
 
                     <li>
-                        <a class="text-white" href="product_create">New Products</a>
+                        <a class="text-white" routerLink="product_create">New Products</a>
                     </li>
 
                     <li>
-                        <a class="text-white" href="product_list' 0 50 %}">Product List</a>
+                        <a class="text-white" routerLink="product_list' 0 50 %}">Product List</a>
                     </li>
                 </ul>
             </div>
@@ -146,10 +146,10 @@
                     </li>
 
                     <li>
-                        <a class="text-white" href="raise_po">New Purchase Order</a></li>
+                        <a class="text-white" routerLink="raise_po">New Purchase Order</a></li>
                     <li>
 
-                        <a class="text-white" href="purchase_order_list' 0 50 %}">All Purchase Order</a>
+                        <a class="text-white" routerLink="purchase_order_list' 0 50 %}">All Purchase Order</a>
                     </li>
                 </ul>
             </div>

@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="lead" mat-dialog-title>Edit User</h3>
+
+        <form [formGroup]=EditUserForm>
+
+            <div class="form-group name">
+                <input formControlName="name" [(ngModel)]="name" type="text" class="form-control name" id="name"
+                    placeholder="Name">
+            </div>
+            <div class="form-group phone">
+                <input formControlName="phone" type="number" [(ngModel)]="phone" class="form-control phone" id="phone"
+                    placeholder="Phone">
+            </div>
+            <div class="row" style="margin-top: 48px;;">
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-primary" (click)="save()">Submit Edit</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-warning pull-right" (click)="close()">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

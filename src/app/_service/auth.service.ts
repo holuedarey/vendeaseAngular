@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { StorageService } from './storage.service';
 import { Constants } from '../common/constant';
-import { LoginRequestModel, RegisterBusinessRequestModel, RegisterVendorRequestModel, RegisterSystemRequestModel } from '../_models/request/auth.model';
+import { LoginRequestModel, RegisterBusinessRequestModel, RegisterVendorRequestModel, RegisterSystemRequestModel, RegisterCreateRequestModel } from '../_models/request/auth.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Endpoint } from '../common/endpoints';
@@ -29,7 +29,7 @@ export class AuthService {
         }));
   }
 
- 
+
 
   processRegister(response: any) {
     this.storageService.set(Constants.STORAGE_VARIABLES.REGISTER, '1');
@@ -38,7 +38,7 @@ export class AuthService {
 
   signUpBusiness(registerRequest: RegisterBusinessRequestModel): Observable<any> {
     console.log('data from services: ', registerRequest)
-    return this.http.post(Endpoint.AUTH.register, registerRequest,
+    return this.http.post(Endpoint.AUTH.users, registerRequest,
       {
         headers: {
           'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   signUpVendor(registerRequest: RegisterVendorRequestModel): Observable<any> {
-    return this.http.post(Endpoint.AUTH.register, registerRequest,
+    return this.http.post(Endpoint.AUTH.users, registerRequest,
       {
         headers: {
           'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ export class AuthService {
   }
 
   signUpSystem(registerRequest: RegisterSystemRequestModel): Observable<any> {
-    return this.http.post(Endpoint.AUTH.register, registerRequest,
+    return this.http.post(Endpoint.AUTH.users, registerRequest,
       {
         headers: {
           'Content-Type': 'application/json'
@@ -75,6 +75,70 @@ export class AuthService {
           this.processRegister(data);
           return data;
         }));
+  }
+
+  createUser(registerRequest: RegisterCreateRequestModel): Observable<any> {
+    return this.http.post(Endpoint.AUTH.users, registerRequest,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).pipe(
+        map(data => {
+          // this.processRegister(data);
+          return data;
+        }));
+  }
+
+  assignManager(assignManager): Observable<any> {
+    return this.http.post(Endpoint.AUTH.users+'/assign_account_manager', assignManager,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).pipe(
+        map(data => {
+          // this.processRegister(data);
+          return data;
+        }));
+  }
+
+  getUserList(): Observable<any> {
+    return this.http.get(Endpoint.AUTH.users).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+  getBusinessList(): Observable<any> {
+    return this.http.get(`${Endpoint.AUTH.users}/?type=company&main_contact=true`).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+
+  activateDeactivateUser(userId, payload): Observable<any> {
+    // console.log('link :', `${Endpoint.AUTH.users}/${userId}`);
+    return this.http.patch(`${Endpoint.AUTH.users}/${userId}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+  activateDeactivatePaylater(userId, payload): Observable<any> {
+    console.log('link :', payload);
+    return this.http.patch(`${Endpoint.AUTH.users}/${userId}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+  deleteUser(userId): Observable<any> {
+    return this.http.delete(`${Endpoint.AUTH.users}/${userId}`).pipe(
+      map(data => {
+        return data;
+      }));
   }
 
   isAuthenticated(): boolean {

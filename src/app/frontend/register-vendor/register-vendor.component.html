@@ -9,7 +9,7 @@
                             </h2>
                             <br>
                             <p class="text-vendease-p" style="margin-top: -20px;">It only takes a few steps.</p>
-                            <a href="/register" class="btn btn-primary mb-3 mb-sm-0">
+                            <a routerLink="/register" class="btn btn-primary mb-3 mb-sm-0">
                                 <span class="btn-inner--text" style="text-transform: capitalize;">Register as
                                     Business</span>
                             </a>
@@ -26,216 +26,230 @@
                                     <img src="../../../assets/front_end/assets/img/brand/logo-white.svg" alt="logo">
                                 </a>
                             </div>
+                            <form class="pt-3" [formGroup]=signUpForm>
+                                <form-wizard>
+                                    <wizard-step [title]="'Info'" (onNext)="onStep1Next($event)">
+                                        <section id="steps-uid-0-p-0" role="tabpanel" aria-labelledby="steps-uid-0-h-0"
+                                            class="body current">
+                                            <h3>Business Info</h3>
+                                            <div class="form-group">
+                                                <label>Name</label>
+                                                <input type="text" formControlName="business_name"
+                                                    [class.invalid]="!signUpForm.controls.business_name.valid && (signUpForm.controls.business_name.dirty || submitAttempt)"
+                                                    class="form-control form-control-lg" placeholder="Business Name"
+                                                    required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Address</label>
+                                                <input type="text" formControlName="address"
+                                                    class="form-control form-control-lg" placeholder="Address"
+                                                    required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Registration Number</label>
+                                                <input type="text" formControlName="reg_number"
+                                                    class="form-control form-control-lg"
+                                                    placeholder="Business Registration Number" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Tax Identification</label>
+                                                <input type="text" formControlName="tin"
+                                                    class="form-control form-control-lg" placeholder="Tin" required>
+                                            </div>
+                                        </section>
+                                    </wizard-step>
+                                    <wizard-step [title]="'Contact'" (onNext)="onStep2Next($event)">
+                                        <section>
+                                            <h3>Contact</h3>
+                                            <div class="form-group">
+                                                <label>Full Name</label>
+                                                <input type="text" formControlName="contact_p_name"
+                                                    class="form-control form-control-lg" placeholder=" Name" required=""
+                                                    id="id_contact_p_name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="email" formControlName="email"
+                                                    class="form-control form-control-lg" placeholder=" Email"
+                                                    required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Phone</label>
+                                                <input type="text" formControlName="contact_p_phone"
+                                                    class="form-control form-control-lg" placeholder=" Phone"
+                                                    required>
+                                            </div>
+                                            <div class="form-group col-md-6 float-left">
+                                                <label>Password</label>
+                                                <input type="password" formControlName="password"
+                                                    class="form-control form-control-lg" placeholder="Password"
+                                                    required>
+                                            </div>
+                                            <div class="form-group col-md-6 float-left">
+                                                <label>Confirm Password</label>
+                                                <input type="password" formControlName="confirmPassword"
+                                                    class="form-control form-control-lg" placeholder="Confirm Password"
+                                                    required>
+                                            </div>
+                                        </section>
+                                    </wizard-step>
+                                    <wizard-step [title]="'Capacity'" (onNext)="onStep3Next($event)">
+                                        <h3 id="steps-uid-0-h-2" tabindex="-1" class="title">Capacity</h3>
+                                        <section>
+                                            <div class="form-group">
+                                                <label>Vendor Category</label>
+                                                <select formControlName="vendor_category"
+                                                    class="form-control form-control-lg" placeholder="Vendor_Category"
+                                                    required="" id="id_vendor_category">
+                                                    <option value="Perishable">Perishable</option>
 
-                            <form-wizard>
-                                <wizard-step [title]="'Info'" (onNext)="onStep1Next($event)">
-                                    <section id="steps-uid-0-p-0" role="tabpanel" aria-labelledby="steps-uid-0-h-0"
-                                        class="body current" aria-hidden="false">
-                                        <h3>Business Info</h3>
-                                        <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" name="business_name" class="form-control form-control-lg"
-                                                placeholder="Business Name" required="" id="id_business_name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Address</label>
-                                            <input type="text" name="address" class="form-control form-control-lg"
-                                                placeholder="Address" required="" id="id_address">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Registration Number</label>
-                                            <input type="text" name="reg_number" class="form-control form-control-lg"
-                                                placeholder="Business Registration Number" required=""
-                                                id="id_reg_number">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Tax Identification</label>
-                                            <input type="text" name="tin" class="form-control form-control-lg"
-                                                placeholder="Tin" required="" id="id_tin">
-                                        </div>
-                                    </section>
-                                </wizard-step>
-                                <wizard-step [title]="'Contact'" (onNext)="onStep2Next($event)">
-                                    <section>
-                                        <h3>Contact</h3>
-                                        <div class="form-group">
-                                            <label>Full Name</label>
-                                            <input type="text" name="contact_p_name"
-                                                class="form-control form-control-lg" placeholder=" Name" required=""
-                                                id="id_contact_p_name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input type="email" name="contact_p_email"
-                                                class="form-control form-control-lg" placeholder=" Email" required=""
-                                                id="id_contact_p_email">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input type="text" name="contact_p_phone"
-                                                class="form-control form-control-lg" placeholder=" Phone" required=""
-                                                id="id_contact_p_phone">
-                                        </div>
-                                        <div class="form-group col-md-6 float-left">
-                                            <label>Password</label>
-                                            <input type="password" name="password" class="form-control form-control-lg"
-                                                placeholder="Password" required="" id="id_password">
-                                        </div>
-                                        <div class="form-group col-md-6 float-left">
-                                            <label>Confirm Password</label>
-                                            <input type="password" name="confirm_password"
-                                                class="form-control form-control-lg" placeholder="Confirm Password"
-                                                required="" id="id_confirm_password">
-                                        </div>
-                                    </section>
-                                </wizard-step>
-                                <wizard-step [title]="'Capacity'" (onNext)="onStep3Next($event)">
-                                    <h3 id="steps-uid-0-h-2" tabindex="-1" class="title">Capacity</h3>
-                                    <section>
-                                        <div class="form-group">
-                                            <label>Vendor Category</label>
-                                            <select name="vendor_category" class="form-control form-control-lg"
-                                                placeholder="Vendor_Category" required="" id="id_vendor_category">
-                                                <option value="Perishable">Perishable</option>
+                                                    <option value="Non perishable">Non Perishable</option>
 
-                                                <option value="Non perishable">Non Perishable</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Notice Period</label>
+                                                <select formControlName="notice_period"
+                                                    class="form-control form-control-lg" placeholder="Notice_Period"
+                                                    required="" id="id_notice_period">
+                                                    <option value="1">1 hour</option>
 
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Notice Period</label>
-                                            <select name="notice_period" class="form-control form-control-lg"
-                                                placeholder="Notice_Period" required="" id="id_notice_period">
-                                                <option value="1">1 hour</option>
+                                                    <option value="3">3 hours</option>
 
-                                                <option value="3">3 hours</option>
+                                                    <option value="6">6 hours</option>
 
-                                                <option value="6">6 hours</option>
+                                                    <option value="12">12 hours</option>
 
-                                                <option value="12">12 hours</option>
+                                                    <option value="24">24 hours</option>
 
-                                                <option value="24">24 hours</option>
+                                                    <option value="48">48 hours</option>
 
-                                                <option value="48">48 hours</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label>Can Deliver to Business</label>
+                                                <select formControlName="can_deliver"
+                                                    class="form-control form-control-lg" placeholder="Can_Deliver"
+                                                    required="" id="id_can_deliver">
+                                                    <option value="yes">Yes</option>
 
-                                            </select>
-                                        </div>
-                                        <div class="form-group ">
-                                            <label>Can Deliver to Business</label>
-                                            <select name="can_deliver" class="form-control form-control-lg"
-                                                placeholder="Can_Deliver" required="" id="id_can_deliver">
-                                                <option value="yes">Yes</option>
+                                                    <option value="no">No</option>
 
-                                                <option value="no">No</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group ">
+                                                <label>Warranty Period</label>
+                                                <select formControlName="warrant_period"
+                                                    class="form-control form-control-lg" placeholder="Warrant_Period"
+                                                    required="" id="id_warrant_period">
+                                                    <option value="24">24 Hours</option>
 
-                                            </select>
-                                        </div>
-                                        <div class="form-group ">
-                                            <label>Warranty Period</label>
-                                            <select name="warrant_period" class="form-control form-control-lg"
-                                                placeholder="Warrant_Period" required="" id="id_warrant_period">
-                                                <option value="24">24 Hours</option>
+                                                    <option value="48">48 Hours</option>
 
-                                                <option value="48">48 Hours</option>
+                                                    <option value="72">72 Hours</option>
 
-                                                <option value="72">72 Hours</option>
+                                                    <option value="N/A">No Warranty</option>
 
-                                                <option value="N/A">No Warranty</option>
+                                                </select>
+                                            </div>
 
-                                            </select>
-                                        </div>
+                                        </section>
+                                    </wizard-step>
+                                    <wizard-step [title]="'Payment'" (onComplete)="onComplete($event)">
+                                        <h3 id="steps-uid-0-h-3" tabindex="-1" class="title">Payment</h3>
+                                        <section>
+                                            <h3>Bank Details</h3>
+                                            <div class="form-group">
+                                                <label>Bank Name</label>
+                                                <select formControlName="bank_name" class="form-control form-control-lg"
+                                                    placeholder="Bank_Name" required="" id="id_bank_name">
+                                                    <option value="" selected="">Please select bank</option>
 
-                                    </section>
-                                </wizard-step>
-                                <wizard-step [title]="'Payment'" (onComplete)="onComplete($event)">
-                                    <h3 id="steps-uid-0-h-3" tabindex="-1" class="title">Payment</h3>
-                                    <section>
-                                        <h3>Bank Details</h3>
-                                        <div class="form-group">
-                                            <label>Bank Name</label>
-                                            <select name="bank_name" class="form-control form-control-lg"
-                                                placeholder="Bank_Name" required="" id="id_bank_name">
-                                                <option value="" selected="">Please select bank</option>
+                                                    <option value="Access Bank">Access Bank</option>
 
-                                                <option value="Access Bank">Access Bank</option>
+                                                    <option value="Zenith Bank Plc">Zenith Bank Plc</option>
 
-                                                <option value="Zenith Bank Plc">Zenith Bank Plc</option>
+                                                    <option value="Guaranty Trust Bank Plc">Guaranty Trust Bank Plc
+                                                    </option>
 
-                                                <option value="Guaranty Trust Bank Plc">Guaranty Trust Bank Plc
-                                                </option>
+                                                    <option value="First City Monument Bank Plc">First City Monument
+                                                        Bank Plc</option>
 
-                                                <option value="First City Monument Bank Plc">First City Monument
-                                                    Bank Plc</option>
+                                                    <option value="Citibank Nigeria Limited">Citibank Nigeria Limited
+                                                    </option>
 
-                                                <option value="Citibank Nigeria Limited">Citibank Nigeria Limited
-                                                </option>
+                                                    <option value="Ecobank Nigeria Plc">Ecobank Nigeria Plc</option>
 
-                                                <option value="Ecobank Nigeria Plc">Ecobank Nigeria Plc</option>
+                                                    <option value="Fidelity Bank Plc">Fidelity Bank Plc</option>
 
-                                                <option value="Fidelity Bank Plc">Fidelity Bank Plc</option>
+                                                    <option value="First Bank of Nigeria Limited">First Bank of Nigeria
+                                                        Limited</option>
 
-                                                <option value="First Bank of Nigeria Limited">First Bank of Nigeria
-                                                    Limited</option>
+                                                    <option value="Globus Bank Limited">Globus Bank Limited</option>
 
-                                                <option value="Globus Bank Limited">Globus Bank Limited</option>
+                                                    <option value="Heritage Banking Company Limited">Heritage Banking
+                                                        Company Limited</option>
 
-                                                <option value="Heritage Banking Company Limited">Heritage Banking
-                                                    Company Limited</option>
+                                                    <option value="Jaiz Bank Plc">Jaiz Bank Plc</option>
 
-                                                <option value="Jaiz Bank Plc">Jaiz Bank Plc</option>
+                                                    <option value="Keystone Bank Limited">Keystone Bank Limited</option>
 
-                                                <option value="Keystone Bank Limited">Keystone Bank Limited</option>
+                                                    <option value="Polaris Bank Limited">Polaris Bank Limited</option>
 
-                                                <option value="Polaris Bank Limited">Polaris Bank Limited</option>
+                                                    <option value="Stanbic IBTC Bank Plc">Stanbic IBTC Bank Plc</option>
 
-                                                <option value="Stanbic IBTC Bank Plc">Stanbic IBTC Bank Plc</option>
+                                                    <option value="Standard Chartered">Standard Chartered</option>
 
-                                                <option value="Standard Chartered">Standard Chartered</option>
+                                                    <option value="Sterling Bank Plc">Sterling Bank Plc</option>
 
-                                                <option value="Sterling Bank Plc">Sterling Bank Plc</option>
+                                                    <option value="SunTrust Bank Nigeria Limited">SunTrust Bank Nigeria
+                                                        Limited</option>
 
-                                                <option value="SunTrust Bank Nigeria Limited">SunTrust Bank Nigeria
-                                                    Limited</option>
+                                                    <option value="Taj Bank Limited">Taj Bank Limited</option>
 
-                                                <option value="Taj Bank Limited">Taj Bank Limited</option>
+                                                    <option value="Titan Trust Bank Limited">Titan Trust Bank Limited
+                                                    </option>
 
-                                                <option value="Titan Trust Bank Limited">Titan Trust Bank Limited
-                                                </option>
+                                                    <option value="Union Bank of Nigeria Plc">Union Bank of Nigeria Plc
+                                                    </option>
 
-                                                <option value="Union Bank of Nigeria Plc">Union Bank of Nigeria Plc
-                                                </option>
+                                                    <option value="United Bank for Africa Plc">United Bank for Africa
+                                                        Plc</option>
 
-                                                <option value="United Bank for Africa Plc">United Bank for Africa
-                                                    Plc</option>
+                                                    <option value="Unity Bank Plc">Unity Bank Plc</option>
 
-                                                <option value="Unity Bank Plc">Unity Bank Plc</option>
-
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Account Name</label>
-                                            <input type="text" name="acc_name" class="form-control form-control-lg"
-                                                placeholder="Account Name" required="" id="id_acc_name">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Account Number</label>
-                                            <input type="number" name="acc_number" class="form-control form-control-lg"
-                                                placeholder="Account Number" required="" id="id_acc_number">
-                                        </div>
-                                        <div class="form-group">
-                                            <label>BVN</label>
-                                            <input type="number" name="bvn" class="form-control form-control-lg"
-                                                placeholder="Bvn" required="" id="id_bvn">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="checkbox" name="terms" class="" placeholder="Terms" required=""
-                                                id="id_terms">I have read and agreed to the <a href="#"
-                                                data-toggle="modal" data-target="#termsCondition">terms &amp;
-                                                conditions </a>
-                                        </div>
-                                    </section>
-                                </wizard-step>
-                            </form-wizard>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Account Name</label>
+                                                <input type="text" formControlName="acc_name"
+                                                    class="form-control form-control-lg" placeholder="Account Name"
+                                                    required="" id="id_acc_name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Account Number</label>
+                                                <input type="number" formControlName="acc_number"
+                                                    class="form-control form-control-lg" placeholder="Account Number"
+                                                    required="" id="id_acc_number">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>BVN</label>
+                                                <input type="number" formControlName="bvn"
+                                                    class="form-control form-control-lg" placeholder="Bvn" required=""
+                                                    id="id_bvn">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="checkbox" formControlName="terms" class=""
+                                                    placeholder="Terms" required="" id="id_terms">I have read and agreed
+                                                to the <a routerLink="#" data-toggle="modal"
+                                                    data-target="#termsCondition">terms
+                                                    &amp;
+                                                    conditions </a>
+                                            </div>
+                                        </section>
+                                    </wizard-step>
+                                </form-wizard>
+                            </form>
                             <div class="modal fade" id="termsCondition" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-top modal-lg" role="document">

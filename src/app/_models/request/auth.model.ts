@@ -30,6 +30,14 @@ export interface RegisterSystemRequestModel {
 }
 
 
+export interface RegisterCreateRequestModel {
+    name: string,
+    email: string,
+    password: string,
+    phone: string,
+    permissions: string
+}
+
 export interface RegisterBusinessRequestModel {
     name: string,
     email: string,

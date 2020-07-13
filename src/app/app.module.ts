@@ -42,9 +42,12 @@ import {MatSliderModule} from '@angular/material/slider'
 import {MatButtonModule} from '@angular/material/button';
 import {MatNativeDateModule} from '@angular/material/core'; 
 import { ChartsModule } from 'ng2-charts';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
   import { from } from 'rxjs';
+import { UserManagementComponent } from './backend/user-management/user-management.component';
+import { EditModalComponent } from './backend/user-management/edit-modal/edit-modal.component';
+import { ConfirmDialogComponent } from './backend/user-management/confirm-dialog/confirm-dialog.component';
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
 }
@@ -67,7 +70,10 @@ export function tokenGetter() {
     HeaderWelcomeComponent,
     FooterWelcomeComponent,
     LoginRegisterComponent,
-    RegisterVendorComponent
+    RegisterVendorComponent,
+    UserManagementComponent,
+    EditModalComponent,
+    ConfirmDialogComponent
   ],
 
   imports: [
@@ -84,6 +90,7 @@ export function tokenGetter() {
     MatButtonModule,
     MatProgressBarModule,
     ChartsModule,
+    MatDialogModule,
     ToastrModule.forRoot({
       timeOut: 10000,
       positionClass: 'toast-top-right',
@@ -105,6 +112,6 @@ export function tokenGetter() {
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [RootComponent]
+  entryComponents: [RootComponent, ConfirmDialogComponent]
 })
 export class AppModule { }

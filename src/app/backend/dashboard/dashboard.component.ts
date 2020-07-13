@@ -107,6 +107,7 @@ export class DashboardComponent implements OnInit {
     this.getGraphData();
     this.getUser();
     this.getBulkAnalytics();
+    this.getAnalytics();
   }
 
   // events
@@ -139,19 +140,26 @@ export class DashboardComponent implements OnInit {
 
   async getGraphData() {
     this.dashboard.getGraph().subscribe((graphData) => {
-      console.log('invoice data :', graphData.data)
-      return this.graphData = graphData.data
+      console.log('graph data :', graphData)
+      return this.graphData = graphData
+    }, error =>{
+
+    })
+  }
+
+  async getStatData() {
+    this.dashboard.getGraph().subscribe((graphData) => {
+      console.log('graph data :', graphData)
+      return this.graphData = graphData
+    }, error =>{
+
     })
   }
 
   async getAnalytics() {
-    const payload = {
-      startDate: "2020-03-21",
-      endDate: "2020-03-21"
-    }
-    this.dashboard.analytics(payload).subscribe((analytic) => {
+    this.dashboard.bulkAnalytics().subscribe((analytic) => {
       this.analytics = analytic;
-      console.log('invoice data :', analytic.data)
+      console.log('analytics data :', analytic)
       return this.analytics;
     })
   }
@@ -164,10 +172,10 @@ export class DashboardComponent implements OnInit {
     }
       ;
     this.isLoadingBulk = true;
-    this.dashboard.analytics(payload).subscribe((analytics) => {
-      console.log('bulkanalytics data :', analytics[0])
-      this.invoiceRaised = analytics[1].totalAmount;
-      this.invoiceUnpaid = analytics[2].totalAmount;
+    this.dashboard.bulkAnalytics(payload).subscribe((analytics) => {
+      console.log('bulkanalytics data :', analytics)
+      this.invoiceRaised = analytics['invoices'].totalAmount;
+      this.invoiceUnpaid = analytics['unpaid_invoices'].totalAmount;
       this.invoicePaid = this.invoiceRaised - this.invoiceUnpaid;
       this.isLoadingBulk = false;
       console.log('paid invoice', this.invoicePaid)

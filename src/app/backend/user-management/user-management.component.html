@@ -1,0 +1,234 @@
+<!-- begin::main -->
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content">
+
+                <a href="#" data-toggle="modal" data-target="#newUser">
+                    <button class="btn btn-primary">Add New</button>
+                </a>
+
+
+                <a href="#" *ngIf="userData.type == 'system'" data-toggle="modal" data-target="#accountManager">
+                    <button class="btn btn-dark float-right">Assign Account Manager</button>
+                </a>
+
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title">User List </h2>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table id="order-listing" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S/N</th>
+                                                        <th>Name</th>
+                                                        <th>Phone</th>
+                                                        <th>Email</th>
+                                                        <th>Company/Permission</th>
+                                                        <th *ngIf="userData.type == 'system'">Type</th>
+                                                        <th *ngIf="userData.type == 'system'">Account</th>
+                                                        <th *ngIf="userData.type == 'system'">PayLater</th>
+                                                        <th>#Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <div *ngIf="isLoadingUserList"
+                                                    class="offset-lg-5 offset-md-5 offset-sm-5">
+                                                    <mat-progress-spinner mode="indeterminate" diameter='40'
+                                                        strokeWidth='3'>
+                                                    </mat-progress-spinner>
+                                                </div>
+                                                <tbody *ngIf="!isLoadingUserList">
+
+
+                                                    <tr *ngFor="let user of users; let i = index">
+                                                        <td>{{ i + 1 }}</td>
+                                                        <td>{{ user.name }}</td>
+                                                        <td>{{ user.phone }}</td>
+                                                        <td>{{ user.email }}</td>
+                                                        <td>
+                                                            <span *ngIf="user.type == 'vendor'">{{ user.vendor.name}}
+                                                                -
+                                                                {{ user.vendor.permissions }}</span>
+                                                            <span *ngIf="user.type == 'company'">{{ user.company.name }}
+                                                                -
+                                                                {{ user.company.permissions }}</span>
+                                                            <span *ngIf="user.type == 'system'">{{ user.system.name }}
+                                                                -
+                                                                {{ user.system.permissions }}</span>
+                                                        </td>
+
+                                                        <td *ngIf="userData.type == 'system'">{{ user.type }}</td>
+                                                        <td *ngIf="userData.type == 'system'">
+
+                                                            <a *ngIf="user.activated == false"
+                                                                (click)="activateUser(user._id)"
+                                                                title="Click to activate user access"><button
+                                                                    class="btn btn-outline-danger">Restricted</button></a>
+
+                                                            <a *ngIf="user.activated == true"
+                                                                (click)="deactivateUser(user._id)"
+                                                                title="Click to restrict user access"><button
+                                                                    class="btn btn-outline-success">Active</button></a>
+
+                                                        </td>
+                                                        <td *ngIf="userData.type == 'system'">
+
+                                                            <a *ngIf="user.type == 'company' && user.payLater==true"
+                                                                (click)="deactivatePaylater(user._id)"
+                                                                title="Click to restrict paylater option">
+                                                                <button class="btn btn-outline-success">True</button>
+                                                            </a>
+
+                                                            <a *ngIf="user.type == 'company' && user.payLater==false"
+                                                            (click)="activatePaylater(user._id)"
+                                                                title="Click to allow paylater option"><button
+                                                                    class="btn btn-outline-danger">False</button>
+                                                            </a>
+
+                                                            <span *ngIf="user.type != 'company'">N/A</span>
+
+                                                        </td>
+
+
+                                                        <td>
+                                                            <button class="btn btn-outline-warning" data-toggle="modal"
+                                                                (click)="showEdit(user)">Edit
+                                                            </button>
+                                                            <a type="button" (click)="deleteUser(user._id)"
+                                                                class="btn btn-outline-danger confirm-delete"><i
+                                                                    class="ti-trash"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <!-- <div class="text-center">
+                                <p>Showing page {{ p.page }} of {{ p.pages }} for {{ p.total }} Users</p>
+                                <div class="pagination">
+                                    {% if p.prev_skip == 0 or p.prev_skip %}
+                                    <a routerLink=user_list' p.prev_skip limit %}">&laquo; Previous</a>
+                                    {% else %}
+                                    <a routerLink="#" class="text-muted">&laquo; Previous</a>
+                                    {% endif %}
+                                    {% if p.next_skip  %}
+                                    <a routerLink=user_list' p.next_skip limit %}">&laquo; Next</a>
+                                    {% else %}
+                                    <a routerLink="#" class="text-muted">&laquo; Next</a>
+                                    {% endif %}
+                                </div>
+                            </div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- new user modal -->
+
+<div class="modal fade" id="newUser" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Add New user </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]=signUpForm>
+
+                    <div class="form-group">
+                        <select formControlName="permissions" class="form-control" style="height: 35px" class="js-example-basic-single w-100"
+                            required id="#">
+                            <option selected value="">Assign Permission</option>
+
+                            <option *ngIf="userData.type == 'system' " value="superadmin">Super Admin</option>
+
+                            <option value="admin">Admin</option>
+                            <option value="manager">Manager</option>
+                            <option value="member">Member</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input formControlName="name" type="text" class="form-control name" id="name"
+                            placeholder="Name">
+                    </div>
+                    <div class="form-group">
+                        <input formControlName="phone" type="number" class="form-control phone" id="phone"
+                            placeholder="Phone">
+                    </div>
+                    <div class="form-group">
+                        <input formControlName="email" type="email" class="form-control email" id="email"
+                            placeholder="Email">
+                    </div>
+                    <div class="form-group">
+                        <input formControlName="password" type="password" class="form-control email" id="password"
+                            placeholder="Password">
+                    </div>
+                    <button type="submit" (click)="createUser()" class="btn btn-primary">Add</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- account Manager -->
+
+
+<div class="modal fade" id="accountManager" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Assign account manager</h5>
+                <button type="button" #closebutton class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form [formGroup]="assignManagerForm">
+
+                    <div class="form-group">
+                        <label for="user"> Please select account manager</label>
+                        <select formControlName="user" id="user" style="width: 450px"
+                            class="form-control js-example-basic-single w-100" required>
+                            <option selected value="">Please Select </option>
+                            <option *ngFor="let user of users;" value="{{ user._id }}">{{ user.name }}</option>
+
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="company"> Please select business</label>
+                        <select formControlName="company" id="company" style="width: 450px"
+                            class="form-control js-example-basic-single w-100" required>
+                            <option selected value="">Select Business</option>
+
+                            <option *ngFor="let user of business" value="{{ user.company.id }}">{{ user.company.name }}</option>
+
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary " id="closeModal" (click)="assignManager()">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -5,8 +5,9 @@ const  BASE_URL = environment.production ? "https://vendease-backend.herokuapp.c
 export const Endpoint = {
     AUTH: {
         login: `${BASE_URL}/authentication`,
-        register: `${BASE_URL}/users`,
-        verify: `${BASE_URL}/verify/phone`,
+        users: `${BASE_URL}/users`,
+        create_user:`${BASE_URL}/users`,
+        
     },
     TRANSACTION: {
         transaction: `${BASE_URL}/transactions`,
