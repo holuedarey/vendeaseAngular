@@ -16,13 +16,13 @@
 
             </li>
 
-            <li>
+            <li *ngIf="userData.type == 'system'">
                 <a style="justify-content: left;" routerLink="supplier-list"
                     data-toggle="tooltip" data-placement="right"data-nav-target="#dashboard"  title="Suppliers">
                     <i class="feather-user-plus" style="margin-right: 5px"> </i> Suppliers
                 </a>
             </li>
-            <li>
+            <li  *ngIf="userData.type == 'system'">
                 <a style="justify-content: left;" routerLink="company-list"
                     data-toggle="tooltip" data-placement="right"data-nav-target="#dashboard" title="Companies">
                     <i class="feather-user-check" style="margin-right: 5px"> </i> Company

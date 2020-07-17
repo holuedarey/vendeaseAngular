@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Constants } from '../../../common/constant';
+import { StorageService } from '../../../_service/storage.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-
-  constructor() { }
+  userData:any;
+  constructor(public storageService:StorageService) {
+    const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
+    this.userData = theData;
+   }
 
   ngOnInit() {
   }

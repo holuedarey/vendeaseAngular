@@ -10326,7 +10326,7 @@ small {
 .navigation .navigation-menu-tab ul li .header form .input-group .input-group-append button.active.btn,
 .header form .input-group .input-group-append .navigation .navigation-menu-tab ul li button.active.btn {
   color: white;
-  background-color: #0081ff;
+  /* background-color: #0081ff; */
   box-shadow: 0px 5px 20px -14px #0081ff;
 }
 
