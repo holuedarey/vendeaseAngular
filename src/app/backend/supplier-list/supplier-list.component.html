@@ -1,0 +1,74 @@
+<!-- begin::main -->
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title">Supplier List </h2>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table id="order-listing" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S/N</th>
+                                                        <th>Supplier ID</th>
+                                                        <th>Supplier Name</th>
+                                                        <th>Address</th>
+                                                        <th>#Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <div *ngIf="isLoadingSupplierList"
+                                                    class="offset-lg-5 offset-md-5 offset-sm-5">
+                                                    <mat-progress-spinner mode="indeterminate" diameter='40'
+                                                        strokeWidth='3'>
+                                                    </mat-progress-spinner>
+                                                </div>
+                                                <tbody *ngIf="!isLoadingSupplierList">
+
+                                                    <tr *ngFor="let user of suppliers; let i=index">
+                                                        <td>{{ i+1}}</td>
+                                                        <td>#{{ user.vendor.id}}</td>
+                                                        <td>{{ user.vendor.name}}</td>
+                                                        <td>{{ user.vendor.address}}</td>
+
+                                                        <td>
+
+                                                            <button (click)="viewSupplier(user)"
+                                                                class="btn btn-outline-primary">View</button>
+                                                        </td> 
+
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+                                            <div class="text-center" *ngIf="!isLoadingSupplierList">
+                                                <p>Showing page 1 of 1 for {{suppliers.length}} Supplier</p>
+                                                <div class="pagination">
+                                                    
+                                                    <a href="#">&laquo; Previous</a>
+                                                    <a href="#" class="text-muted">&laquo; Next</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

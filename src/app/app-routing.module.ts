@@ -13,6 +13,9 @@ import { LoginRegisterComponent } from './layout/frontend/loginRegister/login-re
 import { RegisterVendorComponent } from './frontend/register-vendor/register-vendor.component';
 import { AuthGuard } from './guard/auth.guard';
 import { UserManagementComponent } from './backend/user-management/user-management.component';
+import { ProductListComponent } from './backend/product-list/product-list.component';
+import { CompanyListComponent } from './backend/company-list/company-list.component';
+import { SupplierListComponent } from './backend/supplier-list/supplier-list.component';
 
 
 
@@ -33,10 +36,13 @@ const routes: Routes = [
   {
     path: '',
     component: MainComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'user-list', component: UserManagementComponent },
+      { path: 'company-list', component: CompanyListComponent },
+      { path: 'supplier-list', component: SupplierListComponent },
+      { path: 'product-list', component: ProductListComponent },
     ]
   },
   

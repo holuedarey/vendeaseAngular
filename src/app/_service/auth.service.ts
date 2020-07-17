@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class AuthService {
 
-  jwtHelper = new JwtHelperService();
+  jwtHelper =  new JwtHelperService();
   constructor(public storageService: StorageService, private http: HttpClient) { }
 
 
@@ -142,10 +142,9 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    if (!this.jwtHelper.isTokenExpired(this.storageService.get(Constants.STORAGE_VARIABLES.TOKEN))) {
-      return true;
-    }
-    //clear th regiser message
-    return false;
+
+    // console.log('dashboard : ', this.storageService.get(Constants.STORAGE_VARIABLES.TOKEN) )
+    return !this.jwtHelper.isTokenExpired(this.storageService.get(Constants.STORAGE_VARIABLES.TOKEN));
+   
   }
 }

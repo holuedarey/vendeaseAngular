@@ -75,7 +75,8 @@ select, .form-control{
 	display: none;
 }
 .content-teaser__image {
-    background-image: url(../img/theme/handshake-bg.png);
+	/* background-image: url(../img/theme/); */
+	/* background-image: url(../img/theme/handshake-bg.png); */
     height: 520px;
     margin-left: 20%;
     background-size: cover;

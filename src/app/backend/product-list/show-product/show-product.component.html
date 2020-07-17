@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col-md-12">
+        <h5 class="modal-title" id="ModalLabel">Assign item to supplier </h5>
+
+        <form [formGroup]=AssignProductForm>
+
+            <div class="form-group">
+                <select name="vendor" style="height:  45px"  class="js-example-basic-single w-100">
+                  <option selected value="">Please select supplier</option>
+                    <!-- <option *ngFor="let vendor of vendors" value="{{ vendor.vendor.id }}">{{ vendor.vendor.name|capfirst }}</option> -->
+                </select>
+            </div>
+           
+            <div class="row" style="margin-top: 48px;;" mat-dialog-actions>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-primary" (click)="save()">Submit Edit</button>
+                </div>
+                <div class="col-md-6">
+                    <button type="button" class="btn btn-warning pull-right" (click)="close()">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -26,8 +26,11 @@ export class LoginComponent implements OnInit {
     public storage: StorageService,
     private toastr: ToastrService
   ) {
+
+    console.log( this.authService.isAuthenticated() )
     if (this.authService.isAuthenticated()) {
-      // router.navigate(['/dashboard'])
+      // currentUser
+      router.navigate(['/dashboard'])
     }
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.compose([Validators.required])],

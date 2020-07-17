@@ -27,25 +27,31 @@
                                     <div class="col-md-4 col-sm-12 m-t-10">
                                         <div class="order-right">
                                             <p class="text-muted">Today</p>
-                                            <p class="text-muted m-t-20 font-size-22 neg-magin-2">&#x20A6;
-                                                232222
+                                            <p class="text-muted m-t-20 font-size-20 neg-magin-2">
+                                                {{ day | currency : "&#x20A6;" || '0'}}
                                             </p>
+                                            <mat-progress-spinner *ngIf="isLoadingAnalytic" mode="indeterminate" diameter='30'
+                                            strokeWidth='3'></mat-progress-spinner>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm12 m-t-10">
                                         <div class="order-right">
                                             <p class="text-muted">Last 7 Day's</p>
-                                            <p class="text-muted m-t-20 font-size-22 neg-magin-2">&#x20A6;
-                                                23222
+                                            <p class="text-muted m-t-20 font-size-20 neg-magin-2">
+                                                {{ last7Days | currency : "&#x20A6;" || '0'}}
                                             </p>
+                                            <mat-progress-spinner *ngIf="isLoadingAnalytic" mode="indeterminate" diameter='30'
+                                            strokeWidth='3'></mat-progress-spinner>
                                         </div>
                                     </div>
                                     <div class="col-md-4 col-sm12 m-t-10">
                                         <div class="">
                                             <p class="text-muted">Last 30 Day's</p>
-                                            <p class="text-muted m-t-20 font-size-22 neg-magin-2">
-                                                &#x20A6; 321122
+                                            <p class="text-muted m-t-20 font-size-20 neg-magin-2">
+                                                {{ month | currency : "&#x20A6;" || '0'}}
                                             </p>
+                                             <mat-progress-spinner *ngIf="isLoadingAnalytic" mode="indeterminate" diameter='30'
+                                        strokeWidth='3'></mat-progress-spinner>
                                         </div>
                                     </div>
                                 </div>
@@ -57,7 +63,7 @@
                                         <!-- <!-- <input matInput [matDatepicker]="picker"> -->
                                         <div class="col-lg-5">
                                             <mat-form-field>
-                                                <input [value]="date.value" matInput [matDatepicker]="picker"
+                                                <input [value]="startDate.value" matInput [matDatepicker]="picker"
                                                     placeholder="Start date">
                                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                                 <mat-datepicker #picker></mat-datepicker>
@@ -65,7 +71,7 @@
                                         </div>
                                         <div class="col-lg-5">
                                             <mat-form-field>
-                                                <input [value]="date.value" matInput [matDatepicker]="myPicker"
+                                                <input [value]="endDate.value" matInput [matDatepicker]="myPicker"
                                                     placeholder="End date">
                                                 <mat-datepicker-toggle matSuffix [for]="myPicker">
                                                 </mat-datepicker-toggle>
@@ -113,7 +119,7 @@
                                 <div class="">
                                     <p class="text-muted">Invoice Raised</p>
                                     <h6 class="card-title neg-magin-2 font-size-25" *ngIf="!isLoadingBulk">
-                                        {{ invoiceRaised | currency : "&#x20A6;" }}</h6>
+                                        {{ invoiceRaised | currency : "&#x20A6;" || '0'}}</h6>
                                     <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate" diameter='30'
                                         strokeWidth='3'></mat-progress-spinner>
                                 </div>
@@ -124,7 +130,7 @@
                                 <div class="">
                                     <p class="text-muted">Invoice Paid</p>
                                     <h6 class="card-title neg-magin-2 font-size-25">
-                                        {{  invoicePaid | currency : "&#x20A6;" }}</h6>
+                                        {{  invoicePaid | currency : "&#x20A6;" || '0' }}</h6>
                                     <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate" diameter='30'
                                         strokeWidth='3'></mat-progress-spinner>
                                 </div>
@@ -135,7 +141,7 @@
                                 <div class="">
                                     <p class="text-muted">Invoice Unpaid</p>
                                     <h6 class="card-title neg-magin-2 font-size-25">
-                                        {{  invoiceUnpaid | currency : "&#x20A6;" }}
+                                        {{  invoiceUnpaid | currency : "&#x20A6;" || '0' }}
                                     </h6>
                                     <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate" diameter='30'
                                         strokeWidth='3'></mat-progress-spinner>
@@ -156,7 +162,7 @@
                                     <div class="col-lg-6">
                                         <div style="display: block">
                                             <canvas baseChart [data]="pieChartData" [labels]="pieChartLabels"
-                                                [chartType]="pieChartType"></canvas>
+                                                [chartType]="pieChartType" *ngIf="!isLoadingGraph"></canvas>
                                         </div>
                                     </div>
                                 </div>
@@ -164,7 +170,7 @@
                                 <div class="row" *ngIf="userData.type != 'vendor'">
                                     <div class="col-lg-12">
                                         <div style="display: block;">
-                                            <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                                            <canvas  *ngIf="!isLoadingGraph"  baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
                                                 [options]="lineChartOptions" [colors]="lineChartColors"
                                                 [chartType]="lineChartType" (chartHover)="chartHovered($event)"
                                                 (chartClick)="chartClicked($event)"></canvas>

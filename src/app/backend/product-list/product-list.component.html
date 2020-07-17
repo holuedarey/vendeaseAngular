@@ -1,0 +1,134 @@
+<!-- begin::main -->
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content">
+                <li class="breadcrumb-item active" aria-current="page">Product List</li>
+                <div class="row">
+
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <form method="get">
+                                    <input name="search" class="form-control"
+                                        placeholder="Search for products by name" />
+                                </form>
+                            </div>
+                            <div class="card-body">
+                                <h2 class="card-title">Products List</h2>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table id="order-listing" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S/N</th>
+                                                        <th>Name</th>
+                                                        <th>Brand</th>
+                                                        <th>Market Price</th>
+                                                        <th>Category</th>
+                                                        <th>Description</th>
+
+                                                        <th *ngIf="userData.type == 'system' ">Assigned To</th>
+                                                        <th>#Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <div *ngIf="isLoadingProduct"
+                                                    class="offset-lg-5 offset-md-5 offset-sm-5">
+                                                    <mat-progress-spinner mode="indeterminate" diameter='40'
+                                                        strokeWidth='3'>
+                                                    </mat-progress-spinner>
+                                                </div>
+                                                <tbody *ngIf="!isLoadingProduct">
+                                                    <tr *ngFor="let product of products; let i = index">
+                                                        <td>{{ i+ 1 }}</td>
+                                                        <td>{{ product.name }}</td>
+                                                        <td>{{ product.brand }}</td>
+                                                        <td *ngIf="product.price == undefined"><label
+                                                                class="badge badge-dark">pending</label></td>
+                                                        <td *ngIf="product.price">₦ {{ product.price   }}</td>
+                                                        <td>{{ product.category }}</td>
+                                                        <td>{{ product.description }}</td>
+                                                        <td *ngIf="userData.type == 'system' ">
+                                                            <span
+                                                                *ngIf="product.vendor_details">{{ product.vendor_details.name }}</span>
+                                                            <p *ngIf="product.vendor_details == undefined"
+                                                                class="text-center">--</p>
+                                                        </td>
+                                                        <td>
+
+                                                            <button *ngIf="userData.type == 'system'"
+                                                                class="btn btn-outline-primary"
+                                                                (click)="showAssignProduct(product)">Assign
+                                                            </button>
+
+                                                            <button
+                                                                *ngIf="userData.type == 'system' || userData.type == 'company' && !product.price"
+                                                                class="btn btn-outline-warning"
+                                                                (click)="editProduct(product)">Edit</button>
+
+                                                            <a type="button" *ngIf="userData.type != 'vendor'"
+                                                                (click)="deleteProduct(product._id)"
+                                                                class="btn btn-outline-danger confirm-delete">Delete</a>
+
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                            <!-- {% if keyword %}
+                                            <div class="text-center">
+                                                <p>Showing page {{ p.page }} of {{ p.pages }} for {{ p.total }} products
+                                                </p>
+                                                <div class="pagination">
+                                                    {% if p.prev_skip == 0 or p.prev_skip %}
+                                                    <a href="{% url 'product_search' p.prev_skip limit keyword %}">&laquo;
+                                                        Previous</a>
+                                                    {% else %}
+                                                    <a href="#" class="text-muted">&laquo; Previous</a>
+                                                    {% endif %}
+                                                    {% if p.next_skip  %}
+                                                    <a href="{% url 'product_search' p.next_skip limit keyword %}">&laquo;
+                                                        Next</a>
+                                                    {% else %}
+                                                    <a href="#" class="text-muted">&laquo; Next</a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {% else %}
+                                            <div class="text-center">
+                                                <p>Showing page {{ p.page }} of {{ p.pages }} for {{ p.total }} products
+                                                </p>
+                                                <div class="pagination">
+                                                    {% if p.prev_skip == 0 or p.prev_skip %}
+                                                    <a href="{% url 'product_list' p.prev_skip limit %}">&laquo;
+                                                        Previous</a>
+                                                    {% else %}
+                                                    <a href="#" class="text-muted">&laquo; Previous</a>
+                                                    {% endif %}
+                                                    {% if p.next_skip  %}
+                                                    <a href="{% url 'product_list' p.next_skip limit %}">&laquo;
+                                                        Next</a>
+                                                    {% else %}
+                                                    <a href="#" class="text-muted">&laquo; Next</a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                            {% endif %} -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

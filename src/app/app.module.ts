@@ -48,6 +48,13 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { UserManagementComponent } from './backend/user-management/user-management.component';
 import { EditModalComponent } from './backend/user-management/edit-modal/edit-modal.component';
 import { ConfirmDialogComponent } from './backend/user-management/confirm-dialog/confirm-dialog.component';
+import { SupplierListComponent } from './backend/supplier-list/supplier-list.component';
+import { CompanyListComponent } from './backend/company-list/company-list.component';
+import { ProductListComponent } from './backend/product-list/product-list.component';
+import { ShowProductComponent } from './backend/product-list/show-product/show-product.component';
+import { EditProductComponent } from './backend/product-list/edit-product/edit-product.component';
+import { DeleteProductComponent } from './backend/product-list/delete-product/delete-product.component';
+
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
 }
@@ -73,7 +80,13 @@ export function tokenGetter() {
     RegisterVendorComponent,
     UserManagementComponent,
     EditModalComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    SupplierListComponent,
+    CompanyListComponent,
+    ProductListComponent,
+    ShowProductComponent,
+    EditProductComponent,
+    DeleteProductComponent
   ],
 
   imports: [
@@ -97,7 +110,7 @@ export function tokenGetter() {
       preventDuplicates: true,
       easing:'ease-in',
       progressAnimation:"decreasing"
-    })
+    }),
     // JwtModule.forRoot({
     //   config: {
     //     tokenGetter: tokenGetter,

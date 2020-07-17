@@ -3,27 +3,28 @@
     <div class="navigation-menu-tab" style="width: 35%;">
         <ul>
             <li>
-                <a routerLink="/dashboard" style="justify-content: left;">
+                <a routerLink="/dashboard" style="justify-content: left;" class="active" data-placement="right" title="Dashboard"
+                data-nav-target="#dashboard">
                     <i class="feather-monitor" style="margin-right: 5px"> </i> Dashboard
                 </a>
             </li>
             <li>
                 <a style="justify-content: left;" class="text-left" routerLink="/user-list"
-                    data-toggle="tooltip" data-placement="right" title="Users">
+                    data-toggle="tooltip" data-placement="right" data-nav-target="#dashboard" title="Users">
                     <i class="feather-users" style="margin-right: 5px"> </i> Users
                 </a>
 
             </li>
 
             <li>
-                <a style="justify-content: left;" routerLink="company_vendor_list"
-                    data-toggle="tooltip" data-placement="right" title="Suppliers">
+                <a style="justify-content: left;" routerLink="supplier-list"
+                    data-toggle="tooltip" data-placement="right"data-nav-target="#dashboard"  title="Suppliers">
                     <i class="feather-user-plus" style="margin-right: 5px"> </i> Suppliers
                 </a>
             </li>
             <li>
-                <a style="justify-content: left;" routerLink="company_vendor_list"
-                    data-toggle="tooltip" data-placement="right" title="Companies">
+                <a style="justify-content: left;" routerLink="company-list"
+                    data-toggle="tooltip" data-placement="right"data-nav-target="#dashboard" title="Companies">
                     <i class="feather-user-check" style="margin-right: 5px"> </i> Company
                 </a>
             </li>
@@ -131,11 +132,11 @@
                     </li>
 
                     <li>
-                        <a class="text-white" routerLink="product_create">New Products</a>
+                        <a class="text-white" routerLink="create-product">New Products</a>
                     </li>
 
                     <li>
-                        <a class="text-white" routerLink="product_list' 0 50 %}">Product List</a>
+                        <a class="text-white" routerLink="product-list">Product List</a>
                     </li>
                 </ul>
             </div>
