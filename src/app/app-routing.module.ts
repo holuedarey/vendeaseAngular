@@ -16,6 +16,7 @@ import { UserManagementComponent } from './backend/user-management/user-manageme
 import { ProductListComponent } from './backend/product-list/product-list.component';
 import { CompanyListComponent } from './backend/company-list/company-list.component';
 import { SupplierListComponent } from './backend/supplier-list/supplier-list.component';
+import { SupplierDetailsComponent } from './backend/supplier-details/supplier-details.component';
 
 
 
@@ -42,6 +43,7 @@ const routes: Routes = [
       { path: 'user-list', component: UserManagementComponent },
       { path: 'company-list', component: CompanyListComponent },
       { path: 'supplier-list', component: SupplierListComponent },
+      { path: 'view/supplier', component: SupplierDetailsComponent },
       { path: 'product-list', component: ProductListComponent },
     ]
   },

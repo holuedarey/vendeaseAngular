@@ -71,7 +71,7 @@ export class UserManagementComponent implements OnInit {
       permissions: this.signUpForm.value.permissions,
 
     }
-    console.log('data: ', JSON.stringify(this.payloadCreateUser))
+    // console.log('data: ', JSON.stringify(this.payloadCreateUser))
 
     this.authService.createUser(this.payloadCreateUser).subscribe(user => {
       //hide loader and navigate to dash board Page
@@ -169,9 +169,29 @@ export class UserManagementComponent implements OnInit {
     this.dialog.open(EditModalComponent, dialogConfig)
 
     const dialogRef = this.dialog.open(EditModalComponent, dialogConfig);
-
+    const userId = user._id;
     dialogRef.afterClosed().subscribe(
-      data => console.log("Dialog output:", data)
+      payloadData =>{
+        this.authService.updateUser(userId, payloadData).subscribe(users => {
+          this.toastr.success("User Updated Successfully", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          console.log('returnd data : ', users)
+          this.getUserLists();
+    
+          //hide loader and navigate to dash board Page
+    
+          this.isLoadingUserList = false;
+          // this.loader.hideLoader();
+        }, error => {
+          console.log('Error :', error);
+          this.isLoadingUserList = false;
+          // this.loader.presentToast(error.error.message);
+          // this.loader.hideLoader();
+    
+        });
+      } 
     );
   }
 

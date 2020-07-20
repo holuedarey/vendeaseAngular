@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { SupplierService } from '../../_services/supplier.service';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-supplier-list',
@@ -10,7 +11,8 @@ export class SupplierListComponent implements OnInit {
 
   isLoadingSupplierList: boolean;
   suppliers: any[] = [];
-  constructor(private supplierService: SupplierService) { }
+  Message = "Parent to Child"
+  constructor(private supplierService: SupplierService, public router:Router) { }
 
   ngOnInit(): void {
     this.getSupplierLists();
@@ -34,5 +36,13 @@ export class SupplierListComponent implements OnInit {
 
   viewSupplier(user){
 
+    // console.log('user deatils : ', user._id)
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        user: JSON.stringify(user)
+      }
+    };
+    this.router.navigate(['view/supplier'], {state : user})
+    
   }
 }

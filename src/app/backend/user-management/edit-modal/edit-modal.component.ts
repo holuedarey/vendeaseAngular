@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -22,16 +22,21 @@ export class EditModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('data comp:', this.description);
+    // console.log('data comp:', this.description);
     this.EditUserForm = this.fb.group({
-      name: [name, []],
-      phone: ['', []],
-
+      name: ['', Validators.compose([Validators.required])],
+      phone: ['', Validators.compose([Validators.required])],
     });
   }
 
   save() {
-    this.dialogRef.close(this.EditUserForm.value);
+    const payload = {
+      name : this.EditUserForm.value.name,
+      phone: this.EditUserForm.value.phone
+    }
+    // console.log('data payload: ', payload);
+    
+    this.dialogRef.close(payload)
 }
 
 close() {

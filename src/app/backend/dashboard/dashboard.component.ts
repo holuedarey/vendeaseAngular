@@ -38,8 +38,11 @@ export class DashboardComponent implements OnInit {
   startDate = new FormControl(new Date());
   endDate = new FormControl(new Date());
 
-  public pieChartLabels = ['Sales Q1', 'Sales Q2', 'Sales Q3', 'Sales Q4', 'Sales Q5'];
-  public pieChartData = [120, 150, 180, 90, 20];
+  public pieChartLabels = [];
+  public pieChartData = [100,20,35,100,24];
+
+  public pieChartLabels2 = [];
+  public pieChartData2 = [100,20,35,100,24];
   public pieChartType = 'pie';
 
   //analytic variable
@@ -232,11 +235,14 @@ export class DashboardComponent implements OnInit {
       // this.isLoadingBulk = false;
 
       console.log('getTopFive data :', topFive)
-      // this.invoiceRaised = analytics['invoices'].totalAmount || 0;
-      // this.invoiceUnpaid = analytics['unpaid_invoices'].totalAmount || 0;
-      // this.invoicePaid = this.invoiceRaised - this.invoiceUnpaid;
-      // // console.log('paid invoice', this.invoicePaid)
-      // return this.analyticsBulk = analytics
+      this.pieChartLabels = topFive.amount_purchased.map(item => item.name)
+      this.pieChartData = topFive.amount_purchased.map(item => item.amount)
+
+      this.pieChartLabels2 = topFive.volume_purchased.map(item => item.name)
+      this.pieChartData2 = topFive.volume_purchased.map(item => item.quantity)
+     
+      // console.log('getTopFive label 1:', this.pieChartData)
+      // console.log('getTopFive label 2:', this.pieChartData2)
     }, error => {
       // this.isLoadingBulk = false
       console.log('Error : ', error)

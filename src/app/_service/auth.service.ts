@@ -134,6 +134,13 @@ export class AuthService {
       }));
   }
 
+  updateUser(userId, payload): Observable<any> {
+    return this.http.patch(`${Endpoint.AUTH.users}/${userId}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+  
   deleteUser(userId): Observable<any> {
     return this.http.delete(`${Endpoint.AUTH.users}/${userId}`).pipe(
       map(data => {
