@@ -17,6 +17,7 @@ import { ProductListComponent } from './backend/product-list/product-list.compon
 import { CompanyListComponent } from './backend/company-list/company-list.component';
 import { SupplierListComponent } from './backend/supplier-list/supplier-list.component';
 import { SupplierDetailsComponent } from './backend/supplier-details/supplier-details.component';
+import { CompanyDetailsComponent } from './backend/company-details/company-details.component';
 
 
 
@@ -44,6 +45,7 @@ const routes: Routes = [
       { path: 'company-list', component: CompanyListComponent },
       { path: 'supplier-list', component: SupplierListComponent },
       { path: 'view/supplier', component: SupplierDetailsComponent },
+      { path: 'view/company', component: CompanyDetailsComponent },
       { path: 'product-list', component: ProductListComponent },
     ]
   },

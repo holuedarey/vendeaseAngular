@@ -35,14 +35,7 @@ export class SupplierListComponent implements OnInit {
   }
 
   viewSupplier(user){
-
-    // console.log('user deatils : ', user._id)
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        user: JSON.stringify(user)
-      }
-    };
     this.router.navigate(['view/supplier'], {state : user})
-    
   }
+  
 }

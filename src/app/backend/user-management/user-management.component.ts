@@ -166,7 +166,7 @@ export class UserManagementComponent implements OnInit {
     dialogConfig.data = {
       data: JSON.stringify(user)
     };
-    this.dialog.open(EditModalComponent, dialogConfig)
+    // this.dialog.open(EditModalComponent, dialogConfig)
 
     const dialogRef = this.dialog.open(EditModalComponent, dialogConfig);
     const userId = user._id;
