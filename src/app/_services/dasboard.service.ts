@@ -34,10 +34,9 @@ export class DasboardService {
   }
   
   bulkAnalytics(payload): Observable<any> {
-    console.log('payload data',payload)
     return this.http.post(Endpoint.DASHBOARD.analytic, payload).pipe(
       map(data => {
-        console.log('return data',data)
+        // console.log('return data',data)
         return data;
       }));
   }

@@ -39,10 +39,17 @@ export class DashboardComponent implements OnInit {
   endDate = new FormControl(new Date());
 
   public pieChartLabels = [];
-  public pieChartData = [100,20,35,100,24];
+  public pieChartData = [100, 20, 35, 100, 24];
 
+  public pieChartDataCompany = [100, 20, 35, 100, 24];
+  public pieChartLabelsCompany = [];
+
+  public pieChartData2Company = [100, 20, 35, 100, 24];
+  public pieChartLabels2Company = [];
+  
+  
   public pieChartLabels2 = [];
-  public pieChartData2 = [100,20,35,100,24];
+  public pieChartData2 = [100, 20, 35, 100, 24];
   public pieChartType = 'pie';
 
   //analytic variable
@@ -108,33 +115,45 @@ export class DashboardComponent implements OnInit {
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
 
-  constructor(public dashboard: DasboardService, public storageService: StorageService,) {console.log('date : ',parseDate(new Date() ));
-   }
+  constructor(public dashboard: DasboardService, public storageService: StorageService,) {
+   
+  }
 
   ngOnInit() {
     this.getInvoice();
-    this.getGraphData();
+    // this.getGraphData();
     this.getUser();
     this.getBulkAnalytics();
     this.getAnalytics();
-    this.getTopFive();
+    this.loadGraph();
+    this.getTopFiveCompany();
   }
 
   // events
   public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
   public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
+    // console.log(event, active);
   }
 
+  loadGraph() {
+    if (this.userData.type == 'system') {
+      console.log('super admin section');
+      this.getTopFive();
+    } else if (this.userData.type == 'vendor') {
+      this.getGraphData();
+    } else if (this.userData.type == 'company') {
+      this.getTopFiveCompany();
+    }
+  }
   getUser() {
 
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
     this.username = theData.name || "";
-    console.log('username : ', this.username)
+    // console.log('username : ', this.username)
   }
   async getInvoice() {
     this.isLoadingInvoice = true;
@@ -194,7 +213,7 @@ export class DashboardComponent implements OnInit {
   async getBulkAnalytics() {
     var payload = {};
     if (this.userData.type == 'system') {
-      console.log(' igot here');
+      // console.log(' igot here');
       payload = {
         action: "bulk-analytics", startDate: parseDate(this.startDate.value), endDate: parseDate(this.endDate.value),
       };
@@ -206,12 +225,12 @@ export class DashboardComponent implements OnInit {
     }
 
     this.isLoadingBulk = true;
-    console.log('payload message : ', payload);
+    // console.log('payload message : ', payload);
 
     this.dashboard.bulkAnalytics(payload).subscribe((analytics) => {
       this.isLoadingBulk = false;
 
-      console.log('bulkanalytics data :', analytics)
+      // console.log('bulkanalytics data :', analytics)
       // this.invoiceRaised = analytics['invoices'].totalAmount || 0;
       // this.invoiceUnpaid = analytics['unpaid_invoices'].totalAmount || 0;
       // this.invoicePaid = this.invoiceRaised - this.invoiceUnpaid;
@@ -225,13 +244,14 @@ export class DashboardComponent implements OnInit {
 
 
   async getTopFive() {
-   const  payload = {
-    action: "top-products", id: this.userData[this.userData.type].id, type:this.userData.type
-  };
+    const payload = {
+      action: "top-products", id: this.userData[this.userData.type].id, type: this.userData.type
+    };
     this.isLoadingBulk = true;
-    console.log('payload message : ', payload);
+    console.log('payload message product: ', payload);
+    console.log('sample : ', { action: "top_products", type: "company", id: "JE158175" });
 
-    this.dashboard.bulkAnalytics({action:"top_products",type:"company",id:"JE158175"}).subscribe(topFive => {
+    this.dashboard.bulkAnalytics({ action: "top_products", type: "company", id: "VE707402" }).subscribe(topFive => {
       // this.isLoadingBulk = false;
 
       console.log('getTopFive data :', topFive)
@@ -240,7 +260,7 @@ export class DashboardComponent implements OnInit {
 
       this.pieChartLabels2 = topFive.volume_purchased.map(item => item.name)
       this.pieChartData2 = topFive.volume_purchased.map(item => item.quantity)
-     
+
       // console.log('getTopFive label 1:', this.pieChartData)
       // console.log('getTopFive label 2:', this.pieChartData2)
     }, error => {
@@ -248,6 +268,29 @@ export class DashboardComponent implements OnInit {
       console.log('Error : ', error)
     })
   }
+
+
+  async getTopFiveCompany() {
+    const payload = {
+      action: "top-companies", id: this.userData[this.userData.type].id, type: this.userData.type
+    };
+    this.isLoadingBulk = true;
+    console.log('payload message company: ', payload);
+
+    this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
+      // this.isLoadingBulk = false;
+
+      // console.log('getTopFive data :', topFive)
+      this.pieChartLabelsCompany = topFive.amount_purchased.map(item => item.name)
+      this.pieChartDataCompany = topFive.amount_purchased.map(item => item.amount)
+
+      this.pieChartLabels2Company = topFive.volume_purchased.map(item => item.name)
+      this.pieChartData2Company = topFive.volume_purchased.map(item => item.quantity)
+    }, error => {
+      // this.isLoadingBulk = false
+      console.log('Error : ', error)
+    })
+  }
 }
 
-const parseDate = (dateInput) => `${dateInput.getMonth()+1}-${dateInput.getDate() }-${dateInput.getFullYear()}`
+const parseDate = (dateInput) => `${dateInput.getMonth() + 1}-${dateInput.getDate()}-${dateInput.getFullYear()}`

@@ -304,13 +304,11 @@ export class UserManagementComponent implements OnInit {
     dialogConfig.width = '250px';
     dialogConfig.position = {
       'top': '50px',
-
     };
 
     dialogConfig.data = {
       data: JSON.stringify(userId)
     };
-    this.dialog.open(ConfirmDialogComponent, dialogConfig)
     const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

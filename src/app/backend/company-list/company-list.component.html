@@ -37,8 +37,8 @@
 
                                                     <tr *ngFor="let user of compannies; let i=index">
                                                         <td>{{ i+1}}</td>
-                                                        <td>#{{ user.company.id}}</td>
-                                                        <td>{{ user.company.name}}</td>
+                                                        <td>#{{ user.company.id || user.company.id}}</td>
+                                                        <td>{{ user.company.name ||  user.company}}</td>
                                                         <td>{{  user.company.admin_fee ?  user.company.admin_fee + '%'  : '' }}</td>
                                                         <td>{{ user.company.address}}</td>
 

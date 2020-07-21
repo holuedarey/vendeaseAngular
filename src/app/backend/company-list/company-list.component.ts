@@ -14,17 +14,17 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./company-list.component.css']
 })
 export class CompanyListComponent implements OnInit {
-  isLoadingCompanyList:boolean;
-  userData:any;
+  isLoadingCompanyList: boolean;
+  userData: any;
 
- 
-  
-  compannies:any[] = [];
-  constructor(private companyService:CompanyService, public storageService:StorageService, 
-    private router:Router, 
-    private authService:AuthService,
+
+
+  compannies: any[] = [];
+  constructor(private companyService: CompanyService, public storageService: StorageService,
+    private router: Router,
+    private authService: AuthService,
     private toastr: ToastrService,
-    private dialog: MatDialog) { 
+    private dialog: MatDialog) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
   }
@@ -38,7 +38,7 @@ export class CompanyListComponent implements OnInit {
     this.companyService.getCompanyList().subscribe(compannies => {
       console.log('business data : ', compannies)
       this.compannies = compannies.data;
-      
+
       this.isLoadingCompanyList = false;
     }, error => {
       console.log('Error :', error);
@@ -70,34 +70,37 @@ export class CompanyListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddfeeModalComponent, dialogConfig);
     const userId = user._id;
     dialogRef.afterClosed().subscribe(
-      payloadData =>{
+      payloadData => {
         this.isLoadingCompanyList = true
-        this.authService.updateUser(userId, payloadData).subscribe(users => {
-          this.toastr.success("User Updated Successfully", 'Successful', {
-            timeOut: 3000,
-            closeButton: true
+        console.log('admin fee', payloadData)
+        if (payloadData) {
+          this.authService.updateUser(userId, payloadData).subscribe(users => {
+            this.toastr.success("User Updated Successfully", 'Successful', {
+              timeOut: 3000,
+              closeButton: true
+            });
+            console.log('returnd data : ', users)
+            this.getCompanyLists()
+
+            //hide loader and navigate to dash board Page
+
+            this.isLoadingCompanyList = false;
+            // this.loader.hideLoader();
+          }, error => {
+            console.log('Error :', error);
+            this.isLoadingCompanyList = false;
+
+
           });
-          console.log('returnd data : ', users)
-          this.getCompanyLists()
-    
-          //hide loader and navigate to dash board Page
-    
-          this.isLoadingCompanyList = false;
-          // this.loader.hideLoader();
-        }, error => {
-          console.log('Error :', error);
-          this.isLoadingCompanyList = false;
-          // this.loader.presentToast(error.error.message);
-          // this.loader.hideLoader();
-    
-        });
-      } 
+        }
+
+      }
     );
   }
 
-  viewCompany(user){
+  viewCompany(user) {
     console.log('details : ', user)
-    this.router.navigate(['view/company'], {state : user})
+    this.router.navigate(['view/company'], { state: user })
   }
 
 

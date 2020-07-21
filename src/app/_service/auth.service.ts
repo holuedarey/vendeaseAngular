@@ -37,7 +37,6 @@ export class AuthService {
   }
 
   signUpBusiness(registerRequest: RegisterBusinessRequestModel): Observable<any> {
-    console.log('data from services: ', registerRequest)
     return this.http.post(Endpoint.AUTH.users, registerRequest,
       {
         headers: {
@@ -46,7 +45,6 @@ export class AuthService {
       }).pipe(
         map(data => {
           // this.processRegister(data);
-          console.log('success : ', data)
           return data;
         }));
   }
@@ -127,7 +125,6 @@ export class AuthService {
   }
 
   activateDeactivatePaylater(userId, payload): Observable<any> {
-    console.log('link :', payload);
     return this.http.patch(`${Endpoint.AUTH.users}/${userId}`, payload).pipe(
       map(data => {
         return data;

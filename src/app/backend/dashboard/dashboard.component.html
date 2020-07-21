@@ -222,9 +222,9 @@
                                         <td>{{ item.createdAt}} </td>
                                         <td><span class="btn  btn-sm" [ngClass]="{'btn-success': item.paid == true, 
                                             'btn-danger': item.paid != true
-                                            }">{{item.paid ? 'Paid': 'Unpaid'}}</span></td>
-                                        <td>{{ item.company_details.name}}</td>
-                                        <td *ngIf="userData.type == 'system'">{{ item.company_details.name }}</td>
+                                            }">{{item.paid ==1 ? 'Paid': 'Unpaid'}}</span></td>
+                                        <td>{{ item.company_details ?  item.company_details.name : 'Nil'}}</td>
+                                        <td *ngIf="userData.type == 'system'">{{ item.vendor_details ?  item.vendor_details.name : 'Nil'}}</td>
                                         <td>
                                             <a href="#" class="text-white btn btn-primary btn-xs" data-toggle="tooltip"
                                                 title="view">

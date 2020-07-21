@@ -1,0 +1,159 @@
+<!-- begin::main -->
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content">
+                <div class="row">
+                    <div class="col-12 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="text-center pb-4">
+                                            <div class="mb-3">
+                                                <div class="d-flex align-items-center">
+                                                    <h2 class="mb-0 text-muted text-center">{{ data.name }}
+                                                    </h2>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- {% if type != 'vendor' %}
+                                    <div class="col-md-3 grid-margin stretch-card">
+                                        <a href="{% url 'invoice_list' type id skip limit %}"
+                                            style="text-decoration: none;">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <p class="card-title text-md-center text-xl-left text-primary">All
+                                                        Invoices Raised</p>
+                                                    <div
+                                                        class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                                                        <h4
+                                                            class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
+                                                            ₦{{ invoice_amount|floatformat:2|intcomma }}</h4>
+                                                    </div>
+                                                    <p class="mb-0 mt-2 text-warning"><span
+                                                            class="text-black ml-1"><small>{{ invoice_count }} Invoices
+                                                                Raised so far</small></span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    {% endif %} -->
+                                    <div class="col-md-3 grid-margin stretch-card">
+                                        <a href="{% url 'invoice_list' type id skip limit %}"
+                                            style="text-decoration: none;">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <p class="card-title text-md-center text-xl-left text-primary">All
+                                                        Unpaid Invoices</p>
+                                                    <div
+                                                        class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                                                        <h4
+                                                            class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
+                                                            ₦23333</h4>
+                                                    </div>
+                                                    <p class="mb-0 mt-2 text-warning"><span
+                                                            class="text-black ml-1"><small>334 Un
+                                                                Paid
+                                                                Invoices so far</small></span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div class="col-md-3 grid-margin stretch-card">
+                                        <a href="{% url 'invoice_list' type id skip limit %}"
+                                            style="text-decoration: none;">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <p class="card-title text-md-center text-xl-left text-primary">All
+                                                        Receipts </p>
+                                                    <div
+                                                        class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                                                        <h4
+                                                            class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
+                                                            ₦2232</h4>
+                                                    </div>
+                                                    <p class="mb-0 mt-2 text-success"><span
+                                                            class="text-black ml-1"><small>2223 Receipts
+                                                                Generated so far</small></span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+
+                                    <div class="col-md-3 grid-margin stretch-card">
+                                        <a href="{% url 'delivery' type id skip limit %}"
+                                            style="text-decoration: none;">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <p class="card-title text-md-center text-xl-left text-primary">All
+                                                        Delivery Received</p>
+                                                    <div
+                                                        class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                                                        <h4
+                                                            class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
+                                                            ₦2222</h4>
+                                                    </div>
+                                                    <p class="mb-0 mt-2 text-success"><span
+                                                            class="text-black ml-1"><small>33323 PO
+                                                                Delivered so far</small></span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title">Users of {{ data.name }} </h2>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table id="order-listing" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Name</th>
+                                                        <th>Permission</th>
+                                                        <th>Phone</th>
+                                                        <th>Email</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- {% for user in users %} -->
+                                                    <!-- <tr>
+                                                        <td>{{ user.name }}</td>
+                                                        <td>{{ user.permissions }}</td>
+                                                        <td>{{ user.phone }}</td>
+                                                        <td>{{ user.email }}</td>
+                                                        <td>
+                                                        </td>
+                                                    </tr> -->
+                                                    <!-- {% endfor %} -->
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
