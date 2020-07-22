@@ -31,16 +31,16 @@ export class EditModalComponent implements OnInit {
 
   save() {
     const payload = {
-      name : this.EditUserForm.value.name,
+      name: this.EditUserForm.value.name,
       phone: this.EditUserForm.value.phone
     }
     // console.log('data payload: ', payload);
-    
-    this.dialogRef.close(payload)
-}
 
-close() {
+    this.dialogRef.close(payload)
+  }
+
+  close() {
     this.dialogRef.close();
-}
+  }
 
 }

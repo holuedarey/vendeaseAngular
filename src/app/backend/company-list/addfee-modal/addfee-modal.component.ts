@@ -16,7 +16,7 @@ export class AddfeeModalComponent implements OnInit {
     private dialogRef: MatDialogRef<AddfeeModalComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
     this.description = JSON.parse(data.data);
-    this.admin_fee = this.description.admin_fee;
+    this.admin_fee =  this.description.company.admin_fee;
   }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class AddfeeModalComponent implements OnInit {
     const payload = {
       admin_fee: this.adminFeeForm.value.admin_fee,
       action: "set_admin_fee",
-      company: this.description['company']
+      company: this.description['company'].id
     }
     console.log('data payload: ', payload);
 

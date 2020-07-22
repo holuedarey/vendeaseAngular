@@ -40,4 +40,11 @@ export class DasboardService {
         return data;
       }));
   }
+  getbulkAnalytics(payload): Observable<any> {
+    return this.http.get(Endpoint.DASHBOARD.analytic, payload).pipe(
+      map(data => {
+        // console.log('return data',data)
+        return data;
+      }));
+  }
 }

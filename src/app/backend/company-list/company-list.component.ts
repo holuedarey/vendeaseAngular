@@ -50,7 +50,6 @@ export class CompanyListComponent implements OnInit {
   }
 
   assignAdminFee(user) {
-    console.log('user data : ', user)
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -71,9 +70,10 @@ export class CompanyListComponent implements OnInit {
     const userId = user._id;
     dialogRef.afterClosed().subscribe(
       payloadData => {
-        this.isLoadingCompanyList = true
-        console.log('admin fee', payloadData)
+        // console.log('admin fee', payloadData)
         if (payloadData) {
+          this.isLoadingCompanyList = true
+
           this.authService.updateUser(userId, payloadData).subscribe(users => {
             this.toastr.success("User Updated Successfully", 'Successful', {
               timeOut: 3000,
@@ -84,10 +84,10 @@ export class CompanyListComponent implements OnInit {
 
             //hide loader and navigate to dash board Page
 
-            this.isLoadingCompanyList = false;
+            // this.isLoadingCompanyList = false;
             // this.loader.hideLoader();
           }, error => {
-            console.log('Error :', error);
+            console.log('Error :add fee', error);
             this.isLoadingCompanyList = false;
 
 

@@ -17,13 +17,13 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 export class UserManagementComponent implements OnInit {
   userData: any;
   users: any[] = [];
-  business : any[] = [];
+  business: any[] = [];
   submitAttempt: Boolean;
   payloadCreateUser;
   payloadAssignManager;
   signUpForm: FormGroup;
 
-  assignManagerForm:FormGroup;
+  assignManagerForm: FormGroup;
 
   isLoadingUserList: boolean;
 
@@ -49,7 +49,7 @@ export class UserManagementComponent implements OnInit {
       user: ['', Validators.compose([Validators.required])],
       company: ['', Validators.compose([Validators.required])],
     });
-    
+
 
     // this.username = theData.name || "";
   }
@@ -89,7 +89,7 @@ export class UserManagementComponent implements OnInit {
   assignManager() {
     this.submitAttempt = true;
     // this.loader.showLoader();
-     this.payloadAssignManager = {
+    this.payloadAssignManager = {
       id: this.assignManagerForm.value.user,
       update: this.assignManagerForm.value.company
       // update:{company: this.assignManagerForm.value.company}
@@ -99,7 +99,7 @@ export class UserManagementComponent implements OnInit {
     this.authService.assignManager(this.payloadAssignManager).subscribe(assignManager => {
       //hide loader and navigate to dash board Page
       console.log('returnd data : ', assignManager)
-      
+
       this.toastr.success("User Updated Successfully", 'Successful', {
         timeOut: 10000,
         closeButton: true
@@ -171,27 +171,31 @@ export class UserManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(EditModalComponent, dialogConfig);
     const userId = user._id;
     dialogRef.afterClosed().subscribe(
-      payloadData =>{
-        this.authService.updateUser(userId, payloadData).subscribe(users => {
-          this.toastr.success("User Updated Successfully", 'Successful', {
-            timeOut: 3000,
-            closeButton: true
+      payloadData => {
+        console.log('status : ', payloadData)
+        if (payloadData) {
+          this.authService.updateUser(userId, payloadData).subscribe(users => {
+            this.toastr.success("User Updated Successfully", 'Successful', {
+              timeOut: 3000,
+              closeButton: true
+            });
+            console.log('returnd data : ', users)
+            this.getUserLists();
+
+            //hide loader and navigate to dash board Page
+
+            // this.isLoadingUserList = false;
+            // this.loader.hideLoader();
+          }, error => {
+            console.log('Error :', error);
+            this.isLoadingUserList = false;
+            // this.loader.presentToast(error.error.message);
+            // this.loader.hideLoader();
+
           });
-          console.log('returnd data : ', users)
-          this.getUserLists();
-    
-          //hide loader and navigate to dash board Page
-    
-          this.isLoadingUserList = false;
-          // this.loader.hideLoader();
-        }, error => {
-          console.log('Error :', error);
-          this.isLoadingUserList = false;
-          // this.loader.presentToast(error.error.message);
-          // this.loader.hideLoader();
-    
-        });
-      } 
+        }
+
+      }
     );
   }
 
@@ -339,5 +343,5 @@ export class UserManagementComponent implements OnInit {
 
   }
 
- 
+
 }

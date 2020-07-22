@@ -46,7 +46,7 @@ export class ProductListComponent implements OnInit {
 
     // dialogConfig.disableClose = true;
     // dialogConfig.autoFocus = true;
-    dialogConfig.height = '300px';
+    dialogConfig.height = '200px';
     dialogConfig.width = '450px';
     dialogConfig.position = {
       'top': '50px',
@@ -61,7 +61,12 @@ export class ProductListComponent implements OnInit {
     const dialogRef = this.dialog.open(ShowProductComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => console.log("Dialog output:", data)
+      data => {
+        console.log("Dialog output:", data)
+        if(data){
+
+        }
+      }
     );
   }
 
@@ -81,7 +86,6 @@ export class ProductListComponent implements OnInit {
     dialogConfig.data = {
       data: JSON.stringify(product)
     };
-    this.dialog.open(ShowProductComponent, dialogConfig)
 
     const dialogRef = this.dialog.open(ShowProductComponent, dialogConfig);
 

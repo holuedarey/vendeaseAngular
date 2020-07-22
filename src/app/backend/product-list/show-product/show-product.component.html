@@ -7,7 +7,7 @@
             <div class="form-group">
                 <select name="vendor" style="height:  45px"  class="js-example-basic-single w-100">
                   <option selected value="">Please select supplier</option>
-                    <!-- <option *ngFor="let vendor of vendors" value="{{ vendor.vendor.id }}">{{ vendor.vendor.name|capfirst }}</option> -->
+                    <option *ngFor="let vendor of suppliers" value="{{ vendor.vendor.id }}">{{ vendor.vendor.name }}</option>
                 </select>
             </div>
            

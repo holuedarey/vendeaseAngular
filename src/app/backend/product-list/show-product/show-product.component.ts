@@ -1,6 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SupplierService } from '../../../_services/supplier.service';
 
 @Component({
   selector: 'app-show-product',
@@ -12,25 +13,27 @@ export class ShowProductComponent implements OnInit {
   description: any;
   name: any;
   phone: any;
-  AssignProductForm:FormGroup;
+  suppliers: any;
+  AssignProductForm: FormGroup;
   constructor(
-    private fb:FormBuilder,
-     private dialogRef: MatDialogRef<ShowProductComponent>,
+    private supplierService: SupplierService,
+    private fb: FormBuilder,
+    private dialogRef: MatDialogRef<ShowProductComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
-    
+
     this.description = JSON.parse(data.data);
 
     this.name = this.description.name;
     this.phone = this.description.phone
-   }
+  }
 
   ngOnInit(): void {
     console.log('data comp:', this.description);
     this.AssignProductForm = this.fb.group({
-      name: [name, []],
-      phone: ['', []],
-
+      vendor: ['', Validators.compose([Validators.required])]
     });
+
+    this.getSupplierLists()
   }
 
   save() {
@@ -41,5 +44,13 @@ export class ShowProductComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  getSupplierLists() {
+    this.supplierService.getSupplierList().subscribe(suppliers => {
+      console.log('supplier data : ', suppliers)
+      this.suppliers = suppliers.data;
+    }, error => {
+      console.log('Error :', error);
+    });
+  }
 
 }

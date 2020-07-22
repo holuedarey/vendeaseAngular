@@ -57,6 +57,9 @@ import { DeleteProductComponent } from './backend/product-list/delete-product/de
 import { SupplierDetailsComponent } from './backend/supplier-details/supplier-details.component';
 import { CompanyDetailsComponent } from './backend/company-details/company-details.component';
 import { AddfeeModalComponent } from './backend/company-list/addfee-modal/addfee-modal.component';
+import { CreateProductComponent } from './backend/create-product/create-product.component';
+import { OrderListComponent } from './backend/order-list/order-list.component';
+import { CreateOrderComponent } from './backend/create-order/create-order.component';
 
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
@@ -92,7 +95,10 @@ export function tokenGetter() {
     DeleteProductComponent,
     SupplierDetailsComponent,
     CompanyDetailsComponent,
-    AddfeeModalComponent
+    AddfeeModalComponent,
+    CreateProductComponent,
+    OrderListComponent,
+    CreateOrderComponent
   ],
 
   imports: [

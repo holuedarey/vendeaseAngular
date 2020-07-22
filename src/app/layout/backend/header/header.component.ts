@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../../_service/storage.service';
 import { Constants } from '../../../common/constant';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,7 @@ export class HeaderComponent implements OnInit {
 
   userData:any;
   username:any;
-  constructor(public storageService:StorageService) { }
+  constructor(public storageService:StorageService, public router:Router) { }
 
   ngOnInit() {
     this.getUser();
@@ -24,6 +25,8 @@ export class HeaderComponent implements OnInit {
   }
 
   logOut(){
-
+    this.storageService.clear(Constants.STORAGE_VARIABLES.TOKEN);
+    this.storageService.clear(Constants.STORAGE_VARIABLES.USER);
+    this.router.navigate(['/login'])
   }
 }

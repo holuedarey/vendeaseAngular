@@ -44,8 +44,8 @@ export class DashboardComponent implements OnInit {
   public pieChartDataCompany = [100, 20, 35, 100, 24];
   public pieChartLabelsCompany = [];
 
-  public pieChartData2Company = [100, 20, 35, 100, 24];
-  public pieChartLabels2Company = [];
+  public pieChartDataCompany2 = [100, 20, 35, 100, 24];
+  public pieChartLabelsCompany2 = [];
   
   
   public pieChartLabels2 = [];
@@ -126,7 +126,7 @@ export class DashboardComponent implements OnInit {
     this.getBulkAnalytics();
     this.getAnalytics();
     this.loadGraph();
-    this.getTopFiveCompany();
+    // this.getTopFiveCompany();
   }
 
   // events
@@ -139,12 +139,11 @@ export class DashboardComponent implements OnInit {
   }
 
   loadGraph() {
-    if (this.userData.type == 'system') {
-      console.log('super admin section');
+    if (this.userData.type == 'company') {
       this.getTopFive();
     } else if (this.userData.type == 'vendor') {
       this.getGraphData();
-    } else if (this.userData.type == 'company') {
+    } else if (this.userData.type == 'system') {
       this.getTopFiveCompany();
     }
   }
@@ -220,20 +219,20 @@ export class DashboardComponent implements OnInit {
     } else if (this.userData.type != 'system') {
       payload =
       {
-        action: "bulk-analytics", startDate: parseDate(this.startDate.value), endDate: parseDate(this.endDate.value), type: this.userData.type, id: this.userData[this.userData.type].id
+        action: "bulk-analytics", startDate: parseDate(this.startDate.value), endDate: parseDate(this.endDate.value), type: this.userData.type, id: this.userData[`${this.userData.type}`].id
       };
     }
 
     this.isLoadingBulk = true;
-    // console.log('payload message : ', payload);
-
-    this.dashboard.bulkAnalytics(payload).subscribe((analytics) => {
+    // console.log('payload message day 7days and others: ', payload);
+    // {action:"bulk-analytics",type:"company",id:"JE158175"}
+    this.dashboard.bulkAnalytics(payload).subscribe(analytics => {
       this.isLoadingBulk = false;
 
-      // console.log('bulkanalytics data :', analytics)
-      // this.invoiceRaised = analytics['invoices'].totalAmount || 0;
-      // this.invoiceUnpaid = analytics['unpaid_invoices'].totalAmount || 0;
-      // this.invoicePaid = this.invoiceRaised - this.invoiceUnpaid;
+      console.log('bulkanalytics data :', analytics)
+      this.invoiceRaised = analytics['invoices'].totalAmount || 0;
+      this.invoiceUnpaid = analytics['unpaid_invoices'].totalAmount || 0;
+      this.invoicePaid = this.invoiceRaised - this.invoiceUnpaid;
       // console.log('paid invoice', this.invoicePaid)
       // return this.analyticsBulk = analytics
     }, error => {
@@ -248,13 +247,13 @@ export class DashboardComponent implements OnInit {
       action: "top-products", id: this.userData[this.userData.type].id, type: this.userData.type
     };
     this.isLoadingBulk = true;
-    console.log('payload message product: ', payload);
-    console.log('sample : ', { action: "top_products", type: "company", id: "JE158175" });
+      console.log('payload message product: ', payload);
+      // console.log('sample : ', { action: "top_products", type: "company", id: "JE158175" });
 
-    this.dashboard.bulkAnalytics({ action: "top_products", type: "company", id: "VE707402" }).subscribe(topFive => {
-      // this.isLoadingBulk = false;
+    this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
+      this.isLoadingBulk = false;
 
-      console.log('getTopFive data :', topFive)
+      console.log('product data :', topFive)
       this.pieChartLabels = topFive.amount_purchased.map(item => item.name)
       this.pieChartData = topFive.amount_purchased.map(item => item.amount)
 
@@ -264,7 +263,7 @@ export class DashboardComponent implements OnInit {
       // console.log('getTopFive label 1:', this.pieChartData)
       // console.log('getTopFive label 2:', this.pieChartData2)
     }, error => {
-      // this.isLoadingBulk = false
+      this.isLoadingBulk = false
       console.log('Error : ', error)
     })
   }
@@ -272,7 +271,7 @@ export class DashboardComponent implements OnInit {
 
   async getTopFiveCompany() {
     const payload = {
-      action: "top-companies", id: this.userData[this.userData.type].id, type: this.userData.type
+      action: "top_companies"
     };
     this.isLoadingBulk = true;
     console.log('payload message company: ', payload);
@@ -280,12 +279,12 @@ export class DashboardComponent implements OnInit {
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
       // this.isLoadingBulk = false;
 
-      // console.log('getTopFive data :', topFive)
-      this.pieChartLabelsCompany = topFive.amount_purchased.map(item => item.name)
-      this.pieChartDataCompany = topFive.amount_purchased.map(item => item.amount)
+      console.log('getTopFive data company :', topFive)
+      this.pieChartLabelsCompany = topFive.top_ranked.map(item => item.company_name)
+      this.pieChartDataCompany = topFive.top_ranked.map(item => item.amount)
 
-      this.pieChartLabels2Company = topFive.volume_purchased.map(item => item.name)
-      this.pieChartData2Company = topFive.volume_purchased.map(item => item.quantity)
+      this.pieChartLabelsCompany2 = topFive.top_ranked.map(item => item.company_name)
+      this.pieChartDataCompany2 = topFive.top_ranked.map(item => item.amount)
     }, error => {
       // this.isLoadingBulk = false
       console.log('Error : ', error)

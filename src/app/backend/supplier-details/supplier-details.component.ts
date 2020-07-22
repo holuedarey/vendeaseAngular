@@ -7,12 +7,22 @@ import { DasboardService } from '../../_services/dasboard.service';
   styleUrls: ['./supplier-details.component.css']
 })
 export class SupplierDetailsComponent implements OnInit {
-  data:any;
-  isLoadingDetail:boolean;
-  constructor(private dashboard:DasboardService) {
-    
-    
-   }
+  data: any;
+  isLoadingDetail: boolean;
+  receiptsAmount: any;
+  receiptsCount: any;
+
+  invoiceUnpaidAmount;
+  invoiceUnpaidCount;
+
+  deliveryAmount: any;
+  deliveryCount: any;
+
+  theUsers:any[] = []
+  constructor(private dashboard: DasboardService) {
+
+
+  }
 
   ngOnInit(): void {
     this.data = history.state;
@@ -22,11 +32,11 @@ export class SupplierDetailsComponent implements OnInit {
 
   async supplierDetails() {
     var payload = {
-    action: "bulk-analytics", 
-    type: this.data.type,
-    id: this.data[this.data.type].id,
-    startDate: parseDate(new Date()), 
-    endDate: parseDate(new Date),
+      action: "bulk-analytics",
+      type: this.data.type,
+      id: this.data[this.data.type].id,
+      startDate: parseDate(new Date()),
+      endDate: parseDate(new Date),
     }
     this.isLoadingDetail = true;
     console.log('payload message : ', payload);
@@ -34,10 +44,17 @@ export class SupplierDetailsComponent implements OnInit {
     this.dashboard.bulkAnalytics(payload).subscribe((analytics) => {
       this.isLoadingDetail = false;
       console.log('bulkanalytics data :', analytics)
-      // this.invoiceRaised = analytics['invoices'].totalAmount || 0;
-      // this.invoiceUnpaid = analytics['unpaid_invoices'].totalAmount || 0;
-      // this.invoicePaid = this.invoiceRaised - this.invoiceUnpaid;
-      // console.log('paid invoice', this.invoicePaid)
+      this.receiptsAmount = analytics['receipts'].totalAmount || 0;
+      this.receiptsCount = analytics['receipts'].count || 0;
+
+      this.invoiceUnpaidAmount = analytics['unpaid_invoices'].totalAmount || 0;
+      this.invoiceUnpaidCount = analytics['unpaid_invoices'].count || 0;
+
+      this.deliveryAmount =  analytics['delivery'].totalAmount || 0;
+      this.deliveryCount =  analytics['delivery'].count || 0;
+      
+      //get the users data
+      this.theUsers = analytics.users;
       // return this.analyticsBulk = analytics
     }, error => {
       this.isLoadingDetail = false
@@ -49,4 +66,4 @@ export class SupplierDetailsComponent implements OnInit {
 
 }
 
-const parseDate = (dateInput) => `${dateInput.getMonth()+1}/${dateInput.getDate() }/${dateInput.getFullYear()}`
+const parseDate = (dateInput) => `${dateInput.getMonth() + 1}/${dateInput.getDate()}/${dateInput.getFullYear()}`

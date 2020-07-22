@@ -55,14 +55,12 @@
                                                         Unpaid Invoices</p>
                                                     <div
                                                         class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-                                                        <h4
-                                                            class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
-                                                            ₦23333</h4>
+                                                        <h4 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
+                                                            {{ invoiceUnpaidAmount | currency : '₦'}}
+                                                        </h4>
                                                     </div>
-                                                    <p class="mb-0 mt-2 text-warning"><span
-                                                            class="text-black ml-1"><small>334 Un
-                                                                Paid
-                                                                Invoices so far</small></span></p>
+                                                    <p class="mb-0 mt-2 text-warning">
+                                                        <span class="text-black ml-1"><small>{{ invoiceUnpaidCount}} Un Paid Invoices so far</small></span></p>
                                                 </div>
                                             </div>
                                         </a>
@@ -79,10 +77,10 @@
                                                         class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
                                                         <h4
                                                             class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
-                                                            ₦2232</h4>
+                                                             {{ receiptsAmount | currency : '₦'}}</h4>
                                                     </div>
                                                     <p class="mb-0 mt-2 text-success"><span
-                                                            class="text-black ml-1"><small>2223 Receipts
+                                                            class="text-black ml-1"><small>{{receiptsCount}} Receipts
                                                                 Generated so far</small></span></p>
                                                 </div>
                                             </div>
@@ -101,10 +99,10 @@
                                                         class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
                                                         <h4
                                                             class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
-                                                            ₦2222</h4>
+                                                            {{ deliveryAmount | currency : '₦'}} </h4>
                                                     </div>
                                                     <p class="mb-0 mt-2 text-success"><span
-                                                            class="text-black ml-1"><small>33323 PO
+                                                            class="text-black ml-1"><small>{{ deliveryCount }} PO
                                                                 Delivered so far</small></span></p>
                                                 </div>
                                             </div>
@@ -130,20 +128,20 @@
                                                         <th>Email</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                    <!-- {% for user in users %} -->
-                                                    <!-- <tr>
+                                                <tbody *ngIf="theUsers.length">
+                                                    <tr *ngFor="let user of theUsers">
                                                         <td>{{ user.name }}</td>
                                                         <td>{{ user.permissions }}</td>
                                                         <td>{{ user.phone }}</td>
                                                         <td>{{ user.email }}</td>
                                                         <td>
                                                         </td>
-                                                    </tr> -->
-                                                    <!-- {% endfor %} -->
-
+                                                    </tr>
                                                 </tbody>
+
                                             </table>
+                                            <p *ngIf="!theUsers.length" class="alert alert-danger col-md-12 text-center" style="margin-top: 30px;">No Record Found</p>
+
                                         </div>
                                     </div>
                                 </div>
