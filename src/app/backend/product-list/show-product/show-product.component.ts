@@ -11,7 +11,7 @@ import { SupplierService } from '../../../_services/supplier.service';
 export class ShowProductComponent implements OnInit {
 
   description: any;
-  name: any;
+  vendor: any;
   phone: any;
   suppliers: any;
   AssignProductForm: FormGroup;
@@ -22,9 +22,8 @@ export class ShowProductComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) data) {
 
     this.description = JSON.parse(data.data);
-
-    this.name = this.description.name;
-    this.phone = this.description.phone
+    this.vendor = this.description.vendor;
+  
   }
 
   ngOnInit(): void {
@@ -46,7 +45,7 @@ export class ShowProductComponent implements OnInit {
 
   getSupplierLists() {
     this.supplierService.getSupplierList().subscribe(suppliers => {
-      console.log('supplier data : ', suppliers)
+      // console.log('supplier data : ', suppliers)
       this.suppliers = suppliers.data;
     }, error => {
       console.log('Error :', error);

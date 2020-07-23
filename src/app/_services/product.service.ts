@@ -24,4 +24,11 @@ export class ProductService {
       }));
   }
 
+  updateProduct(productId, payload): Observable<any> {
+    return this.http.patch(`${Endpoint.PRODUCTS.product}/${productId}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
 }

@@ -6,6 +6,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { ShowProductComponent } from './show-product/show-product.component';
 import { ConfirmDialogComponent } from '../user-management/confirm-dialog/confirm-dialog.component';
 import { ToastrService } from 'ngx-toastr';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 @Component({
   selector: 'app-product-list',
@@ -18,7 +19,7 @@ export class ProductListComponent implements OnInit {
   products: any[] = [];
   userData: any;
 
-  constructor(private product: ProductService, public storageService: StorageService, private dialog: MatDialog,  private toastr: ToastrService) {
+  constructor(private product: ProductService, public storageService: StorageService, private dialog: MatDialog, private toastr: ToastrService) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
   }
@@ -56,15 +57,29 @@ export class ProductListComponent implements OnInit {
     dialogConfig.data = {
       data: JSON.stringify(product)
     };
-    this.dialog.open(ShowProductComponent, dialogConfig)
-
+    
     const dialogRef = this.dialog.open(ShowProductComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       data => {
-        console.log("Dialog output:", data)
-        if(data){
-
+        
+        if (data) {
+        
+          const productId = product._id;
+          this.product.updateProduct(productId, data).subscribe((product) => {
+            console.log('product List data :', product.data)
+            this.toastr.success("Product Updated Successfully", 'Successful', {
+              timeOut: 3000,
+              closeButton: true
+            });
+            this.getProductList();
+          }, error => {
+            this.toastr.warning("Error Updating the Record", 'Failure', {
+              timeOut: 3000,
+              closeButton: true
+            });
+            console.log('Error :', error)
+          })
         }
       }
     );
@@ -76,18 +91,19 @@ export class ProductListComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = '300px';
-    dialogConfig.width = '450px';
+    dialogConfig.height = '350px';
+    dialogConfig.width = '500px';
     dialogConfig.position = {
       'top': '50px',
 
     };
 
+    const data = [product, this.userData]
     dialogConfig.data = {
-      data: JSON.stringify(product)
+      data: JSON.stringify(data)
     };
 
-    const dialogRef = this.dialog.open(ShowProductComponent, dialogConfig);
+    const dialogRef = this.dialog.open(EditProductComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       data => console.log("Dialog output:", data)
@@ -115,13 +131,11 @@ export class ProductListComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      if(data){
-        dialogRef.close();
-        console.log('Yes clicked');
+      if (data) {
         this.isLoadingProduct = true;
         this.product.deleteProduct(product).subscribe(users => {
           // this.getUserLists();
-          this.toastr.success("User Deleted Successfully", 'Successful', {
+          this.toastr.success("Product Deleted Successfully", 'Successful', {
             timeOut: 3000,
             closeButton: true
           });

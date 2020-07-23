@@ -2,10 +2,10 @@
     <div class="col-md-12">
         <h5 class="modal-title" id="ModalLabel">Assign item to supplier </h5>
 
-        <form [formGroup]=AssignProductForm>
+        <form [formGroup]="AssignProductForm">
 
             <div class="form-group">
-                <select name="vendor" style="height:  45px"  class="js-example-basic-single w-100">
+                <select formControlName="vendor" style="height:  45px"  class="js-example-basic-single w-100">
                   <option selected value="">Please select supplier</option>
                     <option *ngFor="let vendor of suppliers" value="{{ vendor.vendor.id }}">{{ vendor.vendor.name }}</option>
                 </select>
