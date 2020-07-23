@@ -91,8 +91,8 @@ export class ProductListComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = '350px';
-    dialogConfig.width = '500px';
+    dialogConfig.height = '600px';
+    dialogConfig.width = '550px';
     dialogConfig.position = {
       'top': '50px',
 
@@ -106,7 +106,27 @@ export class ProductListComponent implements OnInit {
     const dialogRef = this.dialog.open(EditProductComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => console.log("Dialog output:", data)
+      data => {
+        if(data){
+        console.log("Dialog output:", data)
+
+          const productId = product._id;
+          this.product.updateProduct(productId, data).subscribe((product) => {
+            console.log('product List data :', product.data)
+            this.toastr.success("Product Updated Successfully", 'Successful', {
+              timeOut: 3000,
+              closeButton: true
+            });
+            this.getProductList();
+          }, error => {
+            this.toastr.warning("Error Updating the Record", 'Failure', {
+              timeOut: 3000,
+              closeButton: true
+            });
+            console.log('Error :', error)
+          })
+        }
+      }
     );
   }
 

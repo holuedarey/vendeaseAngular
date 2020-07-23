@@ -13,7 +13,16 @@ export class EditProductComponent implements OnInit {
   productData:any
   userData:any;
 
+  name:any;
+  brand:any;
+  description:any;
+  price:any;
+  category:any;
+  
   EditProductForm: FormGroup;
+
+
+  categories:any[] = ['perishable', 'non perishable', 'miscellaneous']
   constructor(
     
     private fb: FormBuilder,
@@ -23,19 +32,28 @@ export class EditProductComponent implements OnInit {
     this.data = JSON.parse(data.data);
     this.userData = this.data[1];
     this.productData = this.data[0];
-  
+    // console.log('product :', this.productData)
+   
   }
 
   ngOnInit(): void {
-    console.log('data user:', this.data[1]);
-    console.log('data product:', this.data[0]);
+    // console.log('data user:', this.data[1]);
+    // console.log('data product:', this.data[0]);
     this.EditProductForm = this.fb.group({
       name: ['', Validators.compose([Validators.required])],
       brand: ['', Validators.compose([Validators.required])],
-      category: ['', Validators.compose([Validators.required])],
+      category: [this.productData.category,''],
       description: ['', Validators.compose([Validators.required])],
       price: ['', Validators.compose([Validators.required])],
     });
+
+    //form data
+    this.name = this.productData.name;
+    this.brand = this.productData.brand;
+    this.description = this.productData.description;
+    this.price = this.productData.price;
+
+    // this.EditProductForm.setValue(this.category)
   }
 
 
