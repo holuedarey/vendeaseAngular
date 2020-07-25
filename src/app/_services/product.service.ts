@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class ProductService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
   produtList(): Observable<any> {
     return this.http.get(Endpoint.PRODUCTS.product).pipe(
       map(data => {
@@ -17,6 +17,21 @@ export class ProductService {
       }));
   }
 
+  createProduct(payload): Observable<any> {
+    return this.http.post(Endpoint.PRODUCTS.product, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+
+  createProductUpload(payload): Observable<any> {
+    return this.http.post(Endpoint.PRODUCTS.product+'/uploads', payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+ 
   deleteProduct(productId): Observable<any> {
     return this.http.delete(`${Endpoint.PRODUCTS.product}/${productId}`).pipe(
       map(data => {

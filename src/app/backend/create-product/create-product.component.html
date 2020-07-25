@@ -1,1 +1,84 @@
-<p>create-product works!</p>
+<!-- begin::main -->
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content">
+
+                <div class="col-md-8 grid-margin stretch-card float-left">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">New Product Form</h4>
+
+                            <form [formGroup]="CreateProductForm">
+
+
+                                <div *ngIf="userData.type != 'vendor' ">
+                                    <div class="form-group">
+                                        <select formControlName="category" class="form-control" required>
+                                            <option *ngFor="let item of categories" [ngValue]="item">{{ item}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group p_name">
+                                        <input formControlName="name" type="text" class="form-control p_name"
+                                            placeholder="Name"
+                                            [class.invalid]="!CreateProductForm.controls.name.valid && CreateProductForm.controls.name.dirty">
+                                    </div>
+                                    <div class="form-group p_brand">
+                                        <input formControlName="brand" type="text" class="form-control p_brand"
+                                            id="p_brand" placeholder="Brand"
+                                            [class.invalid]="!CreateProductForm.controls.brand.valid && CreateProductForm.controls.branddirty">
+                                    </div>
+                                    <div class="form-group p_desc">
+                                        <textarea formControlName="description" class="form-control p_desc" rows="20"
+                                            placeholder="Description"
+                                            [class.invalid]="!CreateProductForm.controls.description.valid && CreateProductForm.controls.description.dirty"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group p_price" *ngIf="userData.type != 'company' ">
+                                    <input formControlName="price" type="number" step="0.01"
+                                        class="form-control p_price" id="p_price" placeholder="Price"
+                                        [class.invalid]="!CreateProductForm.controls.price.valid && CreateProductForm.controls.price.dirty">
+                                </div>
+                                <div *ngIf="isLoadingProduct" class="offset-lg-5 offset-md-5 offset-sm-5">
+                                    <mat-progress-spinner mode="indeterminate" diameter='40' strokeWidth='3'>
+                                    </mat-progress-spinner>
+                                </div>
+                                <button type="button" class="btn btn-primary" [disabled]="CreateProductForm.invalid"
+                                    (click)="createPoduct()">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 grid-margin stretch-card float-left">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Batch Upload</h4>
+                            <p>You can upload multiple products at once by uploading an excel sheet. <br />
+                                But first download our template and prepare you sheet to match the template</p>
+
+                            <a href="../../../assets/files/Product_sample.xlsx" target="_blank">
+                                <button type="button" class="btn btn-success">Download Template</button>
+                            </a>
+                            <br /> <br />
+                            <h3>Upload File </h3> <br />
+
+                            <form [formGroup]="CreateProductFormUpload" (ngSubmit)="createPoductUpload()">
+
+                                <input  formControlName="documents" type="file" (change)="onFileChange($event)"> <br /><br />
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
