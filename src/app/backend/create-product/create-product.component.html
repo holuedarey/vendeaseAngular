@@ -69,8 +69,11 @@
                             <h3>Upload File </h3> <br />
 
                             <form [formGroup]="CreateProductFormUpload" (ngSubmit)="createPoductUpload()">
-
-                                <input  formControlName="documents" type="file" (change)="onFileChange($event)"> <br /><br />
+                                <div class="progress form-group" *ngIf="progress > 0">
+                                    <div class="progress-bar progress-bar-striped bg-success" role="progressbar" [style.width.%]="progress">
+                                    </div>
+                                </div>
+                                <input  type="file" (change)="onFileChange($event)"> <br /><br />
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
 

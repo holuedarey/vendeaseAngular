@@ -5,6 +5,7 @@ import { StorageService } from '../../_service/storage.service';
 import { FormControl } from '@angular/forms';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Label, BaseChartDirective, Color } from 'ng2-charts';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -115,7 +116,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
 
-  constructor(public dashboard: DasboardService, public storageService: StorageService,) {
+  constructor(public dashboard: DasboardService, public storageService: StorageService,private router:Router) {
    
   }
 
@@ -126,7 +127,7 @@ export class DashboardComponent implements OnInit {
     this.getBulkAnalytics();
     this.getAnalytics();
     this.loadGraph();
-    // this.getTopFiveCompany();
+    this.getTopFiveCompany();
   }
 
   // events
@@ -164,6 +165,10 @@ export class DashboardComponent implements OnInit {
       this.isLoadingInvoice = false;
       console.log('Error :', error)
     })
+  }
+
+  getSingleInvoice(invoice){
+    this.router.navigate(['view/invoice'], { state: invoice })
   }
 
   async getGraphData() {
@@ -244,7 +249,7 @@ export class DashboardComponent implements OnInit {
 
   async getTopFive() {
     const payload = {
-      action: "top-products", id: this.userData[this.userData.type].id, type: this.userData.type
+      action: "top_products", id: this.userData[this.userData.type].id, type: this.userData.type
     };
     this.isLoadingBulk = true;
       console.log('payload message product: ', payload);

@@ -18,6 +18,13 @@ export class DasboardService {
         return data;
       }));
   }
+   getInvoice(invoiceId): Observable<any> {
+    return this.http.get(`${Endpoint.DASHBOARD.invoice}/${invoiceId}`).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
 
   getGraph(): Observable<any> {
       return this.http.post(Endpoint.DASHBOARD.dashboard_graph,{}).pipe(

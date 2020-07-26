@@ -1,0 +1,209 @@
+<!-- begin::main -->
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card px-2">
+                            <div class="card-body">
+                                <div class="container-fluid">
+                                    <h3 class="text-right my-5">Invoice ID #{{ invoice.invoice_number }} <br />
+                                        Order ID #{{ invoice.order_number }} <br />
+
+                                        <label class="badge badge-success" *ngIf="invoice.paid == 1">Paid</label>
+
+                                        <label class="badge badge-danger" *ngIf="invoice.paid != 1">Pending
+                                            Payment</label>
+
+                                        {% if invoice.payment_date and invoice.paid != 1 %}
+                                        <div *ngIf="invoice.paid != 1 &&  invoice.payment_date ">
+                                            <p>Payment Due Date:
+                                                <span
+                                                    class="text-danger">{{ invoice.payment_date|string_date|date }}</span>
+                                            </p>
+                                            <p class="text-danger">Payment Overdue by: {{ invoice.payment_date  }} Days
+                                            </p>
+                                        </div>
+
+                                    </h3>
+
+                                    <hr>
+                                </div>
+                                <div class="container-fluid d-flex justify-content-between">
+                                    <div class="col-lg-3 pl-0">
+                                        <p class="mt-5 mb-2">
+                                            Prepared by <b>
+                                                <br />Vendease System<br />
+
+                                            </b></p>
+                                    </div>
+                                    <div class="col-lg-3 pr-0">
+                                        <p class="mt-5 mb-2 text-right"><b>Invoice to</b></p>
+                                        <p class="text-right">{{ invoice.company_details.name }}<br></p>
+                                    </div>
+                                </div>
+                                <div class="container-fluid d-flex justify-content-between">
+                                    <div class="col-lg-3 pl-0">
+                                        <p class="mb-0 mt-5">Invoice Date : {{ invoice.createdAt|string_date|date }}</p>
+                                    </div>
+                                </div>
+                                <div class="container-fluid mt-5 d-flex justify-content-center w-100">
+                                    <div class="table-responsive w-100">
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="bg-dark text-white">
+                                                    <th>Product</th>
+                                                    <th>Description</th>
+                                                    <th>Quantity</th>
+                                                    <th class="text-right">Unit cost</th>
+                                                    <th class="text-right">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for item in invoice.items %}
+                                                <tr class="text-right">
+                                                    <td class="text-left">{{ item.name }}</td>
+                                                    <td class="text-left">{{ item.description }}</td>
+                                                    <td class="text-left">{{ item.quantity }}</td>
+                                                    <td class="text-right">NGN {{ item.price }}</td>
+                                                    <td class="text-right">NGN {{ item.total }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="container-fluid mt-5 w-100">
+                                    <p class="text-right mb-2">Sub - Total amount: NGN {{ invoice.sub_total }} </p>
+                                    {% for item in invoice.other %}
+                                    <div *ngFor="for item in invoice.other | keyvalue"">
+                        <p class=" text-right">{{ item.key }} : NGN {{ item.value }}</p>
+                                    </div>
+                                    <h4 class="text-right mb-5">Total : NGN {{ invoice.grand_total }}</h4>
+                                    <hr>
+                                </div>
+                                <div class="container-fluid w-100">
+
+                                    <a routerLnk="" target="_blank" class="btn btn-primary float-right mt-4 ml-2"><i
+                                            class="ti-printer mr-1 noprint"></i>Print</a>
+                                    <a routerLnk="{% url 'download_xsl' 'xls' invoice|get:"_id" %}" target="_blank"
+                                        class="btn btn-success float-right mt-4 ml-2"><i
+                                            class="fa fa-file-excel-o mr-1"></i>Excel</a>
+                                    <a routerLnk="{% url 'download_xsl' 'pdf' invoice|get:"_id" %}" target="_blank"
+                                        class="btn btn-danger float-right mt-4 ml-2"><i
+                                            class="fa fa-file-pdf-o mr-1"></i>PDF</a>
+
+                                    <!-- {% if invoice.approved %}
+                    {% if user_details.user.type == 'company' and invoice.paid == 0 %}
+                    <a routerLnk="{% url 'generate_ref_id' invoice.invoice_number invoice|get:"_id"  %}"><button
+                            class="btn btn-success float-right mt-4 ml-2"><i class="mr-1 noprint"></i>₦ Pay
+                            Now</button></a>
+                    {% if user_details.user.payLater == 1 and not invoice.payment_date %}
+                    <button class="btn btn-warning float-right mt-4 ml-2" data-toggle="modal" data-target="#PayLater">
+                        <i class="mr-1 noprint"></i>Pay Later</button>
+                    {% endif %}
+                    {% endif %}
+
+                    {#                             {% if user_details.user.type == 'system' and invoice.paid == 0 and not invoice.payment_date %}#}
+                    {% if user_details.user.type == 'system' and invoice.paid == 0 %}
+                    <button class="btn btn-success float-right mt-4 ml-2" data-toggle="modal" data-target="#MarkPaid">
+                        <i class="mr-1 text-white"></i>Mark as Paid</button>
+                    {% endif %}
+                    {% else %}
+                    {% if user_details.user.company.permissions == 'admin' %}
+                    <a routerLnk="{% url 'approve_invoice' invoice|get:"_id" 'approve' %}" class="confirm"><button
+                            class="btn btn-success float-right mt-4 ml-2">
+                            <i class="mr-1 text-white"></i>Approve Invoice</button></a>
+                    {% endif %}
+                    {% endif %} -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="PayLater" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">When will you like to pay?
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form method="post"
+                    action="{% url 'pay_later' invoice|get:"_id" invoice.invoice_number invoice.company_details.id invoice.order_number invoice.grand_total %}">
+                    <div class="form-group">
+                        <select type="text" name="payment_date" class="form-control" required id="pay_later">
+                            <option value="7">7 Days</option>
+                            <option value="14">14 Days</option>
+                            <option value="21">21 Days</option>
+                            <option value="30">30 Days</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="MarkPaid" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Please complete the process accordingly
+                    <br />
+                    <small style="color: darkred"></small>
+                </h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="location">Select transaction type</label>
+                            <select style="width: 100%" name="ref" class="form-control js-example-basic-single w-100 "
+                                required>
+                                <option value="">Please select transaction type </option>
+                                <option value="bank">Bank</option>
+                                <option value="pos">POS</option>
+                                <option value="cheque">Cheque</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="location">Enter Reference ID <small>(Cheque Number, Teller Number, POS
+                                    Transaction ID)</small></label>
+                            <input type="text" name="ref_id" class="form-control" placeholder="Ref ID" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -25,13 +25,16 @@ export class ProductService {
   }
 
 
-  createProductUpload(payload): Observable<any> {
-    return this.http.post(Endpoint.PRODUCTS.product+'/uploads', payload).pipe(
+  createProductUpload(profileImage): Observable<any> {
+    return this.http.post(Endpoint.PRODUCTS.product + '/uploads', profileImage, {
+      reportProgress: true,
+      observe: 'events'
+    }).pipe(
       map(data => {
         return data;
       }));
   }
- 
+
   deleteProduct(productId): Observable<any> {
     return this.http.delete(`${Endpoint.PRODUCTS.product}/${productId}`).pipe(
       map(data => {
