@@ -249,11 +249,10 @@
                                         <td *ngIf="userData.type == 'system'">
                                             {{ item.vendor_details ?  item.vendor_details.name : 'Nil'}}</td>
                                         <td>
-                                            <a href="#" class="text-white btn btn-primary btn-xs" data-toggle="tooltip"
+                                            <button  (click)="getSingleInvoice(item)" class="text-white btn btn-primary btn-xs" data-toggle="tooltip"
                                                 title="view">
                                                 <i class="fa fa-eye"></i>
-                                            </a>
-
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -267,7 +266,7 @@
                                     <p class="alert alert-warning col-md-12 text-center" *ngIf="!invoices.length">No Record available</p>
 
                                 </div>
-                                <nav *ngIf="invoices.length">
+                                <nav *ngIf="invoices.length  && !isLoadingInvoice">
                                     <ul class="pagination pagination-rounded" style="display: inline !important;">
                                         <li class="page-item disabled">
                                             <a class="page-link" href="#" tabindex="-1" aria-disabled="true">

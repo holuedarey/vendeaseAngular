@@ -60,6 +60,13 @@ import { AddfeeModalComponent } from './backend/company-list/addfee-modal/addfee
 import { CreateProductComponent } from './backend/create-product/create-product.component';
 import { OrderListComponent } from './backend/order-list/order-list.component';
 import { CreateOrderComponent } from './backend/create-order/create-order.component';
+import { SingleInvoiceComponent } from './backend/single-invoice/single-invoice.component';
+import { CommonModule } from '@angular/common';
+import { InvoiceListComponent } from './backend/invoice-list/invoice-list.component';
+import { ClaimComponent } from './backend/invoice-list/claim/claim.component';
+import { AssignOrderComponent } from './backend/assign-order/assign-order.component';
+import { SingleOrderComponent } from './backend/single-order/single-order.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
@@ -98,11 +105,18 @@ export function tokenGetter() {
     AddfeeModalComponent,
     CreateProductComponent,
     OrderListComponent,
-    CreateOrderComponent
+    CreateOrderComponent,
+    SingleInvoiceComponent,
+    InvoiceListComponent,
+    ClaimComponent,
+    AssignOrderComponent,
+    SingleOrderComponent,
+    
   ],
 
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -130,6 +144,9 @@ export function tokenGetter() {
     //   },
     // }),
   ],
+  exports: [
+    HeaderComponent,
+],
   providers: [
     { provide: HTTP_INTERCEPTORS, 
       useClass: RequestInterceptorService, 

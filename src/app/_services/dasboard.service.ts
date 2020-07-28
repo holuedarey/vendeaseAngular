@@ -18,7 +18,7 @@ export class DasboardService {
         return data;
       }));
   }
-   getInvoice(invoiceId): Observable<any> {
+  getInvoice(invoiceId): Observable<any> {
     return this.http.get(`${Endpoint.DASHBOARD.invoice}/${invoiceId}`).pipe(
       map(data => {
         return data;
@@ -26,8 +26,15 @@ export class DasboardService {
   }
 
 
+  deleteInvoice(invoiceId): Observable<any> {
+    return this.http.delete(`${Endpoint.DASHBOARD.invoice}/${invoiceId}`).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
   getGraph(): Observable<any> {
-      return this.http.post(Endpoint.DASHBOARD.dashboard_graph,{}).pipe(
+    return this.http.post(Endpoint.DASHBOARD.dashboard_graph, {}).pipe(
       map(data => {
         return data;
       }));
@@ -39,7 +46,7 @@ export class DasboardService {
         return data;
       }));
   }
-  
+
   bulkAnalytics(payload): Observable<any> {
     return this.http.post(Endpoint.DASHBOARD.analytic, payload).pipe(
       map(data => {

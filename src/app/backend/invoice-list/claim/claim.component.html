@@ -1,0 +1,25 @@
+<div class="col-md-12">
+    <div class="well">
+        <h3 class="lead" mat-dialog-title>Raise Claim for #{{ description._id}}</h3>
+    </div>
+    <form [formGroup]="ClaimForm">
+
+        <div class="form-group phone">
+            <label for="claim">Claim Subject</label>
+            <input class="form-control" required formControlName="subject" id="claim" placeholder="Enter Subject" />
+        </div>
+        <div class="form-group phone">
+            <label for="claim">Claim Message</label>
+            <textarea class="form-control" required formControlName="message" cols="6" rows="10" id="claim"
+                placeholder="Enter Claim"> </textarea>
+        </div>
+        <div class="row" style="margin-top: 48px;;">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary" (click)="save()">Submit</button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-warning pull-right" (click)="close()">Close</button>
+            </div>
+        </div>
+    </form>
+</div>

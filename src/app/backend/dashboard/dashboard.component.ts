@@ -168,6 +168,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getSingleInvoice(invoice){
+    console.log('log : ', invoice);
     this.router.navigate(['view/invoice'], { state: invoice })
   }
 

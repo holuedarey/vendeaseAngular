@@ -1,0 +1,103 @@
+<!-- begin::main -->
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card px-2">
+                            <div class="card-body" *ngIf="!isLoadingDetail">
+                                <div class="container-fluid">
+                                    <h3 class="text-right my-5">Invoice ID #{{ invoiceNumber }} <br />
+                                        Order ID #{{ order_number }} <br />
+
+                                        <label class="badge badge-success" *ngIf="paid == true ">Paid</label>
+                                        <label class="badge badge-danger" *ngIf="paid == false ">Pending Payment</label>
+
+                                      
+                                        <div *ngIf="paid == false && !isLoadingDetail">
+                                            
+                                            <p>Payment Due Date:
+                                                <span class="text-danger">{{ payment_date }} </span>
+                                            </p>
+                                            <p class="text-danger">Payment Overdue by: {{ overDue  }} Days
+                                            </p>
+                                        </div>
+
+                                    </h3>
+                                    <hr>
+                                </div>
+                                <div class="container-fluid d-flex justify-content-between">
+                                    <div class="col-lg-3 pl-0">
+                                        <p class="mt-5 mb-2">
+                                            Prepared by <b>
+                                                <br />Vendease System<br />
+
+                                            </b></p>
+                                    </div>
+                                    <div class="col-lg-3 pr-0">
+                                        <p class="mt-5 mb-2 text-right"><b>Invoice to</b></p>
+                                        <p class="text-right">{{ company_details_name    }}<br></p>
+                                    </div>
+                                </div>
+                                <div class="container-fluid d-flex justify-content-between">
+                                    <div class="col-lg-3 pl-0">
+                                        <p class="mb-0 mt-5">Invoice Date : {{ createdAt | date }}</p>
+                                    </div>
+                                </div>
+                                <div class="container-fluid mt-5 d-flex justify-content-center w-100">
+                                    <div class="table-responsive w-100">
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="bg-dark text-white">
+                                                    <th>Product</th>
+                                                    <th>Description</th>
+                                                    <th>Quantity</th>
+                                                    <th class="text-right">Unit cost</th>
+                                                    <th class="text-right">Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="items.length">
+
+                                                <tr class="text-right" *ngFor="let item of items">
+                                                    <td class="text-left">{{ item.name }}</td>
+                                                    <td class="text-left">{{ item.description }}</td>
+                                                    <td class="text-left">{{ item.quantity }}</td>
+                                                    <td class="text-right">NGN {{ item.price }}</td>
+                                                    <td class="text-right">NGN {{ item.total }}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="container-fluid mt-5 w-100">
+                                    <p class="text-right mb-2">Sub - Total amount: NGN {{ sub_total }} </p>
+
+                                    <div *ngIf="items.length">
+                                        <p class=" text-right"  *ngFor="let item of others | keyvalue">{{ item.key }} : NGN {{ item.value }} </p>
+                                    </div>
+                                    <h4 class="text-right mb-5">Total : NGN {{ grand_total }}</h4>
+                                    <hr>
+                                </div>
+                                <div class="container-fluid w-100">
+                                    <a routerLnk="" target="_blank" class="btn btn-primary float-right mt-4 ml-2"><i
+                                            class="ti-printer mr-1 noprint"></i>Print</a>
+                                    <a routerLnk="" target="_blank" class="btn btn-success float-right mt-4 ml-2"><i
+                                            class="fa fa-file-excel-o mr-1"></i>Excel</a>
+                                    <a routerLnk="" target="_blank" class="btn btn-danger float-right mt-4 ml-2"><i
+                                            class="fa fa-file-pdf-o mr-1"></i>PDF</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
+    </div>

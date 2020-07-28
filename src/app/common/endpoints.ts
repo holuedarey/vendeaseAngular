@@ -18,6 +18,14 @@ export const Endpoint = {
         analytic: `${BASE_URL}/analytics`,
         dashboard_graph: `${BASE_URL}/graph-data`,
     },
+    CLAIMS: {
+        claims: `${BASE_URL}/claims`,
+    },
+    
+    PURCHASE: {
+        purchase_orders:  `${BASE_URL}/purchase_orders`, 
+    },
+
     PRODUCTS: {
         product: `${BASE_URL}/product`,
     }
