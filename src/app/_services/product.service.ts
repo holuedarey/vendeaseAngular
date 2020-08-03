@@ -17,6 +17,14 @@ export class ProductService {
       }));
   }
 
+
+  produtListUser(userId): Observable<any> {
+    return this.http.get(`${Endpoint.PRODUCTS.product}/${userId}`).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
   createProduct(payload): Observable<any> {
     return this.http.post(Endpoint.PRODUCTS.product, payload).pipe(
       map(data => {

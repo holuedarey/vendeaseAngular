@@ -90,7 +90,7 @@
                                 <!-- <img class="profile-image m-t-b-20" src="{{ user_details.user.avatar }}" alt="Profile" /> -->
 
                                 <img class="profile-image m-t-b-20"
-                                    src="../../../assets/dashboard/assets/media/image/user_icon.png"
+                                    src="{{ avatar }}"
                                     alt="Profile" />
 
                                 <div style="position:absolute;margin-left: 53px;margin-top:-20px;"
@@ -110,17 +110,14 @@
 
                             <p class="text-white ml-2" style="margin-top: -12px;">Systems</p>
 
-                            <p class="text-white ml-2" style="margin-top: -12px;"></p>
-
-                            <p class="text-white ml-2" style="margin-top: -12px;"></p>
-
-                            <div class="m-t-20">
+                            <p class="text-white ml-2" style="margin-top: -12px; font-size: 20px;">{{ name }}</p>
+                            <!-- <div class="m-t-20">
                                 <div class="ml-1">
                                     <p class="text-white text-left"><i class="phone"></i>: <br /></p>
                                     <p class="text-white text-left"><i class="mail"></i>:<br /> </p>
 
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </ul>
@@ -131,7 +128,7 @@
                         <i class="mr-2 text-white" class="fa fa-desktop" class="database"></i> Products
                     </li>
 
-                    <li>
+                    <li  *ngIf="userData != 'vendor' "  >
                         <a class="text-white" routerLink="create-product">New Products</a>
                     </li>
 
@@ -146,7 +143,7 @@
                         <i class="mr-2 text-white" class="list"></i> Purchase Order
                     </li>
 
-                    <li>
+                    <li *ngIf="userData != 'vendor' ">
                         <a class="text-white" routerLink="create-purchase">New Purchase Order</a></li>
                     <li>
 

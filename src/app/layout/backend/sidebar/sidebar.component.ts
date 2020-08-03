@@ -9,12 +9,16 @@ import { StorageService } from '../../../_service/storage.service';
 })
 export class SidebarComponent implements OnInit {
   userData:any;
+  avatar:any;
+  name:any;
   constructor(public storageService:StorageService) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
    }
 
   ngOnInit() {
+    this.avatar = this.userData.avatar;
+    this.name = this.userData.name;
   }
 
 }

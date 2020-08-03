@@ -15,34 +15,37 @@
                             <div class="card-body">
                                 <h4 class="card-title">Purchase Order Form</h4>
 
-                                <form method="POST" id="purchaseOrderForm">
+                                <form method="POST" [formGroup]="purchaseOrderForm">
                                     <div id="purchase_orderForm">
                                         <div class="form-group col-lg-12 float-left">
                                             <label for="product">Product<small style="color:darkred">* </small><small
                                                     style="color: darkred" class="float-right"> Product with price
                                                     only</small> </label><br />
-                                            <select name="product" class="form-control js-example-basic-single w-100"
-                                                required>
+                                            <select formControlName="product"
+                                                class="form-control js-example-basic-single w-100" required>
                                                 <option value="">Please select</option>
-                                                
-                                                <option value="item.id" *ngFor="let item of products">
+
+                                                <option value="{{item._id}}#{{item.name}}"
+                                                    *ngFor="let item of products">
                                                     {{ item.name }}({{ item.description }} - NGN{{ item.price }})
                                                 </option>
-                                                
+
                                             </select>
                                         </div>
                                         <div class="form-group col-lg-12 float-left">
-                                            <label for="qty">Qty<small style="color:darkred">*</small></label>
-                                            <input required name="qty" id="qty" class="form-control" step="0.01"
-                                                type="number" />
+                                            <label for="quantity">Qty<small style="color:darkred">*</small></label>
+                                            <input required formControlName="quantity"  class="form-control"
+                                                step="0.01" type="number" />
                                         </div>
+
                                         <div class="form-group col-lg-12 float-left">
                                             <label for="description">Comment</label>
-                                            <textarea name="desc" cols="4" rows="4" class="form-control"> </textarea>
+                                            <textarea formControlName="description" cols="4" rows="4"
+                                                class="form-control"> </textarea>
                                         </div>
                                     </div>
                                     <input style="margin-left: 15px" class="btn btn-primary" type="submit"
-                                        value="Add to cart">
+                                        (click)="addToCart()" value="Add to cart">
                                 </form>
                             </div>
                         </div>
@@ -65,25 +68,23 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <!-- {% for product in selected_products reversed %}
-                                                    <tr >
-                                                        <td>{{ forloop.counter }}</td>
-                                                        <td>{{ product.product_name }}</td>
-                                                        <td>{{ product.qty }}</td>
-                                                        <td>{{ product.desc }}</td>
+
+                                                    <tr *ngFor="let product of items; let i = index">
+                                                        <td>{{ i+1 }}</td>
+                                                        <td>{{ product.name }}</td>
+                                                        <td>{{ product.quantity }}</td>
+                                                        <td>{{ product.description }}</td>
                                                         <td>
-                                                            <a href="{% url 'delete_db_po' product.id %}"
-                                                                class="confirm"><button
-                                                                    class="btn-xs btn btn-danger ti-trash text-white"></button></a>
+                                                            <a class="confirm" (click)="removeFromCart(product)"><button class="btn-xs btn btn-danger ti-trash text-white"></button></a>
                                                         </td>
                                                     </tr>
-                                                    {% endfor %} -->
+
 
                                                 </tbody>
                                             </table>
                                             <!-- {% if selected_products.count > 0 %} -->
                                             <button class="btn btn-success text-center" data-toggle="modal"
-                                                data-target="#poModal">Submit Cart</button>
+                                                data-target="#poModal" *ngIf="items.length > 0">Submit Cart</button>
                                             <!-- {% endif %} -->
                                         </div>
                                     </div>
@@ -96,3 +97,37 @@
         </div>
     </div>
 </div>
+
+
+<div class="modal fade" id="poModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">Complete Purchase Order </h5>
+          <button type="button"  #closebutton class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+  
+          <form [formGroup] ="OrderAddressForm">
+           
+            <div class="form-group" *ngIf="userData.type == 'system'">
+              <label for="company">Select Company</label>
+              <select style="width: 100%" formControlName="company" class="form-control js-example-basic-single w-100 " required>
+                <option value="">Please select </option>
+                <option *ngFor="let company of companies" value="{{ company.company.id }}">{{ company.company.name }}</option>
+              </select>
+            </div>
+           
+            <div class="form-group p_name">
+              <label for="address"> Delivery Address</label>
+              <textarea required formControlName="address" type="text" class="form-control address">{{ address }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-success confirm" (click)="addAddress()">Complete Order</button>
+          </form>
+  
+        </div>
+      </div>
+    </div>
+  </div>

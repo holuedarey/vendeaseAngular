@@ -23,7 +23,7 @@ export const Endpoint = {
     },
     
     PURCHASE: {
-        purchase_orders:  `${BASE_URL}/purchase_orders`, 
+        purchase_orders:  `${BASE_URL}/purchase-orders`, 
     },
 
     PRODUCTS: {

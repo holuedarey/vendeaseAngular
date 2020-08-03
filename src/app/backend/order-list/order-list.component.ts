@@ -3,7 +3,7 @@ import { StorageService } from '../../_service/storage.service';
 import { Constants } from '../../common/constant';
 import { OrdersService } from '../../_services/orders.service';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { AssignOrderComponent } from '../assign-order/assign-order.component';
 import { ToastrService } from 'ngx-toastr';
 
@@ -34,7 +34,7 @@ export class OrderListComponent implements OnInit {
   async orderLists() {
     this.isLoadingOrder = true;
     this.purchaseOrders.getOrders().subscribe((order) => {
-      console.log('invoice data :', order.data)
+      console.log('order list data :', order.data)
       this.isLoadingOrder = false;
       this.orders = order.data
     }, error => {
@@ -62,8 +62,13 @@ export class OrderListComponent implements OnInit {
 
   viewOrder(order) {
     console.log('data log : ', order);
-    
-    this.router.navigate(['view/order'], { state: order })
+
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        details: order._id
+      }
+    };
+    this.router.navigate(['view/order'], navigationExtras)
   }
 
   assignOrder(order) {
@@ -90,7 +95,7 @@ export class OrderListComponent implements OnInit {
         console.log('status : ', payloadData)
         if (payloadData) {
           this.purchaseOrders.viewOrder(payloadData).subscribe(users => {
-            this.toastr.success("User Updated Successfully", 'Successful', {
+            this.toastr.success("Order Updated Successfully", 'Successful', {
               timeOut: 3000,
               closeButton: true
             });

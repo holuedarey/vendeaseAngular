@@ -11,7 +11,7 @@ export const Constants = {
         USER: "USER",
         REGISTER: "REGISTER",
         REGISTER_MESSAGE: 'REGISTER_MESSAGE',
-        FIRSTTIME:"FIRSTTIME"
+        CART:"CART"
     }
 }
 

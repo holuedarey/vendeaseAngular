@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Constants } from '../../common/constant';
 import { DasboardService } from '../../_services/dasboard.service';
 import { StorageService } from '../../_service/storage.service';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { ClaimComponent } from './claim/claim.component';
 import { ClaimsService } from '../../_services/claims.service';
@@ -52,7 +52,12 @@ export class InvoiceListComponent implements OnInit {
 
   getSingleInvoice(invoice) {
     // console.log('log : ', invoice);
-    this.router.navigate(['view/invoice'], { state: invoice })
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        details: invoice._id
+      }
+    };
+    this.router.navigate(['view/invoice'], navigationExtras)
   }
 
   deleteInvoice(invoice) {

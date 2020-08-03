@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DasboardService } from '../../_services/dasboard.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-single-invoice',
@@ -26,18 +27,24 @@ export class SingleInvoiceComponent implements OnInit {
   grand_total;
 
   deafaultDate: any = new Date().toISOString();
-  constructor(private dashboard: DasboardService) { }
+  detail:any;
+
+  constructor(private dashboard: DasboardService, private route:ActivatedRoute) { 
+    this.route.queryParams.subscribe(params => {
+      console.log('params : ', params.details);
+      this.detail = params["details"];
+      console.log('details : ', this.detail)
+    });
+  }
 
   ngOnInit(): void {
-    this.data = history.state;
     this.invoiceDetails();
-    console.log('data Object : ', history.state._id)
   }
 
   async invoiceDetails() {
     this.isLoadingDetail = true;
 
-    this.dashboard.getInvoice(this.data._id).subscribe(invoice => {
+    this.dashboard.getInvoice(this.detail).subscribe(invoice => {
       this.isLoadingDetail = false;
       console.log('invoice single data :', invoice)
       this.invoice = invoice.data;
@@ -61,17 +68,6 @@ export class SingleInvoiceComponent implements OnInit {
 
 }
 
-const inPast = (date) => {
-  const deafaultDate: any = new Date().toISOString();
-  var diff = Math.abs(date - deafaultDate);
-  console.log('overdue :', deafaultDate, date);
-  return diff;
-
-}
-
-const date2 = ()=>{
-  
-}
 
 var date_diff_indays = function(date1, date2) {
   const dt1 = new Date(date1);

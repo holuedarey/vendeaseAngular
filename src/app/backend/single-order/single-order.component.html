@@ -9,7 +9,164 @@
         <!-- end::navigation -->
         <div class="content-body">
             <div class="content">
-               
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <div class="card-body">
+                                <h4 class="card-title">Purchase Orders <span
+                                        style="color: darkred; font-weight: bolder">#{{ order_number }}
+                                        <button class="btn btn-primary float-right ml-2" data-toggle="modal"
+                                            data-target="#auditTrail">Check Audit Trail</button>
+
+
+                                        <button *ngIf="paid ==true" class="btn btn-success float-right"
+                                            data-toggle="modal" data-target="#add_new_item">Add new product</button>
+
+                                    </span></h4><br />
+                                <p class="card-description" style="font-weight: bolder">
+                                    Delivery Address
+
+                                    <a href="#" *ngIf="userData.type == 'company' " class="float-right"
+                                        style="margin-top: -20px">
+                                        <button data-toggle="modal" data-target="#re-purchase"
+                                            class="btn btn-primary">Re-Purchase</button></a>
+                                </p>
+
+                                <!-- Add new item to po modal -->
+                                <div class="modal fade" id="add_new_item" tabindex="-1" role="dialog"
+                                    aria-labelledby="ModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ModalLabel">Add Product to Purchase Order
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form [formGroup]="PurchaseOrderForm">
+
+                                                    <div class="form-group">
+                                                        <label for="product">Product <small style="color:darkred">*
+                                                            </small><small style="color: darkred" class="float-right">
+                                                                Product with price only</small> </label><br />
+                                                        <!-- <select formControlName="product"
+                                                            class="form-control js-example-basic-single w-100" required>
+                                                            <option value="">Please select</option>
+
+                                                            <option value="{{ item._id }} " *ngFor="let item of products ">
+                                                                {{ item.name }}({{ item.description }} --
+                                                                {{ item.price }})
+                                                            </option>
+                                                        </select> -->
+                                                    </div>
+                                                    <div class="form-group p_brand">
+                                                        <input formControlNameqty" type="number"
+                                                            class="form-control p_brand" id="qty"
+                                                            placeholder="Quantity">
+                                                    </div>
+                                                    <div class="form-group p_desc">
+                                                        <textarea formControlName="description"
+                                                            class="form-control p_desc" id="p_desc"
+                                                            placeholder="Description"></textarea>
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </form>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End add new item to po modal -->
+
+                                <!-- Audit trail modal -->
+                                <div class="modal fade" id="auditTrail" tabindex="-1" role="dialog"
+                                    aria-labelledby="ModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="ModalLabel">Audit Trail for
+                                                    #{{ order_number }}</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="table-responsive">
+                                                    <table id="audit_table" class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>S/N</th>
+                                                                <th>Name</th>
+                                                                <th>Action</th>
+                                                                <th>Date</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr *ngFor="let item of audit_trail; let i= index">
+                                                                <td>{{ i+1 }}</td>
+                                                                <td>{{ item.name }}</td>
+                                                                <td>{{ item.action }}</td>
+                                                                <td>{{ item.createdAt }}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End modal -->
+
+                                <div class="card card-inverse-info" id="context-menu-simple">
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            {{ delivery_address }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table id="order-listing" class="table">
+                                                <thead>
+                                                    <tr class="bg-primary text-white">
+                                                        <th>Name</th>
+                                                        <th>Quantity</th>
+                                                        <th>Desc</th>
+                                                        <th *ngIf="paid == false">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let item of orderProducts">
+                                                        <td>{{ item.name }}</td>
+                                                        <td>{{ item.quantity }}</td>
+                                                        <td>{{ item.description }}</td>
+                                                        <td *ngIf="paid == false">
+                                                            <button class="btn btn-outline-warning"
+                                                                (click)="EditOrder(item)">Edit</button>
+                                                            <a type="button"
+                                                                class="btn btn-outline-danger confirm-delete">Delete</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 select, .form-control{
 	border-radius: 12px !important;
-    border: 1px solid blue !important;
+    /* border: 1px solid blue !important; */
 }
 .form-control2{
 	border-radius: 0px !important;
