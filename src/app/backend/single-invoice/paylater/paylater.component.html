@@ -1,0 +1,22 @@
+<div class="col-md-12">
+    <form [formGroup]="PaylaterForm">
+        <h3 class="lead">When will you like to pay?</h3>
+        <div class="form-group">
+            <select type="text" formControlName="payment_date" class="form-control" required id="pay_later">
+                <option value="7">7 Days</option>
+                <option value="14">14 Days</option>
+                <option value="21">21 Days</option>
+                <option value="30">30 Days</option>
+            </select>
+        </div>
+        
+        <div class="row" style="margin-top: 48px;;">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary" (click)="save()">Pay Later</button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-warning pull-right" (click)="close()">Close</button>
+            </div>
+        </div>
+    </form>
+</div>

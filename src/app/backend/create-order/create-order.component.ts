@@ -65,7 +65,7 @@ export class CreateOrderComponent implements OnInit {
     console.log('payload data ', payload);
     //save the purchase order
     this.orderService.createOrder(payload).subscribe(data =>{
-      console.log('purchase data ID ', data['long_invoice_number']);
+      this.storageService.clear(Constants.STORAGE_VARIABLES.CART)
       let navigationExtras: NavigationExtras = {
         queryParams: {
           details: data['long_invoice_number']

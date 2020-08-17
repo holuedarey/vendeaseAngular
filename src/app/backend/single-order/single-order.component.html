@@ -20,67 +20,18 @@
                                             data-target="#auditTrail">Check Audit Trail</button>
 
 
-                                        <button *ngIf="paid ==true" class="btn btn-success float-right"
-                                            data-toggle="modal" data-target="#add_new_item">Add new product</button>
+                                        <button *ngIf="paid == false" class="btn btn-success float-right" (click)="addProduct()">Add new
+                                            product</button>
 
                                     </span></h4><br />
                                 <p class="card-description" style="font-weight: bolder">
                                     Delivery Address
 
-                                    <a href="#" *ngIf="userData.type == 'company' " class="float-right"
+                                    <a *ngIf="userData.type == 'company' " class="float-right"
                                         style="margin-top: -20px">
-                                        <button data-toggle="modal" data-target="#re-purchase"
-                                            class="btn btn-primary">Re-Purchase</button></a>
+                                        <button (click)="rePurchase()" class="btn btn-primary">Re-Purchase</button>
+                                    </a>
                                 </p>
-
-                                <!-- Add new item to po modal -->
-                                <div class="modal fade" id="add_new_item" tabindex="-1" role="dialog"
-                                    aria-labelledby="ModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="ModalLabel">Add Product to Purchase Order
-                                                </h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form [formGroup]="PurchaseOrderForm">
- 
-                                                    <div class="form-group">
-                                                        <label for="product">Product <small style="color:darkred">*
-                                                            </small><small style="color: darkred" class="float-right">
-                                                                Product with price only</small> </label><br />
-                                                        <!-- <select formControlName="product"
-                                                            class="form-control js-example-basic-single w-100" required>
-                                                            <option value="">Please select</option>
-
-                                                            <option value="{{ item._id }} " *ngFor="let item of products ">
-                                                                {{ item.name }}({{ item.description }} --
-                                                                {{ item.price }})
-                                                            </option>
-                                                        </select> -->
-                                                    </div>
-                                                    <div class="form-group p_brand">
-                                                        <input formControlNameqty" type="number"
-                                                            class="form-control p_brand" id="qty"
-                                                            placeholder="Quantity">
-                                                    </div>
-                                                    <div class="form-group p_desc">
-                                                        <textarea formControlName="description"
-                                                            class="form-control p_desc" id="p_desc"
-                                                            placeholder="Description"></textarea>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                                </form>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End add new item to po modal -->
 
                                 <!-- Audit trail modal -->
                                 <div class="modal fade" id="auditTrail" tabindex="-1" role="dialog"
@@ -107,7 +58,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr *ngFor="let item of audit_trail; let i= index">
+                                                            <tr *ngFor="let item of auditTrail; let i= index">
                                                                 <td>{{ i+1 }}</td>
                                                                 <td>{{ item.name }}</td>
                                                                 <td>{{ item.action }}</td>
@@ -152,7 +103,8 @@
                                                             <button class="btn btn-outline-warning"
                                                                 (click)="EditOrder(item)">Edit</button>
                                                             <a type="button"
-                                                                class="btn btn-outline-danger confirm-delete">Delete</a>
+                                                                class="btn btn-outline-danger confirm-delete"
+                                                                (click)="deletePo(item._id)">Delete</a>
                                                         </td>
                                                     </tr>
                                                 </tbody>

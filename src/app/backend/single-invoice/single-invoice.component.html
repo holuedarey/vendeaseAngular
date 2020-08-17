@@ -19,9 +19,9 @@
                                         <label class="badge badge-success" *ngIf="paid == true ">Paid</label>
                                         <label class="badge badge-danger" *ngIf="paid == false ">Pending Payment</label>
 
-                                      
+
                                         <div *ngIf="paid == false && !isLoadingDetail">
-                                            
+
                                             <p>Payment Due Date:
                                                 <span class="text-danger">{{ payment_date }} </span>
                                             </p>
@@ -80,7 +80,8 @@
                                     <p class="text-right mb-2">Sub - Total amount: NGN {{ sub_total }} </p>
 
                                     <div *ngIf="items.length">
-                                        <p class=" text-right"  *ngFor="let item of others | keyvalue">{{ item.key }} : NGN {{ item.value }} </p>
+                                        <p class=" text-right" *ngFor="let item of others | keyvalue">{{ item.key }} :
+                                            NGN {{ item.value }} </p>
                                     </div>
                                     <h4 class="text-right mb-5">Total : NGN {{ grand_total }}</h4>
                                     <hr>
@@ -92,6 +93,32 @@
                                             class="fa fa-file-excel-o mr-1"></i>Excel</a>
                                     <a routerLnk="" target="_blank" class="btn btn-danger float-right mt-4 ml-2"><i
                                             class="fa fa-file-pdf-o mr-1"></i>PDF</a>
+
+                                    <!-- {% if invoice.approved %}
+                                    {% if user_details.user.type == 'company' and invoice.paid == 0 %} -->
+                                    <div *ngIf="invoiceApproved == true && userData.type == 'company' && paid == false ">
+                                        <div *ngIf="userData.type == 'company' && paid ==false " >
+                                            <button class="btn btn-success float-right mt-4 ml-2" (click)="payNow()"> 
+                                                <i class="mr-1 noprint"></i>₦ Pay Now</button>
+
+                                            <button *ngIf="userData.payLater  == true && !payment_date" (click)="payLater()"
+                                                class="btn btn-warning float-right mt-4 ml-2" >
+                                                <i class="mr-1 noprint"></i>Pay Later</button>
+
+                                        </div>
+
+                                        <button *ngIf="userData.type == 'system' && paid == false" class="btn btn-success float-right mt-4 ml-2">
+                                            <i class="mr-1 text-white"></i>Mark as Paid</button>
+                                        
+
+                                    </div>
+                                    <div *ngIf="invoiceApproved == false">
+                                        <a *ngIf="userData.company.permissions == 'admin' " class="confirm" (click) ="approveInvoice()">
+                                            <button class="btn btn-success float-right mt-4 ml-2">
+                                                <i class="mr-1 text-white"></i>Approve Invoice</button>
+                                        </a>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

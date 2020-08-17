@@ -26,6 +26,14 @@ export class DasboardService {
   }
 
 
+  approveInvoice(invoiceId, payload): Observable<any> {
+    return this.http.patch(`${Endpoint.DASHBOARD.invoice}/${invoiceId}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+
   deleteInvoice(invoiceId): Observable<any> {
     return this.http.delete(`${Endpoint.DASHBOARD.invoice}/${invoiceId}`).pipe(
       map(data => {

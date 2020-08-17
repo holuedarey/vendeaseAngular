@@ -1,0 +1,39 @@
+<!-- Add new item to po modal -->
+<div class="col-md-12">
+
+    <div class="" style="margin-top: 48px;;">
+        <form [formGroup]="PurchaseOrderForm">
+            <div class="form-group">
+                <label for="product">Product <small style="color:darkred">*
+                    </small><small style="color: darkred" class="float-right">
+                        Product with price only</small> </label><br />
+                <select formControlName="product" class="form-control js-example-basic-single w-100" required>
+                    <option value="">Please select</option>
+
+                    <option value="{{ item._id }} " *ngFor="let item of products ">
+                        {{ item.name }}({{ item.description }} --
+                        {{ item.price }})
+                    </option>
+                </select>
+            </div>
+            <div class="form-group p_brand">
+                <input formControlName="quantity" type="number" class="form-control p_brand" id="qty"
+                    placeholder="Quantity">
+            </div>
+            <div class="form-group p_desc">
+                <textarea formControlName="description" class="form-control p_desc" id="p_desc"
+                    placeholder="Description"></textarea>
+            </div>
+
+        </form>
+        <div class="row">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary" (click)="save()">Add Product</button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btn btn-warning pull-right" (click)="close()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End add new item to po modal -->

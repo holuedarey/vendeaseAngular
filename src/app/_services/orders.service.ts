@@ -26,8 +26,31 @@ export class OrdersService {
       }));
   }
 
+  
+  repurchaseOrder(payload): Observable<any> {
+    return this.http.post(Endpoint.PURCHASE.purchase_orders, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+
   viewOrder(orderId): Observable<any> {
     return this.http.get(`${Endpoint.PURCHASE.purchase_orders}/${orderId}`).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+  editOrder(orderId, payload): Observable<any> {
+    return this.http.patch(`${Endpoint.PURCHASE.purchase_orders}/${orderId}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+  deleteOrder(orderId): Observable<any> {
+    return this.http.delete(`${Endpoint.PURCHASE.purchase_orders}/${orderId}`).pipe(
       map(data => {
         return data;
       }));

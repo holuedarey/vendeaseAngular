@@ -66,6 +66,11 @@ import { InvoiceListComponent } from './backend/invoice-list/invoice-list.compon
 import { ClaimComponent } from './backend/invoice-list/claim/claim.component';
 import { AssignOrderComponent } from './backend/assign-order/assign-order.component';
 import { SingleOrderComponent } from './backend/single-order/single-order.component';
+import { PaylaterComponent } from './backend/single-invoice/paylater/paylater.component';
+import { PaynowComponent } from './backend/single-invoice/paynow/paynow.component';
+import { EditPoComponent } from './backend/single-order/edit-po/edit-po.component';
+import { RepurchaseComponent } from './backend/single-order/repurchase/repurchase.component';
+import { AddProductComponent } from './backend/single-order/add-product/add-product.component';
 
 
 export function tokenGetter() {
@@ -111,6 +116,11 @@ export function tokenGetter() {
     ClaimComponent,
     AssignOrderComponent,
     SingleOrderComponent,
+    PaylaterComponent,
+    PaynowComponent,
+    EditPoComponent,
+    RepurchaseComponent,
+    AddProductComponent,
     
   ],
 

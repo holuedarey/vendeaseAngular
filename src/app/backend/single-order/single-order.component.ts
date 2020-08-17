@@ -1,10 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { OrdersService } from '../../_services/orders.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { StorageService } from '../../_service/storage.service';
 import { Constants } from '../../common/constant';
 import { ProductService } from '../../_services/product.service';
 import { FormGroup } from '@angular/forms';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../user-management/confirm-dialog/confirm-dialog.component';
+import { ToastrService } from 'ngx-toastr';
+import { EditProductComponent } from '../product-list/edit-product/edit-product.component';
+import { EditPoComponent } from './edit-po/edit-po.component';
+import { RepurchaseComponent } from './repurchase/repurchase.component';
+import { AddProductComponent } from './add-product/add-product.component';
 
 @Component({
   selector: 'app-single-order',
@@ -21,30 +28,35 @@ export class SingleOrderComponent implements OnInit {
   payment_date: any;
   overDue: any;
 
-  company_details_name:any;
-  company_details_id:any;
-  items:any[] = [];
+  company_details_name: any;
+  company_details_id: any;
+  items: any[] = [];
 
-  others:any[] = [];
-  createdAt:any;
+  others: any[] = [];
+  createdAt: any;
   sub_total;
   grand_total;
 
-  userData:any;
-  products:any[] = [];
-  orderProducts:any[] = [];
-  delivery_address:any;
-  
+  userData: any;
+  products: any[] = [];
+  orderProducts: any[] = [];
+  delivery_address: any;
 
-  audit_trail:any[] = [];
 
-  PurchaseOrderForm:FormGroup;
-  
+  auditTrail: any[] = [];
+
+  PurchaseOrderForm: FormGroup;
+  isLoadingDelete: boolean;
+  _id: any;
+
   constructor(
-    private orderService: OrdersService, 
-    private route:ActivatedRoute, 
-    public storageService:StorageService,
-    private productService:ProductService) {
+    private orderService: OrdersService,
+    private route: ActivatedRoute,
+    public storageService: StorageService,
+    private dialog: MatDialog,
+    private router:Router,
+    private toastr: ToastrService,
+    private productService: ProductService) {
     this.route.queryParams.subscribe(params => {
       console.log('params : ', params.details);
       this.detail = params["details"];
@@ -56,7 +68,7 @@ export class SingleOrderComponent implements OnInit {
     this.userData = theData;
   }
   ngOnInit(): void {
-    this.invoiceDetails();
+    this.orderDetails();
   }
 
   async productListUser() {
@@ -68,27 +80,18 @@ export class SingleOrderComponent implements OnInit {
     })
   }
 
-  async invoiceDetails() {
+  async orderDetails() {
     this.isLoadingDetail = true;
 
     this.orderService.viewOrder(this.detail).subscribe(purchaseOrder => {
       this.isLoadingDetail = false;
       console.log('invoice single data :', purchaseOrder)
-      
-      // this.invoiceNumber = purchaseOrder.invoice_number;
+      this._id = purchaseOrder._id;
       this.order_number = purchaseOrder.order_number;
       this.paid = purchaseOrder.paid;
-      // this.payment_date = purchaseOrder.payment_date;
-      // this.overDue = date_diff_indays(this.deafaultDate, this.payment_date);
-      // this.company_details_name = purchaseOrder.company_details.name || null;
       this.company_details_id = purchaseOrder.company_details.id || null;
       this.orderProducts = purchaseOrder.items;
       this.delivery_address = purchaseOrder.delivery_address;
-      // this.items = purchaseOrder.items || [];
-      // this.others = purchaseOrder.other || [];
-      // this.createdAt = purchaseOrder.createdAt;
-      // this.sub_total = purchaseOrder.sub_total || 0;
-      // this.grand_total = purchaseOrder.grand_total || 0;
       console.log('order Product :', this.orderProducts)
     }, error => {
       this.isLoadingDetail = false
@@ -97,19 +100,175 @@ export class SingleOrderComponent implements OnInit {
   }
 
 
-  EditOrder(item){
+  EditOrder(orderData) {
+    console.log('order ', orderData)
+    const dialogConfig = new MatDialogConfig();
 
-  }
-  getAuditTrail(PoId){
-    this.orderService.viewOrder(PoId).subscribe(purchaseOrder => {
-      console.log('details :', purchaseOrder)
-    }, 
-      error => {
-      console.log('Error : ', error)
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '400px';
+    dialogConfig.width = '500px';
+    dialogConfig.position = {
+      'top': '50px',
+    };
+
+
+    dialogConfig.data = {
+      data: JSON.stringify(orderData)
+    };
+    const dialogRef = this.dialog.open(EditPoComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(payload => {
+      if (payload) {
+        this.isLoadingDelete = true;
+        console.log('payload po edit', payload);
+        console.log('id :', orderData._id);
+
+        this.orderService.editOrder(this._id, payload).subscribe(poEdit => {
+          console.log('response :', poEdit);
+
+          this.toastr.success("Purchase Order edited Successfully", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          this.isLoadingDelete = false;
+          this.orderDetails();
+        }, error => {
+          console.log('Error :', error);
+          this.isLoadingDelete = false;
+
+        });
+      }
     });
-
   }
 
-}
+  rePurchase() {
+    const orderData = this.order_number;
+    console.log('order ', orderData)
+    const dialogConfig = new MatDialogConfig();
 
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '400px';
+    dialogConfig.width = '400px';
+    dialogConfig.position = {
+      'top': '50px',
+    };
+
+
+    dialogConfig.data = {
+      data: JSON.stringify(this._id)
+    };
+    const dialogRef = this.dialog.open(RepurchaseComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(payload => {
+      if (payload) {
+        this.isLoadingDelete = true;
+        console.log('payload po repo', payload);
+        this.orderService.repurchaseOrder(payload).subscribe(repurchase => {
+          let navigationExtras: NavigationExtras = {
+            queryParams: {
+              details: repurchase['long_invoice_number']
+            }
+          };
+        
+          this.router.navigate(['view/invoice'], navigationExtras)
+          this.toastr.success("Purchase order was successful, Please make payment for invoice below", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          this.isLoadingDelete = false;
+        }, error => {
+          console.log('Error :', error);
+          this.isLoadingDelete = false;
+
+        });
+      }
+    });
+  }
+
+  
+  addProduct() {
+    const orderData = this.order_number;
+    console.log('order ', orderData)
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '400px';
+    dialogConfig.width = '900px';
+    dialogConfig.position = {
+      'top': '50px',
+    };
+
+
+    dialogConfig.data = {
+      data: JSON.stringify({orderProducts : this.orderProducts, order_number:this.order_number})
+    };
+    const dialogRef = this.dialog.open(AddProductComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(payload => {
+      if (payload) {
+        this.isLoadingDelete = true;
+        console.log('payload po repo', payload);
+        this.orderService.repurchaseOrder(payload).subscribe(repurchase => {
+          let navigationExtras: NavigationExtras = {
+            queryParams: {
+              details: repurchase['long_invoice_number']
+            }
+          };
+        
+          this.toastr.success("Purchase order was successful, Please make payment for invoice below", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          this.isLoadingDelete = false;
+        }, error => {
+          console.log('Error :', error);
+          this.isLoadingDelete = false;
+
+        });
+      }
+    });
+  }
+
+  getAuditTrail(PoId) {
+    this.orderService.viewOrder(PoId).subscribe(audit_trail => {
+      this.auditTrail = audit_trail;
+      console.log('details :', audit_trail)
+    },
+      error => {
+        console.log('Error : ', error)
+      });
+  }
+
+  deletePo(PoId) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '130px';
+    dialogConfig.width = '250px';
+    dialogConfig.position = {
+      'top': '50px',
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Yes clicked');
+        this.isLoadingDelete = true;
+        this.orderService.deleteOrder(PoId).subscribe(users => {
+          this.toastr.success("Purchase Order Deleted Successfully", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          this.isLoadingDelete = false;
+          this.orderDetails();
+        }, error => {
+          console.log('Error :', error);
+          this.isLoadingDelete = false;
+
+        });
+      }
+    });
+  }
+}
 
