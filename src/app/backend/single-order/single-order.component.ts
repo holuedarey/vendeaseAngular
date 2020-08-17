@@ -149,14 +149,14 @@ export class SingleOrderComponent implements OnInit {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.height = '400px';
-    dialogConfig.width = '400px';
+    dialogConfig.width = '900px';
     dialogConfig.position = {
       'top': '50px',
     };
 
 
     dialogConfig.data = {
-      data: JSON.stringify(this._id)
+      data: JSON.stringify({orderProducts : this.orderProducts, order_number:this.order_number})
     };
     const dialogRef = this.dialog.open(RepurchaseComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(payload => {
@@ -201,7 +201,7 @@ export class SingleOrderComponent implements OnInit {
 
 
     dialogConfig.data = {
-      data: JSON.stringify({orderProducts : this.orderProducts, order_number:this.order_number})
+      data: JSON.stringify(this._id)
     };
     const dialogRef = this.dialog.open(AddProductComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(payload => {
