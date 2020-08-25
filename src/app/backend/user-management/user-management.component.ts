@@ -28,6 +28,7 @@ export class UserManagementComponent implements OnInit {
   isLoadingUserList: boolean;
 
   @ViewChild('closebutton') closebutton;
+  @ViewChild('closebuttonUser') closebuttonUser;
   constructor(public storageService: StorageService,
     public authService: AuthService,
     private router: Router,
@@ -76,7 +77,13 @@ export class UserManagementComponent implements OnInit {
     this.authService.createUser(this.payloadCreateUser).subscribe(user => {
       //hide loader and navigate to dash board Page
       console.log('returnd data : ', user)
-      this.router.navigate(['/user-list'])
+      this.closebuttonUser.nativeElement.click();
+
+      this.toastr.success("User created Successfully", 'Successful', {
+        timeOut: 3000,
+        closeButton: true
+      });
+      this.getUserLists();
       // this.loader.hideLoader();
     }, error => {
       console.log('Error :', error)

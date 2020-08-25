@@ -1,80 +1,91 @@
-  <!-- begin::navigation -->
-  <div class="navigation">
+<!-- begin::navigation -->
+<div class="navigation">
     <div class="navigation-menu-tab" style="width: 35%;">
         <ul>
             <li>
-                <a routerLink="/dashboard" style="justify-content: left;" class="active" data-placement="right" title="Dashboard"
-                data-nav-target="#dashboard">
+                <a routerLink="/dashboard" style="justify-content: left;" class="active" data-placement="right"
+                    title="Dashboard" data-nav-target="#dashboard">
                     <i class="feather-monitor" style="margin-right: 5px"> </i> Dashboard
                 </a>
             </li>
             <li>
-                <a style="justify-content: left;" class="text-left" routerLink="/user-list"
-                    data-toggle="tooltip" data-placement="right" data-nav-target="#dashboard" title="Users">
+                <a routerLink="/create-purchase" style="justify-content: left;" class="active" data-placement="right"
+                    title="Order Now" data-nav-target="#dashboard">
+                    <i class="feather-shopping-cart" style="margin-right: 5px"> </i> Order Now
+                </a>
+            </li>
+
+            <li>
+                <a routerLink="/purchase-order" style="justify-content: left;" class="active" data-placement="right"
+                    title="All Orders" data-nav-target="#dashboard">
+                    <i class="feather-list" style="margin-right: 5px"> </i>All Orders
+                </a>
+            </li>
+            <li>
+                <a routerLink="/purchase-order" style="justify-content: left;" class="active" data-placement="right"
+                    title="Reorders" data-nav-target="#dashboard">
+                    <i class="feather-bookmark" style="margin-right: 5px"> </i>Reorder
+                </a>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="right" title="Products"
+                    data-nav-target="#products">
+                    <i class="feather-database" style="margin-right: 5px"> </i> Products
+                </a>
+
+            </li>
+
+            <li>
+                <a style="justify-content: left;" routerLink="invoice-list" data-toggle="tooltip" data-placement="right"
+                    title="Receipt/Invoice" data-placement="right" data-nav-target="#dashboard">
+                    <i class="feather-edit-3" style="margin-right: 5px"> </i> Invoice
+                </a>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" routerLink="delivery' 'all' 'delivery' 0 50 %}" data-toggle="tooltip"
+                    data-placement="right" title="Delivery">
+                    <i class="feather-truck" style="margin-right: 5px"> </i> Delivery
+                </a>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" routerLink="delivery' 'all' 'delivery' 0 50 %}" data-toggle="tooltip"
+                    data-placement="right" title="Claim">
+                    <i class="feather-shopping-bag" style="margin-right: 5px"> </i> Claim
+                </a>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" routerLink="claim_list" data-toggle="tooltip" data-placement="right"
+                    title="Report">
+                    <i class="feather-gift" style="margin-right: 5px"> </i> Report
+                </a>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" class="text-left" routerLink="/user-list" data-toggle="tooltip"
+                    data-placement="right" data-nav-target="#dashboard" title="Users">
                     <i class="feather-users" style="margin-right: 5px"> </i> Users
                 </a>
 
             </li>
 
             <li *ngIf="userData.type == 'system'">
-                <a style="justify-content: left;" routerLink="supplier-list"
-                    data-toggle="tooltip" data-placement="right"data-nav-target="#dashboard"  title="Suppliers">
-                    <i class="feather-user-plus" style="margin-right: 5px"> </i> Suppliers
-                </a>
-            </li>
-            <li  *ngIf="userData.type == 'system'">
-                <a style="justify-content: left;" routerLink="company-list"
-                    data-toggle="tooltip" data-placement="right"data-nav-target="#dashboard" title="Companies">
+                <a style="justify-content: left;" routerLink="company-list" data-toggle="tooltip" data-placement="right"
+                    data-nav-target="#dashboard" title="Companies">
                     <i class="feather-user-check" style="margin-right: 5px"> </i> Company
                 </a>
             </li>
 
-            <li>
-                <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="right"
-                    title="Products" data-nav-target="#products">
-                    <i class="feather-database" style="margin-right: 5px"> </i> Products
-                </a>
-
-            </li>
-            <li>
-                <a style="justify-content: left;"  href="#" data-toggle="tooltip" data-placement="right"
-                title="Purchase Order"  data-toggle="tooltip" data-placement="right"data-nav-target="#p_order" >
-                    <i class="feather-list" style="margin-right: 5px"> </i> Orders
-                </a>
-            </li>
-            <li>
-                <a style="justify-content: left;" routerLink="purchase-order" data-toggle="tooltip"
-                    data-placement="right" title="Reorder">
-                    <i class="feather-link" style="margin-right: 5px"> </i> Reorder
+            <li *ngIf="userData.type == 'system'">
+                <a style="justify-content: left;" routerLink="supplier-list" data-toggle="tooltip"
+                    data-placement="right" data-nav-target="#dashboard" title="Suppliers">
+                    <i class="feather-user-plus" style="margin-right: 5px"> </i> Suppliers
                 </a>
             </li>
 
-            <li>
-                <a style="justify-content: left;" routerLink="invoice-list"
-                    data-toggle="tooltip" data-placement="right" title="Receipt/Invoice"  data-placement="right"data-nav-target="#dashboard" >
-                    <i class="feather-edit-3" style="margin-right: 5px"> </i> Invoice
-                </a>
-            </li>
-
-            <li>
-                <a style="justify-content: left;" routerLink="delivery' 'all' 'delivery' 0 50 %}"
-                    data-toggle="tooltip" data-placement="right" title="Delivery">
-                    <i class="feather-shopping-bag" style="margin-right: 5px"> </i> Delivery
-                </a>
-            </li>
-
-            <li>
-                <a style="justify-content: left;" routerLink="claim_list" data-toggle="tooltip" data-placement="right"
-                    title="Claims">
-                    <i class="feather-gift" style="margin-right: 5px"> </i> Claim
-                </a>
-            </li>
-            <li>
-                <a style="justify-content: left;" routerLink="user_report" data-toggle="tooltip"
-                    data-placement="right" title="Report">
-                    <i class="feather-book" style="margin-right: 5px"></i> Report
-                </a>
-            </li>
         </ul>
     </div>
 
@@ -89,19 +100,18 @@
 
                                 <!-- <img class="profile-image m-t-b-20" src="{{ user_details.user.avatar }}" alt="Profile" /> -->
 
-                                <img class="profile-image m-t-b-20"
-                                    src="{{ avatar }}"
-                                    alt="Profile" />
+                                <img class="profile-image m-t-b-20" src="{{ avatar }}" alt="Profile" />
 
                                 <div style="position:absolute;margin-left: 53px;margin-top:-20px;"
                                     data-toggle="tooltip">
                                     <i class="fa fa-camera text-black position-absolute"></i>
-                                    <form method="post" action="upload_avatar" enctype="multipart/form-data">
+                                    <form [formGroup]="avatarForm">
 
-                                        <input type="file" name="avatar" id="avatar"
-                                            class="custom-file-input" />
-                                        <button type="submit" name="btn-avatar" id="btn-avatar"
-                                            class="btn btn-primary" hidden></button>
+                                        <!-- <input type="file" name="avatar" id="avatar" class="custom-file-input" /> -->
+                                        <input formControlName="avatar" id="avatar" type="file" class="custom-file-input"
+                                            (change)="onFileChange($event)">
+                                        <button type="submit" name="btn-avatar" id="btn-avatar" class="btn btn-primary"
+                                            hidden></button>
                                     </form>
                                 </div>
                             </div>
@@ -128,7 +138,7 @@
                         <i class="mr-2 text-white" class="fa fa-desktop" class="database"></i> Products
                     </li>
 
-                    <li  *ngIf="userData != 'vendor' "  >
+                    <li *ngIf="userData != 'vendor' ">
                         <a class="text-white" routerLink="create-product">New Products</a>
                     </li>
 
