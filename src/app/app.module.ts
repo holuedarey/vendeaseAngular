@@ -72,6 +72,7 @@ import { EditPoComponent } from './backend/single-order/edit-po/edit-po.componen
 import { RepurchaseComponent } from './backend/single-order/repurchase/repurchase.component';
 import { AddProductComponent } from './backend/single-order/add-product/add-product.component';
 
+import { Angular4PaystackModule } from 'angular4-paystack';
 
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
@@ -147,6 +148,7 @@ export function tokenGetter() {
       easing:'ease-in',
       progressAnimation:"decreasing"
     }),
+    Angular4PaystackModule.forRoot('pk_test_c98b92c0c8c5cd7d94150e06fc711d9ce1d1c53b')
     // JwtModule.forRoot({
     //   config: {
     //     tokenGetter: tokenGetter,

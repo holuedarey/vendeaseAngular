@@ -20,7 +20,7 @@
                                         <label class="badge badge-danger" *ngIf="paid == false ">Pending Payment</label>
 
 
-                                        <div *ngIf="paid == false && !isLoadingDetail">
+                                        <div *ngIf="paid == false && payment_date && !isLoadingDetail">
 
                                             <p>Payment Due Date:
                                                 <span class="text-danger">{{ payment_date }} </span>
@@ -96,24 +96,35 @@
 
                                     <!-- {% if invoice.approved %}
                                     {% if user_details.user.type == 'company' and invoice.paid == 0 %} -->
-                                    <div *ngIf="invoiceApproved == true && userData.type == 'company' && paid == false ">
-                                        <div *ngIf="userData.type == 'company' && paid ==false " >
-                                            <button class="btn btn-success float-right mt-4 ml-2" (click)="payNow()"> 
-                                                <i class="mr-1 noprint"></i>₦ Pay Now</button>
+                                    <div
+                                        *ngIf="invoiceApproved == true && userData.type == 'company' && paid == false ">
+                                        <div *ngIf="userData.type == 'company' && paid ==false ">
+                                            <!-- <button class="btn btn-success float-right mt-4 ml-2" (click)="payNow()">
+                                                <i class="mr-1 noprint"></i>₦ Pay Now</button> -->
 
-                                            <button *ngIf="userData.payLater  == true && !payment_date" (click)="payLater()"
-                                                class="btn btn-warning float-right mt-4 ml-2" >
+                                            <button *ngIf="userData.type == 'company' && paid ==false "  angular4-paystack class="btn btn-success float-right mt-4 ml-2"
+                                                [key]="'pk_test_c98b92c0c8c5cd7d94150e06fc711d9ce1d1c53b'"
+                                                [email]="userData.email" [amount]="grand_total*100" [ref]="reference"
+                                                [class]="'btn btn-primary'" (paymentInit)="paymentInit($event)"
+                                                (close)="paymentCancel()" (callback)="paymentDone($event)">
+                                                ₦ Pay Now
+                                            </button>
+                                            <button *ngIf="userData.type == 'system' && paid == false"
+                                                class="btn btn-success float-right mt-4 ml-2">
+                                                <i class="mr-1 text-white"></i>Mark as Paid</button>
+
+
+
+                                            <button *ngIf="userData.payLater  == true && !payment_date"
+                                                (click)="payLater()" class="btn btn-warning float-right mt-4 ml-2">
                                                 <i class="mr-1 noprint"></i>Pay Later</button>
 
                                         </div>
 
-                                        <button *ngIf="userData.type == 'system' && paid == false" class="btn btn-success float-right mt-4 ml-2">
-                                            <i class="mr-1 text-white"></i>Mark as Paid</button>
-                                        
-
                                     </div>
                                     <div *ngIf="invoiceApproved == false">
-                                        <a *ngIf="userData.company.permissions == 'admin' " class="confirm" (click) ="approveInvoice()">
+                                        <a *ngIf="userData.company.permissions == 'admin' " class="confirm"
+                                            (click)="approveInvoice()">
                                             <button class="btn btn-success float-right mt-4 ml-2">
                                                 <i class="mr-1 text-white"></i>Approve Invoice</button>
                                         </a>
