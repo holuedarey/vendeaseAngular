@@ -32,5 +32,8 @@ export const Endpoint = {
     
     PAYMENT: {
         payment: `${BASE_URL}/payment`,
+    },
+    DELIVERY: { 
+        delivery: `${BASE_URL}/delivery`,
     }
 }

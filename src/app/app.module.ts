@@ -73,6 +73,8 @@ import { RepurchaseComponent } from './backend/single-order/repurchase/repurchas
 import { AddProductComponent } from './backend/single-order/add-product/add-product.component';
 
 import { Angular4PaystackModule } from 'angular4-paystack';
+import { SingleDeliveryComponent } from './backend/single-delivery/single-delivery.component';
+import { DeliveryListComponent } from './backend/delivery-list/delivery-list.component';
 
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
@@ -122,6 +124,8 @@ export function tokenGetter() {
     EditPoComponent,
     RepurchaseComponent,
     AddProductComponent,
+    SingleDeliveryComponent,
+    DeliveryListComponent,
     
   ],
 

@@ -10,7 +10,7 @@ export class ConfirmDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public message: string) { 
-      this.message = "Are you sure to Delete"
+      this.message = "Are you sure to perform this Action"
     }
 
   ngOnInit(): void {

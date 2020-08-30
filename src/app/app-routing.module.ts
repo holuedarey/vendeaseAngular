@@ -24,6 +24,8 @@ import { CreateOrderComponent } from './backend/create-order/create-order.compon
 import { SingleInvoiceComponent } from './backend/single-invoice/single-invoice.component';
 import { InvoiceListComponent } from './backend/invoice-list/invoice-list.component';
 import { SingleOrderComponent } from './backend/single-order/single-order.component';
+import { SingleDeliveryComponent } from './backend/single-delivery/single-delivery.component';
+import { DeliveryListComponent } from './backend/delivery-list/delivery-list.component';
 
 
 
@@ -60,6 +62,9 @@ const routes: Routes = [
       { path: 'purchase-order', component: OrderListComponent },
       { path: 'create-purchase', component: CreateOrderComponent },
       { path: 'view/order', component: SingleOrderComponent },
+
+      { path: 'view/delivery', component: SingleDeliveryComponent },
+      { path: 'delivery-list', component: DeliveryListComponent },
       
     ]
   },

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DasboardService } from '../../_services/dasboard.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { StorageService } from '../../_service/storage.service';
 import { Constants } from '../../common/constant';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
@@ -8,6 +8,8 @@ import { ConfirmDialogComponent } from '../user-management/confirm-dialog/confir
 import { ToastrService } from 'ngx-toastr';
 import { PaylaterComponent } from './paylater/paylater.component';
 import { PaymentService } from '../../_services/payment.service';
+import { DeliveryService } from '../../_services/delivery.service';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-single-invoice',
@@ -44,7 +46,8 @@ export class SingleInvoiceComponent implements OnInit {
   reference = '';
   title: any;
 
-  companyId:any;
+  companyId: any;
+  delivery_address:any;
 
   constructor(
     private dashboard: DasboardService,
@@ -53,7 +56,8 @@ export class SingleInvoiceComponent implements OnInit {
     private route: ActivatedRoute,
     private storageService: StorageService,
     private dialog: MatDialog,
-    private toastr: ToastrService,) {
+    private toastr: ToastrService,
+    private delivery:DeliveryService) {
     this.route.queryParams.subscribe(params => {
       console.log('params : ', params.details);
       this.detail = params["details"];
@@ -75,7 +79,7 @@ export class SingleInvoiceComponent implements OnInit {
   invoiceDetails() {
     this.isLoadingDetail = true;
 
-    this.dashboard.getInvoice(this.detail).subscribe( async (invoice) => {
+    this.dashboard.getInvoice(this.detail).subscribe(async (invoice) => {
       this.isLoadingDetail = false;
       console.log('invoice single data :', invoice)
       this.invoice = await invoice.data;
@@ -92,6 +96,7 @@ export class SingleInvoiceComponent implements OnInit {
       this.invoiceApproved = invoice.approved;
       this.sub_total = invoice.sub_total || 0;
       this.grand_total = invoice.grand_total || 0;
+      this.delivery_address = invoice.delivery_address;
       console.log('total :', this.payment_date)
     }, error => {
       this.isLoadingDetail = false
@@ -155,41 +160,49 @@ export class SingleInvoiceComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.isLoadingApprove = true;
-        const currentDate = new Date().toISOString();
-        const nexDate = currentDate + result
-        // this.dashboard.approveInvoice(this.invoiceId, {action: "approve"}).subscribe(users => {
-        //   // this.getUserLists();
-        //   this.toastr.success("Invoice Approved Successfully", 'Successful', {
-        //     timeOut: 3000,
-        //     closeButton: true
-        //   });
+        console.log('responsee : ', result.toISOString());
 
-        //   this.isLoadingApprove = false;
-        //   this.invoiceDetails();
-
-        //   // this.loader.hideLoader();
-        // }, error => {
-        //   console.log('Error :', error);
-        //   this.isLoadingApprove = false;
-        //   // this.loader.presentToast(error.error.message);
-        //   // this.loader.hideLoader();
-
-        // });
+        this.dashboard.approveInvoice(this.invoiceId, { action: "approve" }).subscribe(users => {
+          this.toastr.success("payment Approved Successfully", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          this.isLoadingApprove = false;
+          this.createDelivery();
+        }, error => {
+          console.log('Error :', error);
+          this.isLoadingApprove = false;
+        });
       }
     });
   }
-  payNow() {
-    const payload = { amount: this.grand_total, email: this.userData.email };
-    this.paymentService.createAuthorizationUrl(payload).subscribe(payment => {
-      console.log(payment)
-      
-      window.location.href = `${payment.authorization_url}`;
-      // this.router.navigate([])
-    }, error => {
-      console.log('Error : ', error)
+
+  createDelivery(){
+   const  payload = {
+      company: this.companyId,
+      // current_status: "accepted",
+      invoice_no: this.invoiceId,
+      // vendor: "EA89454",
+      order_no: this.order_number,
+      grand_total: this.grand_total,
+      address: this.delivery_address
+    }
+
+    console.log('data Payload', payload);
+    
+    this.delivery.createDelivery(payload).subscribe(delivery =>{
+      console.log('data :', delivery);
+       // console.log('log : ', invoice);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        details: delivery._id
+      }
+    };
+    this.router.navigate(['view/delivery'], navigationExtras)
+    },error =>{
+      console.log('Error :', error)
     })
   }
-
   paymentInit(event) {
     console.log('Payment initialized', event);
   }
@@ -212,13 +225,13 @@ export class SingleInvoiceComponent implements OnInit {
       this.invoiceDetails();
     }, error => {
       console.log('Error : ', error)
-    })    
+    })
   }
 
   paymentCancel() {
     console.log('payment failed');
   }
-  
+
 }
 
 
