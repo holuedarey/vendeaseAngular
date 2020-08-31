@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StorageService } from '../../_service/storage.service';
 import { Constants } from '../../common/constant';
 import { DeliveryService } from '../../_services/delivery.service';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-delivery-list',
@@ -14,7 +15,7 @@ export class DeliveryListComponent implements OnInit {
 
   userData:any;
   isLoadingDelievery:boolean;
-  constructor(private storageService:StorageService, private dleivery:DeliveryService) {
+  constructor(private storageService:StorageService, private dleivery:DeliveryService, private router:Router) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
       this.userData = theData;
    }
@@ -33,6 +34,16 @@ export class DeliveryListComponent implements OnInit {
       this.isLoadingDelievery = false;
       console.log('Error :', error)
     })
+  }
+
+  
+  viewDelivery(delivery){
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        details: delivery._id
+      }
+    };
+    this.router.navigate(['view/delivery'], navigationExtras)
   }
 
 }

@@ -26,6 +26,15 @@ export class DeliveryService {
       }));  
   }
 
+  
+  confirmDelivery(deliveryId, payload): Observable<any> {
+    return this.http.patch(`${Endpoint.DELIVERY.delivery}/${deliveryId}`, payload).pipe(
+      map(data => {
+        return data;
+      }));  
+  }
+
+
   getAllDeliveries(): Observable<any>{
     return this.http.get(Endpoint.DELIVERY.delivery).pipe(
       map(data => {

@@ -38,8 +38,9 @@
                                                     </tr>
                                                 </thead>
                                                 <div class="col-md-4 offset-md-4">
-                                                    <mat-progress-spinner *ngIf="isLoadingDelievery" mode="indeterminate" diameter='30'
-                                                        strokeWidth='3'></mat-progress-spinner>
+                                                    <mat-progress-spinner *ngIf="isLoadingDelievery"
+                                                        mode="indeterminate" diameter='30' strokeWidth='3'>
+                                                    </mat-progress-spinner>
                                                 </div>
                                                 <tbody>
                                                     <tr *ngFor="let item of deliveries; let i =index ">
@@ -52,7 +53,7 @@
                                                                 {{ item.order_no }}</span>
 
                                                         </td>
-                                                        <td>
+                                                        <td *ngIf="userData.type != 'company' ">
                                                             <label
                                                                 [ngClass]="{'badge text-white font-weight-bolder badge-danger': item.status !== 'delivered',  'badge badge-success': item.status == 'delivered' }">
                                                                 <span
@@ -75,15 +76,14 @@
                                                                 {{ item.company_confirm_details ? item.company_confirm_details.name : '' }}</label>
                                                             <ng-template #awaiting>
                                                                 <label class="badge-sm badge badge-danger">Awaiting
-                                                                Confirmation</label>
+                                                                    Confirmation</label>
                                                             </ng-template>
                                                         </td>
                                                         <td>
-                                                            <a href="#">
-                                                                <button class="btn-md btn btn-primary">View</button>
-                                                            </a>
 
-                                                            <a *ngIf="userData !== 'company' && item.long_order_no !== null"
+                                                            <button class="btn-md btn btn-primary"
+                                                                (click)="viewDelivery(item)">View</button>
+                                                            <a *ngIf="userData !== 'company' && item.long_order_no"
                                                                 target="_blank">
                                                                 <button class="btn-md btn btn-danger">Print</button>
                                                             </a>
