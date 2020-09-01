@@ -18,6 +18,7 @@ export class InvoiceListComponent implements OnInit {
   isLoadingInvoice: boolean;
   invoices: any[] = [];
   userData: any;
+  breadCrumb: string = 'Invoice  List';
   constructor(
     private dashboard: DasboardService,
     private storageService: StorageService,

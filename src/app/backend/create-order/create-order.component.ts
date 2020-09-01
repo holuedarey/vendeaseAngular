@@ -15,6 +15,7 @@ import { Router, NavigationExtras } from '@angular/router';
 })
 export class CreateOrderComponent implements OnInit {
 
+  breadCrumb: string = 'Raise Purchase Order';
   userData: any;
   products: any[] = [];
   companies: any[] = [];

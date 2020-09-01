@@ -95,11 +95,9 @@
                                                             </label>
 
                                                             <ng-template #secondPart>
-                                                                <a href="#">
-                                                                    <button
-                                                                        class="confirm btn btn-info text-white">Confirm
-                                                                        Delivery</button>
-                                                                </a>
+                                                                <button (click)="confirmDelivery(item)"
+                                                                    class="confirm btn btn-info text-white">Confirm
+                                                                    Delivery</button>
                                                             </ng-template>
 
                                                         </td>

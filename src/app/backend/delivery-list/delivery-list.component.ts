@@ -3,6 +3,7 @@ import { StorageService } from '../../_service/storage.service';
 import { Constants } from '../../common/constant';
 import { DeliveryService } from '../../_services/delivery.service';
 import { NavigationExtras, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-delivery-list',
@@ -15,7 +16,11 @@ export class DeliveryListComponent implements OnInit {
 
   userData:any;
   isLoadingDelievery:boolean;
-  constructor(private storageService:StorageService, private dleivery:DeliveryService, private router:Router) {
+  constructor(
+    private storageService:StorageService, 
+    private dleivery:DeliveryService, 
+    private toastr: ToastrService,
+    private router:Router) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
       this.userData = theData;
    }
@@ -36,6 +41,23 @@ export class DeliveryListComponent implements OnInit {
     })
   }
 
+  confirmDelivery(delivery){
+    const payload = {
+      company_confirm: true,
+    };
+    this.dleivery.confirmDelivery(delivery._id, payload).subscribe(confirmDelivery =>{
+      console.log('response :', confirmDelivery);
+        
+      this.toastr.success("Delivery Confirm Successfully", 'Successful', {
+        timeOut: 3000,
+        closeButton: true
+      });
+      this.getDeliveries();
+    }, error =>{
+      console.log('error : ', error);
+      
+    })
+  }
   
   viewDelivery(delivery){
     let navigationExtras: NavigationExtras = {

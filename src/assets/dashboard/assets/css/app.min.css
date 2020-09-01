@@ -9613,10 +9613,10 @@ body.header-dark:not(.dark) .header .dropdown-menu {
 
 .layout-wrapper .content-wrapper .content-body .content {
   -webkit-box-flex: 1;
-          flex: 1;
+  flex: 1;
   padding: 30px;
-  padding-top: 105px;
-  padding-left: 350px;
+  padding-top: 16px;
+  padding-left: 299px;
   padding-bottom: 0;
 }
 

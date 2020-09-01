@@ -26,6 +26,8 @@ import { InvoiceListComponent } from './backend/invoice-list/invoice-list.compon
 import { SingleOrderComponent } from './backend/single-order/single-order.component';
 import { SingleDeliveryComponent } from './backend/single-delivery/single-delivery.component';
 import { DeliveryListComponent } from './backend/delivery-list/delivery-list.component';
+import { SingleClaimComponent } from './backend/single-claim/single-claim.component';
+import { ClaimListComponent } from './backend/claim-list/claim-list.component';
 
 
 
@@ -65,7 +67,11 @@ const routes: Routes = [
 
       { path: 'view/delivery', component: SingleDeliveryComponent },
       { path: 'delivery-list', component: DeliveryListComponent },
+
+      { path: 'view/claim', component: SingleClaimComponent },
+      { path: 'claim-list', component: ClaimListComponent },
       
+      { path: 'report-list', component: ClaimListComponent },
     ]
   },
   
