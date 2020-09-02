@@ -18,4 +18,18 @@ export class ClaimsService {
         return data;
       }));
   }
+
+  listClaims(): Observable<any> {
+    return this.http.get(Endpoint.CLAIMS.claims).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+  
+  getClaims(claimId): Observable<any> {
+    return this.http.get(`${Endpoint.CLAIMS.claims}/${claimId}`).pipe(
+      map(data => {
+        return data;
+      }));
+  }
 }

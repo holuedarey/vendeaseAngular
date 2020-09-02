@@ -1,1 +1,66 @@
-<p>claim-list works!</p>
+<p>invoice-list works!</p>
+<!-- begin::main -->
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content">
+                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title">Claim List </h2>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <table id="order-listing" class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Date</th>
+                                                        <th>Invoice No</th>
+                                                        <th>Subject</th>
+                                                        <th>Status</th>
+                                                        <th>#Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <div class="col-md-4 offset-md-4">
+                                                    <mat-progress-spinner *ngIf="isLoadingClaimList" mode="indeterminate" diameter='30'
+                                                        strokeWidth='3'></mat-progress-spinner>
+                                                </div>
+                                                <tbody>
+                                                    <tr *ngFor="let claim of claims">
+                                                        <td>{{ claim.short_code }}</td>
+                                                        <td>{{ claim.createdAt|date }}</td>
+                                                        <td><a routerLink="#">{{ claim.invoice_no }}</a> </td>
+                                                        <td>{{ claim.claims }}</td>
+                                                        <td>
+                                                            <label *ngIf="claim.status == 'open'"
+                                                                class="badge badge-success">Open</label>
+                                                            <label *ngIf="claim.status !== 'open'"
+                                                                class="badge badge-danger">Closed</label>
+                                                        </td>
+
+                                                        <td>
+                                                            <a type="button" (click)="viewClaim(claim)"
+                                                                class="btn btn-outline-primary">View</a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
