@@ -1,1 +1,76 @@
-<p>single-claim works!</p>
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content" style="padding-top: 50px;">
+                <app-breadcrumb [breadCrumb]="breadCrumb" ></app-breadcrumb>
+                <div class="email-wrapper wrapper">
+
+                    <div class="row align-items-stretch">
+                        <div class="mail-view  d-md-block col-md-12 bg-white">
+                            <div class="row">
+                                <div class="col-md-12 mb-4 mt-4">
+                                    <div class="btn-toolbar">
+                                        <div *ngFor="let claim of conversations; let i = index ">
+                                            
+                                            <div *ngIf="claim.claims.status == 'open' ">
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary"
+                                                        data-toggle="modal" data-target="#replyclaim">Reply Message</button>
+                                                </div>
+        
+                                                <div class="btn-group" *ngIf="userData.type == 'system' ">
+                                                    <a routerLink="{% url 'mark_resolve' claims.claims.id claims.short_code %}"
+                                                        class="confirm"><button type="button"
+                                                            class="btn btn-sm btn-outline-danger">Closed Claim</button></a>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="claim.claims.status !== 'open' ">
+                                                <div class="btn-group">
+                                                    <span type="button" class="btn btn-sm btn-outline-danger text-white"
+                                                        style="background-color: red">Closed</span>
+                                                </div>
+    
+                                                <div class="btn-group" *ngIf="userData.type == 'vendor' ">
+                                                    <a routerLink="" class="confirm"><button type="button"
+                                                            class="btn btn-sm btn-outline-success">Re-open
+                                                            Claim</button></a>
+                                                </div>
+    
+                                            </div>
+        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            <div class="message-body" *ngFor="let claim of conversations">
+                                <div class="sender-details">
+                                    <div class="details">
+                                        <div class="message-content">
+                                            <p>{{ claim.message }}</p>
+                                        </div>
+        
+                                        <p class="msg-subject">
+                                            {{ claim.createdAt|date }}
+                                        </p>
+                                        <p class="sender-email">
+                                            <span class="text-danger"><strong class="text-info">{{claim.entity }}</strong>
+                                                -{{ claim.user }}</span>
+                                        </p>
+        
+                                    </div>
+                                </div>
+        
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

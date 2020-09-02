@@ -27,7 +27,8 @@ export class ClaimsService {
   }
   
   getClaims(claimId): Observable<any> {
-    return this.http.get(`${Endpoint.CLAIMS.claims}/${claimId}`).pipe(
+    console.log('transaction :', `${Endpoint.CLAIM_CONV.claims}/?short_code=${claimId}`  )
+    return this.http.get(`${Endpoint.CLAIM_CONV.claims}/?short_code=${claimId}`).pipe(
       map(data => {
         return data;
       }));

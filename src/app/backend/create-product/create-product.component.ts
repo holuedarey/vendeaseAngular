@@ -22,6 +22,14 @@ export class CreateProductComponent implements OnInit {
   isLoadingProductUpload: boolean;
   file: File = null;
   progress: number = 0;
+
+  breadCrumb: any = {
+    firstLabel: 'Product List',
+    secondLabel:'Create Product',
+    url: 'product-list',
+    secondLevel:true
+  };
+
   constructor(public storageService: StorageService, private fb: FormBuilder, private product: ProductService, private toastr: ToastrService) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;

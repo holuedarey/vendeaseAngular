@@ -16,6 +16,13 @@ export class DeliveryListComponent implements OnInit {
 
   userData:any;
   isLoadingDelievery:boolean;
+
+  breadCrumb: any = {
+    firstLabel: 'Claim List',
+    secondLabel:'Claim List',
+    url: 'world',
+    secondLevel:false
+  };
   constructor(
     private storageService:StorageService, 
     private dleivery:DeliveryService, 

@@ -19,6 +19,12 @@ export class ProductListComponent implements OnInit {
   products: any[] = [];
   userData: any;
 
+  breadCrumb: any = {
+    firstLabel: 'Purchase Order',
+    secondLabel:'Product List',
+    url: 'product-list',
+    secondLevel:false
+  };
   constructor(private product: ProductService, public storageService: StorageService, private dialog: MatDialog, private toastr: ToastrService) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;

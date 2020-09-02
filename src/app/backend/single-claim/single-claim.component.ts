@@ -16,6 +16,17 @@ export class SingleClaimComponent implements OnInit {
   userData:any;
   isLoadingDetail:boolean;
 
+  status:any;
+  claim:any;
+
+  conversations:any[] = [];
+  claimId:any;
+  breadCrumb: any = {
+    firstLabel: 'Claim List',
+    secondLabel:'',
+    url: 'claim-list',
+    secondLevel:true
+  };
   constructor( private route: ActivatedRoute,
     private storageService:StorageService,
     private claimService:ClaimsService) { 
@@ -29,15 +40,21 @@ export class SingleClaimComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.claimDetails();
+    this.breadCrumb.secondLabel = this.claimId;
   }
 
 
-  invoiceDetails() {
+  claimDetails() {
     this.isLoadingDetail = true;
 
-    this.claimService.getClaims(this.detail).subscribe(async (invoice) => {
+    this.claimService.getClaims(this.detail).subscribe(claim => {
       this.isLoadingDetail = false;
-      console.log('invoice single data :', invoice.data)
+      this.conversations = claim.data
+      console.log('claim single data :', claim.data)
+      // this.status = claim.status;
+      this.claimId = claim.short_code;
+
       //todo show appropriate data to the view
       
     }, error => {

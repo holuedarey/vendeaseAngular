@@ -13,8 +13,17 @@ import { ToastrService } from 'ngx-toastr';
 export class ClaimListComponent implements OnInit {
 
   isLoadingClaimList:boolean;
-  breadCrumb: string = 'Claim  List';
+  breadCrumb: any = {
+    firstLabel: 'Claim List',
+    secondLabel:'Claim List',
+    url: 'claim-list',
+    secondLevel:false
+  };
   claims:any[] = [];
+  secondLevel:boolean = true;
+  label:'test';
+  url:'test'
+  
   constructor(
     private claimService:ClaimsService, 
     private router:Router,
@@ -22,13 +31,14 @@ export class ClaimListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.getClaims()
   }
 
   getClaims(){
     this.isLoadingClaimList = true;
-    this.claimService.listClaims().subscribe(compannies => {
-      console.log('claims data : ', compannies)
-      this.claims = compannies.data;
+    this.claimService.listClaims().subscribe(claims => {
+      console.log('claims data : ', claims)
+      this.claims = claims.data.slice().reverse();;
 
       this.isLoadingClaimList = false;
     }, error => {
@@ -41,7 +51,7 @@ export class ClaimListComponent implements OnInit {
     // console.log('log : ', invoice);
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        details: claim._id
+        details: claim.short_code
       }
     };
     this.router.navigate(['view/claim'], navigationExtras)

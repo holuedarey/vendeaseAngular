@@ -16,7 +16,13 @@ export class OrderListComponent implements OnInit {
   userData: any;
   orders: any[] = [];
   isLoadingOrder: boolean;
-  breadCrumb: string = 'Purchase Order List';
+  // breadCrumb: string = 'Purchase Order List';
+  breadCrumb: any = {
+    firstLabel: 'Purchase Order',
+    secondLabel:'Purchase Order',
+    url: 'order-list',
+    secondLevel:false
+  };
   constructor(public storageService: StorageService,
     private purchaseOrders: OrdersService,
     private dialog: MatDialog,

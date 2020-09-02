@@ -22,6 +22,9 @@ export const Endpoint = {
         claims: `${BASE_URL}/claims`,
     },
     
+    CLAIM_CONV: {
+        claims: `${BASE_URL}/claims-conversation`,
+    },
     PURCHASE: {
         purchase_orders:  `${BASE_URL}/purchase-orders`, 
     },

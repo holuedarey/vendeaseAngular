@@ -9615,7 +9615,7 @@ body.header-dark:not(.dark) .header .dropdown-menu {
   -webkit-box-flex: 1;
   flex: 1;
   padding: 30px;
-  padding-top: 16px;
+  padding-top: 34spx;
   padding-left: 299px;
   padding-bottom: 0;
 }
