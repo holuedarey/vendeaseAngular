@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { StorageService } from '../../_service/storage.service';
 import { Constants } from '../../common/constant';
 import { ClaimsService } from '../../_services/claims.service';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-single-claim',
@@ -24,11 +26,16 @@ export class SingleClaimComponent implements OnInit {
   breadCrumb: any = {
     firstLabel: 'Claim List',
     secondLabel:'',
-    url: 'claim-list',
+    url: '/claim-list',
     secondLevel:true
   };
+
+  ReplyClaimForm: FormGroup;
+  @ViewChild('closebutton') closebutton;
   constructor( private route: ActivatedRoute,
     private storageService:StorageService,
+    private fb:FormBuilder,
+    private toastr:ToastrService,
     private claimService:ClaimsService) { 
     this.route.queryParams.subscribe(params => {
       console.log('params : ', params.details);
@@ -37,6 +44,10 @@ export class SingleClaimComponent implements OnInit {
       const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
       this.userData = theData;
       console.log('details : ', this.userData);
+    });
+
+    this.ReplyClaimForm = this.fb.group({
+      message: ['', Validators.compose([Validators.required])],
     });
   }
 
@@ -62,5 +73,25 @@ export class SingleClaimComponent implements OnInit {
       this.isLoadingDetail = false
       console.log('Error : ', error)
     })
+  }
+
+  replyClaim(){
+    const payload = {
+      short_code:this.detail,
+      message: this.ReplyClaimForm.value.message,
+    }
+
+    this.claimService.replyClaims(payload).subscribe(claim => {
+      this.closebutton.nativeElement.click();
+      this.toastr.success("Product Created Successfully", 'Successful', {
+        timeOut: 3000,
+        closeButton: true
+      });
+      this.claimDetails();
+    }, error =>{
+      this.closebutton.nativeElement.click();
+      console.log('error ; ', error)
+    });
+    console.log('payload ', payload);
   }
 }

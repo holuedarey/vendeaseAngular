@@ -33,4 +33,12 @@ export class ClaimsService {
         return data;
       }));
   }
+
+  replyClaims(payload): Observable<any> {
+    return this.http.post(Endpoint.CLAIM_CONV.claims, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
 }
