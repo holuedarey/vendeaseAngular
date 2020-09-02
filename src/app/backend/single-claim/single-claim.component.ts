@@ -33,6 +33,7 @@ export class SingleClaimComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       console.log('params : ', params.details);
       this.detail = params["details"];
+
       const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
       this.userData = theData;
       console.log('details : ', this.userData);
@@ -41,7 +42,7 @@ export class SingleClaimComponent implements OnInit {
 
   ngOnInit(): void {
     this.claimDetails();
-    this.breadCrumb.secondLabel = this.claimId;
+    this.breadCrumb.secondLabel = `Claim #${this.detail}`;
   }
 
 
