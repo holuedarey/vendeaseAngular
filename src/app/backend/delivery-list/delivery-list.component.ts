@@ -18,9 +18,9 @@ export class DeliveryListComponent implements OnInit {
   isLoadingDelievery:boolean;
 
   breadCrumb: any = {
-    firstLabel: 'Claim List',
-    secondLabel:'Claim List',
-    url: 'world',
+    firstLabel: 'Delivery List',
+    secondLabel:'Delivery List',
+    url: 'delivery-list',
     secondLevel:false
   };
   constructor(

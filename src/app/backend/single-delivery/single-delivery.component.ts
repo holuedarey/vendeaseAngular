@@ -23,6 +23,14 @@ export class SingleDeliveryComponent implements OnInit {
   company_confirm:any;
   order_no:any;
   status:any;
+
+  breadCrumb: any = {
+    firstLabel: 'Delivery List',
+    secondLabel:'',
+    url: '/delivery-list',
+    secondLevel:true
+  };
+
   constructor( private route: ActivatedRoute,private storageService:StorageService, private delivery:DeliveryService) { 
     this.route.queryParams.subscribe(params => {
       console.log('params : ', params.details);
@@ -36,7 +44,8 @@ export class SingleDeliveryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getDelievery()
+    this.getDelievery();
+    this.breadCrumb.secondLabel = `Delivery #${this.detail}`;
   }
 
   getDelievery(){

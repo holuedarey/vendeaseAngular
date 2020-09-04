@@ -49,6 +49,12 @@ export class SingleInvoiceComponent implements OnInit {
   companyId: any;
   delivery_address:any;
 
+  breadCrumb: any = {
+    firstLabel: 'Claim List',
+    secondLabel:'',
+    url: '/claim-list',
+    secondLevel:true
+  };
   constructor(
     private dashboard: DasboardService,
     private paymentService: PaymentService,
@@ -71,6 +77,7 @@ export class SingleInvoiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.invoiceDetails();
+    this.breadCrumb.secondLabel = `Invoice #${this.detail}`;
     const date = new Date(new Date().getTime() + (5 * 24 * 60 * 60 * 1000)).toISOString();
     console.log('date in 5days', date);
     this.reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
