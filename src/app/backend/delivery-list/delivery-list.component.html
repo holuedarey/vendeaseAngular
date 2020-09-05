@@ -8,12 +8,12 @@
         <!-- end::navigation -->
         <div class="content-body">
             <div class="content" style="padding-top: 50px;">
-                <app-breadcrumb [breadCrumb]="breadCrumb" ></app-breadcrumb>
+                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
                 <div class="row">
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
 
-                            <div class="card-body" *ngIf="userData == 'system' ">
+                            <div class="card-body" *ngIf="userData.type == 'system' ">
                                 <form>
                                     <input name="search" class="form-control"
                                         placeholder="Search for Delivery by company ID" />
@@ -32,8 +32,8 @@
                                                         <th *ngIf="userData !== 'vendor' ">Invoice ID</th>
                                                         <th>Purchase Order ID</th>
                                                         <th>Status</th>
-                                                        <th *ngIf="userData == 'system' ">Assigned To</th>
-                                                        <th *ngIf="userData == 'system' ">Company</th>
+                                                        <th *ngIf="userData.type == 'system' ">Assigned To</th>
+                                                        <th *ngIf="userData.type == 'system' ">Company</th>
                                                         <th>#Action</th>
                                                     </tr>
                                                 </thead>
@@ -45,7 +45,7 @@
                                                 <tbody>
                                                     <tr *ngFor="let item of deliveries; let i =index ">
                                                         <td>{{ i+1 }}</td>
-                                                        <td *ngIf="userData !== 'vendor' ">{{ item.invoice_no }}</td>
+                                                        <td *ngIf="userData.type !== 'vendor' ">{{ item.invoice_no }}</td>
                                                         <td>
                                                             <a *ngIf="item.long_order_no" style="color: black"
                                                                 href="#">{{ item.order_no }}</a>
@@ -64,11 +64,11 @@
                                                         </td>
 
 
-                                                        <td *ngIf=" userData =='system' ">
+                                                        <td *ngIf=" userData.type =='system' ">
                                                             {{ item.vendor_details ? item.vendor_details.name : '' }}
                                                         </td>
 
-                                                        <td *ngIf=" userData !== 'company' ">
+                                                        <td *ngIf=" userData.type !== 'company' ">
 
                                                             <label *ngIf="item.delivered==true &&
                                                                 item.company_confirm==true; else awaiting"
@@ -83,23 +83,24 @@
 
                                                             <button class="btn-md btn btn-primary"
                                                                 (click)="viewDelivery(item)">View</button>
-                                                            <a *ngIf="userData !== 'company' && item.long_order_no"
+                                                            <a *ngIf="userData.type !== 'company' && item.long_order_no != null"
                                                                 target="_blank">
                                                                 <button class="btn-md btn btn-danger">Print</button>
                                                             </a>
                                                             <label
-                                                                *ngIf="userData !== 'company' && item.delivered && item.company_confirm && item.company_confirm == true; else secondPart"
+                                                                *ngIf="userData.type == 'company' && item.delivered == true && item.company_confirm == true;"
                                                                 class="
                                                                 text-white badge badge-dark">Confirmed by
                                                                 {{ item.company_confirm_details ? item.company_confirm_details.name : '' }}
                                                             </label>
 
-                                                            <ng-template #secondPart>
-                                                                <button (click)="confirmDelivery(item)"
-                                                                    class="confirm btn btn-info text-white">Confirm
-                                                                    Delivery</button>
-                                                            </ng-template>
-
+                                                            <!-- <ng-template #secondPart> -->
+                                                            <button
+                                                                *ngIf="userData.type !== 'company' && item.delivered == false && item.company_confirm == false"
+                                                                (click)="confirmDelivery(item)"
+                                                                class="confirm btn btn-info text-white">Confirm
+                                                                Delivery</button>
+                                                            <!-- </ng-template> -->
                                                         </td>
 
                                                     </tr>
