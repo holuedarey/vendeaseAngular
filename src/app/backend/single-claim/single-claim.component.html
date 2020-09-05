@@ -15,9 +15,8 @@
                             <div class="row">
                                 <div class="col-md-12 mb-4 mt-4">
                                     <div class="btn-toolbar">
-                                        <div *ngFor="let claim of conversations; let i = index ">
-
-                                            <div *ngIf="claim.claims.status == 'open' ">
+                                        <div *ngFor="let claim of conversations; let index = index ">
+                                            <div *ngIf="claim.claims.status == 'open' && index == 0">
                                                 <div class="btn-group">
                                                     <button type="button" class="btn btn-sm btn-outline-primary"
                                                         data-toggle="modal" data-target="#replyclaim">Reply
@@ -25,20 +24,20 @@
                                                 </div>
 
                                                 <div class="btn-group" *ngIf="userData.type == 'system' ">
-                                                    <a routerLink="{% url 'mark_resolve' claims.claims.id claims.short_code %}"
+                                                    <a (click)="closeClaim(claim)"
                                                         class="confirm"><button type="button"
                                                             class="btn btn-sm btn-outline-danger">Closed
                                                             Claim</button></a>
                                                 </div>
                                             </div>
-                                            <div *ngIf="claim.claims.status !== 'open' ">
+                                            <div *ngIf="claim.claims.status !== 'open' && index == 0 ">
                                                 <div class="btn-group">
                                                     <span type="button" class="btn btn-sm btn-outline-danger text-white"
                                                         style="background-color: red">Closed</span>
                                                 </div>
 
                                                 <div class="btn-group" *ngIf="userData.type == 'vendor' ">
-                                                    <a routerLink="" class="confirm"><button type="button"
+                                                    <a (click)="reopenClaim(claim)" class="confirm"><button type="button"
                                                             class="btn btn-sm btn-outline-success">Re-open
                                                             Claim</button></a>
                                                 </div>

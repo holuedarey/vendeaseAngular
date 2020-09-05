@@ -100,20 +100,20 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="ModalLabel">Update Location</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button"   #closebutton class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form  [formGroup]="updateLocationForm">
 
                                     <div class="form-group location">
                                         <label for="location">Update Location</label>
-                                        <textarea name="location" cols="6" rows="6" type="text" required
+                                        <textarea formControlName="location" cols="6" rows="6" type="text" required
                                             class="form-control" id="location"
                                             placeholder="Current Location"> </textarea>
                                     </div>
-                                    <button type="submit" class="btn btn-primary confirm">Submit</button>
+                                    <button type="submit" (click)="updateDeleivery()" class="btn btn-primary confirm">Submit</button>
                                 </form>
 
                             </div>

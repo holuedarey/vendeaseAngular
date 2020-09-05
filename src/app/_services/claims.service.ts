@@ -27,7 +27,6 @@ export class ClaimsService {
   }
   
   getClaims(claimId): Observable<any> {
-    console.log('transaction :', `${Endpoint.CLAIM_CONV.claims}/?short_code=${claimId}`  )
     return this.http.get(`${Endpoint.CLAIM_CONV.claims}/?short_code=${claimId}`).pipe(
       map(data => {
         return data;
@@ -41,4 +40,18 @@ export class ClaimsService {
       }));
   }
 
+  markResolved(claimId, payload):Observable<any> {
+    return this.http.patch(`${Endpoint.CLAIMS.claims}/${claimId}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+  reopenClaim(claimId, payload):Observable<any> {
+    return this.http.patch(`${Endpoint.CLAIMS.claims}/${claimId}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+  
 }

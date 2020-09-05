@@ -5,6 +5,8 @@ import { Constants } from '../../common/constant';
 import { ClaimsService } from '../../_services/claims.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../user-management/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-single-claim',
@@ -13,30 +15,31 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class SingleClaimComponent implements OnInit {
 
-  detail:any;
-  invoiceId:any;
-  userData:any;
-  isLoadingDetail:boolean;
+  detail: any;
+  invoiceId: any;
+  userData: any;
+  isLoadingDetail: boolean;
 
-  status:any;
-  claim:any;
+  status: any;
+  claim: any;
 
-  conversations:any[] = [];
-  claimId:any;
+  conversations: any[] = [];
+  claimId: any;
   breadCrumb: any = {
     firstLabel: 'Claim List',
-    secondLabel:'',
+    secondLabel: '',
     url: '/claim-list',
-    secondLevel:true
+    secondLevel: true
   };
 
   ReplyClaimForm: FormGroup;
   @ViewChild('closebutton') closebutton;
-  constructor( private route: ActivatedRoute,
-    private storageService:StorageService,
-    private fb:FormBuilder,
-    private toastr:ToastrService,
-    private claimService:ClaimsService) { 
+  constructor(private route: ActivatedRoute,
+    private storageService: StorageService,
+    private fb: FormBuilder,
+    private toastr: ToastrService,
+    private dialog: MatDialog,
+    private claimService: ClaimsService) {
     this.route.queryParams.subscribe(params => {
       console.log('params : ', params.details);
       this.detail = params["details"];
@@ -68,30 +71,110 @@ export class SingleClaimComponent implements OnInit {
       this.claimId = claim.short_code;
 
       //todo show appropriate data to the view
-      
+
     }, error => {
       this.isLoadingDetail = false
       console.log('Error : ', error)
     })
   }
 
-  replyClaim(){
+  replyClaim() {
     const payload = {
-      short_code:this.detail,
+      short_code: this.detail,
       message: this.ReplyClaimForm.value.message,
     }
 
     this.claimService.replyClaims(payload).subscribe(claim => {
       this.closebutton.nativeElement.click();
-      this.toastr.success("Product Created Successfully", 'Successful', {
+      this.toastr.success("Claim Submitted Successfully", 'Successful', {
         timeOut: 3000,
         closeButton: true
       });
       this.claimDetails();
-    }, error =>{
+    }, error => {
       this.closebutton.nativeElement.click();
       console.log('error ; ', error)
     });
     console.log('payload ', payload);
+  }
+
+  closeClaim(claim) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '150px';
+    dialogConfig.width = '350px';
+    dialogConfig.position = {
+      'top': '50px',
+    };
+
+    dialogConfig.data = {
+      data: JSON.stringify(claim)
+    };
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        const payload = {
+          action: 'resolve',
+        }
+
+        const claimId = claim.claims.id;
+        this.claimService.markResolved(claimId, payload).subscribe(claim => {
+          this.closebutton.nativeElement.click();
+          this.toastr.success("Claim closed Successfully", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          this.claimDetails();
+        }, error => {
+          this.closebutton.nativeElement.click();
+          console.log('error ; ', error)
+        });
+
+      }
+    });
+  }
+  reopenClaims(claim) {
+
+  }
+
+  reopenClaim(claim) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '150px';
+    dialogConfig.width = '350px';
+    dialogConfig.position = {
+      'top': '50px',
+    };
+
+    dialogConfig.data = {
+      data: JSON.stringify(claim)
+    };
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        dialogRef.close();
+        console.log('Yes clicked');
+        const payload = {
+          action: 'open',
+        }
+
+        const claimId = claim.claims.id;
+        this.claimService.reopenClaim(claimId, payload).subscribe(claim => {
+          this.closebutton.nativeElement.click();
+          this.toastr.success("Claim Reopen Successfully", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          this.claimDetails();
+        }, error => {
+          this.closebutton.nativeElement.click();
+          console.log('error ; ', error)
+        });
+      }
+    });
   }
 }

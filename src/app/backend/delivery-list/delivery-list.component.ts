@@ -4,6 +4,8 @@ import { Constants } from '../../common/constant';
 import { DeliveryService } from '../../_services/delivery.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ConfirmDialogComponent } from '../user-management/confirm-dialog/confirm-dialog.component';
+import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-delivery-list',
@@ -26,6 +28,7 @@ export class DeliveryListComponent implements OnInit {
   constructor(
     private storageService:StorageService, 
     private dleivery:DeliveryService, 
+    private dialog: MatDialog,
     private toastr: ToastrService,
     private router:Router) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
@@ -49,21 +52,42 @@ export class DeliveryListComponent implements OnInit {
   }
 
   confirmDelivery(delivery){
-    const payload = {
-      company_confirm: true,
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '150px';
+    dialogConfig.width = '350px';
+    dialogConfig.position = {
+      'top': '50px',
     };
-    this.dleivery.confirmDelivery(delivery._id, payload).subscribe(confirmDelivery =>{
-      console.log('response :', confirmDelivery);
-        
-      this.toastr.success("Delivery Confirm Successfully", 'Successful', {
-        timeOut: 3000,
-        closeButton: true
-      });
-      this.getDeliveries();
-    }, error =>{
-      console.log('error : ', error);
-      
-    })
+
+    dialogConfig.data = {
+      data: JSON.stringify(delivery)
+    };
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        dialogRef.close();
+        console.log('Yes clicked');
+        const payload = {
+          company_confirm: true,
+        };
+        this.dleivery.confirmDelivery(delivery._id, payload).subscribe(confirmDelivery =>{
+          console.log('response :', confirmDelivery);
+            
+          this.toastr.success("Delivery Confirm Successfully", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          this.getDeliveries();
+        }, error =>{
+          console.log('error : ', error);
+          
+        })
+      }
+    });
+    
   }
   
   viewDelivery(delivery){
