@@ -132,18 +132,18 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <form>
+                                <form [formGroup]="statusUpdateForm">
 
                                     <div class="form-group location">
                                         <label for="location">Update Status</label>
-                                        <select style="width: 100%" name="status"
+                                        <select style="width: 100%" formControlName="status"
                                             class="form-control js-example-basic-single w-100 " required>
                                             <option value="">Please select </option>
                                             <option value="in-transit">In-Transit</option>
                                             <option value="delivered">Delivered</option>
                                         </select>
                                     </div>
-                                    <button type="submit" class="btn btn-primary confirm">Submit</button>
+                                    <button type="submit" (click)="updateDeleiveryStatus()" class="btn btn-primary confirm">Submit</button>
                                 </form>
 
                             </div>
