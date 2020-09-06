@@ -48,5 +48,10 @@ export class DeliveryService {
       }));  
   }
 
-
+  searchDelivery(payload): Observable<any> {
+    return this.http.get(`${Endpoint.DELIVERY.delivery}/?company[$search]=${payload}`, payload).pipe(
+      map(data => {
+        return data;
+      }));  
+  }
 }

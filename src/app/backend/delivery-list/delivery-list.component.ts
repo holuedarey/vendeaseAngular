@@ -6,6 +6,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ConfirmDialogComponent } from '../user-management/confirm-dialog/confirm-dialog.component';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-delivery-list',
@@ -14,32 +15,39 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 })
 export class DeliveryListComponent implements OnInit {
 
-  deliveries:any[] = [];
+  deliveries: any[] = [];
 
-  userData:any;
-  isLoadingDelievery:boolean;
+  userData: any;
+  isLoadingDelievery: boolean;
 
   breadCrumb: any = {
     firstLabel: 'Delivery List',
-    secondLabel:'Delivery List',
+    secondLabel: 'Delivery List',
     url: 'delivery-list',
-    secondLevel:false
+    secondLevel: false
   };
+  searchDeliveryForm: FormGroup;
+
   constructor(
-    private storageService:StorageService, 
-    private dleivery:DeliveryService, 
+    private storageService: StorageService,
+    private dleivery: DeliveryService,
     private dialog: MatDialog,
     private toastr: ToastrService,
-    private router:Router) {
+    private fb: FormBuilder,
+    private router: Router) {
+    this.searchDeliveryForm = this.fb.group({
+      search: ['', Validators.compose([Validators.required])],
+    });
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
-      this.userData = theData;
-   }
+    this.userData = theData;
+
+  }
 
   ngOnInit(): void {
     this.getDeliveries();
   }
 
-  getDeliveries(){
+  getDeliveries() {
     this.isLoadingDelievery = true;
     this.dleivery.getAllDeliveries().subscribe(delivery => {
       console.log('invoice data :', delivery.data)
@@ -51,7 +59,7 @@ export class DeliveryListComponent implements OnInit {
     })
   }
 
-  confirmDelivery(delivery){
+  confirmDelivery(delivery) {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
@@ -73,30 +81,47 @@ export class DeliveryListComponent implements OnInit {
         const payload = {
           company_confirm: true,
         };
-        this.dleivery.confirmDelivery(delivery._id, payload).subscribe(confirmDelivery =>{
+        this.dleivery.confirmDelivery(delivery._id, payload).subscribe(confirmDelivery => {
           console.log('response :', confirmDelivery);
-            
+
           this.toastr.success("Delivery Confirm Successfully", 'Successful', {
             timeOut: 3000,
             closeButton: true
           });
           this.getDeliveries();
-        }, error =>{
+        }, error => {
           console.log('error : ', error);
-          
+
         })
       }
     });
-    
+
   }
-  
-  viewDelivery(delivery){
+
+  viewDelivery(delivery) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
         details: delivery._id
       }
     };
     this.router.navigate(['view/delivery'], navigationExtras)
+  }
+
+
+  searchDeleivery() {
+    const payload = this.searchDeliveryForm.value.search;
+    this.dleivery.searchDelivery(payload).subscribe(confirmDelivery => {
+      console.log('response :', confirmDelivery);
+
+      this.toastr.success("Delivery Confirm Successfully", 'Successful', {
+        timeOut: 3000,
+        closeButton: true
+      });
+      this.getDeliveries();
+    }, error => {
+      console.log('error : ', error);
+
+    })
   }
 
 }

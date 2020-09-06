@@ -14,9 +14,15 @@
                         <div class="card">
 
                             <div class="card-body" *ngIf="userData.type == 'system' ">
-                                <form>
-                                    <input name="search" class="form-control"
+                                <form [formGroup]="searchDeliveryForm">
+                                    
+                                    <div class="input-group">
+                                        <input formControlName="search" class="form-control"  [class.invalid]="!searchDeliveryForm.controls.search.valid && (searchDeliveryForm.controls.search.dirty)"
                                         placeholder="Search for Delivery by company ID" />
+                                        <div class="input-group-append" style="    position: relative; right: 10px; top: -1px;">
+                                          <button class="btn btn-outline-secondary" type="button" (click)="searchDeleivery()"> <span><i class="fa fa-search"></i></span></button>
+                                        </div>
+                                      </div>
                                 </form>
                             </div>
 
@@ -81,11 +87,11 @@
                                                         </td>
                                                         <td>
 
-                                                            <button class="btn-md btn btn-primary"
+                                                            <button class="btn-md btn btn-primary" style="font-size: 12px; text-transform: capitalize !important;"
                                                                 (click)="viewDelivery(item)">View</button>
                                                             <a *ngIf="userData.type !== 'company' && item.long_order_no != null"
                                                                 target="_blank">
-                                                                <button class="btn-md btn btn-danger">Print</button>
+                                                                <button class="btn-md btn btn-danger" style="font-size: 12px; text-transform: capitalize !important;">Print</button>
                                                             </a>
                                                             <label
                                                                 *ngIf="userData.type == 'company' && item.delivered == true && item.company_confirm == true;"
@@ -95,7 +101,7 @@
                                                             </label>
 
                                                             <!-- <ng-template #secondPart> -->
-                                                            <button
+                                                            <button style="font-size: 12px; text-transform: capitalize !important;"
                                                                 *ngIf="userData.type !== 'company' && item.delivered == false && item.company_confirm == false"
                                                                 (click)="confirmDelivery(item)"
                                                                 class="confirm btn btn-info text-white">Confirm

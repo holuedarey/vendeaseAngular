@@ -5,6 +5,7 @@ import { StorageService } from '../../_service/storage.service';
 import { DeliveryService } from '../../_services/delivery.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { isArray } from 'util';
 
 @Component({
   selector: 'app-single-delivery',
@@ -37,6 +38,8 @@ export class SingleDeliveryComponent implements OnInit {
   statusUpdateForm: FormGroup;
 
   @ViewChild('closebutton') closebutton;
+  @ViewChild('closeStataus') closeStataus;
+  
   constructor(private route: ActivatedRoute,
     private storageService: StorageService,
     private toastr:ToastrService,
@@ -72,13 +75,13 @@ export class SingleDeliveryComponent implements OnInit {
       this.deliveries = delivery.data;
       this.delivered = delivery.delivered;
       this.confirm = delivery.confirm;
-      this.current_status = delivery.current_status;
+      this.current_status = ! isArray(delivery.current_status) ? [] : delivery.current_status;
       this.company_details = delivery.company_details.name;
       this.company_confirm = delivery.company_confirm;
       this.order_no = delivery.order_no;
       this.status = delivery.status;
 
-      console.log('log data : ', this.current_status)
+      console.log('log data : ', delivery)
     }, error => {
       console.log('Error :', error)
     })
@@ -111,7 +114,7 @@ export class SingleDeliveryComponent implements OnInit {
     }
     console.log('payload ', payload);
     this.delivery.updateDelivery(this.deliveryId, payload).subscribe(delivery => {
-      this.closebutton.nativeElement.click();
+      this.closeStataus.nativeElement.click();
       this.toastr.success(`Status Updated Successfully`, 'Successful', {
         timeOut: 3000,
         closeButton: true
