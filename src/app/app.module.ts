@@ -77,8 +77,8 @@ import { SingleDeliveryComponent } from './backend/single-delivery/single-delive
 import { DeliveryListComponent } from './backend/delivery-list/delivery-list.component';
 import { ClaimListComponent } from './backend/claim-list/claim-list.component';
 import { SingleClaimComponent } from './backend/single-claim/single-claim.component';
-import { ReportListComponent } from './backend/report-list/report-list.component';
 import { BreadcrumbComponent } from './backend/breadcrumb/breadcrumb.component';
+import { UserReportComponent } from './backend/user-report/user-report.component';
 
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
@@ -132,8 +132,8 @@ export function tokenGetter() {
     DeliveryListComponent,
     ClaimListComponent,
     SingleClaimComponent,
-    ReportListComponent,
     BreadcrumbComponent,
+    UserReportComponent,
     
   ],
 

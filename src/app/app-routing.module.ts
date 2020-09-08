@@ -28,6 +28,8 @@ import { SingleDeliveryComponent } from './backend/single-delivery/single-delive
 import { DeliveryListComponent } from './backend/delivery-list/delivery-list.component';
 import { SingleClaimComponent } from './backend/single-claim/single-claim.component';
 import { ClaimListComponent } from './backend/claim-list/claim-list.component';
+import { UserReportComponent } from './backend/user-report/user-report.component';
+
 
 
 
@@ -50,7 +52,10 @@ const routes: Routes = [
     component: MainComponent,
     canActivate: [AuthGuard],
     children: [
+      // { path: 'report', component: ReportsComponent },
+
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'report', component: UserReportComponent },
       { path: 'user-list', component: UserManagementComponent },
       { path: 'company-list', component: CompanyListComponent },
       { path: 'supplier-list', component: SupplierListComponent },
@@ -71,7 +76,6 @@ const routes: Routes = [
       { path: 'view/claim', component: SingleClaimComponent },
       { path: 'claim-list', component: ClaimListComponent },
       
-      { path: 'report-list', component: ClaimListComponent },
     ]
   },
   

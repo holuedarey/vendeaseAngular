@@ -1,0 +1,83 @@
+<!-- begin::main -->
+<div class="layout-wrapper">
+
+    <app-header></app-header>
+
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content" style="padding-top: 50px;">
+                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
+                <div class="row">
+                    <div class="col-md-7 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Generate Company Invoice </h4>
+                                <form class="forms-sample">
+
+                                    <div class="form-group">
+                                        <select name="company" class="form-control js-example-basic-single"
+                                            style="width: 100%" required>
+                                            <option value="">Select company</option>
+                                            <option *ngFor="let item of compannies" value="{{ item.id }}">{{ item.name }}
+                                            </option>
+
+                                        </select>
+                                    </div>
+                                    <div class="input-group input-daterange d-flex align-items-center">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <mat-form-field>
+                                                    <input [value]="startDate.value" matInput [matDatepicker]="picker"
+                                                        placeholder="Start date">
+                                                    <mat-datepicker-toggle matSuffix [for]="picker">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #picker></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <mat-form-field>
+                                                    <input [value]="endDate.value" matInput [matDatepicker]="myPicker"
+                                                        placeholder="End date">
+                                                    <mat-datepicker-toggle matSuffix [for]="myPicker">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #myPicker></mat-datepicker>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-lg-4 col-lg-offset-4">
+                                                <button type="submit" class="btn btn-primary mr-2" style="text-transform: capitalize;">Generate
+                                                    Report</button>
+                                                <!-- <button type="submit" class="float-right text-center col-md-2 btn btn-primary">Filter</button> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- {% if count > 0 %} -->
+                    <div class="col-md-5 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-title text-md-center text-xl-left text-primary">Report Amount</p>
+                                <div
+                                    class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                                    <!-- <h2 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-dark">{{ count }}</h2> -->
+                                </div>
+                                <p class="mb-0 mt-2 text-warning"><span class="text-black"><small> Report found for the
+                                            above selected
+                                            parameters</small></span></p>
+                                <button type="submit" class="btn btn-primary mt-5">Download Report</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- {% endif %} -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
