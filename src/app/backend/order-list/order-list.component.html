@@ -14,10 +14,9 @@
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
 
-                            <div class="card-body" *ngIf="userData == 'system'">
-                                <form>
-
-                                    <input name="search" class="form-control"
+                            <div class="card-body" *ngIf="userData.type == 'system'">
+                                <form [formGroup]="searchPoForm">
+                                    <input formControlName="search" class="form-control"
                                         placeholder="Search for PO by company ID" />
                                 </form>
                             </div>
@@ -35,7 +34,7 @@
                                                         <th>Created Date</th>
                                                         <th>Paid</th>
                                                         <th>Company</th>
-                                                        <th *ngIf="userData == 'system'">Supplier</th>
+                                                        <th *ngIf="userData.type == 'system'">Supplier</th>
                                                         <th>#Action</th>
                                                     </tr>
                                                 </thead>
@@ -58,20 +57,21 @@
                                                                 *ngIf="order.paid == false ">{{ order.paid }}</label>
 
                                                         </td>
-                                                        <td>{{ order.company_details.name }}</td>
+                                                        <td>{{ order.company_details ? order.company_details.name : '' }}</td>
 
-                                                        <td *ngIf="userData == 'system'">
-                                                            {{ order.vendor_details.name }} <br />
+                                                        <td *ngIf="userData.type === 'system'">
+                                                            {{ order.vendor_details ? order.vendor_details.name : '' }} <br />
                                                         </td>
 
+                                                        <!-- <td>action</td> -->
                                                         <td>
 
                                                             <button class="btn btn-outline-warning" (click)="viewOrder(order)">View</button>
 
-                                                            <button *ngIf="userData == 'system'" class="btn btn-outline-primary" (click)="assignOrder(order)">Assign</button>
+                                                            <button *ngIf="userData.type == 'system'" class="btn btn-outline-primary" (click)="assignOrder(order)">Assign</button>
 
                                                             <button type="button" (click)="deleteOrder(order)"
-                                                                *ngIf="userData != 'system' && order.paid == false && !order.payment_date "
+                                                                *ngIf="userData.type != 'vendor' && order.paid == false && order.payment_date == undefined"
                                                                 class="btn btn-outline-danger confirm-delete">Delete</button>
 
                                                         </td>

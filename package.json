@@ -29,6 +29,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "ng2-charts": "^2.3.2",
+    "ngx-export-as": "^1.4.2",
     "ngx-toastr": "^12.1.0",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",

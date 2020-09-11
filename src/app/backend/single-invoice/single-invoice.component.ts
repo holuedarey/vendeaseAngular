@@ -9,7 +9,9 @@ import { ToastrService } from 'ngx-toastr';
 import { PaylaterComponent } from './paylater/paylater.component';
 import { PaymentService } from '../../_services/payment.service';
 import { DeliveryService } from '../../_services/delivery.service';
-import { error } from 'protractor';
+import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
+import { Observable } from 'rxjs';
+
 
 @Component({
   selector: 'app-single-invoice',
@@ -47,15 +49,29 @@ export class SingleInvoiceComponent implements OnInit {
   title: any;
 
   companyId: any;
-  delivery_address:any;
+  delivery_address: any;
 
   breadCrumb: any = {
     firstLabel: 'Claim List',
-    secondLabel:'',
+    secondLabel: '',
     url: '/claim-list',
-    secondLevel:true
+    secondLevel: true
   };
+
+  config: ExportAsConfig = {
+    type: 'pdf',
+    elementIdOrContent: 'exportData',
+    options: {
+      jsPDF: {
+        orientation: 'landscape'
+      },
+      pdfCallbackFn: this.pdfCallbackFn // to add header and footer
+    }
+  };
+  isShow: boolean = true;
+  visible:boolean;
   constructor(
+    private exportAsService: ExportAsService,
     private dashboard: DasboardService,
     private paymentService: PaymentService,
     private router: Router,
@@ -63,7 +79,7 @@ export class SingleInvoiceComponent implements OnInit {
     private storageService: StorageService,
     private dialog: MatDialog,
     private toastr: ToastrService,
-    private delivery:DeliveryService) {
+    private delivery: DeliveryService) {
     this.route.queryParams.subscribe(params => {
       console.log('params : ', params.details);
       this.detail = params["details"];
@@ -75,21 +91,66 @@ export class SingleInvoiceComponent implements OnInit {
     });
   }
 
+  exportAsString(type: SupportedExtensions, opt?: string) {
+    this.config.elementIdOrContent = '<div> test string </div>';
+    this.exportAs(type, opt);
+    setTimeout(() => {
+      this.config.elementIdOrContent = 'mytable';
+    }, 1000);
+  }
+
+   exportAs(type: SupportedExtensions, opt?: string){
+    this.isShow = false;
+    this.visible = true;
+    this.config.type = type;
+    if (opt) {
+      this.config.options.jsPDF.orientation = opt;
+    }
+    this.exportAsService.save(this.config, this.detail).subscribe(() => {
+      // save started
+
+    });
+
+    // location.reload()
+    // this.exportAsService.get(this.config).subscribe(content => {
+    //   const link = document.createElement('a');
+    //   const fileName = `${this.detail}.pdf`;
+
+    //   link.href = content;
+    //   link.download = fileName;
+    //   link.click();
+    //   console.log(content);
+    //   this.isShow = true;
+
+    // }); 
+  }
+
+  pdfCallbackFn(pdf: any) {
+    // example to add page number as footer to every page of pdf
+    const noOfPages = pdf.internal.getNumberOfPages();
+    for (let i = 1; i <= noOfPages; i++) {
+      pdf.setPage(i);
+      pdf.text('Page ' + i + ' of ' + noOfPages, pdf.internal.pageSize.getWidth() - 100, pdf.internal.pageSize.getHeight() - 30);
+    }
+  }
+
   ngOnInit(): void {
     this.invoiceDetails();
     this.breadCrumb.secondLabel = `Invoice #${this.detail}`;
     const date = new Date(new Date().getTime() + (5 * 24 * 60 * 60 * 1000)).toISOString();
     console.log('date in 5days', date);
     this.reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
+    console.log('show :', this.isShow);
+    this.visible = false;
   }
 
   invoiceDetails() {
     this.isLoadingDetail = true;
 
-    this.dashboard.getInvoice(this.detail).subscribe(async (invoice) => {
+    this.dashboard.getInvoice(this.detail).subscribe((invoice) => {
       this.isLoadingDetail = false;
       console.log('invoice single data :', invoice)
-      this.invoice = await invoice.data;
+      this.invoice = invoice.data;
       this.invoiceNumber = invoice.invoice_number;
       this.order_number = invoice.order_number;
       this.companyId = invoice.company_details.id;
@@ -110,6 +171,17 @@ export class SingleInvoiceComponent implements OnInit {
       console.log('Error : ', error)
     })
   }
+
+  // exportAs() {
+  //   // download the file using old school javascript method
+  //   this.exportAsService.save(this.exportAsConfig, this.detail).subscribe(() => {
+  //     // save started
+  //   });
+  //   // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
+  //   this.exportAsService.get(this.exportAsConfig).subscribe(content => {
+  //     console.log(content);
+  //   });
+  // }
 
   approveInvoice() {
     // return;
@@ -184,8 +256,8 @@ export class SingleInvoiceComponent implements OnInit {
     });
   }
 
-  createDelivery(){
-   const  payload = {
+  createDelivery() {
+    const payload = {
       company: this.companyId,
       // current_status: "accepted",
       invoice_no: this.invoiceId,
@@ -196,17 +268,17 @@ export class SingleInvoiceComponent implements OnInit {
     }
 
     console.log('data Payload', payload);
-    
-    this.delivery.createDelivery(payload).subscribe(delivery =>{
+
+    this.delivery.createDelivery(payload).subscribe(delivery => {
       console.log('data :', delivery);
-       // console.log('log : ', invoice);
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        details: delivery._id
-      }
-    };
-    this.router.navigate(['view/delivery'], navigationExtras)
-    },error =>{
+      // console.log('log : ', invoice);
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          details: delivery._id
+        }
+      };
+      this.router.navigate(['view/delivery'], navigationExtras)
+    }, error => {
       console.log('Error :', error)
     })
   }
@@ -229,7 +301,7 @@ export class SingleInvoiceComponent implements OnInit {
         timeOut: 5000,
         closeButton: true
       });
-      this.invoiceDetails();
+      this.createDelivery();
     }, error => {
       console.log('Error : ', error)
     })
@@ -237,6 +309,10 @@ export class SingleInvoiceComponent implements OnInit {
 
   paymentCancel() {
     console.log('payment failed');
+  }
+  printPage() {
+    const logo = document.getElementById('logo').className = "d-block";
+    window.print()
   }
 
 }

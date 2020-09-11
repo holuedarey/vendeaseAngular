@@ -17,11 +17,11 @@ export class CreateOrderComponent implements OnInit {
 
   breadCrumb: any = {
     firstLabel: 'Purchase Order',
-    secondLabel:'Raise Purchase Order',
+    secondLabel: 'Raise Purchase Order',
     url: 'order-list',
-    secondLevel:true
+    secondLevel: true
   };
-  
+
   userData: any;
   products: any[] = [];
   companies: any[] = [];
@@ -32,12 +32,12 @@ export class CreateOrderComponent implements OnInit {
   @ViewChild('closebutton') closebutton;
   constructor(
     private storageService: StorageService,
-    private orderService:OrdersService,
+    private orderService: OrdersService,
     private productService: ProductService,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
     private comanyServ: CompanyService,
-    private router:Router
-    ) {
+    private router: Router
+  ) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
 
@@ -49,6 +49,7 @@ export class CreateOrderComponent implements OnInit {
 
     this.OrderAddressForm = this.fb.group({
       address: ['', Validators.compose([Validators.required])],
+      company: ['',''],
     });
   }
 
@@ -56,50 +57,56 @@ export class CreateOrderComponent implements OnInit {
     this.companyList();
     this.items = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.CART)) || [];
     this.productListUser();
-    console.log('items :', this.items)
+    // console.log('items :', this.items)
   }
 
   addAddress() {
-    this.address = this.OrderAddressForm.value.address;
+    
     this.closebutton.nativeElement.click();
 
+    let companyId;
+    if (this.userData.type == 'system') {
+      companyId =  this.address = this.OrderAddressForm.value.company;
+    } else {
+      companyId = this.userData.company.id;
+    }
     const payload = {
       items: this.items,
-      company: this.userData.company.id,
-      delivery_address: this.address,
+      company: companyId,
+      delivery_address: this.address = this.OrderAddressForm.value.address,
       delivery_deadline: "12/20/2019"
     }
     console.log('payload data ', payload);
     //save the purchase order
-    this.orderService.createOrder(payload).subscribe(data =>{
+    this.orderService.createOrder(payload).subscribe(data => {
       this.storageService.clear(Constants.STORAGE_VARIABLES.CART)
       let navigationExtras: NavigationExtras = {
         queryParams: {
           details: data['long_invoice_number']
         }
       };
-    
+
       this.router.navigate(['view/invoice'], navigationExtras)
-    }, error=>{
+    }, error => {
       console.log('Error :', error)
     })
 
   }
 
-  async productListUser() {
+  productListUser() {
     this.productService.produtList().subscribe((product) => {
       this.products = product.data.slice().reverse()
-      console.log('product :', this.products)
+      // console.log('product :', this.products)
     }, error => {
       console.log('Error :', error)
     })
   }
 
 
-  async companyList() {
+  companyList() {
     this.comanyServ.getCompanyList().subscribe((company) => {
       this.companies = company.data;
-      console.log('companies ; ', this.companies);
+      // console.log('companies ; ', this.companies);
     }, error => {
       console.log('Error :', error)
     })

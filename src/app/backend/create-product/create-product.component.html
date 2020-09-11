@@ -64,10 +64,15 @@
                                 <p>You can upload multiple products at once by uploading an excel sheet. <br />
                                     But first download our template and prepare you sheet to match the template</p>
 
-                                <a href="../../../assets/files/Product_sample.xlsx" target="_blank">
-                                    <button type="button" class="btn btn-success">Download Template</button>
+
+                                <a *ngIf="userData.type == 'system' "  href="https://vendease.s3.us-east-2.amazonaws.com/Bulk+Inventory+for+Admin.xlsx" target="_blank">
+                                    <button type="button" class="btn btn-success">Download Template Admin</button>
                                 </a>
-                                <br /> <br />
+                                
+                                <a href="https://vendease.s3.us-east-2.amazonaws.com/Bulk+Inventory+for+Company.xlsx" target="_blank">
+                                    <button type="button" class="btn btn-success">Download Template Company</button>
+                                </a>
+                                <br /> 
                                 <h3>Upload File </h3> <br />
 
                                 <form [formGroup]="CreateProductFormUpload" (ngSubmit)="createPoductUpload()">

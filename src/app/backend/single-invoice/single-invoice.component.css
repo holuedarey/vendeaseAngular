@@ -1,0 +1,16 @@
+@media print {
+    #breadCrumb {
+      display: none;
+    }
+    #button{
+        display: none;
+    }
+    #logo{
+        display: block;
+        visibility: visible;
+    }
+  }
+
+  #logo{
+      visibility: hidden;
+  }

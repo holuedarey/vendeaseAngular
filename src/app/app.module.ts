@@ -80,6 +80,8 @@ import { SingleClaimComponent } from './backend/single-claim/single-claim.compon
 import { BreadcrumbComponent } from './backend/breadcrumb/breadcrumb.component';
 import { UserReportComponent } from './backend/user-report/user-report.component';
 
+import { ExportAsModule } from 'ngx-export-as';
+
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
 }
@@ -139,6 +141,7 @@ export function tokenGetter() {
 
   imports: [
     BrowserModule,
+    ExportAsModule,
     CommonModule,
     AppRoutingModule,
     HttpClientModule,

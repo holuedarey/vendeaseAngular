@@ -1,4 +1,4 @@
-<!-- begin::main -->
+E<!-- begin::main -->
 <div class="layout-wrapper">
 
     <app-header></app-header>
@@ -8,12 +8,15 @@
         <!-- end::navigation -->
         <div class="content-body">
             <div class="content" style="padding-top: 50px;">
-                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb> 
-                <div class="row">
+                <app-breadcrumb [breadCrumb]="breadCrumb" id="breadCrumb"></app-breadcrumb>
+                <div class="row" id="exportData">
                     <div class="col-lg-12">
                         <div class="card px-2">
                             <div class="card-body" *ngIf="!isLoadingDetail">
                                 <div class="container-fluid">
+                                    <h3 class="text-left" id="logo" class="d-block">
+                                        <img src="../../../assets/images/logo_print.png" alt="VENDEASE" class="img-responsive"  style="position: relative; width: 150px; top: 130px;">
+                                    </h3>
                                     <h3 class="text-right my-5">Invoice ID #{{ invoiceNumber }} <br />
                                         Order ID #{{ order_number }} <br />
 
@@ -54,6 +57,35 @@
                                 <div class="container-fluid mt-5 d-flex justify-content-center w-100">
                                     <div class="table-responsive w-100">
                                         <table class="table">
+                                            <div hidden id="header-title">
+                                                <tr>
+                                                    <td> <b> Date:</b> {{ createdAt   }}</td>
+                                                    <td> </td>
+                                                    <td><b>Invoice ID:</b> {{ invoiceNumber }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> <b>Issued to:</b> {{ company_details_name    }} </td>
+                                                    <td> </td>
+                                                    <td><b>PO ID:</b> {{ order_number }}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td> <b>Delivery Address:</b> {{ delivery_address }}</td>
+                                                    <td> </td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                                <br>
+                                            </div>
+
                                             <thead>
                                                 <tr class="bg-dark text-white">
                                                     <th>Product</th>
@@ -87,23 +119,25 @@
                                     <h4 class="text-right mb-5">Total : NGN {{ grand_total }}</h4>
                                     <hr>
                                 </div>
-                                <div class="container-fluid w-100">
-                                    <a routerLnk="" target="_blank" class="btn btn-primary float-right mt-4 ml-2"><i
-                                            class="ti-printer mr-1 noprint"></i>Print</a>
-                                    <a routerLnk="" target="_blank" class="btn btn-success float-right mt-4 ml-2"><i
-                                            class="fa fa-file-excel-o mr-1"></i>Excel</a>
-                                    <a routerLnk="" target="_blank" class="btn btn-danger float-right mt-4 ml-2"><i
-                                            class="fa fa-file-pdf-o mr-1"></i>PDF</a>
+                                <div class="container-fluid w-100" id="button" *ngIf="isShow">
+                                    <button (click)="printPage()"  class="btn btn-primary float-right mt-4 ml-2"><i
+                                            class="ti-printer mr-1 noprint"></i>Print</button>
+                                    <button (click)="exportAs('xlsx')" class="btn btn-success float-right mt-4 ml-2"><i
+                                            class="fa fa-file-excel-o mr-1"></i>Excel</button>
+                                    <button (click)="exportAs('pdf', 'portrait')" target="_blank"
+                                        class="btn btn-danger float-right mt-4 ml-2"><i
+                                            class="fa fa-file-pdf-o mr-1"></i>PDF</button>
 
                                     <!-- {% if invoice.approved %}
                                     {% if user_details.user.type == 'company' and invoice.paid == 0 %} -->
                                     <div
                                         *ngIf="invoiceApproved == true && userData.type == 'company' && paid == false ">
-                                        <div *ngIf="userData.type == 'company' && paid ==false ">
+                                        <div *ngIf="userData.type == 'company' && paid == false ">
                                             <!-- <button class="btn btn-success float-right mt-4 ml-2" (click)="payNow()">
                                                 <i class="mr-1 noprint"></i>₦ Pay Now</button> -->
 
-                                            <button *ngIf="userData.type == 'company' && paid ==false "  angular4-paystack class="btn btn-success float-right mt-4 ml-2"
+                                            <button *ngIf="userData.type == 'company' && paid ==false "
+                                                angular4-paystack class="btn btn-success float-right mt-4 ml-2"
                                                 [key]="'pk_test_c98b92c0c8c5cd7d94150e06fc711d9ce1d1c53b'"
                                                 [email]="userData.email" [amount]="grand_total*100" [ref]="reference"
                                                 [class]="'btn btn-primary'" (paymentInit)="paymentInit($event)"
@@ -116,7 +150,7 @@
 
 
 
-                                            <button *ngIf="userData.payLater  == true && !payment_date"
+                                            <button *ngIf="userData.payLater  == true && payment_date == undefined"
                                                 (click)="payLater()" class="btn btn-warning float-right mt-4 ml-2">
                                                 <i class="mr-1 noprint"></i>Pay Later</button>
 
@@ -130,7 +164,6 @@
                                                 <i class="mr-1 text-white"></i>Approve Invoice</button>
                                         </a>
                                     </div>
-
                                 </div>
                             </div>
                         </div>

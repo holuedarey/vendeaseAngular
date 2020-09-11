@@ -49,6 +49,13 @@ export class SingleOrderComponent implements OnInit {
   isLoadingDelete: boolean;
   _id: any;
 
+  breadCrumb: any = {
+    firstLabel: 'Purchase Order',
+    secondLabel: '',
+    url: 'order-list',
+    secondLevel: true
+  };
+
   constructor(
     private orderService: OrdersService,
     private route: ActivatedRoute,
@@ -68,10 +75,11 @@ export class SingleOrderComponent implements OnInit {
     this.userData = theData;
   }
   ngOnInit(): void {
+    this.breadCrumb.secondLabel = `Order #${this.detail}`;
     this.orderDetails();
   }
 
-  async productListUser() {
+  productListUser() {
     this.productService.produtList().subscribe((product) => {
       this.products = product.data
       console.log('product :', this.products)
@@ -80,7 +88,7 @@ export class SingleOrderComponent implements OnInit {
     })
   }
 
-  async orderDetails() {
+  orderDetails() {
     this.isLoadingDetail = true;
 
     this.orderService.viewOrder(this.detail).subscribe(purchaseOrder => {
