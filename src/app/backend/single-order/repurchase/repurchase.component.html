@@ -1,24 +1,25 @@
-<div class="row" style="padding: 10px;">
-    <div class="well">
+<div class="container" style="padding: 10px;">
+    <div class="row">
         <h3 class="lead">Repurchase Order</h3>
     </div>
-    <table id="order-listing" class="table">
-        <thead>
-            <tr class="bg-primary text-white">
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Desc</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of orderProducts">
-                <td>{{ item.name }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.description }}</td>
-            </tr>
-        </tbody>
 
-    </table>
+    <div class="row">
+        <form [formGroup]="RepurchaseForm">
+            <div class="col-sm-12">
+                <div *ngFor="let item of orderProducts; let index = index">
+                    <div class="form-group col-sm-4 float-left">
+                        <input readonly formControlName="name{{index}}" type="text" class="form-control" [(ngModel)]="item.name"  />
+                    </div>
+                    <div class="form-group col-sm-4 float-left">
+                        <input formControlName="quantity{{ index }}" type="number" class="form-control" [(ngModel)]="item.quantity" />
+                    </div>
+                    <div class="form-group col-sm-4 float-left">
+                        <input formControlName="description{{ index }}" type="text" class="form-control" [(ngModel)]="item.description" />
+                    </div>
+                </div>
+            </div> 
+        </form>
+    </div>
     <div class="row" style="margin-top: 24px;">
         <div class="col-md-6">
             <button type="button" class="btn btn-primary" (click)="save()">Submit</button>

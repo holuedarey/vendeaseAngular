@@ -30,7 +30,7 @@
 
                                     <a *ngIf="userData.type == 'company' " class="float-right"
                                         style="margin-top: -20px">
-                                        <button (click)="rePurchase()" class="btn btn-primary">Re-Purchase</button>
+                                        <button *ngIf="!isLoadingDetail" (click)="rePurchase()" class="btn btn-primary">Re-Purchase</button>
                                     </a>
                                 </p>
 

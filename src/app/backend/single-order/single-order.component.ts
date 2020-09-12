@@ -156,8 +156,8 @@ export class SingleOrderComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = '400px';
-    dialogConfig.width = '900px';
+    dialogConfig.height = '320px';
+    dialogConfig.width = '650px';
     dialogConfig.position = {
       'top': '50px',
     };
