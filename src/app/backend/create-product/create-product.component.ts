@@ -26,7 +26,7 @@ export class CreateProductComponent implements OnInit {
   breadCrumb: any = {
     firstLabel: 'Product List',
     secondLabel:'Create Product',
-    url: 'product-list',
+    url: '/product-list',
     secondLevel:true
   };
 

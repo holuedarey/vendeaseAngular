@@ -29,7 +29,7 @@ export class AddProductComponent implements OnInit {
   }
 
   
-  async productListUser() {
+  productListUser() {
     this.productService.produtList().subscribe((product) => {
       this.products = product.data.slice().reverse()
       console.log('product :', this.products)

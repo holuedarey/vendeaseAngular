@@ -34,32 +34,38 @@ export class RepurchaseComponent implements OnInit {
       group[`name${item}`] = new FormControl('');
       group[`quantity${item}`] = new FormControl('');
       group[`description${item}`] = new FormControl('');
+      group[`item${item}`] = new FormControl('');
+      group[`other${item}`] = new FormControl('');
     }
     this.RepurchaseForm = new FormGroup(group);
   }
   save() {
-    const payload = {
-      type: "clone",
-      order_number: this.order_number
+    // const payload = {
+    //   type: "clone",
+    //   order_number: this.order_number
+    // }
+    
+
+    for (const index in this.orderProducts) {
+      
+      const  itemIndex = `item${index}`;
+      const nameIndex = `name${index}`;
+      const quantityIndex = `other${index}`;
+      const descriptionIndex = `description${index}`;
+
+      const repurchase = {
+        item: this.RepurchaseForm.value[itemIndex],
+        name: this.RepurchaseForm.value[nameIndex],
+        description: this.RepurchaseForm.value[descriptionIndex],
+        quantity: this.RepurchaseForm.value[quantityIndex],
+      }
+      this.items = this.items.concat(repurchase)
     }
-    this.dialogRef.close(payload);
+    console.log('data : ', this.items);
+    this.dialogRef.close(this.items);
 
   }
   close() {
-    
-
-    // this.items = this.items.concat(item)
-    for (const item in this.orderProducts) {
-      // const item = {
-      //   item: _id,
-      //   name: name,
-      //   quantity: this.purchaseOrderForm.value.quantity,
-      //   description: this.purchaseOrderForm.value.description,
-      // }
-      this.items = this.items.concat(item)
-    }
-
-    console.log('data : ', this.RepurchaseForm.value);
     this.dialogRef.close();
   }
 

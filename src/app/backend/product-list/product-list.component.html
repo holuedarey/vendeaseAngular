@@ -8,15 +8,20 @@
         <!-- end::navigation -->
         <div class="content-body">
             <div class="content" style="padding-top: 50px;">
-                <app-breadcrumb [breadCrumb]="breadCrumb" ></app-breadcrumb>
-                
+                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
+
                 <div class="row">
                     <div class="col-md-12 grid-margin stretch-card">
                         <div class="card">
                             <div class="card-body">
-                                <form method="get">
-                                    <input name="search" class="form-control"
-                                        placeholder="Search for products by name" />
+                                <form [formGroup]="searchProductForm">
+                                  
+                                    <div class="input-group">
+                                        <input formControlName="search" class="form-control" [class.invalid]="!searchProductForm.controls.search.valid && (searchProductForm.controls.search.dirty)" placeholder="Search for products by name" />
+                                        <div class="input-group-append" style="    position: relative; right: 10px; top: -1px;">
+                                          <button class="btn btn-outline-secondary" type="button" (click)="searchProductByName()"> <span><i class="fa fa-search"></i></span></button>
+                                        </div>
+                                     </div>
                                 </form>
                             </div>
                             <div class="card-body">
@@ -50,11 +55,14 @@
                                                         <td>{{ i+ 1 }}</td>
                                                         <td>{{ product.name }}</td>
                                                         <td>{{ product.brand }}</td>
-                                                        <td *ngIf="product.price == undefined"><label
-                                                                class="badge badge-dark">pending</label></td>
-                                                        <td *ngIf="product.price">₦ {{ product.price   }}</td>
+                                                        <td>
+                                                            <label class="badge badge-dark"
+                                                                *ngIf="product.price == undefined || product.price == null ">pending</label>
+                                                            <label *ngIf="product.price !== undefined">
+                                                                {{ product.price | currency : '₦'   }}</label>
+                                                        </td>
                                                         <td>{{ product.category }}</td>
-                                                        <td>{{ product.description }}</td>
+                                                        <td>{{ product.description ?  product.description : 'Nil'}}</td>
                                                         <td *ngIf="userData.type == 'system' ">
                                                             <span
                                                                 *ngIf="product.vendor_details">{{ product.vendor_details.name }}</span>

@@ -167,28 +167,28 @@ export class SingleOrderComponent implements OnInit {
       data: JSON.stringify({orderProducts : this.orderProducts, order_number:this.order_number})
     };
     const dialogRef = this.dialog.open(RepurchaseComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(payload => {
-      if (payload) {
+    dialogRef.afterClosed().subscribe(items => {
+      if (items) {
         this.isLoadingDelete = true;
+        const payload = {
+          items: items,
+          company: this.company_details_id,
+          delivery_address: this.delivery_address,
+          delivery_deadline: "12/20/2019"
+        }
         console.log('payload po repo', payload);
-        this.orderService.repurchaseOrder(payload).subscribe(repurchase => {
+        this.orderService.createOrder(payload).subscribe(data => {
+          this.storageService.clear(Constants.STORAGE_VARIABLES.CART)
           let navigationExtras: NavigationExtras = {
             queryParams: {
-              details: repurchase['long_invoice_number']
+              details: data['long_invoice_number']
             }
           };
-        
+    
           this.router.navigate(['view/invoice'], navigationExtras)
-          this.toastr.success("Purchase order was successful, Please make payment for invoice below", 'Successful', {
-            timeOut: 3000,
-            closeButton: true
-          });
-          this.isLoadingDelete = false;
         }, error => {
-          console.log('Error :', error);
-          this.isLoadingDelete = false;
-
-        });
+          console.log('Error :', error)
+        })
       }
     });
   }

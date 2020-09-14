@@ -140,7 +140,7 @@ E<!-- begin::main -->
                                                 angular4-paystack class="btn btn-success float-right mt-4 ml-2"
                                                 [key]="'pk_test_c98b92c0c8c5cd7d94150e06fc711d9ce1d1c53b'"
                                                 [email]="userData.email" [amount]="grand_total*100" [ref]="reference"
-                                                [class]="'btn btn-primary'" (paymentInit)="paymentInit($event)"
+                                                [class]="'btn btn-primary'" (paymentInit)="paymentInit()"
                                                 (close)="paymentCancel()" (callback)="paymentDone($event)">
                                                 ₦ Pay Now
                                             </button>

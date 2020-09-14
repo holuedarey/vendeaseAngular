@@ -7,6 +7,7 @@ import { ShowProductComponent } from './show-product/show-product.component';
 import { ConfirmDialogComponent } from '../user-management/confirm-dialog/confirm-dialog.component';
 import { ToastrService } from 'ngx-toastr';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-list',
@@ -25,27 +26,37 @@ export class ProductListComponent implements OnInit {
     url: 'product-list',
     secondLevel:false
   };
-  constructor(private product: ProductService, public storageService: StorageService, private dialog: MatDialog, private toastr: ToastrService) {
+
+  searchProductForm: FormGroup;
+  constructor(private product: ProductService, public storageService: StorageService, private dialog: MatDialog, private toastr: ToastrService, private fb: FormBuilder) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
+
+    this.searchProductForm = this.fb.group({
+      search: ['', Validators.compose([Validators.required])],
+    });
   }
 
   ngOnInit(): void {
     this.getProductList();
   }
 
-  async getProductList() {
+   getProductList() {
     this.isLoadingProduct = true;
     this.product.produtList().subscribe((product) => {
       console.log('product List data :', product.data)
       this.isLoadingProduct = false;
-      return this.products = product.data
+      return this.products = product.data.slice().reverse();
     }, error => {
       this.isLoadingProduct = false;
       console.log('Error :', error)
     })
   }
 
+
+  searchProductByName(){
+
+  }
 
   showAssignProduct(product) {
     // console.log('user data : ', user)

@@ -9,12 +9,14 @@
                 <div *ngFor="let item of orderProducts; let index = index">
                     <div class="form-group col-sm-4 float-left">
                         <input readonly formControlName="name{{index}}" type="text" class="form-control" [(ngModel)]="item.name"  />
+                        <input type="hidden" formControlName="item{{ index }}" [(ngModel)]="item.item">
+                        <input type="hidden" formControlName="other{{ index }}" [(ngModel)]="item.quantity">
                     </div>
                     <div class="form-group col-sm-4 float-left">
-                        <input formControlName="quantity{{ index }}" type="number" class="form-control" [(ngModel)]="item.quantity" />
+                        <input formControlName="quantity{{index}}" type="number" class="form-control" [(ngModel)]="item.quantity" />
                     </div>
                     <div class="form-group col-sm-4 float-left">
-                        <input formControlName="description{{ index }}" type="text" class="form-control" [(ngModel)]="item.description" />
+                        <input formControlName="description{{index}}" type="text" class="form-control" [(ngModel)]="item.description" />
                     </div>
                 </div>
             </div> 

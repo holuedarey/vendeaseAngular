@@ -189,8 +189,8 @@ export class SingleInvoiceComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = '130px';
-    dialogConfig.width = '250px';
+    dialogConfig.height = '230px';
+    dialogConfig.width = '300px';
     dialogConfig.position = {
       'top': '50px',
     };
@@ -282,8 +282,8 @@ export class SingleInvoiceComponent implements OnInit {
       console.log('Error :', error)
     })
   }
-  paymentInit(event) {
-    console.log('Payment initialized', event);
+  paymentInit() {
+    console.log('Payment initialized');
   }
 
   paymentDone(event) {

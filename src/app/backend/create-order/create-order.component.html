@@ -45,8 +45,8 @@
                                                 class="form-control"> </textarea>
                                         </div>
                                     </div>
-                                    <input style="margin-left: 15px" class="btn btn-primary" type="submit"
-                                        (click)="addToCart()" value="Add to cart">
+                                    <button style="margin-left: 15px" class="btn btn-primary" [disabled]="purchaseOrderForm.invalid"
+                                        (click)="addToCart()">Add to cart</button>
                                 </form>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                                                 </tbody>
                                             </table>
                                             <!-- {% if selected_products.count > 0 %} -->
-                                            <button class="btn btn-success text-center" data-toggle="modal"
+                                            <button class="btn btn-success text-center" data-toggle="modal" 
                                                 data-target="#poModal" *ngIf="items.length > 0">Submit Cart</button>
                                             <!-- {% endif %} -->
                                         </div>
@@ -125,7 +125,7 @@
               <label for="address"> Delivery Address</label>
               <textarea required formControlName="address" type="text" class="form-control address">{{ address }}</textarea>
             </div>
-            <button type="submit" class="btn btn-success confirm" (click)="addAddress()">Complete Order</button>
+            <button type="submit" class="btn btn-success confirm" (click)="addAddress()" [disabled]="OrderAddressForm.invalid">Complete Order</button>
           </form>
   
         </div>

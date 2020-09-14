@@ -38,7 +38,7 @@ export class ClaimListComponent implements OnInit {
     this.isLoadingClaimList = true;
     this.claimService.listClaims().subscribe(claims => {
       console.log('claims data : ', claims)
-      this.claims = claims.data.slice().reverse();;
+      this.claims = claims.data.slice().reverse();
 
       this.isLoadingClaimList = false;
     }, error => {

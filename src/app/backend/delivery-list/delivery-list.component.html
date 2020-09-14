@@ -22,7 +22,7 @@
                                         <div class="input-group-append" style="    position: relative; right: 10px; top: -1px;">
                                           <button class="btn btn-outline-secondary" type="button" (click)="searchDeleivery()"> <span><i class="fa fa-search"></i></span></button>
                                         </div>
-                                      </div>
+                                     </div>
                                 </form>
                             </div>
 
@@ -57,7 +57,6 @@
                                                                 href="#">{{ item.order_no }}</a>
                                                             <span *ngIf="!item.long_order_no">
                                                                 {{ item.order_no }}</span>
-
                                                         </td>
                                                         <td *ngIf="userData.type != 'company' ">
                                                             <label
