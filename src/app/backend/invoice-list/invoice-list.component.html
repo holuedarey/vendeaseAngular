@@ -15,8 +15,8 @@
                         <div class="card">
                 
                             <div class="card-body" *ngIf="userData.type == 'system' ">
-                                <form method="get">
-                                    <input name="search" class="form-control"
+                                <form [formGroup]="searchInvoiceForm">
+                                    <input formControlName="search" class="form-control" (keyup)="searchInvoice()"
                                         placeholder="Search for Invoice by company ID" />
                                 </form>
                             </div>
@@ -46,7 +46,7 @@
                                                    
                                                     <tr *ngFor="let invoice of invoices; let i = index">
                                                         <td>{{ i+ 1 }}</td>
-                                                        <td>{{ invoice.createdAt }}</td>
+                                                        <td>{{ invoice.createdAt | date }}</td>
                                                         <td>{{ invoice.company_details.name }}</td>
                                                         <td>{{ invoice.invoice_number }}</td>
                                                         <td>{{ invoice.order_number }}</td>
@@ -66,9 +66,9 @@
                                                                 Claim
                                                             </button>
                 
-                                                            <a type="button" (click)="deleteInvoice(invoice)"
+                                                            <button type="button" (click)="deleteInvoice(invoice)"
                                                                 *ngIf="userData.type == 'system' && invoice.paid == false && invoice.order_long_number"
-                                                                class="btn btn-outline-danger confirm">Delete</a>
+                                                                class="btn btn-outline-danger confirm">Delete</button>
                                                         </td>
                                                     </tr>
                 

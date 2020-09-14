@@ -110,14 +110,9 @@ export class DeliveryListComponent implements OnInit {
 
   searchDeleivery() {
     const payload = this.searchDeliveryForm.value.search;
-    this.dleivery.searchDelivery(payload).subscribe(confirmDelivery => {
-      console.log('response :', confirmDelivery);
-
-      this.toastr.success("Delivery Confirm Successfully", 'Successful', {
-        timeOut: 3000,
-        closeButton: true
-      });
-      this.getDeliveries();
+    if(payload == undefined) this.getDeliveries();
+    this.dleivery.searchDelivery(payload).subscribe(searchDelivery => {
+      this.deliveries = searchDelivery.data;
     }, error => {
       console.log('error : ', error);
 

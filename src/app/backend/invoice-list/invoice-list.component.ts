@@ -7,6 +7,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { ClaimComponent } from './claim/claim.component';
 import { ClaimsService } from '../../_services/claims.service';
 import { ToastrService } from 'ngx-toastr';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-invoice-list',
@@ -24,14 +25,20 @@ export class InvoiceListComponent implements OnInit {
     url: 'invoice-list',
     secondLevel:false
   };
+  searchInvoiceForm:FormGroup;
+
   constructor(
     private dashboard: DasboardService,
     private storageService: StorageService,
     private router: Router,
     private dialog: MatDialog,
+    private fb:FormBuilder,
     private claims: ClaimsService,
     private toastr: ToastrService,) {
 
+      this.searchInvoiceForm = this.fb.group({
+        search: ['', Validators.compose([Validators.required])],
+      });
   }
 
   ngOnInit(): void {
@@ -39,12 +46,23 @@ export class InvoiceListComponent implements OnInit {
     this.getUser();
   }
 
+  searchInvoice(){
+    const payload = this.searchInvoiceForm.value.search;
+    if(payload == undefined) this.getInvoice();
+    this.dashboard.searchInvoice(payload).subscribe(searchInvoice => {
+      console.log('response :', searchInvoice);
+      this.invoices = searchInvoice.data;
+    }, error => {
+      console.log('error : ', error);
+
+    })
+  }
   getUser() {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
   }
 
-  async getInvoice() {
+  getInvoice() {
     this.isLoadingInvoice = true;
     this.dashboard.invoice().subscribe((invoices) => {
       console.log('invoice data :', invoices.data)

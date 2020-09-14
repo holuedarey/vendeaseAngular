@@ -33,6 +33,13 @@ export class DasboardService {
       }));
   }
 
+  
+ searchInvoice(payload): Observable<any> {
+    return this.http.get(`${Endpoint.DASHBOARD.invoice}/?company[$search]=${payload}`).pipe(
+      map(data => {
+        return data;
+      }));
+  }
 
   deleteInvoice(invoiceId): Observable<any> {
     return this.http.delete(`${Endpoint.DASHBOARD.invoice}/${invoiceId}`).pipe(

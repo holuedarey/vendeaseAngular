@@ -52,9 +52,9 @@ export class SingleInvoiceComponent implements OnInit {
   delivery_address: any;
 
   breadCrumb: any = {
-    firstLabel: 'Claim List',
+    firstLabel: 'Invoice List',
     secondLabel: '',
-    url: '/claim-list',
+    url: '/invoice-list',
     secondLevel: true
   };
 
