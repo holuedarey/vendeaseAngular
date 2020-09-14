@@ -17,7 +17,7 @@
                                 <form [formGroup]="searchDeliveryForm">
                                     
                                     <div class="input-group">
-                                        <input formControlName="search" class="form-control"  [class.invalid]="!searchDeliveryForm.controls.search.valid && (searchDeliveryForm.controls.search.dirty)"
+                                        <input formControlName="search" class="form-control" (keyup)="searchDeleivery()"  [class.invalid]="!searchDeliveryForm.controls.search.valid && (searchDeliveryForm.controls.search.dirty)"
                                         placeholder="Search for Delivery by company ID" />
                                         <div class="input-group-append" style="    position: relative; right: 10px; top: -1px;">
                                           <button class="btn btn-outline-secondary" type="button" (click)="searchDeleivery()"> <span><i class="fa fa-search"></i></span></button>
@@ -58,9 +58,10 @@
                                                             <span *ngIf="!item.long_order_no">
                                                                 {{ item.order_no }}</span>
                                                         </td>
-                                                        <td *ngIf="userData.type != 'company' ">
+                                                        <td>
+                                                            
                                                             <label
-                                                                [ngClass]="{'badge text-white font-weight-bolder badge-danger': item.status !== 'delivered',  'badge badge-success': item.status == 'delivered' }">
+                                                                [ngClass]="{'badge badge-danger': item.status !== 'delivered',  'badge badge-success': item.status == 'delivered' }">
                                                                 <span
                                                                     *ngIf=" item.status=='accepted '">Processing</span>
                                                                 <span
@@ -76,13 +77,13 @@
                                                         <td *ngIf=" userData.type !== 'company' ">
 
                                                             <label *ngIf="item.delivered==true &&
-                                                                item.company_confirm==true; else awaiting"
+                                                                item.company_confirm==true;"
                                                                 class="badge-sm badge badge-success">Confirmed by
                                                                 {{ item.company_confirm_details ? item.company_confirm_details.name : '' }}</label>
-                                                            <ng-template #awaiting>
-                                                                <label class="badge-sm badge badge-danger">Awaiting
+                                                            
+                                                                <label *ngIf="item.delivered==false &&  item.company_confirm==false;" class="badge-sm badge badge-danger">Awaiting
                                                                     Confirmation</label>
-                                                            </ng-template>
+                                                          
                                                         </td>
                                                         <td>
 

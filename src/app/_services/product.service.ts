@@ -57,4 +57,10 @@ export class ProductService {
       }));
   }
 
+  searchProduct(query): Observable<any> {
+    return this.http.get(`${Endpoint.PRODUCTS.product}?name[$search]=${query}`).pipe(
+      map(data => {
+        return data;
+      }));
+  }
 }

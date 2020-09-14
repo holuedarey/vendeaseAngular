@@ -55,7 +55,15 @@ export class ProductListComponent implements OnInit {
 
 
   searchProductByName(){
+    const payload = this.searchProductForm.value.search;
+    if(payload == undefined) this.getProductList();
+    this.product.searchProduct(payload).subscribe(searchProduct => {
+      console.log('response :', searchProduct);
+      return this.products = searchProduct.data.slice().reverse();
+    }, error => {
+      console.log('error : ', error);
 
+    })
   }
 
   showAssignProduct(product) {
