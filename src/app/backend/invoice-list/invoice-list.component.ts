@@ -19,11 +19,24 @@ export class InvoiceListComponent implements OnInit {
   isLoadingInvoice: boolean;
   invoices: any[] = [];
   userData: any;
+  previous:any;
+  next:any;
+  total:any;
+
   breadCrumb: any = {
     firstLabel: 'Invoice List',
     secondLabel:'Invoice List',
     url: 'invoice-list',
     secondLevel:false
+  };
+
+  pagination: any = {
+    next: '',
+    previous:'',
+    total: '',
+    isLast: false,
+    totalPage:'',
+    isLoading:true
   };
   searchInvoiceForm:FormGroup;
 
@@ -65,9 +78,14 @@ export class InvoiceListComponent implements OnInit {
   getInvoice() {
     this.isLoadingInvoice = true;
     this.dashboard.invoice().subscribe((invoices) => {
-      console.log('invoice data :', invoices.data)
+      console.log('invoice data :', invoices)
       this.isLoadingInvoice = false;
-      this.invoices = invoices.data
+      this.pagination.previous = invoices.skip;
+      this.pagination.next = invoices.skip + 1;
+      this.pagination.total = invoices.total;
+      this.pagination.totalPage = Math.ceil(invoices.total/invoices.limit);
+      this.pagination.isLoading = false;
+      this.invoices = invoices.data;
     }, error => {
       this.isLoadingInvoice = false;
       console.log('Error :', error)

@@ -4690,7 +4690,7 @@ p {
 }
 
 .neg-magin-2{
-  margin-top: -13px !important;
+  margin-top: -23px !important;
 }
 a,
 .header form .input-group .input-group-append button.btn {
@@ -9615,7 +9615,7 @@ body.header-dark:not(.dark) .header .dropdown-menu {
   -webkit-box-flex: 1;
   flex: 1;
   padding: 30px;
-  padding-top: 34spx;
+  padding-top: 90px;
   padding-left: 299px;
   padding-bottom: 0;
 }
@@ -10124,6 +10124,8 @@ small {
 .header .header-body .page-title h6 {
   margin-bottom: 0;
   line-height: inherit;
+  /* font-family: 'Roboto', sans-serif; */
+  /* font-weight: 900; */
 }
 
 .header form .input-group {

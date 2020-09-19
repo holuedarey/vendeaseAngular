@@ -74,26 +74,7 @@
                 
                                                 </tbody>
                                             </table>
-                                            <!-- <div class="text-center">
-                                                <p>Showing page {{ p.page }} of {{ p.pages }} for {{ p.total }} Invoices
-                                                </p>
-                                                <div class="pagination">
-                                                    {% if p.prev_skip == 0 or p.prev_skip %}
-                                                    <a
-                                                        href="{% url 'invoice_list' 'all' 'invoices' p.prev_skip limit %}">&laquo;
-                                                        Previous</a>
-                                                    {% else %}
-                                                    <a href="#" class="text-muted">&laquo; Previous</a>
-                                                    {% endif %}
-                                                    {% if p.next_skip  %}
-                                                    <a
-                                                        href="{% url 'invoice_list' 'all' 'invoices' p.next_skip limit %}">&laquo;
-                                                        Next</a>
-                                                    {% else %}
-                                                    <a href="#" class="text-muted">&laquo; Next</a>
-                                                    {% endif %}
-                                                </div>
-                                            </div> -->
+                                            <app-pagination [pagination]="pagination"></app-pagination>
                                         </div>
                                     </div>
                                 </div>

@@ -1,0 +1,19 @@
+<div class="text-center" *ngIf="!pagination.isLoading">
+    <p>Showing page {{ pagination.next }} of {{ pagination.totalPage }} for {{ pagination.total }} Invoices</p>
+    <div class="pagination">
+     
+        <span *ngIf="pagination.previous > 0 ">
+            <button (click)="previousBtn()">&laquo; Previous yes</button>
+        </span>
+        <span *ngIf="pagination.previous == 0">
+            <button class="text-muted">&laquo; Previous no</button>
+        </span>
+       
+        <span *ngIf="pagination.next < pagination.totalPage">
+            <button (click)="nextBtn(pagination)" >&laquo; Next</button>
+        </span>
+        <span  *ngIf="pagination.isLast">
+            <button href="#" class="text-muted">&laquo; Next</button>
+        </span>
+    </div>
+</div>

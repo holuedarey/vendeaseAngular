@@ -12,7 +12,46 @@
 /* @import "./assets/vendors/font-awesome/css/font-awesome.min.css"; */
 
 @import "./assets/dashboard/custom.css";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
+    .roboto-900{
+      font-family: 'Roboto', sans-serif;
+      font-weight: 900;
+    }
+
+    .roboto-700{
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+    }
+
+    .roboto-400{
+      font-family: 'Roboto', sans-serif;
+      font-weight: 400;
+    }
+    .box{
+      background: #fff;
+      padding: 12px;
+      height: 99px;
+      padding-left: 39px;
+      padding-top: 35px;
+    }
+
+    .custom-blue {
+      color: #2C13E7;
+    }
+    .custom-black{
+      color: #3E3C4F;
+    }
+    .neg-margin-3{
+      margin-top: -27px !important;
+    }
+    .uppercase{
+      text-transform: capitalize;
+    }
+    .top-space{
+      top: 14px;
+      position: relative;
+    }
     .pagination {
       display: inline-block;
     }

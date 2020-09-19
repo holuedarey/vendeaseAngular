@@ -59,7 +59,11 @@ export class DashboardComponent implements OnInit {
   last7Days: any;
   isLoadingAnalytic: boolean;
 
-  public lineChartData: ChartDataSets[] = [];
+  public lineChartData: ChartDataSets[] = [
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
+    { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
+  ];
   public lineChartData2: ChartDataSets[] = [];
   public lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -177,13 +181,13 @@ export class DashboardComponent implements OnInit {
     this.dashboard.getGraph().subscribe((graphData) => {
       this.isLoadingGraph = false;
       // console.log('graph data :', graphData)
-      const lineChartData = graphData.invoices.map(item => item.totalAmount)
-      const lineChartData2 = graphData.paid_invoices.map(item => item.totalAmount)
+      // const lineChartData = graphData.invoices.map(item => item.totalAmount)
+      // const lineChartData2 = graphData.paid_invoices.map(item => item.totalAmount)
       this.lineChartData = [
-        { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
+        // { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
         // { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
         // { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-        { data: lineChartData2, label: 'Receipts' },
+        // { data: lineChartData2, label: 'Receipts' },
         // {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
       ]
       // console.log('line chart :', lineChartData2)
@@ -286,11 +290,11 @@ export class DashboardComponent implements OnInit {
       // this.isLoadingBulk = false;
 
       console.log('getTopFive data company :', topFive)
-      this.pieChartLabelsCompany = topFive.top_ranked.map(item => item.company_name)
-      this.pieChartDataCompany = topFive.top_ranked.map(item => item.amount)
+      // this.pieChartLabelsCompany = topFive.top_ranked.map(item => item.company_name)
+      // this.pieChartDataCompany = topFive.top_ranked.map(item => item.amount)
 
-      this.pieChartLabelsCompany2 = topFive.top_ranked.map(item => item.company_name)
-      this.pieChartDataCompany2 = topFive.top_ranked.map(item => item.amount)
+      // this.pieChartLabelsCompany2 = topFive.top_ranked.map(item => item.company_name)
+      // this.pieChartDataCompany2 = topFive.top_ranked.map(item => item.amount)
     }, error => {
       // this.isLoadingBulk = false
       console.log('Error : ', error)

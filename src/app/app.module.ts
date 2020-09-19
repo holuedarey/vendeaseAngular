@@ -81,6 +81,7 @@ import { BreadcrumbComponent } from './backend/breadcrumb/breadcrumb.component';
 import { UserReportComponent } from './backend/user-report/user-report.component';
 
 import { ExportAsModule } from 'ngx-export-as';
+import { PaginationComponent } from './backend/pagination/pagination.component';
 
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
@@ -136,6 +137,7 @@ export function tokenGetter() {
     SingleClaimComponent,
     BreadcrumbComponent,
     UserReportComponent,
+    PaginationComponent,
     
   ],
 
