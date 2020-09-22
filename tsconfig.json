@@ -8,7 +8,7 @@
   "compilerOptions": {
     "experimentalDecorators": true
   },
-  
+  "skipLibCheck": true,
   "references": [
     {
       "path": "./tsconfig.app.json"
@@ -18,4 +18,4 @@
     },
 
   ]
-}
+}s

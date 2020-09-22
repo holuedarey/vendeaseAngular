@@ -26,6 +26,10 @@ export class OrderListComponent implements OnInit {
   };
 
   searchPoForm: FormGroup;
+  p: number = 1;
+  limit:any = 50;
+  skip:any;
+  totalItems:any;
 
   constructor(public storageService: StorageService,
     private purchaseOrders: OrdersService,
@@ -53,16 +57,32 @@ export class OrderListComponent implements OnInit {
 
   async orderLists() {
     this.isLoadingOrder = true;
-    this.purchaseOrders.getOrders().subscribe((order) => {
+    this.purchaseOrders.getOrders({skip : 0, limit:this.limit}).subscribe((order) => {
       console.log('order list data :', order.data)
       this.isLoadingOrder = false;
-      this.orders = order.data
+      this.orders = order.data;
+      this.totalItems = order.total;
     }, error => {
       this.isLoadingOrder = false;
       console.log('Error :', error)
     })
   }
-
+  
+  
+  
+  pageChanged(event){
+    this.skip = (event - 1) * this.limit;
+    console.log('offset :', this.skip, event)
+    this.purchaseOrders.getOrders({skip : this.skip, limit:this.limit}).subscribe((order) => {
+      this.isLoadingOrder = false;
+      this.totalItems = order.total;
+      this.orders = order.data;
+    }, error => {
+      this.isLoadingOrder = false;
+      console.log('Error :', error)
+    })
+  }
+  
   deleteOrder(order) {
     const r = confirm('are you Sure u want to delete');
     if (r == true) {

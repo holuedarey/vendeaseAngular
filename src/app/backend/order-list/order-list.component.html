@@ -44,7 +44,7 @@
                                                 </div>
                                                 <tbody *ngIf="!isLoadingOrder && orders.length">
 
-                                                    <tr *ngFor="let order of orders; let i=index">
+                                                    <tr *ngFor="let order of orders| paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
                                                         <td>{{ i + 1 }}</td>
                                                         <td># {{ order.order_number }}</td>
                                                         <td>{{ order.createdAt }}</td>
@@ -80,24 +80,14 @@
 
                                                 </tbody>
                                             </table>
-                                            <!-- <div class="text-center">
-                                                <p>Showing page {{ p.page }} of {{ p.pages }} for {{ p.total }} Purchase
-                                                    Oders</p>
-                                                <div class="pagination">
-                                                    {% if p.prev_skip == 0 or p.prev_skip %}
-                                                    <a href="{% url 'purchase_order_list' p.prev_skip limit %}">&laquo;
-                                                        Previous</a>
-                                                    {% else %}
-                                                    <a href="#" class="text-muted">&laquo; Previous</a>
-                                                    {% endif %}
-                                                    {% if p.next_skip  %}
-                                                    <a href="{% url 'purchase_order_list' p.next_skip limit %}">&laquo;
-                                                        Next</a>
-                                                    {% else %}
-                                                    <a href="#" class="text-muted">&laquo; Next</a>
-                                                    {% endif %}
-                                                </div>
-                                            </div> -->
+                                            <div class="colm-6 text-right pull-right">
+                                                <pagination-controls id="order-listing" (pageChange)="pageChanged($event)"
+                                                    (pageBoundsCorrection)="pageChanged($event)" maxSize="9" directionLinks="true"
+                                                    autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
+                                                    screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                                                    screenReaderCurrentLabel="You're on page">
+                                                </pagination-controls>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

@@ -43,8 +43,6 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatNativeDateModule} from '@angular/material/core'; 
 import { ChartsModule } from 'ng2-charts';
 import {MatDialogModule} from '@angular/material/dialog';
-
-  import { from } from 'rxjs';
 import { UserManagementComponent } from './backend/user-management/user-management.component';
 import { EditModalComponent } from './backend/user-management/edit-modal/edit-modal.component';
 import { ConfirmDialogComponent } from './backend/user-management/confirm-dialog/confirm-dialog.component';
@@ -82,7 +80,18 @@ import { UserReportComponent } from './backend/user-report/user-report.component
 
 import { ExportAsModule } from 'ngx-export-as';
 import { PaginationComponent } from './backend/pagination/pagination.component';
+import { FusionChartsModule } from "angular-fusioncharts";
 
+// Import FusionCharts library and chart modules
+import * as FusionCharts from "fusioncharts";
+import * as charts from "fusioncharts/fusioncharts.charts";
+import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
+
+// Pass the fusioncharts library and chart modules
+FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
+
+//pagination
+import {NgxPaginationModule} from 'ngx-pagination'; 
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
 }
@@ -165,7 +174,9 @@ export function tokenGetter() {
       easing:'ease-in',
       progressAnimation:"decreasing"
     }),
-    Angular4PaystackModule.forRoot('pk_test_c98b92c0c8c5cd7d94150e06fc711d9ce1d1c53b')
+    Angular4PaystackModule.forRoot('pk_test_c98b92c0c8c5cd7d94150e06fc711d9ce1d1c53b'),
+    FusionChartsModule,
+    NgxPaginationModule
     // JwtModule.forRoot({
     //   config: {
     //     tokenGetter: tokenGetter,

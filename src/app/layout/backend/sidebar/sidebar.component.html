@@ -1,7 +1,9 @@
 <!-- begin::navigation -->
 <div class="navigation">
-    <div class="navigation-menu-tab" style="width: 35%;">
-        <ul>
+
+    <div class="navigation-menu-tab" style="width: 45%;">
+        <img class="profile-image m-t-b-20" src="{{ avatar }}" alt="Profile" />
+        <ul style="padding-left: 4%;">
             <li>
                 <a routerLink="/dashboard" style="justify-content: left;" class="active" data-placement="right"
                     title="Dashboard" data-nav-target="#dashboard">
@@ -9,10 +11,10 @@
                 </a>
             </li>
             <li>
-                <a routerLink="/create-purchase" style="justify-content: left;" class="active" data-placement="right"
-                    title="Order Now" data-nav-target="#dashboard">
-                    <i class="feather-shopping-cart" style="margin-right: 5px"> </i> Order Now
-                </a>
+                <button routerLink="/create-purchase" class="btn btn-order" style="background: #40E5BF; border-radius:34px; color: #ffffff; text-transform: capitalize;">
+                    <!-- <i class="feather-shopping-cart" style="margin-right: 5px"> </i> -->
+                    Order Now
+                </button>
             </li>
 
             <li>
@@ -51,8 +53,8 @@
             </li>
 
             <li>
-                <a style="justify-content: left;" routerLink="claim-list" data-toggle="tooltip"
-                    data-placement="right" title="Claim" data-nav-target="#dashboard">
+                <a style="justify-content: left;" routerLink="claim-list" data-toggle="tooltip" data-placement="right"
+                    title="Claim" data-nav-target="#dashboard">
                     <i class="feather-shopping-bag" style="margin-right: 5px"> </i> Claim
                 </a>
             </li>
@@ -93,13 +95,10 @@
         <div class="navigation-menu-group" style="color: #ffffff !important;">
             <div id="dashboard">
                 <ul>
-                    <li> <a class="active" routerLink="dashboard">Dashboard</a></li>
+                    <!-- <li> <a class="active" routerLink="dashboard">Dashboard</a></li> -->
                     <div class="">
                         <div class="col-md-10 offset-md-1">
-                            <div class="border-cover" style="position:relative">
-
-                                <!-- <img class="profile-image m-t-b-20" src="{{ user_details.user.avatar }}" alt="Profile" /> -->
-
+                            <!-- <div class="border-cover" style="position:relative">
                                 <img class="profile-image m-t-b-20" src="{{ avatar }}" alt="Profile" />
 
                                 <div style="position:absolute;margin-left: 53px;margin-top:-20px;"
@@ -108,19 +107,19 @@
                                     <form [formGroup]="avatarForm">
 
                                         <!-- <input type="file" name="avatar" id="avatar" class="custom-file-input" /> -->
-                                        <input formControlName="avatar" id="avatar" type="file" class="custom-file-input"
-                                            (change)="onFileChange($event)">
-                                        <button type="submit" name="btn-avatar" id="btn-avatar" class="btn btn-primary"
-                                            hidden></button>
-                                    </form>
-                                </div>
-                            </div>
+                                        <!-- <input formControlName="avatar" id="avatar" type="file" -->
+                                            <!-- class="custom-file-input" (change)="onFileChange($event)"> -->
+                                        <!-- <button type="submit" name="btn-avatar" id="btn-avatar" class="btn btn-primary" -->
+                                            <!-- hidden></button> -->
+                                    <!-- </form> -->
+                                <!-- </div> -->
+                            <!-- </div> --> 
 
-                            <h4 class="m-t-30 text-white"></h4>
+                            <!-- <h4 class="m-t-30 text-white"></h4> -->
 
-                            <p class="text-white ml-2" style="margin-top: -12px;">Systems</p>
+                            <!-- <p class="text-white ml-2" style="margin-top: -12px;">Systems</p> -->
 
-                            <p class="text-white ml-2" style="margin-top: -12px; font-size: 20px;">{{ name }}</p>
+                            <!-- <p class="text-white ml-2" style="margin-top: -12px; font-size: 20px;">{{ name }}</p> -->
                             <!-- <div class="m-t-20">
                                 <div class="ml-1">
                                     <p class="text-white text-left"><i class="phone"></i>: <br /></p>

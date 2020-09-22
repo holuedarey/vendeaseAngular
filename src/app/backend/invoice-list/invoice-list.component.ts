@@ -39,7 +39,10 @@ export class InvoiceListComponent implements OnInit {
     isLoading:true
   };
   searchInvoiceForm:FormGroup;
-
+  skip:any;
+  limit:number = 50;
+  p: number = 1;
+  totalItems:any;
   constructor(
     private dashboard: DasboardService,
     private storageService: StorageService,
@@ -77,7 +80,20 @@ export class InvoiceListComponent implements OnInit {
 
   getInvoice() {
     this.isLoadingInvoice = true;
-    this.dashboard.invoice().subscribe((invoices) => {
+    this.dashboard.invoice({skip:0, limit: this.limit}).subscribe((invoices) => {
+      console.log('invoice data :', invoices)
+      this.isLoadingInvoice = false;
+      this.totalItems = invoices.total;
+      this.invoices = invoices.data;
+    }, error => {
+      this.isLoadingInvoice = false;
+      console.log('Error :', error)
+    })
+  }
+  pageChanged(event){
+    this.skip = (event - 1) * this.limit;
+    console.log('offset :', this.skip)
+    this.dashboard.invoice({skip:this.skip, limit: this.limit}).subscribe((invoices) => {
       console.log('invoice data :', invoices)
       this.isLoadingInvoice = false;
       this.pagination.previous = invoices.skip;
@@ -91,7 +107,6 @@ export class InvoiceListComponent implements OnInit {
       console.log('Error :', error)
     })
   }
-
   getSingleInvoice(invoice) {
     // console.log('log : ', invoice);
     let navigationExtras: NavigationExtras = {

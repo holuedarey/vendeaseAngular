@@ -46,11 +46,17 @@
       margin-top: -27px !important;
     }
     .uppercase{
-      text-transform: capitalize;
+      text-transform: uppercase !important;
     }
     .top-space{
       top: 14px;
       position: relative;
+    }
+    .cal-position{
+      width: 56%;
+      position: relative;
+      top: 7px;
+      right: -17px;
     }
     .pagination {
       display: inline-block;
