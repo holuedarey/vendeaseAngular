@@ -60,7 +60,6 @@ export class ProductListComponent implements OnInit {
     })
   }
 
-  
   pageChanged(event){
     this.skip = (event - 1) * this.limit;
     this.product.produtList({skip:this.skip, limit: this.limit}).subscribe((product) => {
@@ -90,9 +89,6 @@ export class ProductListComponent implements OnInit {
   showAssignProduct(product) {
     // console.log('user data : ', user)
     const dialogConfig = new MatDialogConfig();
-
-    // dialogConfig.disableClose = true;
-    // dialogConfig.autoFocus = true;
     dialogConfig.height = '200px';
     dialogConfig.width = '450px';
     dialogConfig.position = {
