@@ -11,8 +11,8 @@ export class OrdersService {
 
   constructor(private http:HttpClient) { }
  
-  getOrders(): Observable<any> {
-    return this.http.get(Endpoint.PURCHASE.purchase_orders).pipe(
+  getOrders(params?): Observable<any> {
+    return this.http.get(`${Endpoint.PURCHASE.purchase_orders}?$skip=${params.skip || 0}&$limit=${params.limit || 50}`).pipe(
       map(data => {
         return data;
       }));

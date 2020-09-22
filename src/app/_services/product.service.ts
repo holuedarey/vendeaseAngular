@@ -10,13 +10,12 @@ import { map } from 'rxjs/operators';
 export class ProductService {
 
   constructor(private http: HttpClient) { }
-  produtList(): Observable<any> {
-    return this.http.get(Endpoint.PRODUCTS.product).pipe(
+  produtList(params?): Observable<any> {
+    return this.http.get(`${Endpoint.PRODUCTS.product}?$skip=${params.skip || 0}&$limit=${params.limit || 50}`).pipe(
       map(data => {
         return data;
       }));
   }
-
 
   produtListUser(userId): Observable<any> {
     return this.http.get(`${Endpoint.PRODUCTS.product}/${userId}`).pipe(
@@ -31,7 +30,6 @@ export class ProductService {
         return data;
       }));
   }
-
 
   createProductUpload(profileImage): Observable<any> {
     return this.http.post(Endpoint.PRODUCTS.product + '/uploads', profileImage, {

@@ -2,10 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DasboardService } from '../../_services/dasboard.service';
 import { Constants } from '../../common/constant';
 import { StorageService } from '../../_service/storage.service';
-import { FormControl } from '@angular/forms';
-import { ChartDataSets, ChartOptions } from 'chart.js';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label, BaseChartDirective, Color } from 'ng2-charts';
 import { Router } from '@angular/router';
+import { OrdersService } from '../../_services/orders.service';
 
 
 @Component({
@@ -47,11 +48,11 @@ export class DashboardComponent implements OnInit {
 
   public pieChartDataCompany2 = [100, 20, 35, 100, 24];
   public pieChartLabelsCompany2 = [];
-  
-  
+
+
   public pieChartLabels2 = [];
   public pieChartData2 = [100, 20, 35, 100, 24];
-  public pieChartType = 'pie';
+  public pieChartType = 'doughnut';
 
   //analytic variable
   month: any;
@@ -60,9 +61,12 @@ export class DashboardComponent implements OnInit {
   isLoadingAnalytic: boolean;
 
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' },
-    { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
+    { data: [65, 59, 80, 91, 67, 85, 49, 50, 62], label: 'Series A' },
+    { data: [70, 48, 74, 49, 86, 76, 84, 78, 53], label: 'Series B' },
+    { data: [47, 57, 57, 50, 60, 59, 56, 60, 70], label: 'Series C', },
+    { data: [57, 44, 49, 50, 63, 60, 70, 54, 90], label: 'Series D' },
+    { data: [52, 88, 42, 80, 83, 50, 45, 70, 49], label: 'Series E' },
+
   ];
   public lineChartData2: ChartDataSets[] = [];
   public lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -73,17 +77,11 @@ export class DashboardComponent implements OnInit {
       // We use this empty structure as a placeholder for dynamic theming.
       xAxes: [{}],
       yAxes: [
-
         {
           id: 'y-axis-0',
           position: 'left',
-          gridLines: {
-            color: '',
-          },
-          ticks: {
-            fontColor: 'blue',
-          }
-        }
+        },
+
       ]
     },
     annotation: {
@@ -93,11 +91,11 @@ export class DashboardComponent implements OnInit {
           mode: 'vertical',
           scaleID: 'x-axis-0',
           value: 'March',
-          borderColor: 'blue',
+          borderColor: 'orange',
           borderWidth: 2,
           label: {
             enabled: true,
-            fontColor: 'black',
+            fontColor: 'orange',
             content: 'LineAnno'
           }
         },
@@ -106,27 +104,120 @@ export class DashboardComponent implements OnInit {
   };
   public lineChartColors: Color[] = [
     { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-    },];
-
+      backgroundColor: 'rgba(255,255,255,0.1)',
+      borderColor: '#FF9800',
+      pointBackgroundColor: 'red',
+      pointBorderColor: 'yellow',
+      pointHoverBackgroundColor: 'black',
+      pointHoverBorderColor: 'blue'
+    }, { // grey
+      backgroundColor: 'rgba(255,255,255,0.1)',
+      borderColor: '#EB4444',
+      pointBackgroundColor: '#fff',
+      pointBorderColor: 'yellow',
+      pointHoverBackgroundColor: 'black',
+      pointHoverBorderColor: 'blue'
+    },
+    { // grey
+      backgroundColor: 'rgba(255,255,255,0.1)',
+      borderColor: '#0033CC',
+      pointBackgroundColor: 'blue',
+      pointBorderColor: 'yellow',
+      pointHoverBackgroundColor: 'black',
+      pointHoverBorderColor: 'blue'
+    },
+    { // grey
+      backgroundColor: 'rgba(255,255,255,0.1)',
+      borderColor: '#080808',
+      pointBackgroundColor: '#fff',
+      pointBorderColor: 'yellow',
+      pointHoverBackgroundColor: 'black',
+      pointHoverBorderColor: 'blue'
+    },
+    { // grey
+      backgroundColor: 'rgba(255,255,255,0.1)',
+      borderColor: '#919191',
+      pointBackgroundColor: '#fff',
+      pointBorderColor: 'yellow',
+      pointHoverBackgroundColor: 'black',
+      pointHoverBorderColor: 'blue'
+    },
+  ];
   public lineChartLegend = true;
-  public lineChartType = 'line';
+  public lineChartType: ChartType = 'line';
 
+  sortRanges: any[] = ['weeekly', 'monthly', 'yearly'];
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
+  dataSource: Object;
+  sortRangesForm: FormGroup;
 
-  constructor(public dashboard: DasboardService, public storageService: StorageService,private router:Router) {
-   
+  showOne:boolean = false;
+  showTwo:boolean = true;
+  showThree:boolean = false;
+  isLoadingOrder:boolean;
+
+  orders:any[] = [];
+  p: number = 1;
+
+  skip:any;
+  limit:any;
+  totalItems:any;
+
+  constructor(public dashboard: DasboardService, public storageService: StorageService, private router: Router, private fb:FormBuilder, private order:OrdersService) {
+    this.sortRangesForm = this.fb.group({
+      name: ['', Validators.compose([Validators.required])],
+      range: [this.sortRanges[1], ''],
+    });
+    const chartData = [
+      {
+        label: "Venezuela",
+        value: "290"
+      },
+      {
+        label: "Saudi",
+        value: "260"
+      },
+      {
+        label: "Canada",
+        value: "180"
+      },
+      {
+        label: "Iran",
+        value: "140"
+      },
+      {
+        label: "Russia",
+        value: "115"
+      },
+
+    ];
+    // STEP 3 - Chart Configuration
+    const dataSource = {
+      chart: {
+        //Set the chart caption
+        // caption: "Countries With Most Oil Reserves [2017-18]",
+        //Set the chart subcaption
+        // subCaption: "In MMbbl = One Million barrels",
+        //Set the x-axis name
+        xAxisName: "Country",
+        //Set the y-axis name
+        yAxisName: "Reserves (MMbbl)",
+        numberSuffix: "K",
+        //Set the theme for your chart
+        theme: "fusion"
+      },
+      // Chart Data - from step 2
+      data: chartData
+    };
+    this.dataSource = dataSource;
+
   }
 
   ngOnInit() {
-    this.getInvoice();
-    // this.getGraphData();
+    // this.getInvoice();
+    this.getOrders();
+    this.getGraphData();
     this.getUser();
     this.getBulkAnalytics();
     this.getAnalytics();
@@ -144,6 +235,7 @@ export class DashboardComponent implements OnInit {
   }
 
   loadGraph() {
+    this.getTopFive();
     if (this.userData.type == 'company') {
       this.getTopFive();
     } else if (this.userData.type == 'vendor') {
@@ -159,6 +251,37 @@ export class DashboardComponent implements OnInit {
     this.username = theData.name || "";
     // console.log('username : ', this.username)
   }
+  
+  getOrders() {
+    this.isLoadingOrder = true;
+    this.limit = 50;
+    this.skip = 0;
+    this.order.getOrders({skip:this.skip, limit: this.limit}).subscribe(orders => {
+      console.log('orders data :', orders.data)
+      this.totalItems = orders.total;
+      this.isLoadingOrder = false;
+      this.orders = orders.data.slice().reverse();
+    }, error => {
+      this.isLoadingOrder = false;
+      console.log('Error :', error)
+    })
+  }
+
+  
+  pageChanged(event){
+    this.skip = (event - 1) * this.limit;
+    console.log('offset :', this.skip)
+    this.order.getOrders({skip:this.skip, limit: this.limit}).subscribe(orders => {
+      console.log('orders data :', orders.data)
+      this.totalItems = orders.total;
+      this.isLoadingOrder = false;
+      this.orders = orders.data.slice().reverse();
+    }, error => {
+      this.isLoadingOrder = false;
+      console.log('Error :', error)
+    })
+  }
+  
   async getInvoice() {
     this.isLoadingInvoice = true;
     this.dashboard.invoice().subscribe((invoices) => {
@@ -171,7 +294,7 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  getSingleInvoice(invoice){
+  getSingleInvoice(invoice) {
     console.log('log : ', invoice);
     this.router.navigate(['view/invoice'], { state: invoice })
   }
@@ -180,16 +303,16 @@ export class DashboardComponent implements OnInit {
     this.isLoadingGraph = true;
     this.dashboard.getGraph().subscribe((graphData) => {
       this.isLoadingGraph = false;
-      // console.log('graph data :', graphData)
+      console.log('graph data :', graphData)
       // const lineChartData = graphData.invoices.map(item => item.totalAmount)
       // const lineChartData2 = graphData.paid_invoices.map(item => item.totalAmount)
-      this.lineChartData = [
-        // { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
-        // { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
-        // { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-        // { data: lineChartData2, label: 'Receipts' },
-        // {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
-      ]
+      // this.lineChartData = [
+      // { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
+      // { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
+      // { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
+      // { data: lineChartData2, label: 'Receipts' },
+      // {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
+      // ]
       // console.log('line chart :', lineChartData2)
       return this.graphData = graphData
     }, error => {
@@ -257,8 +380,8 @@ export class DashboardComponent implements OnInit {
       action: "top_products", id: this.userData[this.userData.type].id, type: this.userData.type
     };
     this.isLoadingBulk = true;
-      console.log('payload message product: ', payload);
-      // console.log('sample : ', { action: "top_products", type: "company", id: "JE158175" });
+    console.log('payload message product: ', payload);
+    // console.log('sample : ', { action: "top_products", type: "company", id: "JE158175" });
 
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
       this.isLoadingBulk = false;
@@ -278,7 +401,21 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-
+  today(){
+   this.showOne = true; 
+   this.showTwo = false;
+   this.showThree =false
+  }
+  sevenDays(){
+    this.showOne = false; 
+   this.showTwo = true;
+   this.showThree =false
+  }
+  thisMonth(){
+    this.showOne = false; 
+    this.showTwo = false;
+    this.showThree =true
+  }
   async getTopFiveCompany() {
     const payload = {
       action: "top_companies"

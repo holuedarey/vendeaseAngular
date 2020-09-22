@@ -12,8 +12,8 @@ export class DasboardService {
 
   constructor(private http: HttpClient) { }
 
-  invoice(): Observable<any> {
-    return this.http.get(Endpoint.DASHBOARD.invoice).pipe(
+  invoice(params?): Observable<any> {
+    return this.http.get(`${Endpoint.DASHBOARD.invoice}?$skip=${params.skip || 0}&$limit=${params.limit || 50}`).pipe(
       map(data => {
         return data;
       }));

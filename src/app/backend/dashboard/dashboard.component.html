@@ -11,99 +11,96 @@
                 <div class="row">
                     <div class="col-md-12">
 
-                        <div class="row">
-                            <div class="col-lg-6 col-md-12">
+                        <div class="col-md-6">
+                            <div class="">
                                 <div class="">
                                     <div class="" style="padding: .6rem;">
-                                        <div class="d-flex justify-content-center m-t-10">
+                                        <div class="d-flex justify-content-left m-t-10">
                                             <div>
-                                                <p class="text-muted font-size-25">Hi {{ username }}</p>
+                                                <h1 class="font-size-24 roboto-900">Hi {{ username }}</h1>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-4 col-sm-12 m-t-10">
-                                        <div class="order-right">
-                                            <p class="text-muted">Today</p>
-                                            <p class="text-muted m-t-20 font-size-20 neg-magin-2">
+                                    <div class="d-flex justify-content-left m-t-10">
+                                        <div>
+                                            <!-- <h1 class="font-size-24 roboto-900">INVOICES</h1> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-sm-12 m-t-10 card" *ngIf="showOne">
+                                        <div class="box">
+                                            <p class="m-t-20 font-size-24 roboto-700 custom-blue neg-magin-2">
                                                 {{ day | currency : "&#x20A6;" || '0'}}
                                             </p>
-                                            <mat-progress-spinner *ngIf="isLoadingAnalytic" mode="indeterminate"
-                                                diameter='30' strokeWidth='3'></mat-progress-spinner>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm12 m-t-10">
-                                        <div class="order-right">
-                                            <p class="text-muted">Last 7 Day's</p>
-                                            <p class="text-muted m-t-20 font-size-20 neg-magin-2">
-                                                {{ last7Days | currency : "&#x20A6;" || '0'}}
-                                            </p>
-                                            <mat-progress-spinner *ngIf="isLoadingAnalytic" mode="indeterminate"
-                                                diameter='30' strokeWidth='3'></mat-progress-spinner>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4 col-sm12 m-t-10">
-                                        <div class="">
-                                            <p class="text-muted">Last 30 Day's</p>
-                                            <p class="text-muted m-t-20 font-size-20 neg-magin-2">
-                                                {{ month | currency : "&#x20A6;" || '0'}}
-                                            </p>
-                                            <mat-progress-spinner *ngIf="isLoadingAnalytic" mode="indeterminate"
-                                                diameter='30' strokeWidth='3'></mat-progress-spinner>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-md-12">
-                                <form method="GET" style="margin-bottom: 20px">
+                                            <p class="neg-magin-2 roboto-700 neg-margin-3 uppercase">ToDay</p>
 
-                                    <div class="input-group input-daterange d-flex align-items-center">
-                                        <!-- <!-- <input matInput [matDatepicker]="picker"> -->
-                                        <div class="col-lg-5">
-                                            <mat-form-field>
-                                                <input [value]="startDate.value" matInput [matDatepicker]="picker"
-                                                    placeholder="Start date">
-                                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker></mat-datepicker>
-                                            </mat-form-field>
-                                        </div>
-                                        <div class="col-lg-5">
-                                            <mat-form-field>
-                                                <input [value]="endDate.value" matInput [matDatepicker]="myPicker"
-                                                    placeholder="End date">
-                                                <mat-datepicker-toggle matSuffix [for]="myPicker">
-                                                </mat-datepicker-toggle>
-                                                <mat-datepicker #myPicker></mat-datepicker>
-                                            </mat-form-field>
-                                        </div>
-                                        <!-- <div class="input-group-addon mx-4 p-md-2 float-left">to</div> -->
-                                        <div class="col-lg-2">
-                                            <button mat-raised-button color="primary">Search</button>
-                                            <!-- <button type="submit" class="float-right text-center col-md-2 btn btn-primary">Filter</button> -->
-                                        </div>
-
-                                    </div>
-                                </form>
-                                <div class="card" style="background: #283EB1; height: 140px;">
-                                    <div>
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between mb-3">
-                                                <div>
-                                                    <h2 class="text-white col-md-12 font-weight-bold">Mobile
-                                                        Applications coming soon
-                                                    </h2>
-                                                </div>
-                                                <div>
-                                                    <img style="margin-top: -30px; width: 150px;"
-                                                        src="../../../assets/dashboard/assets/media/image/dashboard_icon.png"
-                                                        alt="">
+                                            <div class="box-right pull-right">
+                                                <div class="dropup">
+                                                    <div class="dropbtn">
+                                                        <img src="../../../assets/images/calendar.png"
+                                                            class="img-responsive cal-position" alt="">
+                                                    </div>
+                                                    <div class="dropup-content">
+                                                        <a (click)="today()">Today</a>
+                                                        <a (click)="sevenDays()">Last 7 Days</a>
+                                                        <a (click)="thisMonth()">This Month</a>
+                                                    </div>
                                                 </div>
                                             </div>
+                                            <mat-progress-spinner *ngIf="isLoadingAnalytic" mode="indeterminate"
+                                                diameter='30' strokeWidth='3'></mat-progress-spinner>
                                         </div>
                                     </div>
+                                    <div class="col-md-8 col-sm-12 card" *ngIf="showTwo">
+                                        <div class="box">
+                                            <p class="m-t-20 font-size-24 roboto-700 custom-blue neg-magin-2">
+                                                {{ last7Days | currency : "&#x20A6;" || '0'}}
+                                            </p>
+                                            <p class="neg-magin-2 roboto-700 neg-margin-3 uppercase">Last 7 Days</p>
 
+                                            <div class="box-right pull-right">
+                                                <div class="dropup">
+                                                    <div class="dropbtn">
+                                                        <img src="../../../assets/images/calendar.png"
+                                                            class="img-responsive cal-position" alt="">
+                                                    </div>
+                                                    <div class="dropup-content">
+                                                        <a (click)="today()">Today</a>
+                                                        <a (click)="sevenDays()">Last 7 Days</a>
+                                                        <a (click)="thisMonth()">This Month</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <mat-progress-spinner *ngIf="isLoadingAnalytic" mode="indeterminate"
+                                                diameter='30' strokeWidth='3'></mat-progress-spinner>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 col-sm12 m-t-10 card" *ngIf="showThree">
+                                        <div class="box">
+                                            <p class="m-t-20 font-size-24 roboto-700 custom-blue neg-magin-2">
+                                                {{ month | currency : "&#x20A6;" || '0'}}
+                                            </p>
+                                            <p class="neg-magin-2 roboto-700 neg-margin-3 uppercase">Last 30 Days</p>
+
+                                            <div class="box-right pull-right">
+                                                <div class="dropup">
+                                                    <div class="dropbtn">
+                                                        <img src="../../../assets/images/calendar.png"
+                                                            class="img-responsive cal-position" alt="">
+                                                    </div>
+                                                    <div class="dropup-content">
+                                                        <a (click)="today()">Today</a>
+                                                        <a (click)="sevenDays()">Last 7 Days</a>
+                                                        <a (click)="thisMonth()">This Month</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <mat-progress-spinner *ngIf="isLoadingAnalytic" mode="indeterminate"
+                                                diameter='30' strokeWidth='3'></mat-progress-spinner>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -111,57 +108,120 @@
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-4 col-md-12" [ngClass]="{'col-lg-12': userData.type !== 'vendor' }">
-                        <div class="row">
-                            <div [ngClass]="{'col-md-4 neg-magin': userData.type !== 'vendor' }">
-                                <div class="card" [ngStyle]="{'neg-magin': userData.type == 'system' }">
-                                    <div class="card-bodys p-ts-b-20">
-                                        <div class="">
-                                            <p class="text-muted">Invoice Raised</p>
-                                            <h6 class="card-title neg-magin-2 font-size-25" *ngIf="!isLoadingBulk">
-                                                {{ invoiceRaised | currency : "&#x20A6;" || '0'}}</h6>
-                                            <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate"
-                                                diameter='30' strokeWidth='3'></mat-progress-spinner>
+                <div class="row m-t-20">
+                    <div class="col-md-12 ">
+                        <div class="col-md-4 pull-right" style="margin-top: -33px; margin-bottom: 5px;">
+                            <div class="date-form">
+                                <div class="">
+                                    <form style="margin-bottom: -15px">
+                                        <div class="input-group input-daterange d-flex align-items-right">
+                                            <!-- <!-- <input matInput [matDatepicker]="picker"> -->
+                                            <!-- <div class="col-lg-5">
+                                                <mat-form-field>
+                                                    <input [value]="startDate.value" matInput [matDatepicker]="picker"
+                                                        placeholder="Start date">
+                                                    <mat-datepicker-toggle matSuffix [for]="picker">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #picker></mat-datepicker>
+                                                </mat-form-field>
+                                            </div> -->
+                                            <!-- <div class="col-lg-5">
+                                                <mat-form-field>
+                                                    <input [value]="endDate.value" matInput [matDatepicker]="myPicker"
+                                                        placeholder="End date">
+                                                    <mat-datepicker-toggle matSuffix [for]="myPicker">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #myPicker></mat-datepicker>
+                                                </mat-form-field>
+                                            </div> -->
+                                            <div class="col-md-7 offset-2">
+                                                <mat-form-field appearance="blank">
+                                                    <mat-label>Search Invoice</mat-label>
+                                                    <mat-date-range-input [rangePicker]="picker">
+                                                        <input matStartDate placeholder="Start date">
+                                                        <input matEndDate placeholder="End date">
+                                                    </mat-date-range-input>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                                                </mat-form-field>
+                                            </div>
+                                            <!-- <div class="input-group-addon mx-4 p-md-2 float-left">to</div> -->
+                                            <!-- <div class="col-lg-2"> -->
+                                            <!-- <button mat-raised-button color="primary">Search</button> -->
+                                            <!-- <button type="submit" class="float-right text-center col-md-2 btn btn-primary">Filter</button> -->
+                                            <!-- </div> -->
+
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div [ngClass]="{'col-md-4': userData.type !== 'vendor' }">
-                                <div class="card neg-magin">
-                                    <div class="card-bodys">
-                                        <div class="">
-                                            <p class="text-muted">Invoice Paid</p>
-                                            <h6 class="card-title neg-magin-2 font-size-25">
-                                                {{  invoicePaid | currency : "&#x20A6;" || '0' }}</h6>
-                                            <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate"
-                                                diameter='30' strokeWidth='3'></mat-progress-spinner>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div [ngClass]="{'col-md-4': userData.type !== 'vendor'}">
-                                <div class="card neg-magin">
-                                    <div class="card-bodys">
-                                        <div class="">
-                                            <p class="text-muted">Invoice Unpaid</p>
-                                            <h6 class="card-title neg-magin-2 font-size-25">
-                                                {{  invoiceUnpaid | currency : "&#x20A6;" || '0' }}
-                                            </h6>
-                                            <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate"
-                                                diameter='30' strokeWidth='3'></mat-progress-spinner>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="card" style="height: 360px;">
-                            <div class="card-body" style="padding-bottom: 0px;">
+                    <div class="col-md-12" style="margin-top: -41px;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="roboto-900 font-size-20">Invoice</h4>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="col-lg-4 col-md-12" [ngClass]="{'col-lg-12': userData.type !== 'vendor' }">
+                                    <div class="row">
+                                        <div [ngClass]="{'col-md-4 neg-magin': userData.type !== 'vendor' }">
+                                            <div class="" [ngStyle]="{'neg-magin': userData.type == 'system' }">
+                                                <div class="">
+                                                    <div class="top-space">
+                                                        <p class="roboto-400">Invoice Raised</p>
+                                                        <h6 class="roboto-900  neg-magin-2 font-size-24"
+                                                            *ngIf="!isLoadingBulk">
+                                                            {{ invoiceRaised | currency : "&#x20A6;" || '0'}}</h6>
+                                                        <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate"
+                                                            diameter='30' strokeWidth='3'></mat-progress-spinner>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div [ngClass]="{'col-md-4': userData.type !== 'vendor' }">
+                                            <div class="neg-magin">
+                                                <div class="top-space">
+                                                    <div class="">
+                                                        <p class="roboto-400">Invoice Paid</p>
+                                                        <h6 class="roboto-900 neg-magin-2 font-size-24">
+                                                            {{  invoicePaid | currency : "&#x20A6;" || '0' }}</h6>
+                                                        <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate"
+                                                            diameter='30' strokeWidth='3'></mat-progress-spinner>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div [ngClass]="{'col-md-4': userData.type !== 'vendor'}">
+                                            <div class="neg-magin">
+                                                <div class="top-space">
+                                                    <div class="">
+                                                        <p class="roboto-400">Invoice Unpaid</p>
+                                                        <h6 class="roboto-900 neg-magin-2 font-size-24">
+                                                            {{  invoiceUnpaid | currency : "&#x20A6;" || '0' }}
+                                                        </h6>
+                                                        <mat-progress-spinner *ngIf="isLoadingBulk" mode="indeterminate"
+                                                            diameter='30' strokeWidth='3'></mat-progress-spinner>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                                <div class="row" *ngIf="userData.type == 'company'">
-                                    <div class="col-md-6">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12 col-md-12">
+                        <div class="cards" style="height: 360px;">
+                            <div class="card-bodys" style="padding-bottom: 0px;">
+
+                                <div class="row">
+                                    <!-- <div class="col-md-6">
                                         <h3 class="lead text-center">Top 5 Product Value</h3>
 
                                         <div class="chart">
@@ -169,13 +229,45 @@
                                                 [data]="pieChartData" [labels]="pieChartLabels"
                                                 [chartType]="pieChartType"></canvas>
                                         </div>
+                                    </div> -->
+                                    <div class="col-lg-7">
+                                        <div class="card" style="height: 370px;">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <h3 class="neg-margin text-left font-size-20"
+                                                            style="margin-top: -6px;">Top 5 Company Value</h3>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <form [formGroup]="sortRangesForm" class="pull-right">
+                                                            <select formControlName="range"
+                                                                class="custom-select-roboto">
+                                                                <option value="{{item}}"
+                                                                    *ngFor="let item of sortRanges">{{ item }}</option>
+                                                            </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div style="display: block;">
+                                                    <canvas baseChart [datasets]="lineChartData"
+                                                        [labels]="lineChartLabels" [options]="lineChartOptions"
+                                                        [colors]="lineChartColors" [legend]="lineChartLegend"
+                                                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                                                        (chartClick)="chartClicked($event)"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                    <div class="col-md-6">
-                                        <h3 class="lead text-center">Top 5 Product Volume</h3>
-                                        <div class="chart">
-                                            <canvas style="position: relative; height:40vh; width:80vw" baseChart
-                                                [data]="pieChartData2" [labels]="pieChartLabels2"
-                                                [chartType]="pieChartType"></canvas>
+                                    <div class="col-md-5">
+                                        <div class="card" style="height: 370px;">
+                                            <div class="card-body">
+                                                <h3 class="roboto-700 font-size-20 text-left">Top 5 Product Volume</h3>
+                                                <div class="cover-logo"></div>
+                                                <fusioncharts style="position: relative; left: -20px; top: -26px;"
+                                                    type="doughnut2d" [dataSource]="dataSource">
+                                                </fusioncharts>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +294,7 @@
 
                                 <!-- show this for other type of users -->
                                 <div class="row" *ngIf="userData.type == 'vendor'">
-                                    <div class="col-lg-12">
+                                    <!-- <div class="col-lg-12">
                                         <div style="display: block;">
                                             <canvas *ngIf="!isLoadingGraph" baseChart [datasets]="lineChartData"
                                                 [labels]="lineChartLabels" [options]="lineChartOptions"
@@ -210,7 +302,7 @@
                                                 (chartHover)="chartHovered($event)"
                                                 (chartClick)="chartClicked($event)"></canvas>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                 </div>
 
@@ -222,70 +314,76 @@
                 </div>
 
 
-                <div class="row">
+                <div class="row" style="margin-top: 53px;">
+
                     <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-lg">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h4 class="roboto-900 font-size-20">Recent Orders</h4>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <form [formGroup]="sortRangesForm" class="pull-right">
+                                    <select formControlName="range" class="custom-select-roboto"
+                                        style="background: #efefef;  border: #efef;">
+                                        <option value="{{item}}" *ngFor="let item of sortRanges">{{ item }}</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="table-responsive" style="height: 450px;">
+                            <table id="order-listing" class="table">
                                 <thead>
                                     <tr>
-                                        <th>Invoice ID</th>
+                                        <th>Order ID</th>
                                         <th>Created Date</th>
-                                        <th>Payment</th>
+                                        <th>Paid</th>
                                         <th>Company</th>
-                                        <th *ngIf="userData.type == 'system'">Suppliers</th>
-                                        <th>Action</th>
+                                        <th *ngIf="userData.type == 'system'">Supplier</th>
                                     </tr>
                                 </thead>
-                                <tbody *ngIf="invoices.length  && !isLoadingInvoice">
-                                    <tr *ngFor="let item of invoices">
+                                <div class="col-md-4 offset-md-4">
+                                    <mat-progress-spinner *ngIf="isLoadingOrder" mode="indeterminate" diameter='30'
+                                        strokeWidth='3'>
+                                    </mat-progress-spinner>
+                                </div>
+                                <tbody *ngIf="!isLoadingOrder && orders.length">
+
+                                    <tr
+                                        *ngFor="let order of orders | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
+                                        <td># {{ order.order_number }}</td>
+                                        <td>{{ order.createdAt }}</td>
                                         <td>
-                                            #{{ item.order_number}}
+
+                                            <label class="badge badge-success"
+                                                *ngIf="order.paid == true ">{{ order.paid }}</label>
+
+                                            <label class="badge badge-danger"
+                                                *ngIf="order.paid == false ">{{ order.paid }}</label>
+
                                         </td>
-                                        <td>{{ item.createdAt}} </td>
-                                        <td><span class="btn  btn-sm" [ngClass]="{'btn-success': item.paid == true, 
-                                            'btn-danger': item.paid != true
-                                            }">{{item.paid ==1 ? 'Paid': 'Unpaid'}}</span></td>
-                                        <td>{{ item.company_details ?  item.company_details.name : 'Nil'}}</td>
-                                        <td *ngIf="userData.type == 'system'">
-                                            {{ item.vendor_details ?  item.vendor_details.name : 'Nil'}}</td>
-                                        <td>
-                                            <button  (click)="getSingleInvoice(item)" class="text-white btn btn-primary btn-xs" data-toggle="tooltip"
-                                                title="view">
-                                                <i class="fa fa-eye"></i>
-                                            </button>
+                                        <td>{{ order.company_details ? order.company_details.name : '' }}</td>
+
+                                        <td *ngIf="userData.type === 'system'">
+                                            {{ order.vendor_details ? order.vendor_details.name : '' }} <br />
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <div class="col-md-12">
-                                <div class="col-md-4 offset-md-4">
-                                    <mat-progress-spinner *ngIf="isLoadingInvoice" mode="indeterminate" diameter='30'
-                                        strokeWidth='3'></mat-progress-spinner>
-                                </div>
                                 <div class="row">
-                                    <p class="alert alert-warning col-md-12 text-center" *ngIf="!invoices.length">No Record available</p>
+                                    <p class="alert alert-warning col-md-12 text-center"
+                                        *ngIf="!orders.length && !isLoadingOrder">No
+                                        Record available</p>
 
                                 </div>
-                                <nav *ngIf="invoices.length  && !isLoadingInvoice">
-                                    <ul class="pagination pagination-rounded" style="display: inline !important;">
-                                        <li class="page-item disabled">
-                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                                                <i class="ti-angle-left"></i>
-                                            </a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item active" aria-current="page">
-                                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                        </li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item">
-                                            <a class="page-link" href="#">
-                                                <i class="ti-angle-right"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </nav>
-
+                                <div class="colm-6 text-right pull-right">
+                                    <pagination-controls id="order-listing" (pageChange)="pageChanged($event)"
+                                        (pageBoundsCorrection)="pageChanged($event)" maxSize="9" directionLinks="true"
+                                        autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
+                                        screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                                        screenReaderCurrentLabel="You're on page">
+                                    </pagination-controls>
+                                </div>
                             </div>
                         </div>
                     </div>

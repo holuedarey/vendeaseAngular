@@ -51,7 +51,7 @@
                                                     </mat-progress-spinner>
                                                 </div>
                                                 <tbody *ngIf="!isLoadingProduct">
-                                                    <tr *ngFor="let product of products; let i = index">
+                                                    <tr *ngFor="let product of products | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
                                                         <td>{{ i+ 1 }}</td>
                                                         <td>{{ product.name }}</td>
                                                         <td>{{ product.brand }}</td>
@@ -90,45 +90,14 @@
 
                                                 </tbody>
                                             </table>
-                                            <!-- {% if keyword %}
-                                            <div class="text-center">
-                                                <p>Showing page {{ p.page }} of {{ p.pages }} for {{ p.total }} products
-                                                </p>
-                                                <div class="pagination">
-                                                    {% if p.prev_skip == 0 or p.prev_skip %}
-                                                    <a href="{% url 'product_search' p.prev_skip limit keyword %}">&laquo;
-                                                        Previous</a>
-                                                    {% else %}
-                                                    <a href="#" class="text-muted">&laquo; Previous</a>
-                                                    {% endif %}
-                                                    {% if p.next_skip  %}
-                                                    <a href="{% url 'product_search' p.next_skip limit keyword %}">&laquo;
-                                                        Next</a>
-                                                    {% else %}
-                                                    <a href="#" class="text-muted">&laquo; Next</a>
-                                                    {% endif %}
-                                                </div>
+                                            <div class="colm-6 text-right pull-right">
+                                                <pagination-controls id="order-listing" (pageChange)="pageChanged($event)"
+                                                    (pageBoundsCorrection)="pageChanged($event)" maxSize="9" directionLinks="true"
+                                                    autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
+                                                    screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                                                    screenReaderCurrentLabel="You're on page">
+                                                </pagination-controls>
                                             </div>
-                                            {% else %}
-                                            <div class="text-center">
-                                                <p>Showing page {{ p.page }} of {{ p.pages }} for {{ p.total }} products
-                                                </p>
-                                                <div class="pagination">
-                                                    {% if p.prev_skip == 0 or p.prev_skip %}
-                                                    <a href="{% url 'product_list' p.prev_skip limit %}">&laquo;
-                                                        Previous</a>
-                                                    {% else %}
-                                                    <a href="#" class="text-muted">&laquo; Previous</a>
-                                                    {% endif %}
-                                                    {% if p.next_skip  %}
-                                                    <a href="{% url 'product_list' p.next_skip limit %}">&laquo;
-                                                        Next</a>
-                                                    {% else %}
-                                                    <a href="#" class="text-muted">&laquo; Next</a>
-                                                    {% endif %}
-                                                </div>
-                                            </div>
-                                            {% endif %} -->
                                         </div>
                                     </div>
                                 </div>

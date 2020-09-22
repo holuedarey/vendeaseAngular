@@ -15,8 +15,8 @@
   src: url("../font/Futura Bold font.ttf");
 }
 .profile-image{
-  border-radius: 50%;
-  background: #fff;
+  border-radius: 12%;
+  /* background: #fff; */
   height: 110px;
   width: 110px;
   /* margin: 0 auto !important; */

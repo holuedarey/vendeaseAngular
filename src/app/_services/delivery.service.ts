@@ -41,8 +41,8 @@ export class DeliveryService {
       }));  
   }
 
-  getAllDeliveries(): Observable<any>{
-    return this.http.get(Endpoint.DELIVERY.delivery).pipe(
+  getAllDeliveries(params): Observable<any>{
+    return this.http.get(`${Endpoint.DELIVERY.delivery}?$skip=${params.skip || 0}&$limit=${params.limit || 50}`).pipe(
       map(data => {
         return data;
       }));  

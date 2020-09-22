@@ -27,7 +27,10 @@ export class DeliveryListComponent implements OnInit {
     secondLevel: false
   };
   searchDeliveryForm: FormGroup;
-
+  p: number = 1;
+  limit:any = 50;
+  skip:any;
+  totalItems:any;
   constructor(
     private storageService: StorageService,
     private dleivery: DeliveryService,
@@ -49,7 +52,19 @@ export class DeliveryListComponent implements OnInit {
 
   getDeliveries() {
     this.isLoadingDelievery = true;
-    this.dleivery.getAllDeliveries().subscribe(delivery => {
+    this.dleivery.getAllDeliveries({skip: 0, limit: 10}).subscribe(delivery => {
+      console.log('invoice data :', delivery.data)
+      this.isLoadingDelievery = false;
+      this.deliveries = delivery.data.slice().reverse();
+    }, error => {
+      this.isLoadingDelievery = false;
+      console.log('Error :', error)
+    })
+  }
+  
+  pageChanged(event){
+    this.skip = (event - 1) * this.limit;
+    this.dleivery.getAllDeliveries({skip: this.skip, limit: 10}).subscribe(delivery => {
       console.log('invoice data :', delivery.data)
       this.isLoadingDelievery = false;
       this.deliveries = delivery.data.slice().reverse();

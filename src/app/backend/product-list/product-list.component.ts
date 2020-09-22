@@ -28,6 +28,12 @@ export class ProductListComponent implements OnInit {
   };
 
   searchProductForm: FormGroup;
+
+  p: number = 1;
+  limit:any = 50;
+  skip:any;
+  totalItems:any;
+
   constructor(private product: ProductService, public storageService: StorageService, private dialog: MatDialog, private toastr: ToastrService, private fb: FormBuilder) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
@@ -43,8 +49,22 @@ export class ProductListComponent implements OnInit {
 
    getProductList() {
     this.isLoadingProduct = true;
-    this.product.produtList().subscribe((product) => {
-      console.log('product List data :', product.data)
+    this.product.produtList({skip:0, limit: this.limit}).subscribe((product) => {
+      console.log('product List data :', product.data);
+      this.totalItems = product.total;
+      this.isLoadingProduct = false;
+      return this.products = product.data.slice().reverse();
+    }, error => {
+      this.isLoadingProduct = false;
+      console.log('Error :', error)
+    })
+  }
+
+  pageChanged(event){
+    this.skip = (event - 1) * this.limit;
+    this.product.produtList({skip:this.skip, limit: this.limit}).subscribe((product) => {
+      console.log('product List data :', product.data);
+      this.totalItems = product.total;
       this.isLoadingProduct = false;
       return this.products = product.data.slice().reverse();
     }, error => {
@@ -69,9 +89,6 @@ export class ProductListComponent implements OnInit {
   showAssignProduct(product) {
     // console.log('user data : ', user)
     const dialogConfig = new MatDialogConfig();
-
-    // dialogConfig.disableClose = true;
-    // dialogConfig.autoFocus = true;
     dialogConfig.height = '200px';
     dialogConfig.width = '450px';
     dialogConfig.position = {

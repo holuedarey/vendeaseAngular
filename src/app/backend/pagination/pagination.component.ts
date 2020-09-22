@@ -15,6 +15,7 @@ export class PaginationComponent implements OnInit {
 
   nextBtn(pagination){
     console.log('data : ', pagination)
+   
   }
   previousBtn(){
 
