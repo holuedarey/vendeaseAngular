@@ -30,8 +30,8 @@
     }
     .box{
       background: #fff;
-      padding: 12px;
-      height: 99px;
+      padding: 0px;
+      height: 95px;
       padding-left: 39px;
       padding-top: 35px;
     }
@@ -90,3 +90,8 @@
 
 html, body { height: 100%; }
 body { margin: 0;  }
+
+.mat-form-field-type-mat-date-range-input .mat-form-field-infix{
+  width: 100%;
+  padding: 0px;
+}

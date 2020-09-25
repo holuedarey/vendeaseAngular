@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit {
           scaleID: 'x-axis-0',
           value: 'March',
           borderColor: 'orange',
-          borderWidth: 2,
+          borderWidth: 1,
           label: {
             enabled: true,
             fontColor: 'orange',
@@ -106,39 +106,29 @@ export class DashboardComponent implements OnInit {
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: '#FF9800',
-      pointBackgroundColor: 'red',
-      pointBorderColor: 'yellow',
-      pointHoverBackgroundColor: 'black',
-      pointHoverBorderColor: 'blue'
+      pointHoverBackgroundColor: '#FF9800',
+      pointHoverBorderColor: '#FF9800'
     }, { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: '#EB4444',
-      pointBackgroundColor: '#fff',
-      pointBorderColor: 'yellow',
       pointHoverBackgroundColor: 'black',
       pointHoverBorderColor: 'blue'
     },
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: '#0033CC',
-      pointBackgroundColor: 'blue',
-      pointBorderColor: 'yellow',
       pointHoverBackgroundColor: 'black',
       pointHoverBorderColor: 'blue'
     },
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: '#080808',
-      pointBackgroundColor: '#fff',
-      pointBorderColor: 'yellow',
       pointHoverBackgroundColor: 'black',
       pointHoverBorderColor: 'blue'
     },
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: '#919191',
-      pointBackgroundColor: '#fff',
-      pointBorderColor: 'yellow',
       pointHoverBackgroundColor: 'black',
       pointHoverBorderColor: 'blue'
     },
@@ -169,49 +159,6 @@ export class DashboardComponent implements OnInit {
       name: ['', Validators.compose([Validators.required])],
       range: [this.sortRanges[1], ''],
     });
-    const chartData = [
-      {
-        label: "Venezuela",
-        value: "290"
-      },
-      {
-        label: "Saudi",
-        value: "260"
-      },
-      {
-        label: "Canada",
-        value: "180"
-      },
-      {
-        label: "Iran",
-        value: "140"
-      },
-      {
-        label: "Russia",
-        value: "115"
-      },
-
-    ];
-    // STEP 3 - Chart Configuration
-    const dataSource = {
-      chart: {
-        //Set the chart caption
-        // caption: "Countries With Most Oil Reserves [2017-18]",
-        //Set the chart subcaption
-        // subCaption: "In MMbbl = One Million barrels",
-        //Set the x-axis name
-        xAxisName: "Country",
-        //Set the y-axis name
-        yAxisName: "Reserves (MMbbl)",
-        numberSuffix: "K",
-        //Set the theme for your chart
-        theme: "fusion"
-      },
-      // Chart Data - from step 2
-      data: chartData
-    };
-    this.dataSource = dataSource;
-
   }
 
   ngOnInit() {
@@ -235,11 +182,11 @@ export class DashboardComponent implements OnInit {
   }
 
   loadGraph() {
-    this.getTopFive();
+    this.getTopFiveProduct();
     if (this.userData.type == 'company') {
-      this.getTopFive();
+      // this.getTopFiveProduct();
     } else if (this.userData.type == 'vendor') {
-      this.getGraphData();
+      // this.getGraphData();
     } else if (this.userData.type == 'system') {
       this.getTopFiveCompany();
     }
@@ -303,17 +250,15 @@ export class DashboardComponent implements OnInit {
     this.isLoadingGraph = true;
     this.dashboard.getGraph().subscribe((graphData) => {
       this.isLoadingGraph = false;
-      console.log('graph data :', graphData)
-      // const lineChartData = graphData.invoices.map(item => item.totalAmount)
-      // const lineChartData2 = graphData.paid_invoices.map(item => item.totalAmount)
-      // this.lineChartData = [
-      // { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
-      // { data: [180, 480, 770, 90, 1000, 270, 400], label: 'Series C', yAxisID: 'y-axis-1' }
-      // { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-      // { data: lineChartData2, label: 'Receipts' },
-      // {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
-      // ]
-      // console.log('line chart :', lineChartData2)
+      console.log('graph data ooo:', graphData)
+      const lineChartData = graphData.invoices.map(item => item.totalAmount)
+      const lineChartData2 = graphData.paid_invoices.map(item => item.totalAmount)
+      this.lineChartData = [
+      { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
+      { data: lineChartData2, label: 'Receipts' },
+      {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
+      ]
+      console.log('line chart :', lineChartData2)
       return this.graphData = graphData
     }, error => {
       this.isLoadingGraph = false;
@@ -375,26 +320,53 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  async getTopFive() {
+  async getTopFiveProduct() {
     const payload = {
       action: "top_products", id: this.userData[this.userData.type].id, type: this.userData.type
     };
     this.isLoadingBulk = true;
-    console.log('payload message product: ', payload);
+    // console.log('payload message product: ', payload);
     // console.log('sample : ', { action: "top_products", type: "company", id: "JE158175" });
 
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
       this.isLoadingBulk = false;
 
-      console.log('product data :', topFive)
+      console.log('top product data :', topFive)
       this.pieChartLabels = topFive.amount_purchased.map(item => item.name)
       this.pieChartData = topFive.amount_purchased.map(item => item.amount)
 
       this.pieChartLabels2 = topFive.volume_purchased.map(item => item.name)
       this.pieChartData2 = topFive.volume_purchased.map(item => item.quantity)
 
-      // console.log('getTopFive label 1:', this.pieChartData)
-      // console.log('getTopFive label 2:', this.pieChartData2)
+      const lineChartData = topFive.amount_purchased.map(item => item.amount)
+      console.log('data : ', lineChartData)
+
+      // const lineChartData2 = topFive.amount_purchased.map(item => item.amount)
+      const chartData = topFive.volume_purchased.map(item => { 
+          return {  label : item.name.substring(0, 5), value : item.quantity}
+      });
+
+      // STEP 3 - Chart Configuration
+      const dataSource = {
+        chart: {
+          showLegend:false,
+          chartTopMargin:0,
+          chartLeftMargin : 0,
+          width: "100%", //width of the chart
+          height: "100%", //height of the chart
+          //Set the theme for your chart
+          theme: "fusion"
+        },
+        // Chart Data - from step 2
+        data: chartData
+      };
+      this.dataSource = dataSource;
+
+      // this.lineChartData = [
+      // { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
+      // { data: lineChartData2, label: 'Receipts' },
+      // {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
+      // ]
     }, error => {
       this.isLoadingBulk = false
       console.log('Error : ', error)
@@ -421,17 +393,17 @@ export class DashboardComponent implements OnInit {
       action: "top_companies"
     };
     this.isLoadingBulk = true;
-    console.log('payload message company: ', payload);
+    // console.log('payload message company: ', payload);
 
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
       // this.isLoadingBulk = false;
 
       console.log('getTopFive data company :', topFive)
-      // this.pieChartLabelsCompany = topFive.top_ranked.map(item => item.company_name)
-      // this.pieChartDataCompany = topFive.top_ranked.map(item => item.amount)
+      this.pieChartLabelsCompany = topFive.top_ranked.map(item => item.company_name)
+      this.pieChartDataCompany = topFive.top_ranked.map(item => item.amount)
 
-      // this.pieChartLabelsCompany2 = topFive.top_ranked.map(item => item.company_name)
-      // this.pieChartDataCompany2 = topFive.top_ranked.map(item => item.amount)
+      this.pieChartLabelsCompany2 = topFive.top_ranked.map(item => item.company_name)
+      this.pieChartDataCompany2 = topFive.top_ranked.map(item => item.amount)
     }, error => {
       // this.isLoadingBulk = false
       console.log('Error : ', error)

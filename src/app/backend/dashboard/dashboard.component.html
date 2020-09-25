@@ -10,25 +10,14 @@
 
                 <div class="row">
                     <div class="col-md-12">
-
                         <div class="col-md-6">
                             <div class="">
-                                <div class="">
-                                    <div class="" style="padding: .6rem;">
-                                        <div class="d-flex justify-content-left m-t-10">
-                                            <div>
-                                                <h1 class="font-size-24 roboto-900">Hi {{ username }}</h1>
-                                            </div>
-                                        </div>
+                                <div class="d-flex justify-content-left m-t-10">
+                                    <div>
+                                        <h1 class="font-size-24 roboto-900">Hi {{ username }}</h1>
                                     </div>
                                 </div>
-
                                 <div class="row">
-                                    <div class="d-flex justify-content-left m-t-10">
-                                        <div>
-                                            <!-- <h1 class="font-size-24 roboto-900">INVOICES</h1> -->
-                                        </div>
-                                    </div>
                                     <div class="col-md-8 col-sm-12 m-t-10 card" *ngIf="showOne">
                                         <div class="box">
                                             <p class="m-t-20 font-size-24 roboto-700 custom-blue neg-magin-2">
@@ -104,71 +93,43 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
-
-                <div class="row m-t-20">
-                    <div class="col-md-12 ">
-                        <div class="col-md-4 pull-right" style="margin-top: -33px; margin-bottom: 5px;">
-                            <div class="date-form">
-                                <div class="">
-                                    <form style="margin-bottom: -15px">
-                                        <div class="input-group input-daterange d-flex align-items-right">
-                                            <!-- <!-- <input matInput [matDatepicker]="picker"> -->
-                                            <!-- <div class="col-lg-5">
-                                                <mat-form-field>
-                                                    <input [value]="startDate.value" matInput [matDatepicker]="picker"
-                                                        placeholder="Start date">
-                                                    <mat-datepicker-toggle matSuffix [for]="picker">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-datepicker #picker></mat-datepicker>
-                                                </mat-form-field>
-                                            </div> -->
-                                            <!-- <div class="col-lg-5">
-                                                <mat-form-field>
-                                                    <input [value]="endDate.value" matInput [matDatepicker]="myPicker"
-                                                        placeholder="End date">
-                                                    <mat-datepicker-toggle matSuffix [for]="myPicker">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-datepicker #myPicker></mat-datepicker>
-                                                </mat-form-field>
-                                            </div> -->
-                                            <div class="col-md-7 offset-2">
-                                                <mat-form-field appearance="blank">
-                                                    <mat-label>Search Invoice</mat-label>
-                                                    <mat-date-range-input [rangePicker]="picker">
-                                                        <input matStartDate placeholder="Start date">
-                                                        <input matEndDate placeholder="End date">
-                                                    </mat-date-range-input>
-                                                    <mat-datepicker-toggle matSuffix [for]="picker">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-date-range-picker #picker></mat-date-range-picker>
-                                                </mat-form-field>
-                                            </div>
-                                            <!-- <div class="input-group-addon mx-4 p-md-2 float-left">to</div> -->
-                                            <!-- <div class="col-lg-2"> -->
-                                            <!-- <button mat-raised-button color="primary">Search</button> -->
-                                            <!-- <button type="submit" class="float-right text-center col-md-2 btn btn-primary">Filter</button> -->
-                                            <!-- </div> -->
-
-                                        </div>
-                                    </form>
-                                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-lg-5 offset-lg-7 col-md-6 offset-md-6 col-sm-6 offset-sm-12 col-xs-6 offset-xs-6">
+                        <div class="card">
+                            <div class="card-bodyss">
+                                <form>
+                                    <div class="input-group input-daterange d-flex align-items-center">
+                                        <mat-form-field appearance="blank">
+                                            <mat-label>Search Invoice</mat-label>
+                                            <mat-date-range-input [rangePicker]="picker">
+                                                <input matStartDate placeholder="Start date">
+                                                <input matEndDate placeholder="End date">
+                                            </mat-date-range-input>
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-date-range-picker #picker></mat-date-range-picker>
+                                        </mat-form-field>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12" style="margin-top: -41px;">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="roboto-900 font-size-20">Invoice</h4>
-                            </div>
-                        </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="roboto-900 font-size-20">Invoice</h4>
+                    </div>
+                </div>
+                <div class="row m-t-20">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
                                 <div class="col-lg-4 col-md-12" [ngClass]="{'col-lg-12': userData.type !== 'vendor' }">
                                     <div class="row">
-                                        <div [ngClass]="{'col-md-4 neg-magin': userData.type !== 'vendor' }">
+                                        <div class="col-md-4 col-sm-4 col-xs-4 neg-magin">
                                             <div class="" [ngStyle]="{'neg-magin': userData.type == 'system' }">
                                                 <div class="">
                                                     <div class="top-space">
@@ -182,7 +143,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div [ngClass]="{'col-md-4': userData.type !== 'vendor' }">
+                                        <div class="col-md-4 col-sm-4 col-xs-4 ">
                                             <div class="neg-magin">
                                                 <div class="top-space">
                                                     <div class="">
@@ -195,7 +156,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div [ngClass]="{'col-md-4': userData.type !== 'vendor'}">
+                                        <div class="col-md-4 col-sm-4 col-xs-4 ">
                                             <div class="neg-magin">
                                                 <div class="top-space">
                                                     <div class="">
@@ -215,181 +176,131 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
 
-                    <div class="col-lg-12 col-md-12">
-                        <div class="cards" style="height: 360px;">
-                            <div class="card-bodys" style="padding-bottom: 0px;">
-
-                                <div class="row">
-                                    <!-- <div class="col-md-6">
-                                        <h3 class="lead text-center">Top 5 Product Value</h3>
-
-                                        <div class="chart">
-                                            <canvas style="position: relative; height:40vh; width:80vw" baseChart
-                                                [data]="pieChartData" [labels]="pieChartLabels"
-                                                [chartType]="pieChartType"></canvas>
-                                        </div>
-                                    </div> -->
-                                    <div class="col-lg-7">
-                                        <div class="card" style="height: 370px;">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <h3 class="neg-margin text-left font-size-20"
-                                                            style="margin-top: -6px;">Top 5 Company Value</h3>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <form [formGroup]="sortRangesForm" class="pull-right">
-                                                            <select formControlName="range"
-                                                                class="custom-select-roboto">
-                                                                <option value="{{item}}"
-                                                                    *ngFor="let item of sortRanges">{{ item }}</option>
-                                                            </select>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                <div style="display: block;">
-                                                    <canvas baseChart [datasets]="lineChartData"
-                                                        [labels]="lineChartLabels" [options]="lineChartOptions"
-                                                        [colors]="lineChartColors" [legend]="lineChartLegend"
-                                                        [chartType]="lineChartType" (chartHover)="chartHovered($event)"
-                                                        (chartClick)="chartClicked($event)"></canvas>
-                                                </div>
-                                            </div>
-                                        </div>
-
+                    <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="row clearfix p-t-20">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <h3 class="neg-margin text-left font-size-16" style="margin-top: -6px;">Top 5
+                                            Product Value</h3>
                                     </div>
-                                    <div class="col-md-5">
-                                        <div class="card" style="height: 370px;">
-                                            <div class="card-body">
-                                                <h3 class="roboto-700 font-size-20 text-left">Top 5 Product Volume</h3>
-                                                <div class="cover-logo"></div>
-                                                <fusioncharts style="position: relative; left: -20px; top: -26px;"
-                                                    type="doughnut2d" [dataSource]="dataSource">
-                                                </fusioncharts>
-                                            </div>
-                                        </div>
+                                    <div
+                                        class="col-lg-6 col-md-6 col-sm-6 col-xs-6 d-flex align-items-right pull-right">
+                                        <form [formGroup]="sortRangesForm">
+                                            <select formControlName="range" class="custom-select-roboto">
+                                                <option value="{{item}}" *ngFor="let item of sortRanges">{{ item }}
+                                                </option>
+                                            </select>
+                                        </form>
                                     </div>
                                 </div>
-
-                                <div class="row" *ngIf="userData.type == 'system'">
-                                    <div class="col-md-6">
-                                        <h3 class="lead text-center">Top 5 Company Value</h3>
-
-                                        <div class="chart">
-                                            <canvas style="position: relative; height:40vh; width:80vw" baseChart
-                                                [data]="pieChartDataCompany" [labels]="pieChartLabelsCompany"
-                                                [chartType]="pieChartType"></canvas>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <h3 class="lead text-center">Top 5 Company Volume</h3>
-                                        <div class="chart">
-                                            <canvas style="position: relative; height:40vh; width:80vw" baseChart
-                                                [data]="pieChartDataCompany2" [labels]="pieChartLabelsCompany2"
-                                                [chartType]="pieChartType"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- show this for other type of users -->
-                                <div class="row" *ngIf="userData.type == 'vendor'">
-                                    <!-- <div class="col-lg-12">
-                                        <div style="display: block;">
-                                            <canvas *ngIf="!isLoadingGraph" baseChart [datasets]="lineChartData"
-                                                [labels]="lineChartLabels" [options]="lineChartOptions"
-                                                [colors]="lineChartColors" [chartType]="lineChartType"
-                                                (chartHover)="chartHovered($event)"
-                                                (chartClick)="chartClicked($event)"></canvas>
-                                        </div>
-                                    </div> -->
-
-                                </div>
-
+                            </div>
+                            <div class="card-body">
+                                <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
+                                    [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
+                                    [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+                                    (chartClick)="chartClicked($event)"></canvas>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
+                        <div class="card" style="height: 92%;">
+                            <div class="card-body" style="padding: 0px; margin-top:45px;">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <h3 class="neg-margin text-left font-size-16" style="margin-top: -29px;">Top 5
+                                        Product Volume</h3>
+                                </div>
+                                <div class="cover-logo"></div>
+                                <fusioncharts type="doughnut2d" width="95%" [dataSource]="dataSource">
+                                </fusioncharts>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
+                <div class="clearfix"></div>
+                <div class="row clearfix">
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6 text-left">
+                        <h4 class="roboto-900 font-size-16">Recent Orders</h4>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-6  text-right">
+                        <h3 class="roboto-700 font-size-16">This Week</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive" style="height: 450px;">
+                                    <table id="order-listing" class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Order ID</th>
+                                                <th>Created Date</th>
+                                                <th>Paid</th>
+                                                <th>Company</th>
+                                                <th *ngIf="userData.type == 'system'">Supplier</th>
+                                            </tr>
+                                        </thead>
+                                        <div class="col-md-4 offset-md-4">
+                                            <mat-progress-spinner *ngIf="isLoadingOrder" mode="indeterminate"
+                                                diameter='30' strokeWidth='3'>
+                                            </mat-progress-spinner>
+                                        </div>
+                                        <tbody *ngIf="!isLoadingOrder && orders.length">
 
+                                            <tr
+                                                *ngFor="let order of orders | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
+                                                <td># {{ order.order_number }}</td>
+                                                <td>{{ order.createdAt }}</td>
+                                                <td>
 
-                <div class="row" style="margin-top: 53px;">
+                                                    <label class="badge badge-success"
+                                                        *ngIf="order.paid == true ">{{ order.paid }}</label>
 
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h4 class="roboto-900 font-size-20">Recent Orders</h4>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <form [formGroup]="sortRangesForm" class="pull-right">
-                                    <select formControlName="range" class="custom-select-roboto"
-                                        style="background: #efefef;  border: #efef;">
-                                        <option value="{{item}}" *ngFor="let item of sortRanges">{{ item }}</option>
-                                    </select>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="table-responsive" style="height: 450px;">
-                            <table id="order-listing" class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Order ID</th>
-                                        <th>Created Date</th>
-                                        <th>Paid</th>
-                                        <th>Company</th>
-                                        <th *ngIf="userData.type == 'system'">Supplier</th>
-                                    </tr>
-                                </thead>
-                                <div class="col-md-4 offset-md-4">
-                                    <mat-progress-spinner *ngIf="isLoadingOrder" mode="indeterminate" diameter='30'
-                                        strokeWidth='3'>
-                                    </mat-progress-spinner>
-                                </div>
-                                <tbody *ngIf="!isLoadingOrder && orders.length">
+                                                    <label class="badge badge-danger"
+                                                        *ngIf="order.paid == false ">{{ order.paid }}</label>
 
-                                    <tr
-                                        *ngFor="let order of orders | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
-                                        <td># {{ order.order_number }}</td>
-                                        <td>{{ order.createdAt }}</td>
-                                        <td>
+                                                </td>
+                                                <td>{{ order.company_details ? order.company_details.name : '' }}</td>
 
-                                            <label class="badge badge-success"
-                                                *ngIf="order.paid == true ">{{ order.paid }}</label>
+                                                <td *ngIf="userData.type === 'system'">
+                                                    {{ order.vendor_details ? order.vendor_details.name : '' }} <br />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <p class="alert alert-warning col-md-12 text-center"
+                                                *ngIf="!orders.length && !isLoadingOrder">No
+                                                Record available</p>
 
-                                            <label class="badge badge-danger"
-                                                *ngIf="order.paid == false ">{{ order.paid }}</label>
-
-                                        </td>
-                                        <td>{{ order.company_details ? order.company_details.name : '' }}</td>
-
-                                        <td *ngIf="userData.type === 'system'">
-                                            {{ order.vendor_details ? order.vendor_details.name : '' }} <br />
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div class="col-md-12">
-                                <div class="row">
-                                    <p class="alert alert-warning col-md-12 text-center"
-                                        *ngIf="!orders.length && !isLoadingOrder">No
-                                        Record available</p>
-
-                                </div>
-                                <div class="colm-6 text-right pull-right">
-                                    <pagination-controls id="order-listing" (pageChange)="pageChanged($event)"
-                                        (pageBoundsCorrection)="pageChanged($event)" maxSize="9" directionLinks="true"
-                                        autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
-                                        screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
-                                        screenReaderCurrentLabel="You're on page">
-                                    </pagination-controls>
+                                        </div>
+                                        <div class="colm-6 text-right pull-right">
+                                            <pagination-controls id="order-listing" (pageChange)="pageChanged($event)"
+                                                (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
+                                                directionLinks="true" autoHide="true" responsive="true"
+                                                previousLabel="Previous" nextLabel="Next"
+                                                screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                                                screenReaderCurrentLabel="You're on page">
+                                            </pagination-controls>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
+
         </div>
     </div>
 </div>
