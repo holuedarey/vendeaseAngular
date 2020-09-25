@@ -95,3 +95,8 @@ body { margin: 0;  }
   width: 100%;
   padding: 0px;
 }
+.mat-form-field-flex{
+  position: relative;
+  top: 10px;
+  left: 41px;
+}
