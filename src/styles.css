@@ -91,12 +91,12 @@
 html, body { height: 100%; }
 body { margin: 0;  }
 
-.mat-form-field-type-mat-date-range-input .mat-form-field-infix{
-  width: 100%;
-  padding: 0px;
-}
 .mat-form-field-flex{
   position: relative;
-  top: 10px;
+  top: 6px;
   left: 41px;
+}
+
+.mat-form-field-type-mat-date-range-input .mat-form-field-infix{
+  width: 255px !important;
 }
