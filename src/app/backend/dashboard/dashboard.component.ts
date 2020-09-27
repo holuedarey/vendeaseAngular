@@ -61,11 +61,11 @@ export class DashboardComponent implements OnInit {
   isLoadingAnalytic: boolean;
 
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 91, 67, 85, 49, 50, 62], label: 'Series A' },
-    { data: [70, 48, 74, 49, 86, 76, 84, 78, 53], label: 'Series B' },
-    { data: [47, 57, 57, 50, 60, 59, 56, 60, 70], label: 'Series C', },
-    { data: [57, 44, 49, 50, 63, 60, 70, 54, 90], label: 'Series D' },
-    { data: [52, 88, 42, 80, 83, 50, 45, 70, 49], label: 'Series E' },
+    { data: [65, 59, 60, 61, 67, 65, 69, 50, 62], label: 'Series A' },
+    { data: [70, 78, 74, 69, 86, 76, 84, 78, 93], label: 'Series B' },
+    { data: [47, 67, 57, 50, 60, 59, 56, 60, 70], label: 'Series C', },
+    { data: [57, 69, 78, 58, 68, 69, 70, 74, 90], label: 'Series D' },
+    { data: [52, 58, 52, 60, 63, 65, 68, 64, 69], label: 'Series E' },
 
   ];
   public lineChartData2: ChartDataSets[] = [];
@@ -122,7 +122,7 @@ export class DashboardComponent implements OnInit {
     },
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
-      borderColor: '#080808',
+      borderColor: 'rgb(73,191,167)',
       pointHoverBackgroundColor: 'black',
       pointHoverBorderColor: 'blue'
     },
@@ -133,7 +133,7 @@ export class DashboardComponent implements OnInit {
       pointHoverBorderColor: 'blue'
     },
   ];
-  public lineChartLegend = true;
+  public lineChartLegend = false;
   public lineChartType: ChartType = 'line';
 
   sortRanges: any[] = ['weeekly', 'monthly', 'yearly'];
@@ -169,7 +169,7 @@ export class DashboardComponent implements OnInit {
     this.getBulkAnalytics();
     this.getAnalytics();
     this.loadGraph();
-    this.getTopFiveCompany();
+    // this.getTopFiveCompany();
   }
 
   // events
@@ -188,7 +188,7 @@ export class DashboardComponent implements OnInit {
     } else if (this.userData.type == 'vendor') {
       // this.getGraphData();
     } else if (this.userData.type == 'system') {
-      this.getTopFiveCompany();
+      // this.getTopFiveCompany();
     }
   }
   getUser() {
@@ -250,14 +250,14 @@ export class DashboardComponent implements OnInit {
     this.isLoadingGraph = true;
     this.dashboard.getGraph().subscribe((graphData) => {
       this.isLoadingGraph = false;
-      console.log('graph data ooo:', graphData)
+      // console.log('graph data ooo:', graphData)
       const lineChartData = graphData.invoices.map(item => item.totalAmount)
       const lineChartData2 = graphData.paid_invoices.map(item => item.totalAmount)
-      this.lineChartData = [
-      { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
-      { data: lineChartData2, label: 'Receipts' },
-      {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
-      ]
+      // this.lineChartData = [
+      // { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
+      // { data: lineChartData2, label: 'Receipts' },
+      // {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
+      // ]
       console.log('line chart :', lineChartData2)
       return this.graphData = graphData
     }, error => {
@@ -338,8 +338,8 @@ export class DashboardComponent implements OnInit {
       this.pieChartLabels2 = topFive.volume_purchased.map(item => item.name)
       this.pieChartData2 = topFive.volume_purchased.map(item => item.quantity)
 
-      const lineChartData = topFive.amount_purchased.map(item => item.amount)
-      console.log('data : ', lineChartData)
+      // const lineChartData = topFive.amount_purchased.map(item => item.amount)
+      // console.log('data : ', lineChartData)
 
       // const lineChartData2 = topFive.amount_purchased.map(item => item.amount)
       const chartData = topFive.volume_purchased.map(item => { 
@@ -362,11 +362,6 @@ export class DashboardComponent implements OnInit {
       };
       this.dataSource = dataSource;
 
-      // this.lineChartData = [
-      // { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
-      // { data: lineChartData2, label: 'Receipts' },
-      // {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
-      // ]
     }, error => {
       this.isLoadingBulk = false
       console.log('Error : ', error)
