@@ -73,15 +73,24 @@ export class DashboardComponent implements OnInit {
 
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
+    legend: {
+      fullWidth:true,
+      labels: { fontColor: 'red' },
+    },
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
-      xAxes: [{}],
+      xAxes: [{
+        ticks: { fontColor: 'black' },
+          gridLines: { color: 'rgba(225,255,255,0.9)' }
+      }],
       yAxes: [
         {
           id: 'y-axis-0',
           position: 'left',
+          ticks: { fontColor: 'black' },
+          gridLines: { color: 'rgba(225,225,225,0.2)' }
         },
-
+        
       ]
     },
     annotation: {
