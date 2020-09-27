@@ -30,13 +30,26 @@
                 </a>
             </li>
 
-            <li>
-                <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="left" title="Products"
-                    data-nav-target="#products">
-                    <i class="feather-database" style="margin-right: 5px"> </i> Products
-                </a>
+            <div class="dropdown">
+                <li>
+                    <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="left" title="Products"
+                        data-nav-target="#products">
+                        <i class="feather-database" style="margin-right: 5px"> </i> Products
+                    </a>
+    
+                </li>
+                <div class="dropdown-content">
+                    
+                    <li *ngIf="userData != 'vendor' ">
+                        <a class="text-white" routerLink="create-product">New Products</a>
+                    </li>
 
-            </li>
+                    <li>
+                        <a class="text-white" routerLink="product-list">Product List</a>
+                    </li>
+                </div>
+            </div>
+           
 
             <li>
                 <a style="justify-content: left;" routerLink="invoice-list" data-toggle="tooltip" data-placement="right"
