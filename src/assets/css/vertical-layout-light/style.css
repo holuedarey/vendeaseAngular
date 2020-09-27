@@ -8859,9 +8859,21 @@ svg {
   vertical-align: middle;
 }
 
-table {
-  border-collapse: collapse;
+table { 
+  border-collapse: separate !important;
+  border-spacing: 0 10px;
 }
+tr{
+    background: #ffffff;
+}
+tr>th{
+    background: #ededed;
+}
+
+tr td:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px;}
+tr td:last-child { border-top-right-radius: 10px; border-bottom-left-radius: 10px;}
+
+
 
 caption {
   padding-top: 1.25rem 0.9375rem;

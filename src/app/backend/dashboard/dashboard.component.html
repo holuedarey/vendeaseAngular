@@ -235,7 +235,7 @@
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12 col-xs-12 col-sm-12">
-                        <div class="card">
+                        <div class="">
                             <div class="card-body">
                                 <div class="table-responsive" style="height: 450px;">
                                     <table id="order-listing" class="table">
@@ -243,9 +243,11 @@
                                             <tr>
                                                 <th>Order ID</th>
                                                 <th>Created Date</th>
-                                                <th>Paid</th>
+                                                <th>Payment</th>
                                                 <th>Company</th>
                                                 <th *ngIf="userData.type == 'system'">Supplier</th>
+                                                <th>Status</th>
+                                                <th>Price</th>
                                             </tr>
                                         </thead>
                                         <div class="col-md-4 offset-md-4">
@@ -261,11 +263,11 @@
                                                 <td>{{ order.createdAt }}</td>
                                                 <td>
 
-                                                    <label class="badge badge-success"
-                                                        *ngIf="order.paid == true ">{{ order.paid }}</label>
+                                                    <label class="text-success"
+                                                        *ngIf="order.paid == true " style="text-transform: capitalize;">Paid</label>
 
-                                                    <label class="badge badge-danger"
-                                                        *ngIf="order.paid == false ">{{ order.paid }}</label>
+                                                    <label class=" text-danger"
+                                                        *ngIf="order.paid == false " style="text-transform: capitalize;">Unpaid</label>
 
                                                 </td>
                                                 <td>{{ order.company_details ? order.company_details.name : '' }}</td>
@@ -273,6 +275,8 @@
                                                 <td *ngIf="userData.type === 'system'">
                                                     {{ order.vendor_details ? order.vendor_details.name : '' }} <br />
                                                 </td>
+                                                <td>Delivered</td>
+                                                <td>400</td>
                                             </tr>
                                         </tbody>
                                     </table>

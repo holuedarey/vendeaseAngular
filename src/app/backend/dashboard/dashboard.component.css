@@ -2,17 +2,6 @@
     margin-top: -17px !important;
 }
 
-table { 
-    border-collapse:separate; 
-    border-spacing: 0 1em;
-}
-tr{
-    background: #ffffff;
-}
-tr>th{
-    background: #ededed;
-}
-
 .cover-logo{
     background: #fff;
     position: relative;
@@ -98,4 +87,9 @@ tr>th{
 
 .btn-order{
     background: #40E5BF;
+}
+
+table {
+  font-family: roboto;
+  font-weight: 700;
 }
