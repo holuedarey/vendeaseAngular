@@ -215,7 +215,7 @@
                                         Product Volume</h3>
                                 </div>
                                 <div class="cover-logo"></div>
-                                <fusioncharts type="doughnut2d" width="95%" [dataSource]="dataSource">
+                                <fusioncharts type="doughnut2d" width="95%" [dataSource]="dataSource" *ngIf="dataSource">
                                 </fusioncharts>
                             </div>
                         </div>
