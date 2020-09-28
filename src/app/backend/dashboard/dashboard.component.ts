@@ -37,6 +37,9 @@ export class DashboardComponent implements OnInit {
 
   isLoadingGraph: boolean;
 
+  //fusion chart loader
+  isLoadingFusion:boolean;
+
   startDate = new FormControl(new Date());
   endDate = new FormControl(new Date());
 
@@ -334,12 +337,13 @@ export class DashboardComponent implements OnInit {
       action: "top_products", id: this.userData[this.userData.type].id, type: this.userData.type
     };
     this.isLoadingBulk = true;
+    this.isLoadingFusion = true;
     // console.log('payload message product: ', payload);
     // console.log('sample : ', { action: "top_products", type: "company", id: "JE158175" });
 
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
       this.isLoadingBulk = false;
-
+      this.isLoadingFusion = false;
       console.log('top product data :', topFive)
       this.pieChartLabels = topFive.amount_purchased.map(item => item.name)
       this.pieChartData = topFive.amount_purchased.map(item => item.amount)
@@ -359,7 +363,7 @@ export class DashboardComponent implements OnInit {
       const dataSource = {
         chart: {
           showLegend:false,
-          chartTopMargin:0,
+          chartTopMargin:"-20%",
           chartLeftMargin : 0,
           width: "100%", //width of the chart
           height: "100%", //height of the chart

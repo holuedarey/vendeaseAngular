@@ -210,12 +210,17 @@
                     <div class="col-md-5 col-lg-5 col-sm-12 col-xs-12">
                         <div class="card" style="height: 92%;">
                             <div class="card-body" style="padding: 0px; margin-top:45px;">
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="z-index: 99999;">
                                     <h3 class="neg-margin text-left font-size-16" style="margin-top: -29px;">Top 5
                                         Product Volume</h3>
                                 </div>
+                                <div class="col-md-4 offset-md-4" style="margin-top: 25%;" *ngIf="isLoadingFusion">
+                                    <mat-progress-spinner  mode="indeterminate"
+                                        diameter='70' strokeWidth='7'>
+                                    </mat-progress-spinner>
+                                </div>
                                 <div class="cover-logo"></div>
-                                <fusioncharts type="doughnut2d" width="95%" [dataSource]="dataSource" *ngIf="dataSource">
+                                <fusioncharts type="doughnut2d" width="100%" [dataSource]="dataSource" *ngIf="dataSource" style="font-size: 11px !important; position: absolute; top: 11%;">
                                 </fusioncharts>
                             </div>
                         </div>

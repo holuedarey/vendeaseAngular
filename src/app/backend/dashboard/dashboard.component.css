@@ -5,7 +5,7 @@
 .cover-logo{
     background: #fff;
     position: relative;
-    bottom: -294px;
+    bottom: -61%;
     left: -1px;
     z-index: 99999999;
     height: 20px;
@@ -55,4 +55,8 @@
 table {
   font-family: roboto;
   font-weight: 700;
+}
+
+.fusioncharts-container{
+  top: -28% !important;
 }
