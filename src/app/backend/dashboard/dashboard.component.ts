@@ -363,8 +363,9 @@ export class DashboardComponent implements OnInit {
       const dataSource = {
         chart: {
           showLegend:false,
-          chartTopMargin:"-20%  ",
-          chartLeftMargin : 0,
+          "baseFont": "roboto",
+          "baseFontSize": "10",
+          "baseFontColor": "#0066cc",
           width: "100%", //width of the chart
           height: "100%", //height of the chart
           //Set the theme for your chart

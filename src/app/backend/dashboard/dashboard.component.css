@@ -78,7 +78,7 @@ text-transform: capitalize !important;
 @media only screen and (min-width: 1024px) {
   .mobile-top{
     position: relative !important;
-    top:-15px
+    top:12px
   }
   .card-top{
     height: 420px !important;
