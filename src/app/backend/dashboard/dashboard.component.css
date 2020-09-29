@@ -56,7 +56,9 @@ table {
   font-family: roboto;
   font-weight: 700;
 }
-
+table thead th{
+text-transform: capitalize !important;
+}
 .fusioncharts-container{
   top: -28% !important;
 }
