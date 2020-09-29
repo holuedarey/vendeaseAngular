@@ -62,3 +62,13 @@ text-transform: capitalize !important;
 .fusioncharts-container{
   top: -28% !important;
 }
+@media only screen and (min-width: 992px) {
+  .mobile-top{
+    position: relative !important;
+    top:-27px
+  }
+  .card-top{
+    height: 328px;
+  }
+  
+}

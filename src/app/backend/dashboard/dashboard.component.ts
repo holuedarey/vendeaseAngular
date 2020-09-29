@@ -363,7 +363,7 @@ export class DashboardComponent implements OnInit {
       const dataSource = {
         chart: {
           showLegend:false,
-          chartTopMargin:"-20%",
+          chartTopMargin:"-20%  ",
           chartLeftMargin : 0,
           width: "100%", //width of the chart
           height: "100%", //height of the chart
@@ -376,7 +376,8 @@ export class DashboardComponent implements OnInit {
       this.dataSource = dataSource;
 
     }, error => {
-      this.isLoadingBulk = false
+      this.isLoadingBulk = false;
+      this.isLoadingFusion = false;
       console.log('Error : ', error)
     })
   }
