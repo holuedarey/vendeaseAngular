@@ -63,25 +63,25 @@ text-transform: capitalize !important;
   top: -28% !important;
 }
 .card-top{
-  /* height: 420px !important; */
+  height: 423px !important;
 }
 @media only screen and (max-width: 992px) {
   .mobile-top{
     position: relative !important;
-    top:-53px
+    top:-54px
   }
   .card-top{
-    height: 328px !important;
+    height: 304px !important;
   }
   
 }
 @media only screen and (min-width: 1024px) {
   .mobile-top{
     position: relative !important;
-    top:-23px
+    top:-15px
   }
   .card-top{
-    height: 320px !important;
+    height: 420px !important;
   }
   
 }
