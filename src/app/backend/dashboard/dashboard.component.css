@@ -63,15 +63,35 @@ text-transform: capitalize !important;
   top: -28% !important;
 }
 .card-top{
-  height: 420px;
+  /* height: 420px !important; */
 }
-@media only screen and (min-width: 992px) {
+@media only screen and (max-width: 992px) {
   .mobile-top{
     position: relative !important;
-    top:-27px
+    top:-53px
   }
   .card-top{
     height: 328px !important;
+  }
+  
+}
+@media only screen and (min-width: 1024px) {
+  .mobile-top{
+    position: relative !important;
+    top:-23px
+  }
+  .card-top{
+    height: 320px !important;
+  }
+  
+}
+@media only screen and (min-width: 1554px) {
+  .mobile-top{
+    position: relative !important;
+    top:-23px
+  }
+  .card-top{
+    height: 424px !important;
   }
   
 }
