@@ -70,7 +70,6 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-
                                                     <tr *ngFor="let product of items; let i = index">
                                                         <td>{{ i+1 }}</td>
                                                         <td>{{ product.name }}</td>
@@ -81,8 +80,6 @@
                                                             <a class="confirm" (click)="removeFromCart(product)"><button class="btn-xs btn btn-danger ti-trash text-white"></button></a>
                                                         </td>
                                                     </tr>
-
-
                                                 </tbody>
                                             </table>
                                             <!-- {% if selected_products.count > 0 %} -->
