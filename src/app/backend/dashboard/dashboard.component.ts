@@ -118,31 +118,31 @@ export class DashboardComponent implements OnInit {
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: '#FF9800',
-      pointHoverBackgroundColor: '#FF9800',
-      pointHoverBorderColor: '#FF9800'
+      // pointHoverBackgroundColor: '#FF9800',
+      // pointHoverBorderColor: '#FF9800'
     }, { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: '#EB4444',
-      pointHoverBackgroundColor: 'black',
-      pointHoverBorderColor: 'blue'
+      // pointHoverBackgroundColor: '#EB4444',
+      // pointHoverBorderColor: '#EB4444'
     },
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: '#0033CC',
-      pointHoverBackgroundColor: 'black',
-      pointHoverBorderColor: 'blue'
+      // pointHoverBackgroundColor: '#0033CC',
+      // pointHoverBorderColor: '#0033CC'
     },
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: 'rgb(73,191,167)',
-      pointHoverBackgroundColor: 'black',
-      pointHoverBorderColor: 'blue'
+      // pointHoverBackgroundColor: 'rgb(73,191,167)',
+      // pointHoverBorderColor: 'rgb(73,191,167)'
     },
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: '#919191',
-      pointHoverBackgroundColor: 'black',
-      pointHoverBorderColor: 'blue'
+      // pointHoverBackgroundColor: '#919191',
+      // pointHoverBorderColor: '#919191'
     },
   ];
   public lineChartLegend = false;
