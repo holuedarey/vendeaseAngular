@@ -136,6 +136,7 @@ export class DashboardComponent implements OnInit {
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: 'rgb(73,191,167)',
       // pointHoverBackgroundColor: 'rgb(73,191,167)',
+      
       // pointHoverBorderColor: 'rgb(73,191,167)'
     },
     { // grey
