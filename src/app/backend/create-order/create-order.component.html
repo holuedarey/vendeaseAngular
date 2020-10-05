@@ -63,6 +63,7 @@
                                                     <tr>
                                                         <th>S/N</th>
                                                         <th>Product</th>
+                                                        <th>Price</th>
                                                         <th>Qty</th>
                                                         <th>Comment</th>
                                                         <th>#Action</th>
@@ -73,6 +74,7 @@
                                                     <tr *ngFor="let product of items; let i = index">
                                                         <td>{{ i+1 }}</td>
                                                         <td>{{ product.name }}</td>
+                                                        <td>{{ product.price }}</td>
                                                         <td>{{ product.quantity }}</td>
                                                         <td>{{ product.description }}</td>
                                                         <td>

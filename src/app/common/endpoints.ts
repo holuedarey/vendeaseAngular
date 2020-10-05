@@ -1,6 +1,6 @@
 import { environment } from "../../environments/environment.prod";
 
-const BASE_URL = environment.production ? " https://vendease-stg.herokuapp.com" : " https://vendease-stg.herokuapp.com";
+const BASE_URL = environment.production ? "https://vendease.eu-gb.mybluemix.net" : "https://vendease.eu-gb.mybluemix.net";
 
 export const Endpoint = {
     AUTH: {
