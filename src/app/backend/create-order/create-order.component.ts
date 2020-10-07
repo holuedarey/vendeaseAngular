@@ -101,8 +101,6 @@ export class CreateOrderComponent implements OnInit {
       console.log('Error :', error)
     })
   }
-
-
   companyList() {
     this.comanyServ.getCompanyList().subscribe((company) => {
       this.companies = company.data;
