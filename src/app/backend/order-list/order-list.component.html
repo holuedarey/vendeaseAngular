@@ -11,8 +11,8 @@
             <div class="content">
                 <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
                 <div class="row">
-                    <div class="col-md-12 grid-margin stretch-card">
-                        <div class="card">
+                    <div class="col-md-12">
+                        <div class="cards">
 
                             <div class="card-body" *ngIf="userData.type == 'system'">
                                 <form [formGroup]="searchPoForm">
@@ -21,7 +21,7 @@
                                 </form>
                             </div>
 
-                            <div class="card-body">
+                            <div class="card-bodys">
                                 <h2 class="card-title">Purchase Order List</h2>
                                 <div class="row">
                                     <div class="col-12">

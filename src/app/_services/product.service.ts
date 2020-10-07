@@ -11,7 +11,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
   produtList(params?): Observable<any> {
-    return this.http.get(`${Endpoint.PRODUCTS.product}?$skip=${params.skip || 0}&$limit=${params.limit || 50}`).pipe(
+    return this.http.get(`${Endpoint.PRODUCTS.product}?$skip=${params.skip || 0}&$limit=${params.limit || 50}&price[$gte]=${params.price || 0}`).pipe(
       map(data => {
         return data;
       }));

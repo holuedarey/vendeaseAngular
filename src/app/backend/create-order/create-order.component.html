@@ -26,7 +26,7 @@
                                                 class="form-control js-example-basic-single w-100" required>
                                                 <option value="">Please select</option>
 
-                                                <option value="{{item._id}}#{{item.name}}"
+                                                <option value="{{item._id}}#{{item.name}}#{{item.price}}"
                                                     *ngFor="let item of products">
                                                     {{ item.name }}({{ item.description }} - NGN{{ item.price }})
                                                 </option>

@@ -22,12 +22,13 @@ export class CreateProductComponent implements OnInit {
   isLoadingProductUpload: boolean;
   file: File = null;
   progress: number = 0;
+  selectedFiles: File = null;
 
   breadCrumb: any = {
     firstLabel: 'Product List',
-    secondLabel:'Create Product',
+    secondLabel: 'Create Product',
     url: '/product-list',
-    secondLevel:true
+    secondLevel: true
   };
 
   constructor(public storageService: StorageService, private fb: FormBuilder, private product: ProductService, private toastr: ToastrService) {
@@ -80,14 +81,13 @@ export class CreateProductComponent implements OnInit {
 
   onFileChange(event) {
     if (event.target.files.length > 0) {
-      const file = (event.target as HTMLInputElement).files[0];
-
-      this.CreateProductFormUpload.patchValue({
-        documents: file
-      });
-      this.CreateProductFormUpload.get('documents').updateValueAndValidity()
-      // console.log('file :', this.CreateProductFormUpload.get('documents'));
+      let formData = new FormData();
+      this.selectedFiles = event.target.files;
+      const currentFileUpload = this.selectedFiles;
+      console.log(currentFileUpload)
+      this.CreateProductFormUpload.get('documents').setValue(currentFileUpload);
     }
+
   }
 
 
@@ -95,10 +95,12 @@ export class CreateProductComponent implements OnInit {
 
     // console.log('file :', this.CreateProductFormUpload.value.documents)
     this.isLoadingProductUpload = true;
-    console.log('payload : ', this.CreateProductFormUpload.value.documents.name)
+    // console.log('payload : ', this.CreateProductFormUpload.value.documents.name)
     var formData = new FormData();
-    formData.append("uri", this.CreateProductFormUpload.value.documents, this.CreateProductFormUpload.value.documents.name);
+    formData.append('file', this.CreateProductFormUpload.get("documents").value);
 
+    console.log(JSON.stringify(formData))
+    // formData.append("test", "value")
     console.log('payload : ', formData)
     this.product.createProductUpload(this.CreateProductFormUpload.value.documents).subscribe((event: HttpEvent<any>) => {
       switch (event.type) {

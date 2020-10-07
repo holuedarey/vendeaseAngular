@@ -94,9 +94,9 @@ export class CreateOrderComponent implements OnInit {
   }
 
   productListUser() {
-    this.productService.produtList().subscribe((product) => {
+    this.productService.produtList({skip:0, limit: Number.MAX_SAFE_INTEGER, }).subscribe((product) => {
       this.products = product.data.slice().reverse()
-      // console.log('product :', this.products)
+      console.log('product :', this.products)
     }, error => {
       console.log('Error :', error)
     })
@@ -116,10 +116,11 @@ export class CreateOrderComponent implements OnInit {
     const product = this.purchaseOrderForm.value.product.split('#');
     const _id = product[0];
     const name = product[1];
-
+    const price  = product[2]
     const item = {
       item: _id,
       name: name,
+      price:price,
       quantity: this.purchaseOrderForm.value.quantity,
       description: this.purchaseOrderForm.value.description,
     }

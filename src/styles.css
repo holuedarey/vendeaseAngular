@@ -36,6 +36,22 @@
       padding-top: 35px;
     }
 
+        
+    table { 
+      border-collapse: separate !important;
+      border-spacing: 0 10px;
+      font-family: roboto !important;
+    }
+    tr{
+        background: #ffffff;
+        font-weight: 700;
+    }
+    tr>th{
+        background: #ededed;
+        text-transform: capitalize !important;
+        font-size: 0.875rem !important;
+        font-weight: 700 !important;
+    }
     .custom-blue {
       color: #2C13E7;
     }

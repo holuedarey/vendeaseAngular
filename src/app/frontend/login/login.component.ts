@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
         this.show = true;
         // console.log('error : ', error.error.data.message);
         
-        this.toastr.error(error.error.data.message, 'Error', {
+        this.toastr.error(error.error.data.message || 'error', 'Error', {
           timeOut: 3000,
           closeButton:true
         });
