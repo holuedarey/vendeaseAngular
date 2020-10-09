@@ -53,7 +53,8 @@
                                                     </mat-progress-spinner>
                                                 </div>
                                                 <tbody>
-                                                    <tr *ngFor="let item of deliveries | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
+                                                    <tr
+                                                        *ngFor="let item of deliveries | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
                                                         <td>{{ i+1 }}</td>
                                                         <td *ngIf="userData.type !== 'vendor' ">{{ item.invoice_no }}
                                                         </td>
@@ -67,9 +68,9 @@
 
                                                             <label
                                                                 [ngClass]="{'badge badge-danger': item.status !== 'delivered',  'badge badge-success': item.status == 'delivered' }">
-                                                                <span
+                                                                <span class="badge"
                                                                     *ngIf=" item.status=='accepted '">Processing</span>
-                                                                <span
+                                                                <span class="badge"
                                                                     *ngIf=" item.status !=='accepted '">{{ item.status }}</span>
                                                             </label>
                                                         </td>
@@ -94,29 +95,38 @@
                                                         </td>
                                                         <td>
 
-                                                            <button class="btn-md btn btn-primary"
-                                                                style="font-size: 12px; text-transform: capitalize !important;"
-                                                                (click)="viewDelivery(item)">View</button>
-                                                            <a *ngIf="userData.type !== 'company' && item.long_order_no != null"
-                                                                target="_blank">
-                                                                <button class="btn-md btn btn-danger"
-                                                                    style="font-size: 12px; text-transform: capitalize !important;">Print</button>
-                                                            </a>
-                                                            <label
-                                                                *ngIf="userData.type == 'company' && item.delivered == true && item.company_confirm == true;"
-                                                                class="
-                                                                text-white badge badge-dark">Confirmed by
-                                                                {{ item.company_confirm_details ? item.company_confirm_details.name : '' }}
-                                                            </label>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-outline-light btn-sm dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuButton"
+                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+                                                                    <a class="dropdown-item"
+                                                                        style="font-size: 12px; text-transform: capitalize !important;"
+                                                                        (click)="viewDelivery(item)">View</a>
+                                                                    <a *ngIf="userData.type !== 'company' && item.long_order_no != null" class="dropdown-item"
+                                                                        target="_blank">
+                                                                        Print
+                                                                    </a>
+                                                                    <label
+                                                                        *ngIf="userData.type == 'company' && item.delivered == true && item.company_confirm == true;"
+                                                                        class="
+                                                                    text-white badge badge-dark">Confirmed by
+                                                                        {{ item.company_confirm_details ? item.company_confirm_details.name : '' }}
+                                                                    </label>
 
-                                                            <!-- <ng-template #secondPart> -->
-                                                            <button
-                                                                style="font-size: 12px; text-transform: capitalize !important;"
-                                                                *ngIf="userData.type !== 'company' && item.delivered == false && item.company_confirm == false"
-                                                                (click)="confirmDelivery(item)"
-                                                                class="confirm btn btn-info text-white">Confirm
-                                                                Delivery</button>
-                                                            <!-- </ng-template> -->
+                                                                    <!-- <ng-template #secondPart> -->
+                                                                    <a
+                                                                        style="font-size: 12px; text-transform: capitalize !important;"
+                                                                        *ngIf="userData.type !== 'company' && item.delivered == false && item.company_confirm == false"
+                                                                        (click)="confirmDelivery(item)"
+                                                                        class="dropdown-item"   >Confirm
+                                                                        Delivery</a>
+
+                                                                </div>
+                                                            </div>
                                                         </td>
 
                                                     </tr>

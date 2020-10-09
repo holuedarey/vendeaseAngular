@@ -39,12 +39,13 @@
                                                     </tr>
                                                 </thead>
                                                 <div class="col-md-4 offset-md-4">
-                                                    <mat-progress-spinner *ngIf="isLoadingOrder" mode="indeterminate" diameter='30'
-                                                        strokeWidth='3'></mat-progress-spinner>
+                                                    <mat-progress-spinner *ngIf="isLoadingOrder" mode="indeterminate"
+                                                        diameter='30' strokeWidth='3'></mat-progress-spinner>
                                                 </div>
                                                 <tbody *ngIf="!isLoadingOrder && orders.length">
 
-                                                    <tr *ngFor="let order of orders| paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
+                                                    <tr
+                                                        *ngFor="let order of orders| paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
                                                         <td>{{ i + 1 }}</td>
                                                         <td># {{ order.order_number }}</td>
                                                         <td>{{ order.createdAt }}</td>
@@ -57,23 +58,36 @@
                                                                 *ngIf="order.paid == false ">{{ order.paid }}</label>
 
                                                         </td>
-                                                        <td>{{ order.company_details ? order.company_details.name : '' }}</td>
+                                                        <td>{{ order.company_details ? order.company_details.name : '' }}
+                                                        </td>
 
                                                         <td *ngIf="userData.type === 'system'">
-                                                            {{ order.vendor_details ? order.vendor_details.name : '' }} <br />
+                                                            {{ order.vendor_details ? order.vendor_details.name : '' }}
+                                                            <br />
                                                         </td>
 
                                                         <!-- <td>action</td> -->
                                                         <td>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-outline-light btn-sm dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuButton" style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
 
-                                                            <button class="btn btn-outline-warning" (click)="viewOrder(order)">View</button>
+                                                                    <a class="dropdown-item"
+                                                                        (click)="viewOrder(order)">View</a>
 
-                                                            <button *ngIf="userData.type == 'system'" class="btn btn-outline-primary" (click)="assignOrder(order)">Assign</button>
+                                                                    <a *ngIf="userData.type == 'system'"
+                                                                        class="dropdown-item"
+                                                                        (click)="assignOrder(order)">Assign</a>
 
-                                                            <button type="button" (click)="deleteOrder(order)"
-                                                                *ngIf="userData.type != 'vendor' && order.paid == false && order.payment_date == undefined"
-                                                                class="btn btn-outline-danger confirm-delete">Delete</button>
-
+                                                                    <a (click)="deleteOrder(order)"
+                                                                        *ngIf="userData.type != 'vendor' && order.paid == false && order.payment_date == undefined"
+                                                                        class="dropdown-item">Delete</a>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
 
@@ -81,10 +95,13 @@
                                                 </tbody>
                                             </table>
                                             <div class="colm-6 text-right pull-right">
-                                                <pagination-controls id="order-listing" (pageChange)="pageChanged($event)"
-                                                    (pageBoundsCorrection)="pageChanged($event)" maxSize="9" directionLinks="true"
-                                                    autoHide="true" responsive="true" previousLabel="Previous" nextLabel="Next"
-                                                    screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                                                <pagination-controls id="order-listing"
+                                                    (pageChange)="pageChanged($event)"
+                                                    (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
+                                                    directionLinks="true" autoHide="true" responsive="true"
+                                                    previousLabel="Previous" nextLabel="Next"
+                                                    screenReaderPaginationLabel="Pagination"
+                                                    screenReaderPageLabel="page"
                                                     screenReaderCurrentLabel="You're on page">
                                                 </pagination-controls>
                                             </div>

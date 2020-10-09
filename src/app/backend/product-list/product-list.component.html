@@ -71,19 +71,30 @@
                                                         </td>
                                                         <td>
 
-                                                            <button *ngIf="userData.type == 'system'"
-                                                                class="btn btn-outline-primary"
-                                                                (click)="showAssignProduct(product)">Assign
-                                                            </button>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-outline-light btn-sm dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuButton" style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
 
-                                                            <button
-                                                                *ngIf="userData.type == 'system' || userData.type == 'company' && !product.price"
-                                                                class="btn btn-outline-warning"
-                                                                (click)="editProduct(product)">Edit</button>
-
-                                                            <a type="button" *ngIf="userData.type != 'vendor'"
-                                                                (click)="deleteProduct(product._id)"
-                                                                class="btn btn-outline-danger confirm-delete">Delete</a>
+                                                                    <a *ngIf="userData.type == 'system'"
+                                                                    class="dropdown-item"
+                                                                    (click)="showAssignProduct(product)">Assign
+                                                            </a>
+    
+                                                                <a
+                                                                    *ngIf="userData.type == 'system' || userData.type == 'company' && !product.price"
+                                                                    class="dropdown-item"
+                                                                    (click)="editProduct(product)">Edit</a>
+    
+                                                                <a type="button" *ngIf="userData.type != 'vendor'"
+                                                                    (click)="deleteProduct(product._id)"
+                                                                    class="dropdown-item">Delete</a>
+                                                                </div>
+                                                            </div>
+                                                           
 
                                                         </td>
                                                     </tr>

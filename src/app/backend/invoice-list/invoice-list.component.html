@@ -59,18 +59,29 @@
                                                         </td>
 
                                                         <td>
-                                                            <a type="button" (click)="getSingleInvoice(invoice)"
-                                                                class="btn btn-outline-primary">View</a>
-
-                                                            <button *ngIf="userData.type == 'company' "
-                                                                (click)="claim(invoice)" class="btn btn-outline-danger"
-                                                                data-toggle="modal">Raise
-                                                                Claim
-                                                            </button>
 
                                                             <button type="button" (click)="deleteInvoice(invoice)"
                                                                 *ngIf="userData.type == 'system' && invoice.paid == false && invoice.order_long_number"
                                                                 class="btn btn-outline-danger confirm">Delete</button>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-outline-light btn-sm dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuButton"
+                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+
+                                                                    <a type="button" (click)="getSingleInvoice(invoice)"
+                                                                    class="dropdown-item">View</a>
+    
+                                                                <button *ngIf="userData.type == 'company' "
+                                                                    (click)="claim(invoice)" class="dropdown-item"
+                                                                    data-toggle="modal">Raise
+                                                                    Claim
+                                                                </button>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
 

@@ -9,7 +9,7 @@
         <!-- end::navigation -->
         <div class="content-body">
             <div class="content">
-                <app-breadcrumb [breadCrumb]="breadCrumb" ></app-breadcrumb>
+                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="cards">
@@ -30,8 +30,9 @@
                                                     </tr>
                                                 </thead>
                                                 <div class="col-md-4 offset-md-4">
-                                                    <mat-progress-spinner *ngIf="isLoadingClaimList" mode="indeterminate" diameter='30'
-                                                        strokeWidth='3'></mat-progress-spinner>
+                                                    <mat-progress-spinner *ngIf="isLoadingClaimList"
+                                                        mode="indeterminate" diameter='30' strokeWidth='3'>
+                                                    </mat-progress-spinner>
                                                 </div>
                                                 <tbody>
                                                     <tr *ngFor="let claim of claims">
@@ -47,8 +48,21 @@
                                                         </td>
 
                                                         <td>
-                                                            <a type="button" (click)="viewClaim(claim)"
-                                                                class="btn btn-outline-primary">View</a>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-outline-light btn-sm dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuButton"
+                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+                                                                    <a type="button" (click)="viewClaim(claim)"
+                                                                    class="dropdown-item">View</a>
+                                                                   
+
+                                                                </div>
+                                                            </div>
+
                                                         </td>
                                                     </tr>
                                                 </tbody>

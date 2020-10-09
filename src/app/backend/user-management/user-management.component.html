@@ -89,7 +89,7 @@
                                                             </a>
 
                                                             <a *ngIf="user.type == 'company' && user.payLater==false"
-                                                            (click)="activatePaylater(user._id)"
+                                                                (click)="activatePaylater(user._id)"
                                                                 title="Click to allow paylater option"><button
                                                                     class="btn btn-outline-danger">False</button>
                                                             </a>
@@ -100,12 +100,26 @@
 
 
                                                         <td>
-                                                            <button class="btn btn-outline-warning" data-toggle="modal"
-                                                                (click)="showEdit(user)">Edit
-                                                            </button>
-                                                            <a type="button" (click)="deleteUser(user._id)"
-                                                                class="btn btn-outline-danger confirm-delete"><i
-                                                                    class="ti-trash"></i></a>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-outline-light btn-sm dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuButton"
+                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+
+                                                                    <a href="" class="dropdown-item"
+                                                                        data-toggle="modal"
+                                                                        (click)="showEdit(user)">Edit
+                                                                    </a>
+                                                                    <a   href=""  type="button" (click)="deleteUser(user._id)"
+                                                                    class="dropdown-item">Delete</a>
+
+
+                                                                </div>
+                                                            </div>
+
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -154,8 +168,8 @@
                 <form [formGroup]=signUpForm>
 
                     <div class="form-group">
-                        <select formControlName="permissions" class="form-control" style="height: 35px" class="js-example-basic-single w-100"
-                            required id="#">
+                        <select formControlName="permissions" class="form-control" style="height: 35px"
+                            class="js-example-basic-single w-100" required id="#">
                             <option selected value="">Assign Permission</option>
 
                             <option *ngIf="userData.type == 'system' " value="superadmin">Super Admin</option>
@@ -221,11 +235,13 @@
                             class="form-control js-example-basic-single w-100" required>
                             <option selected value="">Select Business</option>
 
-                            <option *ngFor="let user of business" value="{{ user.company.id }}">{{ user.company.name }}</option>
+                            <option *ngFor="let user of business" value="{{ user.company.id }}">{{ user.company.name }}
+                            </option>
 
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary " id="closeModal" (click)="assignManager()">Submit</button>
+                    <button type="submit" class="btn btn-primary " id="closeModal"
+                        (click)="assignManager()">Submit</button>
                 </form>
 
             </div>
