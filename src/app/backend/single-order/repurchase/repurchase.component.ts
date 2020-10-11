@@ -40,12 +40,8 @@ export class RepurchaseComponent implements OnInit {
     this.RepurchaseForm = new FormGroup(group);
   }
   save() {
-    // const payload = {
-    //   type: "clone",
-    //   order_number: this.order_number
-    // }
-    
-
+    let check = confirm("Are you sure u want to Proceed");
+    if(check == true){
     for (const index in this.orderProducts) {
       
       const  itemIndex = `item${index}`;
@@ -63,7 +59,9 @@ export class RepurchaseComponent implements OnInit {
     }
     console.log('data : ', this.items);
     this.dialogRef.close(this.items);
-
+  }else{
+    console.log("cancel")
+  }
   }
   close() {
     this.dialogRef.close();

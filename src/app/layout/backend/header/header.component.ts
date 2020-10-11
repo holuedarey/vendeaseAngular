@@ -12,6 +12,7 @@ export class HeaderComponent implements OnInit {
 
   userData:any;
   username:any;
+  cart:any;
   constructor(public storageService:StorageService, public router:Router) { }
 
   ngOnInit() {
@@ -22,6 +23,9 @@ export class HeaderComponent implements OnInit {
     const theData = JSON.parse( this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
     this.username = theData.name || "";
+    this.cart = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.CART));
+    this.cart = this.cart ? this.cart.length : ""
+    
   }
 
   logOut(){

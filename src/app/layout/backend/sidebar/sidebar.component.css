@@ -1,0 +1,15 @@
+li a:focus {
+    border-bottom: 1px solid #eeffee;
+    width: 70%;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    /* background: red !important; */
+}
+.dropdown-content{
+    border: 1px solid rgba(196, 196, 196, 0.4);
+    border-radius: 4px;
+  }
+
+  .dropdown-content li a{
+   margin-bottom: -10px;
+  }

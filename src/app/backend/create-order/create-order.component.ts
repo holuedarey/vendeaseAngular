@@ -44,7 +44,7 @@ export class CreateOrderComponent implements OnInit {
     this.purchaseOrderForm = this.fb.group({
       product: ['', Validators.compose([Validators.required])],
       quantity: ['', Validators.compose([Validators.required])],
-      description: ['', Validators.compose([Validators.required])],
+      description: ['', ''],
     });
 
     this.OrderAddressForm = this.fb.group({

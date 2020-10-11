@@ -1,0 +1,12 @@
+.cart-shop{
+    background: red;
+    border-radius: 50%;
+    position: relative;
+    top: -14px;
+    left: 24px;
+    color: #fff;
+    font-size: 15px;
+    padding: 2px;
+    height: 10px;
+    width: 10px;
+}

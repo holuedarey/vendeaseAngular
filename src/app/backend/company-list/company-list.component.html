@@ -9,8 +9,8 @@
         <div class="content-body">
             <div class="content">
                 <div class="row">
-                    <div class="col-md-12 grid-margin stretch-card">
-                        <div class="card">
+                    <div class="col-md-12">
+                        <div class="">
                             <div class="card-body">
                                 <h2 class="card-title">Company List </h2>
                                 <div class="row">
@@ -39,32 +39,35 @@
                                                         <td>{{ i+1}}</td>
                                                         <td>#{{ user.company.id || user.company.id}}</td>
                                                         <td>{{ user.company.name ||  user.company}}</td>
-                                                        <td>{{  user.company.admin_fee ?  user.company.admin_fee + '%'  : '' }}</td>
+                                                        <td>{{  user.company.admin_fee ?  user.company.admin_fee + '%'  : '' }}
+                                                        </td>
                                                         <td>{{ user.company.address}}</td>
 
                                                         <td>
 
-                                                            <button (click)="viewCompany(user)"
-                                                                class="btn btn-outline-primary">View</button>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-outline-light btn-sm dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuButton"
+                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
 
-                                                            <button (click)="assignAdminFee(user)"
-                                                                class="btn btn-outline-danger">Admin-Fee</button>
-                                                        </td> 
+                                                                    <a class="dropdown-item" (click)="viewCompany(user)">View</a>
+
+                                                                    <a class="dropdown-item"  (click)="assignAdminFee(user)">Admin-Fee</a>
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
 
                                                     </tr>
 
                                                 </tbody>
 
                                             </table>
-                                            <div class="text-center" *ngIf="!isLoadingCompanyList">
-                                                <p>Showing page 1 of 1 for 10 Comapny</p>
-                                                <div class="pagination">
-                                                    
-                                                    <a href="#">&laquo; Previous</a>
-                                                    <a href="#" class="text-muted">&laquo; Next</a>
-                                                    
-                                                </div>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                 </div>

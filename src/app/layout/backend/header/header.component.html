@@ -7,13 +7,13 @@
                 <i class="feather-menu"></i>
             </a>
         </div>
-        <!-- <div class="header-logo">
+        <div class="header-logo">
             <a routerLink="dashboard">
-                <img class="logo" src="../../../assets/dashboard/assets/media/image/logo_.svg" alt="logo">
-                <img class="logo-dashboard" src="../../../assets/dashboard/assets/media/image/logo_.svg"
+                <img class="logo" src="../../../assets/dashboard/assets/media/image/logo_.png" alt="logo">
+                <img class="logo-dashboard" src="../../../assets/dashboard/assets/media/image/logo_.png"
                     alt="dashboard logo">
             </a>
-        </div> -->
+        </div>
     </div>
 
     <div class="header-body">
@@ -25,6 +25,13 @@
         <div class="header-body-right text-black-50">
             <ul class="navbar-nav">
                 <!-- begin::header search -->
+                <li class="nav-item text-black-50 mr-3">
+                    <a routerLink="/create-purchase" class="text-primary">
+                        <span class="cart-shop" *ngIf="cart">{{ cart }}</span>
+                        <i class="feather-shopping-cart"></i>
+                    </a>
+                </li>
+                
                 <li class="nav-item text-black-50 mr-3">
                     <a routerLink="change_password" class="text-primary" data-toggle="tooltip"
                         data-placement="top" title="My Settings">

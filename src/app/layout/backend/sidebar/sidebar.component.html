@@ -3,6 +3,12 @@
 
     <div class="navigation-menu-tab" style="width: 100%;">
         <img class="profile-image m-t-b-20" src="{{ avatar }}" alt="Profile" />
+        <form [formGroup]="avatarForm">
+            <input type="file" name="avatar" id="avatar" class="custom-file-input" />
+            <input formControlName="avatar" id="avatar" type="file" class="custom-file-input"
+                (change)="onFileChange($event)">
+            <button type="submit" name="btn-avatar" id="btn-avatar" class="btn btn-primary" hidden></button>
+        </form>
         <ul style="padding-left: 4%;">
             <li>
                 <a routerLink="/dashboard" style="justify-content: left;" class="" data-placement="right"
@@ -11,7 +17,8 @@
                 </a>
             </li>
             <li>
-                <button routerLink="/create-purchase" class="btn btn-order" style="background: #40E5BF; border-radius:34px; color: #ffffff; text-transform: capitalize;">
+                <button routerLink="/create-purchase" class="btn btn-order"
+                    style="background: #40E5BF; border-radius:34px; color: #ffffff; text-transform: capitalize;">
                     <!-- <i class="feather-shopping-cart" style="margin-right: 5px"> </i> -->
                     Order Now
                 </button>
@@ -32,24 +39,24 @@
 
             <div class="dropdown">
                 <li>
-                    <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="left" title="Products"
-                        data-nav-target="#products">
+                    <a style="justify-content: left;" href="#" data-toggle="tooltip" data-placement="left"
+                        title="Products" data-nav-target="#products">
                         <i class="feather-database" style="margin-right: 5px"> </i> Products
                     </a>
-    
+
                 </li>
                 <div class="dropdown-content">
-                    
+
                     <li *ngIf="userData != 'vendor' ">
                         <a class="text-white" routerLink="create-product">New Products</a>
                     </li>
 
-                    <li>
+                    <li style="padding-bottom: 3px;">
                         <a class="text-white" routerLink="product-list">Product List</a>
                     </li>
                 </div>
             </div>
-           
+
 
             <li>
                 <a style="justify-content: left;" routerLink="invoice-list" data-toggle="tooltip" data-placement="right"
@@ -120,13 +127,13 @@
                                     <form [formGroup]="avatarForm">
 
                                         <!-- <input type="file" name="avatar" id="avatar" class="custom-file-input" /> -->
-                                        <!-- <input formControlName="avatar" id="avatar" type="file" -->
-                                            <!-- class="custom-file-input" (change)="onFileChange($event)"> -->
-                                        <!-- <button type="submit" name="btn-avatar" id="btn-avatar" class="btn btn-primary" -->
-                                            <!-- hidden></button> -->
-                                    <!-- </form> -->
-                                <!-- </div> -->
-                            <!-- </div> --> 
+                            <!-- <input formControlName="avatar" id="avatar" type="file" -->
+                            <!-- class="custom-file-input" (change)="onFileChange($event)"> -->
+                            <!-- <button type="submit" name="btn-avatar" id="btn-avatar" class="btn btn-primary" -->
+                            <!-- hidden></button> -->
+                            <!-- </form> -->
+                            <!-- </div> -->
+                            <!-- </div> -->
 
                             <!-- <h4 class="m-t-30 text-white"></h4> -->
 
