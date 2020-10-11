@@ -271,7 +271,8 @@ export class DashboardComponent implements OnInit {
       // { data: lineChartData2, label: 'Receipts' },
       // {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
       // ]
-      console.log('line chart :', lineChartData2)
+      
+      console.log('line chart :', lineChartData)
       return this.graphData = graphData
     }, error => {
       this.isLoadingGraph = false;
