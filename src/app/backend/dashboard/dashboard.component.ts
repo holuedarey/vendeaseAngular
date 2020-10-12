@@ -167,6 +167,7 @@ export class DashboardComponent implements OnInit {
   limit:any;
   totalItems:any;
 
+  displayLegend:any[] = []
   constructor(public dashboard: DasboardService, public storageService: StorageService, private router: Router, private fb:FormBuilder, private order:OrdersService) {
     this.sortRangesForm = this.fb.group({
       name: ['', Validators.compose([Validators.required])],
@@ -217,7 +218,7 @@ export class DashboardComponent implements OnInit {
     this.limit = 50;
     this.skip = 0;
     this.order.getOrders({skip:this.skip, limit: this.limit}).subscribe(orders => {
-      console.log('orders data :', orders.data)
+      // console.log('orders data :', orders.data)
       this.totalItems = orders.total;
       this.isLoadingOrder = false;
       this.orders = orders.data.slice().reverse();
@@ -263,17 +264,12 @@ export class DashboardComponent implements OnInit {
     this.isLoadingGraph = true;
     this.dashboard.getGraph().subscribe((graphData) => {
       this.isLoadingGraph = false;
-      // console.log('graph data ooo:', graphData)
-      const lineChartData = graphData.invoices.map(item => item.totalAmount)
-      const lineChartData2 = graphData.paid_invoices.map(item => item.totalAmount)
-      // this.lineChartData = [
-      // { data: lineChartData, label: 'Invoices', yAxisID: 'y-axis-0' },
-      // { data: lineChartData2, label: 'Receipts' },
-      // {data:lineChartData2, label: 'Receipts', yAxisID: 'y-axis-0' },
-      // ]
+      // console.log('graph data new:', graphData)
+      this.displayLegend = graphData.map(item => item.label)
+      console.log('line chart :', this.displayLegend)
+
+      this.lineChartData = graphData;
       
-      console.log('line chart :', lineChartData)
-      return this.graphData = graphData
     }, error => {
       this.isLoadingGraph = false;
       console.log('error', error)
@@ -321,7 +317,7 @@ export class DashboardComponent implements OnInit {
     this.dashboard.bulkAnalytics(payload).subscribe(analytics => {
       this.isLoadingBulk = false;
 
-      console.log('bulkanalytics data :', analytics)
+      // console.log('bulkanalytics data :', analytics)
       this.invoiceRaised = analytics['invoices'].totalAmount || 0;
       this.invoiceUnpaid = analytics['unpaid_invoices'].totalAmount || 0;
       this.invoicePaid = this.invoiceRaised - this.invoiceUnpaid;
@@ -346,7 +342,7 @@ export class DashboardComponent implements OnInit {
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
       this.isLoadingBulk = false;
       this.isLoadingFusion = false;
-      console.log('top product data :', topFive)
+      // console.log('top product data :', topFive)
       this.pieChartLabels = topFive.amount_purchased.map(item => item.name)
       this.pieChartData = topFive.amount_purchased.map(item => item.amount)
 
@@ -410,7 +406,7 @@ export class DashboardComponent implements OnInit {
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
       // this.isLoadingBulk = false;
 
-      console.log('getTopFive data company :', topFive)
+      // console.log('getTopFive data company :', topFive)
       this.pieChartLabelsCompany = topFive.top_ranked.map(item => item.company_name)
       this.pieChartDataCompany = topFive.top_ranked.map(item => item.amount)
 

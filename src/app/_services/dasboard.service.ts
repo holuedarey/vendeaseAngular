@@ -33,8 +33,8 @@ export class DasboardService {
       }));
   }
 
-  
- searchInvoice(payload): Observable<any> {
+
+  searchInvoice(payload): Observable<any> {
     return this.http.get(`${Endpoint.DASHBOARD.invoice}/?company[$search]=${payload}`).pipe(
       map(data => {
         return data;
@@ -49,7 +49,7 @@ export class DasboardService {
   }
 
   getGraph(): Observable<any> {
-    return this.http.post(Endpoint.DASHBOARD.dashboard_graph, {}).pipe(
+    return this.http.post(Endpoint.DASHBOARD.analytic, { "action": "graph_data" }).pipe(
       map(data => {
         return data;
       }));
@@ -73,6 +73,13 @@ export class DasboardService {
     return this.http.get(Endpoint.DASHBOARD.analytic, payload).pipe(
       map(data => {
         // console.log('return data',data)
+        return data;
+      }));
+  }
+
+  upload(payload): Observable<any> {
+    return this.http.post(Endpoint.DASHBOARD.upload, payload).pipe(
+      map(data => {
         return data;
       }));
   }

@@ -3,11 +3,10 @@
 
     <div class="navigation-menu-tab" style="width: 100%;">
         <img class="profile-image m-t-b-20" src="{{ avatar }}" alt="Profile" />
-        <form [formGroup]="avatarForm">
-            <input type="file" name="avatar" id="avatar" class="custom-file-input" />
-            <input formControlName="avatar" id="avatar" type="file" class="custom-file-input"
-                (change)="onFileChange($event)">
-            <button type="submit" name="btn-avatar" id="btn-avatar" class="btn btn-primary" hidden></button>
+        <form [formGroup]="avatarForm" style="height: 0px;">
+            <!-- <input formControlName="avatar" id="avatar" type="file" class="btn btn-primary btn-sm" style="position: relative; top: -128px; font-size: 9px; left:12px; width: 100px; height: 100px;" class="custom-file-input" -->
+                <!-- (change)="onFileChange($event)"> -->
+                <input type="file" (change)="onFileChange($event)" style="position: relative; top: -128px; font-size: 9px; left:12px; width: 100px; height: 100px;"  class="custom-file-input"/>
         </form>
         <ul style="padding-left: 4%;">
             <li>

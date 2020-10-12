@@ -17,6 +17,7 @@ export const Endpoint = {
         invoice: `${BASE_URL}/invoice`,
         analytic: `${BASE_URL}/analytics`,
         dashboard_graph: `${BASE_URL}/graph-data`,
+        upload:`${BASE_URL}/upload`,
     },
     CLAIMS: {
         claims: `${BASE_URL}/claims`,
