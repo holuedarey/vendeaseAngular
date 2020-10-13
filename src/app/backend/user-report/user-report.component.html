@@ -14,40 +14,46 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Generate Company Invoice </h4>
-                                <form class="forms-sample">
+                                <form [formGroup]="selectDateForm">
 
                                     <div class="form-group">
-                                        <select name="company" class="form-control js-example-basic-single"
+                                        <select formControlName="company" class="form-control js-example-basic-single"
                                             style="width: 100%" required>
                                             <option value="">Select company</option>
-                                            <option *ngFor="let item of compannies" value="{{ item.id }}">{{ item.name }}
+                                            <option *ngFor="let item of compannies" value="{{ item.company.id }}">
+                                                {{ item.name }}
                                             </option>
 
                                         </select>
                                     </div>
-                                    <div class="input-group input-daterange d-flex align-items-center">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <mat-form-field>
-                                                    <input [value]="startDate.value" matInput [matDatepicker]="picker"
-                                                        placeholder="Start date">
-                                                    <mat-datepicker-toggle matSuffix [for]="picker">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-datepicker #picker></mat-datepicker>
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <mat-form-field>
-                                                    <input [value]="endDate.value" matInput [matDatepicker]="myPicker"
-                                                        placeholder="End date">
-                                                    <mat-datepicker-toggle matSuffix [for]="myPicker">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-datepicker #myPicker></mat-datepicker>
-                                                </mat-form-field>
+                                    <div class="input-groups">
+                                        <div class="">
+
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <mat-form-field>
+                                                        <input [value]="startDate" formControlName="start" matInput
+                                                            [matDatepicker]="picker" placeholder="Start date">
+                                                        <mat-datepicker-toggle matSuffix [for]="picker">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #picker></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <mat-form-field>
+                                                        <input [value]="endDate" formControlName="end" matInput
+                                                            [matDatepicker]="myPicker" placeholder="End date">
+                                                        <mat-datepicker-toggle matSuffix [for]="myPicker">
+                                                        </mat-datepicker-toggle>
+                                                        <mat-datepicker #myPicker></mat-datepicker>
+                                                    </mat-form-field>
+                                                </div>
                                             </div>
 
-                                            <div class="col-lg-4 col-lg-offset-4">
-                                                <button type="submit" class="btn btn-primary mr-2" style="text-transform: capitalize;">Generate
+                                            <div class="">
+                                                <button type="submit" (click)="generateReport()"
+                                                    class="btn btn-primary mr-2"
+                                                    style="text-transform: capitalize;">Generate
                                                     Report</button>
                                                 <!-- <button type="submit" class="float-right text-center col-md-2 btn btn-primary">Filter</button> -->
                                             </div>
@@ -65,17 +71,49 @@
                                 <p class="card-title text-md-center text-xl-left text-primary">Report Amount</p>
                                 <div
                                     class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
-                                    <!-- <h2 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-dark">{{ count }}</h2> -->
+                                    <h2 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-dark">{{ count }}</h2>
                                 </div>
                                 <p class="mb-0 mt-2 text-warning"><span class="text-black"><small> Report found for the
                                             above selected
                                             parameters</small></span></p>
-                                <button type="submit" class="btn btn-primary mt-5">Download Report</button>
+                                <button type="submit" *ngIf="count != undefined" (click)="exportAs('xlsx')"
+                                    class="btn btn-primary mt-5">Download Report</button>
 
                             </div>
                         </div>
                     </div>
                     <!-- {% endif %} -->
+                </div>
+
+
+                <div class="col-md-12" hidden>
+                    <div class="col-md-12">
+
+                        <table class="table" id="exportData">
+                            <thead>
+                                <tr class="bg-dark text-white">
+                                    <th>Invoice Date</th>
+                                    <th>Invoice Number</th>
+                                    <th>Company Name</th>
+                                    <th class="text-right">Payment Status</th>
+                                    <th class="text-right">Total Order Amount</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="exportData.length">
+
+                                <tr class="text-right" *ngFor="let item of exportData">
+                                    <td class="text-left">{{ item.createdAt }}</td>
+                                    <td class="text-left">{{ item.invoice_number }}</td>
+                                    <td class="text-left">{{ item.company_name }}</td>
+                                    <td class="text-right">{{ item.paid }}</td>
+                                    <td class="text-right">{{ item.grand_total }}</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

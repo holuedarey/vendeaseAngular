@@ -40,43 +40,20 @@ export class SidebarComponent implements OnInit {
 
     if (event.target.files.length > 0) {
 
+    
       let formData = new FormData();
-      const file = (event.target as HTMLInputElement).files[0];
-      this.avatarForm.patchValue({ avatar: file });
-      this.avatarForm.get('avatar').updateValueAndValidity();
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const imagePreview = <string>reader.result;
-        // convert uploaded file to blob
-        const blob = new Blob([new Uint8Array(event.target.result)], { type: file.type });
-        console.log('final ', blob);
-
-        formData.append('uri', blob);
-
-      };
-
-      // let formData = new FormData();
-      // this.selectedFiles = event.target.files[0];
-
-
-
+      this.selectedFiles = event.target.files[0];
       // console.log(this.selectedFiles)
 
 
-      // formData.forEach((value, key) => {
-      //   console.log(key + " " + value)
-      // });
-      // this.selectedFiles = event.target.files[0];
-      // const uploadData = new FormData();
-      // uploadData.append('first', 'test');
+      formData.append('uri', this.selectedFiles.name)
+      formData.append('test', 'samy')
+      
+      formData.forEach((value, key) => {
+        console.log(key + " " + JSON.stringify(value))
+      });
 
-      // uploadData.append('uri', 'samuel');
-      // console.log('payload : ', JSON.stringify(uploadData))
-
-      // const payload = {
-      //   one:this.selectedFiles,
-      //   two :  this.selectedFiles.name
-      // }
+     
       this.dashboard.upload(formData).subscribe((upload) => {
         this.isLoadingUpoad = false;
         console.log('graph data new:', upload)

@@ -17,4 +17,18 @@ export class CompanyService {
         return data;
       }));
   }
+  getCompanyListReport(): Observable<any> {
+    return this.http.get(Endpoint.AUTH.users+`?type=company&$limit=${Number.MAX_SAFE_INTEGER}`).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+  getCompanyReport(payload): Observable<any> {
+    return this.http.post(Endpoint.DASHBOARD.invoice+`/report`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+  
 }
