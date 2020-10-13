@@ -190,12 +190,12 @@
                                     </div>
                                     <div
                                         class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
-                                        <form [formGroup]="sortRangesForm">
+                                        <!-- <form [formGroup]="sortRangesForm">
                                             <select formControlName="range" class="custom-select-roboto">
                                                 <option value="{{item}}" *ngFor="let item of sortRanges">{{ item }}
                                                 </option>
                                             </select>
-                                        </form>
+                                        </form> -->
                                     </div>
                                 </div>
                             </div>
@@ -253,7 +253,7 @@
                                                 <th>Company</th>
                                                 <th *ngIf="userData.type == 'system'">Supplier</th>
                                                 <th>Status</th>
-                                                <th>Price</th>
+                                                <!-- <th>Price</th> -->
                                             </tr>
                                         </thead>
                                         <div class="col-md-4 offset-md-4">
@@ -282,7 +282,7 @@
                                                     {{ order.vendor_details ? order.vendor_details.name : '' }} <br />
                                                 </td>
                                                 <td>Delivered</td>
-                                                <td>400</td>
+                                                <!-- <td>400</td> -->
                                             </tr>
                                         </tbody>
                                     </table>

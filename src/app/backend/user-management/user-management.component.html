@@ -69,39 +69,8 @@
                                                         <td *ngIf="userData.type == 'system'">{{ user.type }}</td>
                                                         <td *ngIf="userData.type == 'system'">
 
-                                                            <a *ngIf="user.activated == false"
-                                                                (click)="activateUser(user._id)"
-                                                                title="Click to activate user access"><button
-                                                                    class="btn btn-outline-danger">Restricted</button></a>
-
-                                                            <a *ngIf="user.activated == true"
-                                                                (click)="deactivateUser(user._id)"
-                                                                title="Click to restrict user access"><button
-                                                                    class="btn btn-outline-success">Active</button></a>
-
-                                                        </td>
-                                                        <td *ngIf="userData.type == 'system'">
-
-                                                            <a *ngIf="user.type == 'company' && user.payLater==true"
-                                                                (click)="deactivatePaylater(user._id)"
-                                                                title="Click to restrict paylater option">
-                                                                <button class="btn btn-outline-success">True</button>
-                                                            </a>
-
-                                                            <a *ngIf="user.type == 'company' && user.payLater==false"
-                                                                (click)="activatePaylater(user._id)"
-                                                                title="Click to allow paylater option"><button
-                                                                    class="btn btn-outline-danger">False</button>
-                                                            </a>
-
-                                                            <span *ngIf="user.type != 'company'">N/A</span>
-
-                                                        </td>
-
-
-                                                        <td>
                                                             <div class="dropdown">
-                                                                <a class="btn btn-outline-light btn-sm dropdown-toggle"
+                                                                <a class="btn btn-outline- btn-sm dropdown-toggle"
                                                                     type="button" id="dropdownMenuButton"
                                                                     data-toggle="dropdown" aria-haspopup="true"
                                                                     aria-expanded="false"></a>
@@ -109,12 +78,72 @@
                                                                     aria-labelledby="dropdownMenuButton"
                                                                     style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
 
-                                                                    <a href="" class="dropdown-item"
-                                                                        data-toggle="modal"
+                                                                    <a *ngIf="user.activated == false"
+                                                                        (click)="activateUser(user._id)"
+                                                                        title="Click to activate user access"><button
+                                                                        class="dropdown-item">Restricted</button></a>
+
+                                                                    <a *ngIf="user.activated == true"
+                                                                        (click)="deactivateUser(user._id)"
+                                                                        title="Click to restrict user access"><button
+                                                                        class="dropdown-item">Active</button></a>
+
+
+                                                                </div>
+                                                            </div>
+
+
+                                                        </td>
+                                                        <td *ngIf="userData.type == 'system'">
+
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-outline- btn-sm dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuButton"
+                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+
+
+                                                                    <a *ngIf="user.type == 'company' && user.payLater==true"
+                                                                        (click)="deactivatePaylater(user._id)"
+                                                                        title="Click to restrict paylater option">
+                                                                        <button
+                                                                        class="dropdown-item">True</button>
+                                                                    </a>
+
+                                                                    <a *ngIf="user.type == 'company' && user.payLater==false"
+                                                                        (click)="activatePaylater(user._id)"
+                                                                        title="Click to allow paylater option"><button
+                                                                        class="dropdown-item">False</button>
+                                                                    </a>
+
+                                                                    <span *ngIf="user.type != 'company'">N/A</span>
+
+
+                                                                </div>
+                                                            </div>
+
+                                                        </td>
+
+
+                                                        <td>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-outline- btn-sm dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-menu"
+                                                                    aria-labelledby="dropdownMenuButton"
+                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+
+                                                                    <a href="" class="dropdown-item" data-toggle="modal"
                                                                         (click)="showEdit(user)">Edit
                                                                     </a>
-                                                                    <a   href=""  type="button" (click)="deleteUser(user._id)"
-                                                                    class="dropdown-item">Delete</a>
+                                                                    <a href="" type="button"
+                                                                        (click)="deleteUser(user._id)"
+                                                                        class="dropdown-item">Delete</a>
 
 
                                                                 </div>
@@ -124,21 +153,7 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <!-- <div class="text-center">
-                                <p>Showing page {{ p.page }} of {{ p.pages }} for {{ p.total }} Users</p>
-                                <div class="pagination">
-                                    {% if p.prev_skip == 0 or p.prev_skip %}
-                                    <a routerLink=user_list' p.prev_skip limit %}">&laquo; Previous</a>
-                                    {% else %}
-                                    <a routerLink="#" class="text-muted">&laquo; Previous</a>
-                                    {% endif %}
-                                    {% if p.next_skip  %}
-                                    <a routerLink=user_list' p.next_skip limit %}">&laquo; Next</a>
-                                    {% else %}
-                                    <a routerLink="#" class="text-muted">&laquo; Next</a>
-                                    {% endif %}
-                                </div>
-                            </div> -->
+
                                         </div>
                                     </div>
                                 </div>
