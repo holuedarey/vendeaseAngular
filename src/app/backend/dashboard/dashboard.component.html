@@ -97,7 +97,7 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="row">
-                    
+
                 </div>
                 <div class="clearfix"></div>
                 <div class="row">
@@ -120,9 +120,9 @@
                                 </div>
                             </form>
                         </div>
-                       
+
                     </div>
-                    
+
                 </div>
                 <div class="row m-t-20">
                     <div class="col-md-12">
@@ -185,11 +185,14 @@
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="row clearfix p-t-20">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <h3 class="neg-margin text-left font-size-16 roboto-700" style="margin-top: -6px;">Top 5
+                                        <h3 *ngIf="userData.type != 'system'" class="neg-margin text-left font-size-16 roboto-700"
+                                            style="margin-top: -6px;">Top 5
                                             Product Value</h3>
+                                        <h3 *ngIf="userData.type == 'system'" class="neg-margin text-left font-size-16 roboto-700"
+                                            style="margin-top: -6px;">Top 5
+                                            Company Value</h3>
                                     </div>
-                                    <div
-                                        class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-right">
                                         <!-- <form [formGroup]="sortRangesForm">
                                             <select formControlName="range" class="custom-select-roboto">
                                                 <option value="{{item}}" *ngFor="let item of sortRanges">{{ item }}
@@ -200,7 +203,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels" 
+                                <canvas baseChart [datasets]="lineChartData" [labels]="lineChartLabels"
                                     [options]="lineChartOptions" [colors]="lineChartColors" [legend]="lineChartLegend"
                                     [chartType]="lineChartType" (chartHover)="chartHovered($event)"
                                     (chartClick)="chartClicked($event)"></canvas>
@@ -211,17 +214,21 @@
                         <div class="card card-top">
                             <div class="card-body">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="z-index: 99999;">
-                                    <h3 class="neg-margin text-left font-size-16 roboto-700" style="margin-top: -29px; position: relative; top: 21px;">Top 5
+                                    <h3 *ngIf="userData.type != 'system'"class="neg-margin text-left font-size-16 roboto-700"
+                                        style="margin-top: -29px; position: relative; top: 21px;">Top 5
                                         Product Volume</h3>
+                                    <h3 *ngIf="userData.type == 'system'" class="neg-margin text-left font-size-16 roboto-700"
+                                        style="margin-top: -29px; position: relative; top: 21px;">Top 5
+                                        Company Volume</h3>
                                 </div>
                                 <div class="col-md-4 offset-md-4" style="margin-top: 25%;" *ngIf="isLoadingFusion">
-                                    <mat-progress-spinner  mode="indeterminate"
-                                        diameter='70' strokeWidth='7'>
+                                    <mat-progress-spinner mode="indeterminate" diameter='70' strokeWidth='7'>
                                     </mat-progress-spinner>
                                 </div>
                                 <!-- <div class="cover-logo"></div> -->
-                                <fusioncharts type="doughnut2d" width="100%" class="mobile-top" height="320" style="font-family: roboto !important;"
-                                 [dataSource]="dataSource" *ngIf="dataSource" >
+                                <fusioncharts type="doughnut2d" width="100%" class="mobile-top" height="320"
+                                    style="font-family: roboto !important;" [dataSource]="dataSource"
+                                    *ngIf="dataSource">
                                 </fusioncharts>
                             </div>
                         </div>
@@ -269,11 +276,11 @@
                                                 <td>{{ order.createdAt }}</td>
                                                 <td>
 
-                                                    <label class="text-success"
-                                                        *ngIf="order.paid == true " style="text-transform: capitalize;">Paid</label>
+                                                    <label class="text-success" *ngIf="order.paid == true "
+                                                        style="text-transform: capitalize;">Paid</label>
 
-                                                    <label class=" text-danger"
-                                                        *ngIf="order.paid == false " style="text-transform: capitalize;">Unpaid</label>
+                                                    <label class=" text-danger" *ngIf="order.paid == false "
+                                                        style="text-transform: capitalize;">Unpaid</label>
 
                                                 </td>
                                                 <td>{{ order.company_details ? order.company_details.name : '' }}</td>
