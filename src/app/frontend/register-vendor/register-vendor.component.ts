@@ -85,8 +85,6 @@ export class RegisterVendorComponent implements OnInit {
       // this.loader.hideLoader();
     }, error => {
       console.log('Error :', error)
-     
-
     });
   }
 }
