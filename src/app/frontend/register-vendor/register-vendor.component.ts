@@ -28,21 +28,9 @@ export class RegisterVendorComponent implements OnInit {
     });
 
     this.signUpForm2 = this.formBuilder.group({
-      business_name: ['', Validators.compose([Validators.required])],
-      address: ['', Validators.compose([Validators.required])],
-      reg_number: ['', Validators.compose([Validators.required])],
-      tin: ['', Validators.compose([Validators.required])],
+      contact_p_phone:['', Validators.compose([Validators.required])],
       contact_p_name: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required])],
-      vendor_category: ['', Validators.compose([Validators.required])],
-      notice_period: ['', Validators.compose([Validators.required])],
-      can_deliver: ['', Validators.compose([Validators.required])],
-      warrant_period: ['', Validators.compose([Validators.required])],
-      bank_name: ['', Validators.compose([Validators.required])],
-      acc_name: ['', Validators.compose([Validators.required])],
-      acc_number: ['', Validators.compose([Validators.required])],
-      bvn: ['', Validators.compose([Validators.required])],
-      terms: ['', Validators.compose([Validators.required])],
       password: ['', Validators.compose([Validators.required])],
       confirmPassword: ['']
     }, { validator: this.checkPasswords });
