@@ -36,44 +36,19 @@ export class RegisterVendorComponent implements OnInit {
     }, { validator: this.checkPasswords });
 
     this.signUpForm3 = this.formBuilder.group({
-      business_name: ['', Validators.compose([Validators.required])],
-      address: ['', Validators.compose([Validators.required])],
-      reg_number: ['', Validators.compose([Validators.required])],
-      tin: ['', Validators.compose([Validators.required])],
-      contact_p_name: ['', Validators.compose([Validators.required])],
-      email: ['', Validators.compose([Validators.required])],
       vendor_category: ['', Validators.compose([Validators.required])],
       notice_period: ['', Validators.compose([Validators.required])],
       can_deliver: ['', Validators.compose([Validators.required])],
       warrant_period: ['', Validators.compose([Validators.required])],
-      bank_name: ['', Validators.compose([Validators.required])],
-      acc_name: ['', Validators.compose([Validators.required])],
-      acc_number: ['', Validators.compose([Validators.required])],
-      bvn: ['', Validators.compose([Validators.required])],
-      terms: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.compose([Validators.required])],
-      confirmPassword: ['']
-    }, { validator: this.checkPasswords });
+    });
 
     this.signUpForm4 = this.formBuilder.group({
-      business_name: ['', Validators.compose([Validators.required])],
-      address: ['', Validators.compose([Validators.required])],
-      reg_number: ['', Validators.compose([Validators.required])],
-      tin: ['', Validators.compose([Validators.required])],
-      contact_p_name: ['', Validators.compose([Validators.required])],
-      email: ['', Validators.compose([Validators.required])],
-      vendor_category: ['', Validators.compose([Validators.required])],
-      notice_period: ['', Validators.compose([Validators.required])],
-      can_deliver: ['', Validators.compose([Validators.required])],
-      warrant_period: ['', Validators.compose([Validators.required])],
       bank_name: ['', Validators.compose([Validators.required])],
       acc_name: ['', Validators.compose([Validators.required])],
       acc_number: ['', Validators.compose([Validators.required])],
       bvn: ['', Validators.compose([Validators.required])],
       terms: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.compose([Validators.required])],
-      confirmPassword: ['']
-    }, { validator: this.checkPasswords });
+    });
   }
 
   checkPasswords(group: FormGroup) { // here we have the 'passwords' group
@@ -88,24 +63,35 @@ export class RegisterVendorComponent implements OnInit {
 
   onStep1Next(ev) {
     console.log('event data : ', ev)
-    if(this.signUpForm1.invalid){
-      console.log('invalid form');
-      
-    }else{
-      console.log('event data : ', ev)
+    this.payload = {
+      business_name: this.signUpForm1.value.business_name,
+      address:  this.signUpForm1.value.address,
+      tin: this.signUpForm1.value.tin,
+      reg_number:this.signUpForm1.value.reg_number,
     }
   }
 
   onStep2Next(ev) {
-
+    this.payload.contact_p_phone = this.signUpForm2.value.contact_p_phone;
+    this.payload.contact_p_name =  this.signUpForm2.value.contact_p_name;
+    this.payload.email =  this.signUpForm2.value.email;
+    this.payload.password =  this.signUpForm2.value.password;
   }
 
   onStep3Next(ev) {
-
+    this.payload.vendor_category = this.signUpForm3.value.vendor_category;
+    this.payload.notice_period =  this.signUpForm3.value.notice_period;
+    this.payload.can_deliver =  this.signUpForm3.value.can_deliver;
+    this.payload.warrant_period =  this.signUpForm3.value.warrant_period;
   }
 
   onComplete(ev) {
+     this.payload.bank_name= this.signUpForm4.value.bank_name;
+     this.payload.acc_name= this.signUpForm4.value.acc_name;
+     this.payload.acc_number= this.signUpForm4.value.acc_number;
+     this.payload.bvn= this.signUpForm4.value.bvn;
 
+     console.log('payload data : ', this.payload)
     this.submitAttempt = true;
     // this.loader.showLoader();
     // this.payload = {    
