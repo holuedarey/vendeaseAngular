@@ -26,9 +26,9 @@
                                     <img src="../../../assets/front_end/assets/img/brand/logo-white.svg" alt="logo">
                                 </a>
                             </div>
-                            <form class="pt-3" [formGroup]=signUpForm>
+                            <form class="pt-3" >
                                 <form-wizard>
-                                    <wizard-step [title]="'Info'" (onNext)="onStep1Next($event)">
+                                    <wizard-step [title]="'Info'" (onNext)="onStep1Next($event)" [formGroup]=signUpForm1>
                                         <section id="steps-uid-0-p-0" role="tabpanel" aria-labelledby="steps-uid-0-h-0"
                                             class="body current">
                                             <h3>Business Info</h3>
@@ -58,7 +58,7 @@
                                             </div>
                                         </section>
                                     </wizard-step>
-                                    <wizard-step [title]="'Contact'" (onNext)="onStep2Next($event)">
+                                    <wizard-step [title]="'Contact'" (onNext)="onStep2Next($event)" [formGroup]=signUpForm2>
                                         <section>
                                             <h3>Contact</h3>
                                             <div class="form-group">
@@ -93,7 +93,7 @@
                                             </div>
                                         </section>
                                     </wizard-step>
-                                    <wizard-step [title]="'Capacity'" (onNext)="onStep3Next($event)">
+                                    <wizard-step [title]="'Capacity'" (onNext)="onStep3Next($event)" [formGroup]=signUpForm3>
                                         <h3 id="steps-uid-0-h-2" tabindex="-1" class="title">Capacity</h3>
                                         <section>
                                             <div class="form-group">
@@ -155,7 +155,7 @@
 
                                         </section>
                                     </wizard-step>
-                                    <wizard-step [title]="'Payment'" (onComplete)="onComplete($event)">
+                                    <wizard-step [title]="'Payment'" (onComplete)="onComplete($event)" [formGroup]=signUpForm4>
                                         <h3 id="steps-uid-0-h-3" tabindex="-1" class="title">Payment</h3>
                                         <section>
                                             <h3>Bank Details</h3>

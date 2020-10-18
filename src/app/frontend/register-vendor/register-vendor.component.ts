@@ -9,7 +9,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register-vendor.component.css']
 })
 export class RegisterVendorComponent implements OnInit {
-  signUpForm: FormGroup;
+  signUpForm1: FormGroup;
+  signUpForm2: FormGroup;
+  signUpForm3: FormGroup;
+  signUpForm4: FormGroup;
   submitAttempt: boolean;
   payload;
   constructor(private formBuilder: FormBuilder,
@@ -17,7 +20,7 @@ export class RegisterVendorComponent implements OnInit {
     private authService: AuthService,) {
     document.body.style.background = "#efefef";
 
-    this.signUpForm = this.formBuilder.group({
+    this.signUpForm1 = this.formBuilder.group({
       business_name: ['', Validators.compose([Validators.required])],
       address: ['', Validators.compose([Validators.required])],
       reg_number: ['', Validators.compose([Validators.required])],
@@ -37,6 +40,65 @@ export class RegisterVendorComponent implements OnInit {
       confirmPassword: ['']
     }, { validator: this.checkPasswords });
 
+    this.signUpForm2 = this.formBuilder.group({
+      business_name: ['', Validators.compose([Validators.required])],
+      address: ['', Validators.compose([Validators.required])],
+      reg_number: ['', Validators.compose([Validators.required])],
+      tin: ['', Validators.compose([Validators.required])],
+      contact_p_name: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required])],
+      vendor_category: ['', Validators.compose([Validators.required])],
+      notice_period: ['', Validators.compose([Validators.required])],
+      can_deliver: ['', Validators.compose([Validators.required])],
+      warrant_period: ['', Validators.compose([Validators.required])],
+      bank_name: ['', Validators.compose([Validators.required])],
+      acc_name: ['', Validators.compose([Validators.required])],
+      acc_number: ['', Validators.compose([Validators.required])],
+      bvn: ['', Validators.compose([Validators.required])],
+      terms: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required])],
+      confirmPassword: ['']
+    }, { validator: this.checkPasswords });
+
+    this.signUpForm3 = this.formBuilder.group({
+      business_name: ['', Validators.compose([Validators.required])],
+      address: ['', Validators.compose([Validators.required])],
+      reg_number: ['', Validators.compose([Validators.required])],
+      tin: ['', Validators.compose([Validators.required])],
+      contact_p_name: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required])],
+      vendor_category: ['', Validators.compose([Validators.required])],
+      notice_period: ['', Validators.compose([Validators.required])],
+      can_deliver: ['', Validators.compose([Validators.required])],
+      warrant_period: ['', Validators.compose([Validators.required])],
+      bank_name: ['', Validators.compose([Validators.required])],
+      acc_name: ['', Validators.compose([Validators.required])],
+      acc_number: ['', Validators.compose([Validators.required])],
+      bvn: ['', Validators.compose([Validators.required])],
+      terms: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required])],
+      confirmPassword: ['']
+    }, { validator: this.checkPasswords });
+
+    this.signUpForm4 = this.formBuilder.group({
+      business_name: ['', Validators.compose([Validators.required])],
+      address: ['', Validators.compose([Validators.required])],
+      reg_number: ['', Validators.compose([Validators.required])],
+      tin: ['', Validators.compose([Validators.required])],
+      contact_p_name: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required])],
+      vendor_category: ['', Validators.compose([Validators.required])],
+      notice_period: ['', Validators.compose([Validators.required])],
+      can_deliver: ['', Validators.compose([Validators.required])],
+      warrant_period: ['', Validators.compose([Validators.required])],
+      bank_name: ['', Validators.compose([Validators.required])],
+      acc_name: ['', Validators.compose([Validators.required])],
+      acc_number: ['', Validators.compose([Validators.required])],
+      bvn: ['', Validators.compose([Validators.required])],
+      terms: ['', Validators.compose([Validators.required])],
+      password: ['', Validators.compose([Validators.required])],
+      confirmPassword: ['']
+    }, { validator: this.checkPasswords });
   }
 
   checkPasswords(group: FormGroup) { // here we have the 'passwords' group
