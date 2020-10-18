@@ -13,6 +13,10 @@ export const Endpoint = {
         transaction: `${BASE_URL}/transactions`,
     },
 
+    CONTATACTUS: {
+        contatctus: `${BASE_URL}/contact-us`,
+    },
+
     DASHBOARD: {
         invoice: `${BASE_URL}/invoice`,
         analytic: `${BASE_URL}/analytics`,
