@@ -17,31 +17,35 @@ export const Endpoint = {
         contatctus: `${BASE_URL}/contact-us`,
     },
 
+    authManagement: {
+        authManagement: `${BASE_URL}/authManagement`,
+    },
+
     DASHBOARD: {
         invoice: `${BASE_URL}/invoice`,
         analytic: `${BASE_URL}/analytics`,
         dashboard_graph: `${BASE_URL}/graph-data`,
-        upload:`${BASE_URL}/upload`,
+        upload: `${BASE_URL}/upload`,
     },
     CLAIMS: {
         claims: `${BASE_URL}/claims`,
     },
-    
+
     CLAIM_CONV: {
         claims: `${BASE_URL}/claims-conversation`,
     },
     PURCHASE: {
-        purchase_orders:  `${BASE_URL}/purchase-orders`, 
+        purchase_orders: `${BASE_URL}/purchase-orders`,
     },
 
     PRODUCTS: {
         product: `${BASE_URL}/product`,
     },
-    
+
     PAYMENT: {
         payment: `${BASE_URL}/payment`,
     },
-    DELIVERY: { 
+    DELIVERY: {
         delivery: `${BASE_URL}/delivery`,
     }
 }

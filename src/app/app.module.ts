@@ -91,7 +91,9 @@ import * as FusionTheme from "fusioncharts/themes/fusioncharts.theme.fusion";
 FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 
 //pagination
-import {NgxPaginationModule} from 'ngx-pagination'; 
+import {NgxPaginationModule} from 'ngx-pagination';
+import { ForgetPasswordComponent } from './frontend/forget-password/forget-password.component';
+import { ResetPasswordComponent } from './frontend/reset-password/reset-password.component'; 
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
 }
@@ -147,6 +149,8 @@ export function tokenGetter() {
     BreadcrumbComponent,
     UserReportComponent,
     PaginationComponent,
+    ForgetPasswordComponent,
+    ResetPasswordComponent,
     
   ],
 

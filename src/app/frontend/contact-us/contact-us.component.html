@@ -3,35 +3,38 @@
 
 
 
-    
-    <section class="section section-lg pb-50" style="background-image: url(../../../assets/front_end/assets/img/theme/customer.png); background-size: cover;">
+
+    <section class="section section-lg pb-50"
+        style="background-image: url(../../../assets/front_end/assets/img/theme/customer.png); background-size: cover;">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-5  offset-lg-1 pb-100 bg-white border-radius pt-5">
                     <div class="" style="padding-left: 50px;">
                         <h1 class="text-vendease-p col-md-12">Want something that’s not listed? We can get it.</h1>
-                        
-                        
-                        <form id="contact-form" method="post">
-                            <input type="hidden" name="csrfmiddlewaretoken" value="YOFcz3RgIqeBVg0bRwckuOjZGPFsUUiWLPNY1Vs0K2LDFDJJRgppgJ4CxTZT4kXB">
+
+
+                        <form id="contact-form" [formGroup]=ContactUsForm>
                             <div class="col-md-12">
                                 <div class="form-group mt-5">
                                     <div class="form-field">
                                         <div class="field-label">
                                             <span class="text-black-50">Name</span>
                                         </div>
-                                        <input type="text" name="name" class="form-control form-control-lg" required="" placeholder="Please tell us your name" id="id_name">
+                                        <input type="text" formControlName="name" class="form-control form-control-lg"
+                                            required="" placeholder="Please tell us your name" id="id_name">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
-                                <div class="form-group" >
+                                <div class="form-group">
                                     <div class="form-field">
                                         <div class="field-label">
                                             <span class="text-black-50">Organization</span>
                                         </div>
-                                        <input type="text" name="organisation" class="form-control form-control-lg" required="" placeholder="Your organisation" id="id_organisation">
+                                        <input type="text" formControlName="organization"
+                                            class="form-control form-control-lg" required=""
+                                            placeholder="Your organisation" id="id_organisation">
                                     </div>
                                 </div>
                             </div>
@@ -41,7 +44,8 @@
                                         <div class="field-label">
                                             <span class="text-black-50">Phone Number</span>
                                         </div>
-                                        <input type="text" name="phone" class="form-control form-control-lg" required="" placeholder="Please enter your phone number" id="id_phone">
+                                        <input type="text" formControlName="phone" class="form-control form-control-lg"
+                                            required="" placeholder="Please enter your phone number" id="id_phone">
                                     </div>
                                 </div>
                             </div>
@@ -50,8 +54,9 @@
                                     <div class="form-field">
                                         <div class="field-label">
                                             <label for="email" class="text-black-50">Email address</label>
-                                        </div>  
-                                        <input type="email" name="email" class="form-control form-control-lg" required="" placeholder="Please enter your email" id="id_email">
+                                        </div>
+                                        <input type="email" formControlName="email" class="form-control form-control-lg"
+                                            required="" placeholder="Please enter your email" id="id_email">
                                     </div>
                                 </div>
                             </div>
@@ -61,7 +66,9 @@
                                         <div class="field-label">
                                             <span class="text-black-50">Request</span>
                                         </div>
-                                        <textarea name="message" cols="80" rows="4" class="form-control form-control-lg" required="" placeholder="Please type a message" id="id_message"></textarea>
+                                        <textarea formControlName="message" cols="80" rows="4"
+                                            class="form-control form-control-lg" required=""
+                                            placeholder="Please type a message" id="id_message"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -71,14 +78,19 @@
                                         <div class="field-label">
                                             <span class="text-black-50">Address</span>
                                         </div>
-                                        <input type="text" name="address" class="form-control form-control-lg" required="" placeholder="Please tell us your address" id="id_address">
+                                        <input type="text" formControlName="address"
+                                            class="form-control form-control-lg" required=""
+                                            placeholder="Please tell us your address" id="id_address">
                                     </div>
                                 </div>
                             </div>
-                            <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="https://embed.tawk.to/5ebcffe0967ae56c5219aeac/default" charset="UTF-8" crossorigin="*"></script><script type="text/javascript" async="" src="https://www.gstatic.com/recaptcha/releases/NMoy4HgGiLr5NAQaEQa2ho8X/recaptcha__en.js"></script><script src="https://www.google.com/recaptcha/api.js"></script>
-                            <div class="g-recaptcha mb-2 text-center" data-sitekey="6LfIG_EUAAAAALuubu9MrvZ_mq-58ioFiVgp1Rlz"><div style="width: 304px; height: 78px;"><div><iframe src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfIG_EUAAAAALuubu9MrvZ_mq-58ioFiVgp1Rlz&amp;co=aHR0cHM6Ly92ZW5kZWFzZS5jbzo0NDM.&amp;hl=en&amp;v=NMoy4HgGiLr5NAQaEQa2ho8X&amp;size=normal&amp;cb=x578x84v58jp" width="304" height="78" role="presentation" name="a-68iou98linqd" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe __idm_frm__="695" style="display: none;"></iframe></div>
+                            <div *ngIf="display" class=" offset-lg-5 offset-md-5 offset-sm-5">
+                                <mat-progress-spinner mode="indeterminate" diameter='40' strokeWidth='3'>
+                                </mat-progress-spinner>
+                            </div>
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary btn-round btn-block btn-lg">Submit</button>
+                                <button type="submit" [disabled]="ContactUsForm.invalid" (click)="contactUs()"
+                                    class="btn btn-primary btn-round btn-block btn-lg">Submit</button>
                             </div>
                         </form>
                     </div>

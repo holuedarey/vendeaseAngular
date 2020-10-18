@@ -62,6 +62,18 @@ export class AuthService {
         }));
   }
 
+  forgotPassword(payload): Observable<any> {
+    return this.http.post(Endpoint.AUTH.login, payload,
+      {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).pipe(
+        map(data => {
+          return data;
+        }));
+  }
+
   signUpSystem(registerRequest: RegisterSystemRequestModel): Observable<any> {
     return this.http.post(Endpoint.AUTH.users, registerRequest,
       {

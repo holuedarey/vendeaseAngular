@@ -29,6 +29,7 @@ import { DeliveryListComponent } from './backend/delivery-list/delivery-list.com
 import { SingleClaimComponent } from './backend/single-claim/single-claim.component';
 import { ClaimListComponent } from './backend/claim-list/claim-list.component';
 import { UserReportComponent } from './backend/user-report/user-report.component';
+import { ForgetPasswordComponent } from './frontend/forget-password/forget-password.component';
 
 
 
@@ -42,6 +43,7 @@ const routes: Routes = [
   },
 
   { path: 'login', component: LoginComponent },
+  { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'vendor_register', component: RegisterVendorComponent },
 

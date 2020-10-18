@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ContctUsService } from '../../_services/contct-us.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-contact-us',
   templateUrl: './contact-us.component.html',
@@ -13,19 +14,28 @@ export class ContactUsComponent implements OnInit {
   submitAttempt: boolean;
   display: boolean;
 
-  constructor(private toastr: ToastrService, private contactUsService: ContctUsService) { }
+  constructor(private toastr: ToastrService, private contactUsService: ContctUsService, private formBuilder:FormBuilder, private router:Router) {
+    this.ContactUsForm = this.formBuilder.group({
+      name: ['', Validators.compose([Validators.required])],
+      phone: ['', Validators.compose([Validators.required])],
+      address: ['', Validators.compose([Validators.required])],
+      organization: ['', Validators.compose([Validators.required])],
+      email: ['', Validators.compose([Validators.required])],
+      message: ['', Validators.compose([Validators.required])],
+    });
+   }
 
   ngOnInit() {
   }
 
   contactUs() {
     const payload = {
-      name: "Ernest Offiong",
-      phone: "+2347030622206",
-      address: "oderinde street Ibadan",
-      organization: "Freelance Org",
-      email: "ernest.offiong@gmail.com",
-      message: "Helo, I would like to make sure this error noticed in the first execution has been rectified"
+      name: this.ContactUsForm.value.name,
+      phone:  this.ContactUsForm.value.phone,
+      address:  this.ContactUsForm.value.address,
+      organization:  this.ContactUsForm.value.organization,
+      email:  this.ContactUsForm.value.email,
+      message:  this.ContactUsForm.value.message,
     }
     this.submitAttempt = true;
 
@@ -34,7 +44,9 @@ export class ContactUsComponent implements OnInit {
       //hide loader and navigate to dash board Page
       console.log(' got here')
       this.display = false;
-      this.toastr.success(message.message, 'Error', {
+      this.router.navigate(['/contact']);
+      this.ContactUsForm.reset();
+      this.toastr.success(message.message, 'Successful', {
         timeOut: 3000,
         closeButton: true
       });

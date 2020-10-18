@@ -33,7 +33,7 @@ export class RequestInterceptorService implements HttpInterceptor {
         let token = this.storageService.get(Constants.STORAGE_VARIABLES.TOKEN);
         let state = this.auth.isAuthenticated();
         if (!state) {
-            this.router.navigate(['/login']);
+            // this.router.navigate(['/login']);
         }
         if (token) {
             request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
