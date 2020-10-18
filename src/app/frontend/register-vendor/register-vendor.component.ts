@@ -24,21 +24,8 @@ export class RegisterVendorComponent implements OnInit {
       business_name: ['', Validators.compose([Validators.required])],
       address: ['', Validators.compose([Validators.required])],
       reg_number: ['', Validators.compose([Validators.required])],
-      tin: ['', Validators.compose([Validators.required])],
-      contact_p_name: ['', Validators.compose([Validators.required])],
-      email: ['', Validators.compose([Validators.required])],
-      vendor_category: ['', Validators.compose([Validators.required])],
-      notice_period: ['', Validators.compose([Validators.required])],
-      can_deliver: ['', Validators.compose([Validators.required])],
-      warrant_period: ['', Validators.compose([Validators.required])],
-      bank_name: ['', Validators.compose([Validators.required])],
-      acc_name: ['', Validators.compose([Validators.required])],
-      acc_number: ['', Validators.compose([Validators.required])],
-      bvn: ['', Validators.compose([Validators.required])],
-      terms: ['', Validators.compose([Validators.required])],
-      password: ['', Validators.compose([Validators.required])],
-      confirmPassword: ['']
-    }, { validator: this.checkPasswords });
+      tin: ['', Validators.compose([Validators.required])], 
+    });
 
     this.signUpForm2 = this.formBuilder.group({
       business_name: ['', Validators.compose([Validators.required])],
@@ -113,6 +100,12 @@ export class RegisterVendorComponent implements OnInit {
 
   onStep1Next(ev) {
     console.log('event data : ', ev)
+    if(this.signUpForm1.invalid){
+      console.log('invalid form');
+      
+    }else{
+      console.log('event data : ', ev)
+    }
   }
 
   onStep2Next(ev) {
@@ -127,27 +120,27 @@ export class RegisterVendorComponent implements OnInit {
 
     this.submitAttempt = true;
     // this.loader.showLoader();
-    this.payload = {    
-      password: this.signUpForm.value.password,
-      name:  `${this.signUpForm.value.firstName} ${this.signUpForm.value.lastName}`,
-      email: this.signUpForm.value.email,
-      phone:this.signUpForm.value.phone,
-      type: 'company',
-      company: {
-          name:this.signUpForm.value.company,
-          address: this.signUpForm.value.address
-      }
-    }
-    // console.log('data: ', JSON.stringify(this.payload))
+    // this.payload = {    
+    //   password: this.signUpForm1.value.password,
+    //   name:  `${this.signUpForm.value.firstName} ${this.signUpForm.value.lastName}`,
+    //   email: this.signUpForm.value.email,
+    //   phone:this.signUpForm.value.phone,
+    //   type: 'company',
+    //   company: {
+    //       name:this.signUpForm.value.company,
+    //       address: this.signUpForm.value.address
+    //   }
+    // }
+    // // console.log('data: ', JSON.stringify(this.payload))
     
-    this.authService.signUpBusiness(this.payload).subscribe(user => {
-      //hide loader and navigate to dash board Page
-      console.log('returnd data : ', user)
-      this.router.navigate(['/login'])
-      // this.loader.hideLoader();
-    }, error => {
-      console.log('Error :', error)
-    });
+    // this.authService.signUpBusiness(this.payload).subscribe(user => {
+    //   //hide loader and navigate to dash board Page
+    //   console.log('returnd data : ', user)
+    //   this.router.navigate(['/login'])
+    //   // this.loader.hideLoader();
+    // }, error => {
+    //   console.log('Error :', error)
+    // });
   }
 }
 
