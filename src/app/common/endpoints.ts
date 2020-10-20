@@ -1,6 +1,6 @@
 import { environment } from "../../environments/environment.prod";
 
-const BASE_URL = environment.production ? "http://api.vendease.co" : "http://api.vendease.co";
+const BASE_URL = environment.production ? "https://api.vendease.co" : "https://api.vendease.co";
 
 export const Endpoint = {
     AUTH: {
