@@ -29,6 +29,21 @@ export class UserManagementComponent implements OnInit {
 
   @ViewChild('closebutton') closebutton;
   @ViewChild('closebuttonUser') closebuttonUser;
+  
+  skip:any;
+  limit:number = 50;
+  p: number = 1;
+  totalItems:any;
+
+  pagination: any = {
+    next: '',
+    previous:'',
+    total: '',
+    isLast: false,
+    totalPage:'',
+    isLoading:true
+  };
+
   constructor(public storageService: StorageService,
     public authService: AuthService,
     private router: Router,
@@ -125,6 +140,7 @@ export class UserManagementComponent implements OnInit {
     this.isLoadingUserList = true;
     this.authService.getUserList().subscribe(users => {
       // console.log('returnd data : ', users)
+      this.totalItems = users.total;
       this.users = users.data;
       //hide loader and navigate to dash board Page
 
@@ -139,6 +155,23 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
+  pageChanged(event){
+    this.skip = (event - 1) * this.limit;
+    console.log('offset :', this.skip)
+    this.authService.getUserList({skip:this.skip, limit: this.limit}).subscribe((users) => {
+      // console.log('invoice data :', invoices)
+      this.isLoadingUserList = false;
+      this.pagination.previous = users.skip;
+      this.pagination.next = users.skip + 1;
+      this.pagination.total = users.total;
+      this.pagination.totalPage = Math.ceil(users.total/users.limit);
+      this.pagination.isLoading = false;
+      this.users = users.data;
+    }, error => {
+      this.isLoadingUserList = false;
+      console.log('Error :', error)
+    })
+  }
   getBusinessLists() {
     this.isLoadingUserList = true;
     this.authService.getBusinessList().subscribe(business => {

@@ -49,7 +49,7 @@
                                                 <tbody *ngIf="!isLoadingUserList">
 
 
-                                                    <tr *ngFor="let user of users; let i = index">
+                                                    <tr *ngFor="let user of users | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i = index">
                                                         <td>{{ i + 1 }}</td>
                                                         <td>{{ user.name }}</td>
                                                         <td>{{ user.phone }}</td>
@@ -153,7 +153,17 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-
+                                            <div class="colm-6 text-right pull-right">
+                                                <pagination-controls id="order-listing"
+                                                    (pageChange)="pageChanged($event)"
+                                                    (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
+                                                    directionLinks="true" autoHide="true" responsive="true"
+                                                    previousLabel="Previous" nextLabel="Next"
+                                                    screenReaderPaginationLabel="Pagination"
+                                                    screenReaderPageLabel="page"
+                                                    screenReaderCurrentLabel="You're on page">
+                                                </pagination-controls>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

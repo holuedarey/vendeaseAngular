@@ -113,8 +113,8 @@ export class AuthService {
         }));
   }
 
-  getUserList(): Observable<any> {
-    return this.http.get(Endpoint.AUTH.users).pipe(
+  getUserList(params?): Observable<any> {
+    return this.http.get(`${Endpoint.AUTH.users}?$skip=${params.skip || 0}&$limit=${params.limit || 50}`).pipe(
       map(data => {
         return data;
       }));
