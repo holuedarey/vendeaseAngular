@@ -138,7 +138,7 @@ export class UserManagementComponent implements OnInit {
 
   getUserLists() {
     this.isLoadingUserList = true;
-    this.authService.getUserList().subscribe(users => {
+    this.authService.getUserList({skip:0, limit: this.limit}).subscribe(users => {
       // console.log('returnd data : ', users)
       this.totalItems = users.total;
       this.users = users.data;
