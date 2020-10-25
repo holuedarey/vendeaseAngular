@@ -12020,7 +12020,8 @@ body.dark.small-navigation .navigation-menu-body ul li.navigation-divider:after 
   }
 
   .layout-wrapper .content-wrapper .content-body .content {
-    padding-left: 30px;
+    padding-left: 6px;
+    padding-right:  6px;
   }
 
   .content-footer {
