@@ -64,11 +64,11 @@ export class DashboardComponent implements OnInit {
   isLoadingAnalytic: boolean;
 
   public lineChartData: ChartDataSets[] = [
-    { data: [65, 59, 60, 61, 67, 65, 69, 50, 62], label: 'Series A' },
-    { data: [70, 78, 74, 69, 86, 76, 84, 78, 93], label: 'Series B' },
-    { data: [47, 67, 57, 50, 60, 59, 56, 60, 70], label: 'Series C', },
-    { data: [57, 69, 78, 58, 68, 69, 70, 74, 90], label: 'Series D' },
-    { data: [52, 58, 52, 60, 63, 65, 68, 64, 69], label: 'Series E' },
+    // { data: [65, 59, 60, 61, 67, 65, 69, 50, 62], label: 'Series A' },
+    // { data: [70, 78, 74, 69, 86, 76, 84, 78, 93], label: 'Series B' },
+    // { data: [47, 67, 57, 50, 60, 59, 56, 60, 70], label: 'Series C', },
+    // { data: [57, 69, 78, 58, 68, 69, 70, 74, 90], label: 'Series D' },
+    // { data: [52, 58, 52, 60, 63, 65, 68, 64, 69], label: 'Series E' },
 
   ];
   public lineChartData2: ChartDataSets[] = [];
@@ -266,7 +266,7 @@ export class DashboardComponent implements OnInit {
       this.isLoadingGraph = false;
       // console.log('graph data new:', graphData)
       this.displayLegend = graphData.map(item => item.label)
-      console.log('line chart :', this.displayLegend)
+      console.log('line chart :', graphData)
 
       this.lineChartData = graphData;
       

@@ -75,7 +75,7 @@ text-transform: capitalize !important;
   }
   
 }
-@media only screen and (min-width: 1024px) {
+/* @media only screen and (min-width: 1024px) {
   .mobile-top{
     position: relative !important;
     top:12px
@@ -84,7 +84,7 @@ text-transform: capitalize !important;
     height: 420px !important;
   }
   
-}
+} */
 @media only screen and (min-width: 1554px) {
   .mobile-top{
     position: relative !important;
@@ -92,6 +92,18 @@ text-transform: capitalize !important;
   }
   .card-top{
     height: 424px !important;
+  }
+  
+}
+
+
+@media only screen and (min-width: 992) {
+  .mobile-top{
+    position: relative !important;
+    top:-23px
+  }
+  .card-top{
+    height: 400px !important;
   }
   
 }
