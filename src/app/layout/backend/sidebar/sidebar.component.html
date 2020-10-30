@@ -1,13 +1,27 @@
 <!-- begin::navigation -->
-<div class="navigation" style="width: 195px;">
+<div class="navigation" style="width: 195px; height: 100%;">
 
-    <div class="navigation-menu-tab" style="width: 100%;">
-        <img class="profile-image m-t-b-20" src="{{ avatar }}" alt="Profile" />
+    <div class="navigation-menu-tab" style="width: 98%; height: 94%; overflow: scroll;">
+        <img class="profile-image m-t-20" src="{{ avatar != undefined ? avatar : '../../../../../../assets/dashboard/assets/media/image/user_icon.png' }}" alt="Profile" />
         <form [formGroup]="avatarForm" style="height: 0px;">
             <!-- <input formControlName="avatar" id="avatar" type="file" class="btn btn-primary btn-sm" style="position: relative; top: -128px; font-size: 9px; left:12px; width: 100px; height: 100px;" class="custom-file-input" -->
-                <!-- (change)="onFileChange($event)"> -->
-                <input type="file" (change)="onFileChange($event)" style="position: relative; top: -128px; font-size: 9px; left:12px; width: 100px; height: 100px;"  class="custom-file-input"/>
+            <!-- (change)="onFileChange($event)"> -->
+            <input type="file" (change)="onFileChange($event)"
+                style="position: relative; top: -128px; font-size: 9px; left:12px; width: 100px; height: 100px;"
+                class="custom-file-input" />
         </form>
+        
+        <!-- <div class="col-sm-9">
+            <span class="hidden-file">
+                <input type="file" #fileInput ng2FileSelect 
+                    (onFileSelected)="onFileSelected($event)" />
+            </span>
+            <div class="btn-group" (click)="fileInput.click()">
+                <button type="button" class="btn btn-primary btn-group-icon btn-group-divider">
+                    <i class="ion-plus-round"></i>
+                </button>
+            </div>
+        </div> -->
         <ul style="padding-left: 4%;">
             <li>
                 <a routerLink="/dashboard" style="justify-content: left;" class="" data-placement="right"
@@ -104,6 +118,13 @@
                 <a style="justify-content: left;" routerLink="supplier-list" data-toggle="tooltip"
                     data-placement="right" data-nav-target="#dashboard" title="Suppliers">
                     <i class="feather-user-plus" style="margin-right: 5px"> </i> Suppliers
+                </a>
+            </li>
+
+            <li>
+                <a style="justify-content: left;" routerLink="supplier-list" data-toggle="tooltip"
+                    data-placement="right" data-nav-target="#dashboard" title="Suppliers">
+                    <i class="feather-log-out" style="margin-right: 5px"> </i> Log Out
                 </a>
             </li>
 

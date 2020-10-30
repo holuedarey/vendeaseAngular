@@ -32,6 +32,7 @@
     "fusioncharts": "^3.15.3",
     "ng2-charts": "^2.3.2",
     "ngx-export-as": "^1.4.2",
+    "ngx-mat-select-search": "^3.1.2",
     "ngx-pagination": "^5.0.0",
     "ngx-toastr": "^12.1.0",
     "rxjs": "~6.5.5",

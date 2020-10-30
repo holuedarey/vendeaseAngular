@@ -179,9 +179,10 @@
                     </div>
                 </div>
                 <div class="clearfix"></div>
+                
                 <div class="row">
                     <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
-                        <div class="card">
+                        <div class="card card-top" id="sideOne">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="row clearfix p-t-20">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
@@ -206,11 +207,15 @@
                             </div>
                             <div class="card-body">
 
-                                <div style="position: relative; top: -30px;" class="text-center">
+                                <div style="position: relative; top: -22px;" class="text-center">
                                    <span *ngFor="let item of displayLegend" class="roboto-400"
-                                        style=" margin-right: 5px; font-size: 12px;">  <i class="feather-disc"></i>{{ item }}</span>
+                                        style=" margin-right: 5px; font-size: 12px;">  <img src="../../../assets/dashboard/assets/media/image/Line.png" style="position: relative; top: -1px; left: -4px; width: 16px; margin-left:3px" alt="">{{ item }}</span>
                                 </div>
 
+                                <div class="col-md-4 offset-md-4" style="margin-top: 25%;" *ngIf="isLoadingGraph    ">
+                                    <mat-progress-spinner mode="indeterminate" diameter='70' strokeWidth='7'>
+                                    </mat-progress-spinner>
+                                </div>
                                 <canvas *ngIf="!isLoadingGraph" baseChart [datasets]="lineChartData"
                                     [labels]="lineChartLabels" [options]="lineChartOptions" [colors]="lineChartColors"
                                     [legend]="lineChartLegend" [chartType]="lineChartType"

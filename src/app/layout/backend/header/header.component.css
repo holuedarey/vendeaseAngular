@@ -2,11 +2,18 @@
     background: red;
     border-radius: 50%;
     position: relative;
-    top: -14px;
-    left: 24px;
+    top: 4px;
+    left: 8px;
     color: #fff;
     font-size: 15px;
     padding: 2px;
-    height: 10px;
-    width: 10px;
+    height: 20px;
+    width: 20px;
+}
+.inner-count-cart{
+    position: relative;
+    left: 2px;
+    top: -6px;
+    font-family: 'Roboto';
+    font-weight: 500;
 }

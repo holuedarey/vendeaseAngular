@@ -30,6 +30,7 @@ import { SingleClaimComponent } from './backend/single-claim/single-claim.compon
 import { ClaimListComponent } from './backend/claim-list/claim-list.component';
 import { UserReportComponent } from './backend/user-report/user-report.component';
 import { ForgetPasswordComponent } from './frontend/forget-password/forget-password.component';
+import { RootComponent } from './root/root/root.component';
 
 
 
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'vendor_register', component: RegisterVendorComponent },
+  { path: 'test_upload', component: RootComponent },
 
   
   //Site routes goes here 

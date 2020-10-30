@@ -58,6 +58,11 @@
 import 'zone.js/dist/zone';  // Included with Angular CLI.
 
 
+(window as any).global = window;
+// but we recommend you refactor to remove this dependency
+// global.Buffer = global.Buffer || require("buffer").Buffer; // eslint-disable-line
+
+
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */

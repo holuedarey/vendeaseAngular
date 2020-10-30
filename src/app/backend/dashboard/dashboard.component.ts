@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
   isLoadingGraph: boolean;
 
   //fusion chart loader
-  isLoadingFusion:boolean;
+  isLoadingFusion: boolean;
 
   startDate = new FormControl(new Date());
   endDate = new FormControl(new Date());
@@ -77,23 +77,44 @@ export class DashboardComponent implements OnInit {
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     legend: {
-      fullWidth:true,
+      fullWidth: true,
       labels: { fontColor: 'red' },
+    },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItems, data) {
+          return data.labels[tooltipItems.index] + " ₦" + data.datasets[0].data[tooltipItems.index].toLocaleString();
+        }
+      }
     },
     scales: {
       // We use this empty structure as a placeholder for dynamic theming.
+
       xAxes: [{
         ticks: { fontColor: 'black' },
-          gridLines: { color: 'rgba(225,255,255,0.9)' }
+        gridLines: { color: 'rgba(225,255,255,0.9)' },
       }],
+
       yAxes: [
         {
           id: 'y-axis-0',
           position: 'left',
-          ticks: { fontColor: 'black' },
-          gridLines: { color: 'rgba(225,225,225,0.2)' }
+          // ticks: { fontColor: 'black' },
+          // ticks: { fontColor: 'black' },
+          ticks: {
+            beginAtZero: false,
+            callback: function (value, index, valuesArray) {
+              return ' ₦' + value.toLocaleString();
+            }
+          },
+          gridLines: { color: 'rgba(225,225,225,0.2)' },
+          scaleLabel: {
+            display: true,
+            labelString: "Company Value (Amount)"
+          }
+
         },
-        
+
       ]
     },
     annotation: {
@@ -136,7 +157,7 @@ export class DashboardComponent implements OnInit {
       backgroundColor: 'rgba(255,255,255,0.1)',
       borderColor: 'rgb(73,191,167)',
       // pointHoverBackgroundColor: 'rgb(73,191,167)',
-      
+
       // pointHoverBorderColor: 'rgb(73,191,167)'
     },
     { // grey
@@ -155,20 +176,20 @@ export class DashboardComponent implements OnInit {
   dataSource: Object;
   sortRangesForm: FormGroup;
 
-  showOne:boolean = false;
-  showTwo:boolean = true;
-  showThree:boolean = false;
-  isLoadingOrder:boolean;
+  showOne: boolean = false;
+  showTwo: boolean = true;
+  showThree: boolean = false;
+  isLoadingOrder: boolean;
 
-  orders:any[] = [];
+  orders: any[] = [];
   p: number = 1;
 
-  skip:any;
-  limit:any;
-  totalItems:any;
+  skip: any;
+  limit: any;
+  totalItems: any;
 
-  displayLegend:any[] = []
-  constructor(public dashboard: DasboardService, public storageService: StorageService, private router: Router, private fb:FormBuilder, private order:OrdersService) {
+  displayLegend: any[] = []
+  constructor(public dashboard: DasboardService, public storageService: StorageService, private router: Router, private fb: FormBuilder, private order: OrdersService) {
     this.sortRangesForm = this.fb.group({
       name: ['', Validators.compose([Validators.required])],
       range: [this.sortRanges[1], ''],
@@ -184,6 +205,13 @@ export class DashboardComponent implements OnInit {
     this.getAnalytics();
     this.loadGraph();
     // this.getTopFiveCompany();
+    if (this.graphData == undefined) {
+      const height = document.getElementById('sideOne').style.getPropertyValue('max-height');
+      console.log('height for graph : ', height);
+    }
+
+
+
   }
 
   // events
@@ -212,12 +240,12 @@ export class DashboardComponent implements OnInit {
     this.username = theData.name || "";
     // console.log('username : ', this.username)
   }
-  
+
   getOrders() {
     this.isLoadingOrder = true;
     this.limit = 50;
     this.skip = 0;
-    this.order.getOrders({skip:this.skip, limit: this.limit}).subscribe(orders => {
+    this.order.getOrders({ skip: this.skip, limit: this.limit }).subscribe(orders => {
       // console.log('orders data :', orders.data)
       this.totalItems = orders.total;
       this.isLoadingOrder = false;
@@ -228,12 +256,12 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  
-  pageChanged(event){
+
+  pageChanged(event) {
     this.skip = (event - 1) * this.limit;
-    console.log('offset :', this.skip)
-    this.order.getOrders({skip:this.skip, limit: this.limit}).subscribe(orders => {
-      console.log('orders data :', orders.data)
+    // console.log('offset :', this.skip)
+    this.order.getOrders({ skip: this.skip, limit: this.limit }).subscribe(orders => {
+      // console.log('orders data :', orders.data)
       this.totalItems = orders.total;
       this.isLoadingOrder = false;
       this.orders = orders.data.slice().reverse();
@@ -242,7 +270,7 @@ export class DashboardComponent implements OnInit {
       console.log('Error :', error)
     })
   }
-  
+
   async getInvoice() {
     this.isLoadingInvoice = true;
     this.dashboard.invoice().subscribe((invoices) => {
@@ -266,10 +294,10 @@ export class DashboardComponent implements OnInit {
       this.isLoadingGraph = false;
       // console.log('graph data new:', graphData)
       this.displayLegend = graphData.map(item => item.label)
-      console.log('line chart :', graphData)
+      console.log('line chart :', graphData.map(item => item.data.map(el => el.toLocaleString())))
 
       this.lineChartData = graphData;
-      
+
     }, error => {
       this.isLoadingGraph = false;
       console.log('error', error)
@@ -353,14 +381,14 @@ export class DashboardComponent implements OnInit {
       // console.log('data : ', lineChartData)
 
       // const lineChartData2 = topFive.amount_purchased.map(item => item.amount)
-      const chartData = topFive.volume_purchased.map(item => { 
-          return {  label : item.name.substring(0, 5), value : item.quantity}
+      const chartData = topFive.volume_purchased.map(item => {
+        return { label: item.name.substring(0, 8), value: item.quantity }
       });
 
       // STEP 3 - Chart Configuration
       const dataSource = {
         chart: {
-          showLegend:false,
+          showLegend: false,
           "baseFont": "roboto",
           "baseFontSize": "10",
           "baseFontColor": "#0066cc",
@@ -381,20 +409,20 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  today(){
-   this.showOne = true; 
-   this.showTwo = false;
-   this.showThree =false
-  }
-  sevenDays(){
-    this.showOne = false; 
-   this.showTwo = true;
-   this.showThree =false
-  }
-  thisMonth(){
-    this.showOne = false; 
+  today() {
+    this.showOne = true;
     this.showTwo = false;
-    this.showThree =true
+    this.showThree = false
+  }
+  sevenDays() {
+    this.showOne = false;
+    this.showTwo = true;
+    this.showThree = false
+  }
+  thisMonth() {
+    this.showOne = false;
+    this.showTwo = false;
+    this.showThree = true
   }
   async getTopFiveCompany() {
     const payload = {

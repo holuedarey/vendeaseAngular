@@ -37,6 +37,7 @@ import {MatInputModule} from '@angular/material/input';
 
 
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+
 import { MatRadioModule} from '@angular/material/radio'
 import {MatSliderModule} from '@angular/material/slider'
 import {MatButtonModule} from '@angular/material/button';
@@ -94,6 +95,12 @@ FusionChartsModule.fcRoot(FusionCharts, charts, FusionTheme);
 import {NgxPaginationModule} from 'ngx-pagination';
 import { ForgetPasswordComponent } from './frontend/forget-password/forget-password.component';
 import { ResetPasswordComponent } from './frontend/reset-password/reset-password.component'; 
+
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { StringFilterByPipe } from './string-filter-by.pipe';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 export function tokenGetter() {
   return localStorage.getItem(Constants.STORAGE_VARIABLES.TOKEN);
 }
@@ -151,6 +158,7 @@ export function tokenGetter() {
     PaginationComponent,
     ForgetPasswordComponent,
     ResetPasswordComponent,
+    StringFilterByPipe,
     
   ],
 
@@ -167,6 +175,8 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     MatDatepickerModule,MatInputModule,MatNativeDateModule,
     MatProgressSpinnerModule,MatSliderModule,MatRadioModule,
+    MatSelectModule,
+    MatFormFieldModule,
     MatButtonModule,
     MatProgressBarModule,
     ChartsModule,
@@ -180,7 +190,8 @@ export function tokenGetter() {
     }),
     Angular4PaystackModule.forRoot('pk_test_c98b92c0c8c5cd7d94150e06fc711d9ce1d1c53b'),
     FusionChartsModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxMatSelectSearchModule,
     // JwtModule.forRoot({
     //   config: {
     //     tokenGetter: tokenGetter,

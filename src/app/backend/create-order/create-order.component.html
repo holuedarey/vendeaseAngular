@@ -2,7 +2,7 @@
 <!-- begin::main -->
 <div class="layout-wrapper">
 
-    <app-header></app-header>
+    <app-header [cart]="cart"></app-header>
 
     <div class="content-wrapper">
 
@@ -16,14 +16,15 @@
                             <div class="card-body">
                                 <h4 class="card-title">Purchase Order Form</h4>
 
-                                <form method="POST" [formGroup]="purchaseOrderForm">
+                                <form  [formGroup]="purchaseOrderForm">
+                                    
                                     <div id="purchase_orderForm">
                                         <div class="form-group col-lg-12 float-left">
                                             <label for="product">Product<small style="color:darkred">* </small><small
                                                     style="color: darkred" class="float-right"> Product with price
                                                     only</small> </label><br />
                                             <select formControlName="product"
-                                                class="form-control js-example-basic-single w-100" required>
+                                                class="form-control js-example-basic-singleS w-100" required>
                                                 <option value="">Please select</option>
 
                                                 <option value="{{item._id}}#{{item.name}}#{{item.price}}"
@@ -35,8 +36,8 @@
                                         </div>
                                         <div class="form-group col-lg-12 float-left">
                                             <label for="quantity">Qty<small style="color:darkred">*</small></label>
-                                            <input required formControlName="quantity"  class="form-control"
-                                                step="0.01" type="number" />
+                                            <input required formControlName="quantity" class="form-control" step="0.01"
+                                                type="number" />
                                         </div>
 
                                         <div class="form-group col-lg-12 float-left">
@@ -45,8 +46,9 @@
                                                 class="form-control"> </textarea>
                                         </div>
                                     </div>
-                                    <button style="margin-left: 15px" class="btn btn-primary" [disabled]="purchaseOrderForm.invalid"
-                                        (click)="addToCart()">Add to cart</button>
+                                    <button style="margin-left: 15px" class="btn btn-primary"
+                                    [disabled]="purchaseOrderForm.invalid"  (click)="addToCart()">Add to
+                                        cart</button>
                                 </form>
                             </div>
                         </div>
@@ -77,13 +79,14 @@
                                                         <td>{{ product.quantity }}</td>
                                                         <td>{{ product.description }}</td>
                                                         <td>
-                                                            <a class="confirm" (click)="removeFromCart(product)"><button class="btn-xs btn btn-danger ti-trash text-white"></button></a>
+                                                            <a class="confirm" (click)="removeFromCart(product)"><button
+                                                                    class="btn-xs btn btn-danger ti-trash text-white"></button></a>
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
                                             <!-- {% if selected_products.count > 0 %} -->
-                                            <button class="btn btn-success text-center" data-toggle="modal" 
+                                            <button class="btn btn-success text-center" data-toggle="modal"
                                                 data-target="#poModal" *ngIf="items.length > 0">Submit Cart</button>
                                             <!-- {% endif %} -->
                                         </div>
@@ -101,33 +104,37 @@
 
 <div class="modal fade" id="poModal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ModalLabel">Complete Purchase Order </h5>
-          <button type="button"  #closebutton class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-  
-          <form [formGroup] ="OrderAddressForm">
-           
-            <div class="form-group" *ngIf="userData.type == 'system'">
-              <label for="company">Select Company</label>
-              <select style="width: 100%" formControlName="company" class="form-control js-example-basic-single w-100 " required>
-                <option value="">Please select </option>
-                <option *ngFor="let company of companies" value="{{ company.company.id }}">{{ company.company.name }}</option>
-              </select>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ModalLabel">Complete Purchase Order </h5>
+                <button type="button" #closebutton class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-           
-            <div class="form-group p_name">
-              <label for="address"> Delivery Address</label>
-              <textarea required formControlName="address" type="text" class="form-control address">{{ address }}</textarea>
+            <div class="modal-body">
+
+                <form [formGroup]="OrderAddressForm">
+
+                    <div class="form-group" *ngIf="userData.type == 'system'">
+                        <label for="company">Select Company</label>
+                        <select style="width: 100%" formControlName="company"
+                            class="form-control js-example-basic-single w-100 " required>
+                            <option value="">Please select </option>
+                            <option *ngFor="let company of companies" value="{{ company.company.id }}">
+                                {{ company.company.name }}</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group p_name">
+                        <label for="address"> Delivery Address</label>
+                        <textarea required formControlName="address" type="text"
+                            class="form-control address">{{ address }}</textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success confirm" (click)="addAddress()"
+                        [disabled]="OrderAddressForm.invalid">Complete Order</button>
+                </form>
+
             </div>
-            <button type="submit" class="btn btn-success confirm" (click)="addAddress()" [disabled]="OrderAddressForm.invalid">Complete Order</button>
-          </form>
-  
         </div>
-      </div>
     </div>
-  </div>
+</div>

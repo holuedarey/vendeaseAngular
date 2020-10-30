@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { StorageService } from '../../../_service/storage.service';
 import { Constants } from '../../../common/constant';
 import { Router } from '@angular/router';
@@ -12,7 +12,8 @@ export class HeaderComponent implements OnInit {
 
   userData:any;
   username:any;
-  cart:any;
+  // cart:any;
+  @Input() cart:any;
   constructor(public storageService:StorageService, public router:Router) { }
 
   ngOnInit() {
@@ -23,7 +24,7 @@ export class HeaderComponent implements OnInit {
     const theData = JSON.parse( this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
     this.username = theData.name || "";
-    this.cart = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.CART));
+    this.cart =  JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.CART));
     this.cart = this.cart ? this.cart.length : ""
     
   }
@@ -31,6 +32,7 @@ export class HeaderComponent implements OnInit {
   logOut(){
     this.storageService.clear(Constants.STORAGE_VARIABLES.TOKEN);
     this.storageService.clear(Constants.STORAGE_VARIABLES.USER);
+    this.storageService.clear(Constants.STORAGE_VARIABLES.CART);
     this.router.navigate(['/login'])
   }
 }

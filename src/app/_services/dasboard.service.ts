@@ -78,7 +78,11 @@ export class DasboardService {
   }
 
   upload(payload): Observable<any> {
-    return this.http.post(Endpoint.DASHBOARD.upload, payload).pipe(
+    return this.http.post(Endpoint.DASHBOARD.upload, payload, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).pipe(
       map(data => {
         return data;
       }));

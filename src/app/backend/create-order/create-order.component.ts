@@ -22,6 +22,7 @@ export class CreateOrderComponent implements OnInit {
     secondLevel: true
   };
 
+  cart: any;
   userData: any;
   products: any[] = [];
   companies: any[] = [];
@@ -29,6 +30,7 @@ export class CreateOrderComponent implements OnInit {
   address = '';
   purchaseOrderForm: FormGroup;
   OrderAddressForm: FormGroup;
+  selected:any;
   @ViewChild('closebutton') closebutton;
   constructor(
     private storageService: StorageService,
@@ -49,7 +51,7 @@ export class CreateOrderComponent implements OnInit {
 
     this.OrderAddressForm = this.fb.group({
       address: ['', Validators.compose([Validators.required])],
-      company: ['',''],
+      company: ['', ''],
     });
   }
 
@@ -61,12 +63,12 @@ export class CreateOrderComponent implements OnInit {
   }
 
   addAddress() {
-    
+
     this.closebutton.nativeElement.click();
 
     let companyId;
     if (this.userData.type == 'system') {
-      companyId =  this.address = this.OrderAddressForm.value.company;
+      companyId = this.address = this.OrderAddressForm.value.company;
     } else {
       companyId = this.userData.company.id;
     }
@@ -94,7 +96,7 @@ export class CreateOrderComponent implements OnInit {
   }
 
   productListUser() {
-    this.productService.produtList({skip:0, limit: Number.MAX_SAFE_INTEGER, }).subscribe((product) => {
+    this.productService.produtList({ skip: 0, limit: Number.MAX_SAFE_INTEGER, }).subscribe((product) => {
       this.products = product.data.slice().reverse()
       console.log('product :', this.products)
     }, error => {
@@ -112,27 +114,35 @@ export class CreateOrderComponent implements OnInit {
 
   addToCart() {
     const product = this.purchaseOrderForm.value.product.split('#');
+    console.log('data reload : ', product)
     const _id = product[0];
     const name = product[1];
-    const price  = product[2]
+    const price = product[2]
     const item = {
       item: _id,
       name: name,
-      price:price,
+      price: price,
       quantity: this.purchaseOrderForm.value.quantity,
       description: this.purchaseOrderForm.value.description,
     }
 
     this.items = this.items.concat(item)
     this.storageService.set(Constants.STORAGE_VARIABLES.CART, JSON.stringify(this.items))
+    this.cart = this.items.length;
     this.purchaseOrderForm.reset();
   }
+
 
   removeFromCart(product) {
     const index = this.items.indexOf(product);
     if (index > -1) {
       this.items.splice(index, 1);
+      this.storageService.set(Constants.STORAGE_VARIABLES.CART, JSON.stringify(this.items))
+      this.cart = this.items.length;
+      // window.location.reload();
+      console.log('item to display : ', this.items)
     }
   }
 
+  subtractTwoArrays = (arr1, arr2) => arr1.filter(el => !arr2.includes(el))
 }

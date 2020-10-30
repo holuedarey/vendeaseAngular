@@ -27,7 +27,7 @@
                 <!-- begin::header search -->
                 <li class="nav-item text-black-50 mr-3">
                     <a routerLink="/create-purchase" class="text-primary">
-                        <span class="cart-shop" *ngIf="cart">{{ cart }}</span>
+                        <div class="cart-shop" *ngIf="cart"><i class="inner-count-cart">{{ cart }}</i></div>
                         <i class="feather-shopping-cart"></i>
                     </a>
                 </li>
