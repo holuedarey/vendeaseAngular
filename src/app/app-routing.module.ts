@@ -1,16 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './frontend/login/login.component';
-import { RegisterComponent } from './frontend/register/register.component';
-import { HomeComponent } from './frontend/home/home.component';
-import { DashboardComponent } from './backend/dashboard/dashboard.component';
-import { AboutUsComponent } from './frontend/about-us/about-us.component';
-import { ContactUsComponent } from './frontend/contact-us/contact-us.component';
-import { GuaranteeComponent } from './frontend/guarantee/guarantee.component';
+
 import { MainComponent } from './layout/backend/main/main.component';
 import { LoginRegisterComponent } from './layout/frontend/loginRegister/login-register/login-register.component';
-import { RegisterVendorComponent } from './frontend/register-vendor/register-vendor.component';
 import { AuthGuard } from './guard/auth.guard';
 import { UserManagementComponent } from './backend/user-management/user-management.component';
 import { ProductListComponent } from './backend/product-list/product-list.component';
@@ -29,9 +22,6 @@ import { DeliveryListComponent } from './backend/delivery-list/delivery-list.com
 import { SingleClaimComponent } from './backend/single-claim/single-claim.component';
 import { ClaimListComponent } from './backend/claim-list/claim-list.component';
 import { UserReportComponent } from './backend/user-report/user-report.component';
-import { ForgetPasswordComponent } from './frontend/forget-password/forget-password.component';
-import { RootComponent } from './root/root/root.component';
-
 
 
 
@@ -42,23 +32,18 @@ const routes: Routes = [
     redirectTo: 'welcome',
     pathMatch: 'full'
   },
-
-  { path: 'login', component: LoginComponent },
-  { path: 'forget-password', component: ForgetPasswordComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'vendor_register', component: RegisterVendorComponent },
-  { path: 'test_upload', component: RootComponent },
-
-  
-  //Site routes goes here 
+  { path: 'login', loadChildren: () => import('./frontend/login/login.module').then(m => m.LoginModule) },
+  // tslint:disable-next-line:max-line-length
+  { path: 'forget-password',  loadChildren: () => import('./frontend/forget-password/forget-password.module').then(m => m.ForgetPasswordModule) },
+  { path: 'register',  loadChildren: () => import('./frontend/register/register.module').then(m => m.RegisterModule)},
+  // tslint:disable-next-line:max-line-length
+  { path: 'vendor_register',  loadChildren: () => import('./frontend/register-vendor/register-vendor-routing.module').then(m => m.RegisterVendorRoutingModule) },
   {
     path: '',
     component: MainComponent,
     canActivate: [AuthGuard],
     children: [
-      // { path: 'report', component: ReportsComponent },
-
-      { path: 'dashboard', component: DashboardComponent },
+      { path: 'dashboard', loadChildren: () => import('./backend/dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'report', component: UserReportComponent },
       { path: 'user-list', component: UserManagementComponent },
       { path: 'company-list', component: CompanyListComponent },
@@ -69,7 +54,6 @@ const routes: Routes = [
       { path: 'create-product', component: CreateProductComponent },
       { path: 'invoice-list', component: InvoiceListComponent },
       { path: 'view/invoice', component: SingleInvoiceComponent },
-      
       { path: 'purchase-order', component: OrderListComponent },
       { path: 'create-purchase', component: CreateOrderComponent },
       { path: 'view/order', component: SingleOrderComponent },
@@ -79,19 +63,16 @@ const routes: Routes = [
 
       { path: 'view/claim', component: SingleClaimComponent },
       { path: 'claim-list', component: ClaimListComponent },
-      
     ]
   },
-  
-  //Site routes goes here 
   {
     path: '',
     component: LoginRegisterComponent,
     children: [
-      { path: 'welcome', component: HomeComponent },
-      { path: 'about', component: AboutUsComponent },
-      { path: 'contact', component: ContactUsComponent },
-      { path: 'guarantee', component: GuaranteeComponent },
+      { path: 'welcome',  loadChildren: () => import('./frontend/home/home.module').then(m => m.HomeModule) },
+      { path: 'about',  loadChildren: () => import('./frontend/about-us/about-us.module').then(m => m.AboutUsModule) },
+      { path: 'contact',  loadChildren: () => import('./frontend/contact-us/contact-us.module').then(m => m.ContactUsModule) },
+      { path: 'guarantee',  loadChildren: () => import('./frontend/guarantee/guarantee.module').then(m => m.GuaranteeModule) },
     ]
   },
   { path: '**', redirectTo: '/welcome' }

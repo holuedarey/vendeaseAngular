@@ -14,17 +14,27 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./company-list.component.css']
 })
 export class CompanyListComponent implements OnInit {
+
   isLoadingCompanyList: boolean;
   userData: any;
 
-
-
   compannies: any[] = [];
+  skip:any;
+  limit:number = 50 ;
+  p: number = 1;
+  totalItems:any;
+  serial:any;
+  breadCrumb: any = {
+    firstLabel: 'Company List',
+    secondLabel:'Company List',
+    url: 'company-list',
+    secondLevel:false
+  };
   constructor(private companyService: CompanyService, public storageService: StorageService,
-    private router: Router,
-    private authService: AuthService,
-    private toastr: ToastrService,
-    private dialog: MatDialog) {
+              private router: Router,
+              private authService: AuthService,
+              private toastr: ToastrService,
+              private dialog: MatDialog) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
   }
@@ -35,18 +45,37 @@ export class CompanyListComponent implements OnInit {
 
   getCompanyLists() {
     this.isLoadingCompanyList = true;
-    this.companyService.getCompanyList().subscribe(compannies => {
+    this.companyService.getCompanyList({skip:0, limit: this.limit}).subscribe(compannies => {
       console.log('business data : ', compannies)
+      this.totalItems = compannies.total;
       this.compannies = compannies.data;
 
       this.isLoadingCompanyList = false;
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
     }, error => {
       console.log('Error :', error);
       this.isLoadingCompanyList = false;
-      // this.loader.presentToast(error.error.message);
-      // this.loader.hideLoader();
 
     });
+  }
+
+  pageChanged(event){
+    this.skip = (event - 1) * this.limit;
+    console.log('offset :', this.skip)
+    this.p = event;
+    this.companyService.getCompanyList({skip: this.skip, limit: this.limit}).subscribe((compannies) => {
+      // console.log('invoice data :', invoices)
+      this.isLoadingCompanyList = false;
+      this.compannies = compannies.data;
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
+    }, error => {
+      this.isLoadingCompanyList = false;
+      console.log('Error :', error)
+    })
   }
 
   assignAdminFee(user) {
@@ -69,34 +98,36 @@ export class CompanyListComponent implements OnInit {
     const dialogRef = this.dialog.open(AddfeeModalComponent, dialogConfig);
     const userId = user._id;
     dialogRef.afterClosed().subscribe(
-      payloadData => {
-        // console.log('admin fee', payloadData)
-        if (payloadData) {
-          this.isLoadingCompanyList = true
+        payloadData => {
+          // console.log('admin fee', payloadData)
+          if (payloadData) {
+            this.isLoadingCompanyList = true
 
-          this.authService.updateUser(userId, payloadData).subscribe(users => {
-            this.toastr.success("User Updated Successfully", 'Successful', {
-              timeOut: 3000,
-              closeButton: true
+            this.authService.updateUser(userId, payloadData).subscribe(users => {
+              this.toastr.success("User Updated Successfully", 'Successful', {
+                timeOut: 3000,
+                closeButton: true
+              });
+              console.log('returnd data : ', users)
+              this.getCompanyLists()
+
+              //hide loader and navigate to dash board Page
+
+              // this.isLoadingCompanyList = false;
+              // this.loader.hideLoader();
+            }, error => {
+              console.log('Error :add fee', error);
+              this.isLoadingCompanyList = false;
+
+
             });
-            console.log('returnd data : ', users)
-            this.getCompanyLists()
+          }
 
-            //hide loader and navigate to dash board Page
-
-            // this.isLoadingCompanyList = false;
-            // this.loader.hideLoader();
-          }, error => {
-            console.log('Error :add fee', error);
-            this.isLoadingCompanyList = false;
-
-
-          });
         }
-
-      }
     );
   }
+
+
 
   viewCompany(user) {
     console.log('details : ', user)

@@ -31,13 +31,15 @@ export class DeliveryListComponent implements OnInit {
   limit:any = 50;
   skip:any;
   totalItems:any;
+  serial:any;
+
   constructor(
-    private storageService: StorageService,
-    private dleivery: DeliveryService,
-    private dialog: MatDialog,
-    private toastr: ToastrService,
-    private fb: FormBuilder,
-    private router: Router) {
+      private storageService: StorageService,
+      private dleivery: DeliveryService,
+      private dialog: MatDialog,
+      private toastr: ToastrService,
+      private fb: FormBuilder,
+      private router: Router) {
     this.searchDeliveryForm = this.fb.group({
       search: ['', Validators.compose([Validators.required])],
     });
@@ -52,22 +54,30 @@ export class DeliveryListComponent implements OnInit {
 
   getDeliveries() {
     this.isLoadingDelievery = true;
-    this.dleivery.getAllDeliveries({skip: 0, limit: 10}).subscribe(delivery => {
-      console.log('invoice data :', delivery.data)
+    this.dleivery.getAllDeliveries({skip: 0, limit: this.limit}).subscribe(delivery => {
+      console.log('delievry data :', delivery)
       this.isLoadingDelievery = false;
+      this.totalItems = delivery.total;
       this.deliveries = delivery.data.slice().reverse();
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
     }, error => {
       this.isLoadingDelievery = false;
       console.log('Error :', error)
     })
   }
-  
+
   pageChanged(event){
     this.skip = (event - 1) * this.limit;
-    this.dleivery.getAllDeliveries({skip: this.skip, limit: 10}).subscribe(delivery => {
+    this.p = event;
+    this.dleivery.getAllDeliveries({skip: this.skip, limit: this.limit}).subscribe(delivery => {
       console.log('invoice data :', delivery.data)
       this.isLoadingDelievery = false;
       this.deliveries = delivery.data.slice().reverse();
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
     }, error => {
       this.isLoadingDelievery = false;
       console.log('Error :', error)

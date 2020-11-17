@@ -29,7 +29,7 @@ export class UserManagementComponent implements OnInit {
 
   @ViewChild('closebutton') closebutton;
   @ViewChild('closebuttonUser') closebuttonUser;
-  
+
   skip:any;
   limit:number = 50;
   p: number = 1;
@@ -44,12 +44,21 @@ export class UserManagementComponent implements OnInit {
     isLoading:true
   };
 
+  serial:any;
+
+  breadCrumb: any = {
+    firstLabel: 'User List',
+    secondLabel:'User List',
+    url: 'user-list',
+    secondLevel:false
+  };
+
   constructor(public storageService: StorageService,
-    public authService: AuthService,
-    private router: Router,
-    private dialog: MatDialog,
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService,) {
+              public authService: AuthService,
+              private router: Router,
+              private dialog: MatDialog,
+              private formBuilder: FormBuilder,
+              private toastr: ToastrService,) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
 
@@ -142,10 +151,10 @@ export class UserManagementComponent implements OnInit {
       // console.log('returnd data : ', users)
       this.totalItems = users.total;
       this.users = users.data;
-      //hide loader and navigate to dash board Page
-
       this.isLoadingUserList = false;
-      // this.loader.hideLoader();
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
     }, error => {
       console.log('Error :', error);
       this.isLoadingUserList = false;
@@ -158,6 +167,7 @@ export class UserManagementComponent implements OnInit {
   pageChanged(event){
     this.skip = (event - 1) * this.limit;
     console.log('offset :', this.skip)
+    this.p = event;
     this.authService.getUserList({skip:this.skip, limit: this.limit}).subscribe((users) => {
       // console.log('invoice data :', invoices)
       this.isLoadingUserList = false;
@@ -167,6 +177,9 @@ export class UserManagementComponent implements OnInit {
       this.pagination.totalPage = Math.ceil(users.total/users.limit);
       this.pagination.isLoading = false;
       this.users = users.data;
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
     }, error => {
       this.isLoadingUserList = false;
       console.log('Error :', error)
@@ -211,31 +224,31 @@ export class UserManagementComponent implements OnInit {
     const dialogRef = this.dialog.open(EditModalComponent, dialogConfig);
     const userId = user._id;
     dialogRef.afterClosed().subscribe(
-      payloadData => {
-        console.log('status : ', payloadData)
-        if (payloadData) {
-          this.authService.updateUser(userId, payloadData).subscribe(users => {
-            this.toastr.success("User Updated Successfully", 'Successful', {
-              timeOut: 3000,
-              closeButton: true
+        payloadData => {
+          console.log('status : ', payloadData)
+          if (payloadData) {
+            this.authService.updateUser(userId, payloadData).subscribe(users => {
+              this.toastr.success("User Updated Successfully", 'Successful', {
+                timeOut: 3000,
+                closeButton: true
+              });
+              console.log('returnd data : ', users)
+              this.getUserLists();
+
+              //hide loader and navigate to dash board Page
+
+              // this.isLoadingUserList = false;
+              // this.loader.hideLoader();
+            }, error => {
+              console.log('Error :', error);
+              this.isLoadingUserList = false;
+              // this.loader.presentToast(error.error.message);
+              // this.loader.hideLoader();
+
             });
-            console.log('returnd data : ', users)
-            this.getUserLists();
+          }
 
-            //hide loader and navigate to dash board Page
-
-            // this.isLoadingUserList = false;
-            // this.loader.hideLoader();
-          }, error => {
-            console.log('Error :', error);
-            this.isLoadingUserList = false;
-            // this.loader.presentToast(error.error.message);
-            // this.loader.hideLoader();
-
-          });
         }
-
-      }
     );
   }
 

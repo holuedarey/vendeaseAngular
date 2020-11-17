@@ -1,9 +1,5 @@
-<p>invoice-list works!</p>
 <!-- begin::main -->
 <div class="layout-wrapper">
-
-    <app-header></app-header>
-
     <div class="content-wrapper">
 
         <!-- end::navigation -->
@@ -17,7 +13,7 @@
                             <div class="card-body" *ngIf="userData.type == 'system'">
                                 <form [formGroup]="searchPoForm">
                                     <input formControlName="search" class="form-control"
-                                        placeholder="Search for PO by company ID" />
+                                           placeholder="Search for PO by company ID" />
                                 </form>
                             </div>
 
@@ -28,82 +24,84 @@
                                         <div class="table-responsive">
                                             <table id="order-listing" class="table">
                                                 <thead>
-                                                    <tr>
-                                                        <th>S/N</th>
-                                                        <th>Order ID</th>
-                                                        <th>Created Date</th>
-                                                        <th>Paid</th>
-                                                        <th>Company</th>
-                                                        <th *ngIf="userData.type == 'system'">Supplier</th>
-                                                        <th>#Action</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>S/N</th>
+                                                    <th>Order ID</th>
+                                                    <th>Created Date</th>
+                                                    <th>Paid</th>
+                                                    <th>Company</th>
+                                                    <th *ngIf="userData.type == 'system'">Supplier</th>
+                                                    <th>#Action</th>
+                                                </tr>
                                                 </thead>
                                                 <div class="col-md-4 offset-md-4">
                                                     <mat-progress-spinner *ngIf="isLoadingOrder" mode="indeterminate"
-                                                        diameter='30' strokeWidth='3'></mat-progress-spinner>
+                                                                          diameter='30' strokeWidth='3'></mat-progress-spinner>
                                                 </div>
                                                 <tbody *ngIf="!isLoadingOrder && orders.length">
 
-                                                    <tr
+                                                <tr
                                                         *ngFor="let order of orders| paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
-                                                        <td>{{ i + 1 }}</td>
-                                                        <td># {{ order.order_number }}</td>
-                                                        <td>{{ order.createdAt }}</td>
-                                                        <td>
+                                                    <td>{{ serial + i }}</td>
+                                                    <td># {{ order.order_number }}</td>
+                                                    <td>{{ order.createdAt }}</td>
+                                                    <td>
 
-                                                            <label class="badge badge-success"
-                                                                *ngIf="order.paid == true ">{{ order.paid }}</label>
+                                                        <label class="badge badge-success"
+                                                               *ngIf="order.paid == true ">{{ order.paid }}</label>
 
-                                                            <label class="badge badge-danger"
-                                                                *ngIf="order.paid == false ">{{ order.paid }}</label>
+                                                        <label class="badge badge-danger"
+                                                               *ngIf="order.paid == false ">{{ order.paid }}</label>
 
-                                                        </td>
-                                                        <td>{{ order.company_details ? order.company_details.name : '' }}
-                                                        </td>
+                                                    </td>
+                                                    <td>{{ order.company_details ? order.company_details.name : '' }}
+                                                    </td>
 
-                                                        <td *ngIf="userData.type === 'system'">
-                                                            {{ order.vendor_details ? order.vendor_details.name : '' }}
-                                                            <br />
-                                                        </td>
+                                                    <td *ngIf="userData.type === 'system'">
+                                                        {{ order.vendor_details ? order.vendor_details.name : '' }}
+                                                        <br />
+                                                    </td>
 
-                                                        <!-- <td>action</td> -->
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a class="btn btn-outline-lights btn-sm dropdown-toggle"
-                                                                    type="button" id="dropdownMenuButton"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false"></a>
-                                                                <div class="dropdown-menu"
-                                                                    aria-labelledby="dropdownMenuButton" style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+                                                    <!-- <td>action</td> -->
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-outline-lights btn-sm dropdown-toggle"
+                                                               type="button" id="dropdownMenuButton"
+                                                               data-toggle="dropdown" aria-haspopup="true"
+                                                               aria-expanded="false"></a>
+                                                            <div class="dropdown-content"
+                                                                 aria-labelledby="dropdownMenuButton"
+                                                                 style="border: 1px solid #efefef; background: #efefef; position: absolute; left: -69px; text-align: center;">
 
-                                                                    <a class="dropdown-item"
-                                                                        (click)="viewOrder(order)">View</a>
+                                                                <a class="dropdown-item"
+                                                                   (click)="viewOrder(order)">View</a>
 
-                                                                    <a *ngIf="userData.type == 'system'"
-                                                                        class="dropdown-item"
-                                                                        (click)="assignOrder(order)">Assign</a>
+                                                                <a *ngIf="userData.type == 'system'"
+                                                                   class="dropdown-item"
+                                                                   (click)="assignOrder(order._id)">Assign</a>
 
-                                                                    <a (click)="deleteOrder(order)"
-                                                                        *ngIf="userData.type != 'vendor' && order.paid == false && order.payment_date == undefined"
-                                                                        class="dropdown-item">Delete</a>
-                                                                </div>
+                                                                <a (click)="deleteOrder(order)"
+                                                                   *ngIf="userData.type != 'vendor' && order.paid == false && order.payment_date == undefined"
+                                                                   class="dropdown-item">Delete</a>
                                                             </div>
-                                                        </td>
-                                                    </tr>
+                                                        </div>
+                                                    </td>
+                                                </tr>
 
 
                                                 </tbody>
                                             </table>
                                             <div class="colm-6 text-right pull-right">
                                                 <pagination-controls id="order-listing"
-                                                    (pageChange)="pageChanged($event)"
-                                                    (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
-                                                    directionLinks="true" autoHide="true" responsive="true"
-                                                    previousLabel="Previous" nextLabel="Next"
-                                                    screenReaderPaginationLabel="Pagination"
-                                                    screenReaderPageLabel="page"
-                                                    screenReaderCurrentLabel="You're on page">
+                                                                     (pageChange)="pageChanged($event)"
+                                                                     (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
+                                                                     directionLinks="true" autoHide="true" responsive="true"
+                                                                     previousLabel="Previous" nextLabel="Next"
+                                                                     screenReaderPaginationLabel="Pagination"
+                                                                     screenReaderPageLabel="page"
+                                                                     screenReaderCurrentLabel="You're on page">
                                                 </pagination-controls>
+
                                             </div>
                                         </div>
                                     </div>

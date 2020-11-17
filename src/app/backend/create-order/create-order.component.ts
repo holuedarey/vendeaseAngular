@@ -5,7 +5,6 @@ import { ProductService } from '../../_services/product.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CompanyService } from '../../_services/company.service';
 import { OrdersService } from '../../_services/orders.service';
-import { error } from 'protractor';
 import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
@@ -33,12 +32,12 @@ export class CreateOrderComponent implements OnInit {
   selected:any;
   @ViewChild('closebutton') closebutton;
   constructor(
-    private storageService: StorageService,
-    private orderService: OrdersService,
-    private productService: ProductService,
-    private fb: FormBuilder,
-    private comanyServ: CompanyService,
-    private router: Router
+      private storageService: StorageService,
+      private orderService: OrdersService,
+      private productService: ProductService,
+      private fb: FormBuilder,
+      private comanyServ: CompanyService,
+      private router: Router
   ) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
@@ -104,7 +103,7 @@ export class CreateOrderComponent implements OnInit {
     })
   }
   companyList() {
-    this.comanyServ.getCompanyList().subscribe((company) => {
+    this.comanyServ.getCompanyList({skip:0, limit:Number.MAX_SAFE_INTEGER}).subscribe((company) => {
       this.companies = company.data;
       // console.log('companies ; ', this.companies);
     }, error => {

@@ -10,11 +10,11 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  userData:any;
-  username:any;
+  userData: any;
+  username: any;
   // cart:any;
-  @Input() cart:any;
-  constructor(public storageService:StorageService, public router:Router) { }
+  @Input() cart: any;
+  constructor(public storageService: StorageService, public router: Router) { }
 
   ngOnInit() {
     this.getUser();
@@ -23,16 +23,15 @@ export class HeaderComponent implements OnInit {
   getUser(){
     const theData = JSON.parse( this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
-    this.username = theData.name || "";
+    this.username = theData.name || '';
     this.cart =  JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.CART));
-    this.cart = this.cart ? this.cart.length : ""
-    
+    this.cart = this.cart ? this.cart.length : '';
   }
 
   logOut(){
     this.storageService.clear(Constants.STORAGE_VARIABLES.TOKEN);
     this.storageService.clear(Constants.STORAGE_VARIABLES.USER);
     this.storageService.clear(Constants.STORAGE_VARIABLES.CART);
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 }

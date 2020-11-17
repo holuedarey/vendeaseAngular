@@ -1,4 +1,5 @@
 <!-- begin::main -->
+<script src="../user-report/user-report.component.ts"></script>
 <div class="layout-wrapper">
 
     <app-header></app-header>
@@ -8,6 +9,7 @@
         <!-- end::navigation -->
         <div class="content-body">
             <div class="content">
+                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -18,56 +20,67 @@
                                         <div class="table-responsive">
                                             <table id="order-listing" class="table">
                                                 <thead>
-                                                    <tr>
-                                                        <th>S/N</th>
-                                                        <th>Company ID</th>
-                                                        <th>Company Name</th>
-                                                        <th>Admin Fee</th>
-                                                        <th>Address</th>
-                                                        <th>#Action</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>S/N</th>
+                                                    <th>Company ID</th>
+                                                    <th>Company Name</th>
+                                                    <th>Admin Fee</th>
+                                                    <th>Address</th>
+                                                    <th>#Action</th>
+                                                </tr>
                                                 </thead>
                                                 <div *ngIf="isLoadingCompanyList"
-                                                    class="offset-lg-5 offset-md-5 offset-sm-5">
+                                                     class="offset-lg-5 offset-md-5 offset-sm-5">
                                                     <mat-progress-spinner mode="indeterminate" diameter='40'
-                                                        strokeWidth='3'>
+                                                                          strokeWidth='3'>
                                                     </mat-progress-spinner>
                                                 </div>
                                                 <tbody *ngIf="!isLoadingCompanyList">
 
-                                                    <tr *ngFor="let user of compannies; let i=index">
-                                                        <td>{{ i+1}}</td>
-                                                        <td>#{{ user.company.id || user.company.id}}</td>
-                                                        <td>{{ user.company.name ||  user.company}}</td>
-                                                        <td>{{  user.company.admin_fee ?  user.company.admin_fee + '%'  : '' }}
-                                                        </td>
-                                                        <td>{{ user.company.address}}</td>
+                                                <tr *ngFor="let user of compannies | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems }; let i=index">
+                                                    <td>{{ serial + i}}</td>
+                                                    <td>#{{ user.company.id || user.company.id}}</td>
+                                                    <td>{{ user.company.name ||  user.company}}</td>
+                                                    <td>{{  user.company.admin_fee ?  user.company.admin_fee + '%'  : '' }}
+                                                    </td>
+                                                    <td>{{ user.company.address}}</td>
 
-                                                        <td>
+                                                    <td>
 
-                                                            <div class="dropdown">
-                                                                <a class="btn btn-outline-light btn-sm dropdown-toggle"
-                                                                    type="button" id="dropdownMenuButton"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false"></a>
-                                                                <div class="dropdown-menu"
-                                                                    aria-labelledby="dropdownMenuButton"
-                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-outline-lights btn-sm dropdown-toggle"
+                                                               type="button" id="dropdownMenuButton"
+                                                               data-toggle="dropdown" aria-haspopup="true"
+                                                               aria-expanded="false"></a>
+                                                            <div class="dropdown-content"
+                                                                 aria-labelledby="dropdownMenuButton"
+                                                                 style="border: 1px solid #efefef; background: #efefef; position: absolute; left: -69px; text-align: center;">
 
-                                                                    <a class="dropdown-item" (click)="viewCompany(user)">View</a>
+                                                                <a class="dropdown-item" (click)="viewCompany(user)">View</a>
 
-                                                                    <a class="dropdown-item"  (click)="assignAdminFee(user)">Admin-Fee</a>
-                                                                </div>
+                                                                <a class="dropdown-item"  (click)="assignAdminFee(user)">Admin-Fee</a>
                                                             </div>
+                                                        </div>
 
-                                                        </td>
+                                                    </td>
 
-                                                    </tr>
+                                                </tr>
 
                                                 </tbody>
 
                                             </table>
-                                            
+                                            <div class="colm-6 text-right pull-right">
+                                                <pagination-controls id="order-listing"
+                                                                     (pageChange)="pageChanged($event)"
+                                                                     (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
+                                                                     directionLinks="true" autoHide="true" responsive="true"
+                                                                     previousLabel="Previous" nextLabel="Next"
+                                                                     screenReaderPaginationLabel="Pagination"
+                                                                     screenReaderPageLabel="page"
+                                                                     screenReaderCurrentLabel="You're on page">
+                                                </pagination-controls>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

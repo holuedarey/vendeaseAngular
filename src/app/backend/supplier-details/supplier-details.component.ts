@@ -19,6 +19,13 @@ export class SupplierDetailsComponent implements OnInit {
   deliveryCount: any;
 
   theUsers:any[] = []
+  breadCrumb: any = {
+    firstLabel: 'Supplier List',
+    secondLabel: '',
+    url: '/supplier-list',
+    secondLevel: true
+  };
+
   constructor(private dashboard: DasboardService) {
 
 
@@ -28,6 +35,7 @@ export class SupplierDetailsComponent implements OnInit {
     this.data = history.state;
     console.log('data Object : ', history.state._id);
     this.supplierDetails();
+    this.breadCrumb.secondLabel = `Supplier #${this.data[this.data.type].id}`;
   }
 
   async supplierDetails() {
@@ -52,7 +60,7 @@ export class SupplierDetailsComponent implements OnInit {
 
       this.deliveryAmount =  analytics['delivery'].totalAmount || 0;
       this.deliveryCount =  analytics['delivery'].count || 0;
-      
+
       //get the users data
       this.theUsers = analytics.users;
       // return this.analyticsBulk = analytics

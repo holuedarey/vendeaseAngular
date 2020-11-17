@@ -28,15 +28,17 @@ export class OrderListComponent implements OnInit {
   searchPoForm: FormGroup;
   p: number = 1;
   limit:any = 50;
-  skip:any;
+  skip:any = 0;
   totalItems:any;
 
+  serial:any;
+
   constructor(public storageService: StorageService,
-    private purchaseOrders: OrdersService,
-    private dialog: MatDialog,
-    private toastr: ToastrService,
-    private fb: FormBuilder,
-    private router: Router) {
+              private purchaseOrders: OrdersService,
+              private dialog: MatDialog,
+              private toastr: ToastrService,
+              private fb: FormBuilder,
+              private router: Router) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
 
@@ -62,27 +64,33 @@ export class OrderListComponent implements OnInit {
       this.isLoadingOrder = false;
       this.orders = order.data;
       this.totalItems = order.total;
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
     }, error => {
       this.isLoadingOrder = false;
       console.log('Error :', error)
     })
   }
-  
-  
-  
+
+
+
   pageChanged(event){
     this.skip = (event - 1) * this.limit;
     console.log('offset :', this.skip, event)
+    this.p = event;
     this.purchaseOrders.getOrders({skip : this.skip, limit:this.limit}).subscribe((order) => {
       this.isLoadingOrder = false;
       this.totalItems = order.total;
       this.orders = order.data;
+      this.serial = 1 + (this.p - 1) * this.limit;
+      this.serial = this.serial;
     }, error => {
       this.isLoadingOrder = false;
       console.log('Error :', error)
     })
   }
-  
+
   deleteOrder(order) {
     const r = confirm('are you Sure u want to delete');
     if (r == true) {
@@ -122,8 +130,8 @@ export class OrderListComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = '500px';
-    dialogConfig.width = '600px';
+    dialogConfig.height = '200px';
+    dialogConfig.width = '400px';
     dialogConfig.position = {
       'top': '50px',
 
@@ -136,27 +144,27 @@ export class OrderListComponent implements OnInit {
     const dialogRef = this.dialog.open(AssignOrderComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      payloadData => {
-        console.log('status : ', payloadData)
-        if (payloadData) {
-          this.purchaseOrders.viewOrder(payloadData).subscribe(users => {
-            this.toastr.success("Order Updated Successfully", 'Successful', {
-              timeOut: 3000,
-              closeButton: true
-            });
-            this.orderLists();
-          }, error => {
-            console.log('Error :', error);
-            this.isLoadingOrder = false;
-            this.toastr.warning(error.error.message, 'Successful', {
-              timeOut: 3000,
-              closeButton: true
-            });
+        payloadData => {
+          console.log('status : ', payloadData)
+          if (payloadData) {
+            this.purchaseOrders.viewOrder(payloadData).subscribe(users => {
+              this.toastr.success("Order Updated Successfully", 'Successful', {
+                timeOut: 3000,
+                closeButton: true
+              });
+              this.orderLists();
+            }, error => {
+              console.log('Error :', error);
+              this.isLoadingOrder = false;
+              this.toastr.warning(error.error.message, 'Successful', {
+                timeOut: 3000,
+                closeButton: true
+              });
 
-          });
+            });
+          }
+
         }
-
-      }
     );
   }
 

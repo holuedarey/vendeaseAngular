@@ -52,7 +52,7 @@ export class UserReportComponent implements OnInit {
 
   getCompanyLists() {
     this.isLoadingCompanyList = true;
-    this.companyService.getCompanyList().subscribe(compannies => {
+    this.companyService.getCompanyList({}).subscribe(compannies => {
       this.compannies = compannies.data;
       console.log('business data : ', compannies)
 
@@ -63,7 +63,7 @@ export class UserReportComponent implements OnInit {
     });
   }
 
-  
+
   exportAs(type: SupportedExtensions, opt?: string){
     this.config.type = type;
     if (opt) {
@@ -74,7 +74,7 @@ export class UserReportComponent implements OnInit {
   }
   generateReport() {
     console.log('form : ', this.selectDateForm.value);
-    
+
     const payload = {
       company: this.selectDateForm.value.company,
       start_date: this.selectDateForm.value.start,

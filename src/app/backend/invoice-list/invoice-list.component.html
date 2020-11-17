@@ -1,4 +1,3 @@
-<p>invoice-list works!</p>
 <!-- begin::main -->
 <div class="layout-wrapper">
 
@@ -17,7 +16,7 @@
                             <div class="card-body" *ngIf="userData.type == 'system' ">
                                 <form [formGroup]="searchInvoiceForm">
                                     <input formControlName="search" class="form-control" (keyup)="searchInvoice()"
-                                        placeholder="Search for Invoice by company ID" />
+                                           placeholder="Search for Invoice by company ID" />
                                 </form>
                             </div>
 
@@ -28,75 +27,90 @@
                                         <div class="table-responsive">
                                             <table id="order-listing" class="table">
                                                 <thead>
-                                                    <tr>
-                                                        <th>S/N</th>
-                                                        <th>Date</th>
-                                                        <th>Company</th>
-                                                        <th>Invoice ID</th>
-                                                        <th>Order No</th>
-                                                        <th>Payment Status</th>
-                                                        <th>#Action</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>S/N</th>
+                                                    <th>Date</th>
+                                                    <th>Company</th>
+                                                    <th>Invoice ID</th>
+                                                    <th>Order No</th>
+                                                    <th>Payment Status</th>
+                                                    <th>#Action</th>
+                                                </tr>
                                                 </thead>
                                                 <div class="col-md-4 offset-md-4">
                                                     <mat-progress-spinner *ngIf="isLoadingInvoice" mode="indeterminate"
-                                                        diameter='30' strokeWidth='3'></mat-progress-spinner>
+                                                                          diameter='30' strokeWidth='3'></mat-progress-spinner>
                                                 </div>
                                                 <tbody *ngIf="invoices.length">
 
-                                                    <tr
+                                                <tr
                                                         *ngFor="let invoice of invoices | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
-                                                        <td>{{ i+ 1 }}</td>
-                                                        <td>{{ invoice.createdAt | date }}</td>
-                                                        <td>{{ invoice.company_details ? invoice.company_details.name  : 'Nil'  }}</td>
-                                                        <td>{{ invoice.invoice_number ? invoice.invoice_number : "Nil"}}</td>
-                                                        <td>{{ invoice.order_number ? invoice.order_number : "Nil" }}</td>
-                                                        <td>
-                                                            <label class="badge badge-success"
-                                                                *ngIf="invoice.paid == true">paid</label>
-                                                            <label class="badge badge-danger"
-                                                                *ngIf="invoice.paid == false">Pending</label>
-                                                        </td>
+                                                    <td>{{ serial + i }}</td>
+                                                    <td>{{ invoice.createdAt | date }}</td>
+                                                    <td>{{ invoice.company_details ? invoice.company_details.name  : 'Nil'  }}
+                                                    </td>
+                                                    <td>{{ invoice.invoice_number ? invoice.invoice_number : "Nil"}}
+                                                    </td>
+                                                    <td>{{ invoice.order_number ? invoice.order_number : "Nil" }}
+                                                    </td>
+                                                    <td>
+                                                        <label class="badge badge-success"
+                                                               *ngIf="invoice.paid == true">paid</label>
+                                                        <label class="badge badge-danger"
+                                                               *ngIf="invoice.paid == false">Pending</label>
+                                                    </td>
 
-                                                        <td>
+                                                    <td>
 
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-outline-lights btn-sm dropdown-toggle"
+                                                               type="button" id="dropdownMenuButton"
+                                                               data-toggle="dropdown" aria-haspopup="true"
+                                                               aria-expanded="false"></a>
+                                                            <div class="dropdown-content"
+                                                                 aria-labelledby="dropdownMenuButton"
+                                                                 style="border: 1px solid #efefef; background: #efefef; position: absolute; left: -69px; text-align: center;">
+                                                                <a (click)="getSingleInvoice(invoice)"  class="dropdown-itessm">View</a>
 
-                                                            <div class="dropdown">
-                                                                <a class="btn  btn-sm dropdown-toggle" type="button"
-                                                                    id="dropdownMenuButton" data-toggle="dropdown"
-                                                                    aria-haspopup="true" aria-expanded="false"></a>
-                                                                <div class="dropdown-menu"
-                                                                    aria-labelledby="dropdownMenuButton"
-                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
-
-                                                                    <a type="button" (click)="getSingleInvoice(invoice)"
-                                                                        class="dropdown-item">View</a>
-
-                                                                    <a *ngIf="userData.type == 'company' "
-                                                                        (click)="claim(invoice)" class="dropdown-item"
-                                                                        data-toggle="modal">Raise
-                                                                        Claim
-                                                                    </a>
-                                                                    <a type="button" (click)="deleteInvoice(invoice)"
-                                                                        *ngIf="userData.type == 'system' && invoice.paid == false && invoice.order_long_number"
-                                                                        class="btn btn-outline-danger confirm">Delete</a>
-                                                                </div>
+                                                                <a *ngIf="userData.type == 'company' " (click)="claim(invoice)" class="dropdown-itesm"
+                                                                   data-toggle="modal">Raise
+                                                                    Claim
+                                                                </a>
+                                                                <a (click)="deleteInvoice(invoice)"
+                                                                   *ngIf="userData.type == 'system' && invoice.paid == false && invoice.order_long_number">Delete</a>
                                                             </div>
-                                                        </td>
-                                                    </tr>
+                                                        </div>
+                                                        <!-- <div class="dropdown">
+                                                            <a class="btn  btn-sm dropdown-toggle" type="button"
+                                                                id="dropdownMenuButton" data-toggle="dropdown"
+                                                                aria-haspopup="true" aria-expanded="false"></a>
+                                                            <div class="dropdown-comtent" aria-labelledby="dropdownMenuButton"  style="border: 1px solid #efefef; background: #efefef; position: absolute; left: -69px; text-align: center;">
+
+                                                                <a (click)="getSingleInvoice(invoice)"  class="dropdown-item">View</a>
+
+                                                                <a *ngIf="userData.type == 'company' " (click)="claim(invoice)" class="dropdown-item"
+                                                                    data-toggle="modal">Raise
+                                                                    Claim
+                                                                </a>
+                                                                <a (click)="deleteInvoice(invoice)"
+                                                                    *ngIf="userData.type == 'system' && invoice.paid == false && invoice.order_long_number">Delete</a>
+                                                            </div>
+                                                        </div> -->
+                                                    </td>
+                                                </tr>
 
                                                 </tbody>
                                             </table>
 
                                             <div class="colm-6 text-right pull-right">
                                                 <pagination-controls id="order-listing"
-                                                    (pageChange)="pageChanged($event)"
-                                                    (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
-                                                    directionLinks="true" autoHide="true" responsive="true"
-                                                    previousLabel="Previous" nextLabel="Next"
-                                                    screenReaderPaginationLabel="Pagination"
-                                                    screenReaderPageLabel="page"
-                                                    screenReaderCurrentLabel="You're on page">
+                                                                     (pageChange)="pageChanged($event)"
+                                                                     (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
+                                                                     directionLinks="true" autoHide="true" responsive="true"
+                                                                     previousLabel="Previous" nextLabel="Next"
+                                                                     screenReaderPaginationLabel="Pagination"
+                                                                     screenReaderPageLabel="page"
+                                                                     screenReaderCurrentLabel="You're on page">
                                                 </pagination-controls>
                                             </div>
                                         </div>

@@ -43,18 +43,20 @@ export class InvoiceListComponent implements OnInit {
   limit:number = 50;
   p: number = 1;
   totalItems:any;
-  constructor(
-    private dashboard: DasboardService,
-    private storageService: StorageService,
-    private router: Router,
-    private dialog: MatDialog,
-    private fb:FormBuilder,
-    private claims: ClaimsService,
-    private toastr: ToastrService,) {
+  serial:any;
 
-      this.searchInvoiceForm = this.fb.group({
-        search: ['', Validators.compose([Validators.required])],
-      });
+  constructor(
+      private dashboard: DasboardService,
+      private storageService: StorageService,
+      private router: Router,
+      private dialog: MatDialog,
+      private fb: FormBuilder,
+      private claims: ClaimsService,
+      private toastr: ToastrService,) {
+
+    this.searchInvoiceForm = this.fb.group({
+      search: ['', Validators.compose([Validators.required])],
+    });
   }
 
   ngOnInit(): void {
@@ -85,15 +87,20 @@ export class InvoiceListComponent implements OnInit {
       this.isLoadingInvoice = false;
       this.totalItems = invoices.total;
       this.invoices = invoices.data;
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
     }, error => {
       this.isLoadingInvoice = false;
       console.log('Error :', error)
     })
   }
+
   pageChanged(event){
     this.skip = (event - 1) * this.limit;
+    this.p = event;
     console.log('offset :', this.skip)
-    this.dashboard.invoice({skip:this.skip, limit: this.limit}).subscribe((invoices) => {
+    this.dashboard.invoice({skip: this.skip, limit: this.limit}).subscribe((invoices) => {
       console.log('invoice data :', invoices)
       this.isLoadingInvoice = false;
       this.pagination.previous = invoices.skip;
@@ -102,6 +109,9 @@ export class InvoiceListComponent implements OnInit {
       this.pagination.totalPage = Math.ceil(invoices.total/invoices.limit);
       this.pagination.isLoading = false;
       this.invoices = invoices.data;
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
     }, error => {
       this.isLoadingInvoice = false;
       console.log('Error :', error)
@@ -121,7 +131,7 @@ export class InvoiceListComponent implements OnInit {
     this.isLoadingInvoice = true;
     this.dashboard.deleteInvoice(invoice._id).subscribe((invoice) => {
       this.isLoadingInvoice = false;
-      
+
       this.toastr.success("User Updated Successfully", 'Successful', {
         timeOut: 3000,
         closeButton: true
@@ -154,28 +164,28 @@ export class InvoiceListComponent implements OnInit {
     const dialogRef = this.dialog.open(ClaimComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      payloadData => {
-        console.log('status : ', payloadData)
-        if (payloadData) {
-          this.claims.openClaims(payloadData).subscribe(users => {
-            this.toastr.success("User Updated Successfully", 'Successful', {
-              timeOut: 3000,
-              closeButton: true
-            });
-            this.getInvoice();
-          }, error => {
-            console.log('Error :', error);
-            this.isLoadingInvoice = false;
+        payloadData => {
+          console.log('status : ', payloadData)
+          if (payloadData) {
+            this.claims.openClaims(payloadData).subscribe(users => {
+              this.toastr.success("User Updated Successfully", 'Successful', {
+                timeOut: 3000,
+                closeButton: true
+              });
+              this.getInvoice();
+            }, error => {
+              console.log('Error :', error);
+              this.isLoadingInvoice = false;
 
-            this.toastr.warning(error.error.message, 'Successful', {
-              timeOut: 3000,
-              closeButton: true
-            });
+              this.toastr.warning(error.error.message, 'Successful', {
+                timeOut: 3000,
+                closeButton: true
+              });
 
-          });
+            });
+          }
+
         }
-
-      }
     );
   }
 

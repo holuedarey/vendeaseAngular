@@ -1,4 +1,3 @@
-<p>invoice-list works!</p>
 <!-- begin::main -->
 <div class="layout-wrapper">
 
@@ -18,55 +17,66 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="table-responsive">
-                                            <table id="order-listing" class="table">
+                                            <table id="claim-listing" class="table">
                                                 <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Date</th>
-                                                        <th>Invoice No</th>
-                                                        <th>Subject</th>
-                                                        <th>Status</th>
-                                                        <th>#Action</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Date</th>
+                                                    <th>Invoice No</th>
+                                                    <th>Subject</th>
+                                                    <th>Status</th>
+                                                    <th>#Action</th>
+                                                </tr>
                                                 </thead>
                                                 <div class="col-md-4 offset-md-4">
                                                     <mat-progress-spinner *ngIf="isLoadingClaimList"
-                                                        mode="indeterminate" diameter='30' strokeWidth='3'>
+                                                                          mode="indeterminate" diameter='30' strokeWidth='3'>
                                                     </mat-progress-spinner>
                                                 </div>
                                                 <tbody>
-                                                    <tr *ngFor="let claim of claims">
-                                                        <td>{{ claim.short_code }}</td>
-                                                        <td>{{ claim.createdAt|date }}</td>
-                                                        <td><a routerLink="#">{{ claim.invoice_no }}</a> </td>
-                                                        <td>{{ claim.claims }}</td>
-                                                        <td>
-                                                            <label *ngIf="claim.status == 'open'"
-                                                                class="badge badge-success">Open</label>
-                                                            <label *ngIf="claim.status !== 'open'"
-                                                                class="badge badge-danger">Closed</label>
-                                                        </td>
+                                                <tr
+                                                        *ngFor="let claim of claims | paginate: { id: 'claim-listing', itemsPerPage: limit, currentPage: p, totalItems:totalItems }">
+                                                    <td>{{ claim.short_code }}</td>
+                                                    <td>{{ claim.createdAt|date }}</td>
+                                                    <td><a routerLink="#">{{ claim.invoice_no }}</a> </td>
+                                                    <td>{{ claim.claims }}</td>
+                                                    <td>
+                                                        <label *ngIf="claim.status == 'open'"
+                                                               class="badge badge-success">Open</label>
+                                                        <label *ngIf="claim.status !== 'open'"
+                                                               class="badge badge-danger">Closed</label>
+                                                    </td>
 
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a class="btn btn-outline-lights btn-sm dropdown-toggle"
-                                                                    type="button" id="dropdownMenuButton"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false"></a>
-                                                                <div class="dropdown-menu"
-                                                                    aria-labelledby="dropdownMenuButton"
-                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
-                                                                    <a type="button" (click)="viewClaim(claim)"
-                                                                    class="dropdown-item">View</a>
-                                                                   
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-outline-lights btn-sm dropdown-toggle"
+                                                               type="button" id="dropdownMenuButton"
+                                                               data-toggle="dropdown" aria-haspopup="true"
+                                                               aria-expanded="false"></a>
+                                                            <div class="dropdown-content"
+                                                                 aria-labelledby="dropdownMenuButton"
+                                                                 style="border: 1px solid #efefef; background: #efefef; position: absolute; left: -69px; text-align: center;">
+                                                                <a type="button" (click)="viewClaim(claim)"
+                                                                   class="dropdown-item">View</a>
 
-                                                                </div>
+
                                                             </div>
+                                                        </div>
 
-                                                        </td>
-                                                    </tr>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
+                                            <div class="col-m text-right pull-right">
+                                                <pagination-controls id="claim-listing"
+                                                                     (pageChange)="pageChanged($event)"
+                                                                     (pageBoundsCorrection)="pageChanged($event)" directionLinks="true"
+                                                                     autoHide="true" responsive="true" previousLabel="Previous"
+                                                                     nextLabel="Next" screenReaderPaginationLabel="Pagination"
+                                                                     screenReaderPageLabel="page"
+                                                                     screenReaderCurrentLabel="You're on page">
+                                                </pagination-controls>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

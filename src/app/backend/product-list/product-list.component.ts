@@ -19,7 +19,7 @@ export class ProductListComponent implements OnInit {
   isLoadingProduct: boolean;
   products: any[] = [];
   userData: any;
-
+  serial:any;
   breadCrumb: any = {
     firstLabel: 'Purchase Order',
     secondLabel:'Product List',
@@ -47,13 +47,16 @@ export class ProductListComponent implements OnInit {
     this.getProductList();
   }
 
-   getProductList() {
+  getProductList() {
     this.isLoadingProduct = true;
     this.product.produtList({skip:0, limit: this.limit}).subscribe((product) => {
       console.log('product List data :', product.data);
       this.totalItems = product.total;
       this.isLoadingProduct = false;
-      return this.products = product.data.slice().reverse();
+      this.products = product.data.slice().reverse();
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
     }, error => {
       this.isLoadingProduct = false;
       console.log('Error :', error)
@@ -62,10 +65,14 @@ export class ProductListComponent implements OnInit {
 
   pageChanged(event){
     this.skip = (event - 1) * this.limit;
+    this.p = event;
     this.product.produtList({skip:this.skip, limit: this.limit}).subscribe((product) => {
       console.log('product List data :', product.data);
       this.totalItems = product.total;
       this.isLoadingProduct = false;
+      this.serial = 1 + (this.p  - 1) * this.limit;
+      console.log('serial no :', this.serial)
+      this.serial = this.serial;
       return this.products = product.data.slice().reverse();
     }, error => {
       this.isLoadingProduct = false;
@@ -99,31 +106,31 @@ export class ProductListComponent implements OnInit {
     dialogConfig.data = {
       data: JSON.stringify(product)
     };
-    
+
     const dialogRef = this.dialog.open(ShowProductComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => {
-        
-        if (data) {
-        
-          const productId = product._id;
-          this.product.updateProduct(productId, data).subscribe((product) => {
-            console.log('product List data :', product.data)
-            this.toastr.success("Product Updated Successfully", 'Successful', {
-              timeOut: 3000,
-              closeButton: true
-            });
-            this.getProductList();
-          }, error => {
-            this.toastr.warning("Error Updating the Record", 'Failure', {
-              timeOut: 3000,
-              closeButton: true
-            });
-            console.log('Error :', error)
-          })
+        data => {
+
+          if (data) {
+
+            const productId = product._id;
+            this.product.updateProduct(productId, data).subscribe((product) => {
+              console.log('product List data :', product.data)
+              this.toastr.success("Product Updated Successfully", 'Successful', {
+                timeOut: 3000,
+                closeButton: true
+              });
+              this.getProductList();
+            }, error => {
+              this.toastr.warning("Error Updating the Record", 'Failure', {
+                timeOut: 3000,
+                closeButton: true
+              });
+              console.log('Error :', error)
+            })
+          }
         }
-      }
     );
   }
 
@@ -148,27 +155,27 @@ export class ProductListComponent implements OnInit {
     const dialogRef = this.dialog.open(EditProductComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-      data => {
-        if(data){
-        console.log("Dialog output:", data)
+        data => {
+          if(data){
+            console.log("Dialog output:", data)
 
-          const productId = product._id;
-          this.product.updateProduct(productId, data).subscribe((product) => {
-            console.log('product List data :', product.data)
-            this.toastr.success("Product Updated Successfully", 'Successful', {
-              timeOut: 3000,
-              closeButton: true
-            });
-            this.getProductList();
-          }, error => {
-            this.toastr.warning("Error Updating the Record", 'Failure', {
-              timeOut: 3000,
-              closeButton: true
-            });
-            console.log('Error :', error)
-          })
+            const productId = product._id;
+            this.product.updateProduct(productId, data).subscribe((product) => {
+              console.log('product List data :', product.data)
+              this.toastr.success("Product Updated Successfully", 'Successful', {
+                timeOut: 3000,
+                closeButton: true
+              });
+              this.getProductList();
+            }, error => {
+              this.toastr.warning("Error Updating the Record", 'Failure', {
+                timeOut: 3000,
+                closeButton: true
+              });
+              console.log('Error :', error)
+            })
+          }
         }
-      }
     );
   }
 
@@ -193,28 +200,28 @@ export class ProductListComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      if (data) {
-        this.isLoadingProduct = true;
-        this.product.deleteProduct(product).subscribe(users => {
-          // this.getUserLists();
-          this.toastr.success("Product Deleted Successfully", 'Successful', {
-            timeOut: 3000,
-            closeButton: true
-          });
+          if (data) {
+            this.isLoadingProduct = true;
+            this.product.deleteProduct(product).subscribe(users => {
+              // this.getUserLists();
+              this.toastr.success("Product Deleted Successfully", 'Successful', {
+                timeOut: 3000,
+                closeButton: true
+              });
 
-          this.isLoadingProduct = false;
-          this.getProductList();
+              this.isLoadingProduct = false;
+              this.getProductList();
 
-          // this.loader.hideLoader();
-        }, error => {
-          console.log('Error :', error);
-          this.isLoadingProduct = false;
-          // this.loader.presentToast(error.error.message);
-          // this.loader.hideLoader();
+              // this.loader.hideLoader();
+            }, error => {
+              console.log('Error :', error);
+              this.isLoadingProduct = false;
+              // this.loader.presentToast(error.error.message);
+              // this.loader.hideLoader();
 
-        });
-      }
-    }
+            });
+          }
+        }
     );
   }
 

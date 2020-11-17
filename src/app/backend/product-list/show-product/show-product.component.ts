@@ -16,14 +16,14 @@ export class ShowProductComponent implements OnInit {
   suppliers: any;
   AssignProductForm: FormGroup;
   constructor(
-    private supplierService: SupplierService,
-    private fb: FormBuilder,
-    private dialogRef: MatDialogRef<ShowProductComponent>,
-    @Inject(MAT_DIALOG_DATA) data) {
+      private supplierService: SupplierService,
+      private fb: FormBuilder,
+      private dialogRef: MatDialogRef<ShowProductComponent>,
+      @Inject(MAT_DIALOG_DATA) data) {
 
     this.description = JSON.parse(data.data);
     this.vendor = this.description.vendor;
-  
+
   }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class ShowProductComponent implements OnInit {
   }
 
   getSupplierLists() {
-    this.supplierService.getSupplierList().subscribe(suppliers => {
+    this.supplierService.getSupplierList({skip:0, limit:Number.MAX_SAFE_INTEGER}).subscribe(suppliers => {
       // console.log('supplier data : ', suppliers)
       this.suppliers = suppliers.data;
     }, error => {

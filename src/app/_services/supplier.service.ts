@@ -9,13 +9,13 @@ import { map } from 'rxjs/operators';
 })
 export class SupplierService {
 
-  
+
   constructor(public http: HttpClient) { }
 
-  getSupplierList(): Observable<any> {
-    return this.http.get(Endpoint.AUTH.users+`?type=vendor`).pipe(
-      map(data => {
-        return data;
-      }));
+  getSupplierList(params): Observable<any> {
+    return this.http.get(Endpoint.AUTH.users + `?type=vendor&$skip=${params.skip || 0}&$limit=${params.limit || 50}`).pipe(
+        map(data => {
+          return data;
+        }));
   }
 }

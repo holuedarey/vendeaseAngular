@@ -8,6 +8,7 @@
         <!-- end::navigation -->
         <div class="content-body">
             <div class="content">
+                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="">
@@ -18,53 +19,63 @@
                                         <div class="table-responsive">
                                             <table id="order-listing" class="table">
                                                 <thead>
-                                                    <tr>
-                                                        <th>S/N</th>
-                                                        <th>Supplier ID</th>
-                                                        <th>Supplier Name</th>
-                                                        <th>Address</th>
-                                                        <th>#Action</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>S/N</th>
+                                                    <th>Supplier ID</th>
+                                                    <th>Supplier Name</th>
+                                                    <th>Address</th>
+                                                    <th>#Action</th>
+                                                </tr>
                                                 </thead>
                                                 <div *ngIf="isLoadingSupplierList"
-                                                    class="offset-lg-5 offset-md-5 offset-sm-5">
+                                                     class="offset-lg-5 offset-md-5 offset-sm-5">
                                                     <mat-progress-spinner mode="indeterminate" diameter='40'
-                                                        strokeWidth='3'>
+                                                                          strokeWidth='3'>
                                                     </mat-progress-spinner>
                                                 </div>
                                                 <tbody *ngIf="!isLoadingSupplierList">
 
-                                                    <tr *ngFor="let user of suppliers; let i=index">
-                                                        <td>{{ i+1}}</td>
-                                                        <td>#{{ user.vendor.id}}</td>
-                                                        <td>{{ user.vendor.name}}</td>
-                                                        <td>{{ user.vendor.address}}</td>
+                                                <tr *ngFor="let user of suppliers | paginate: { id: 'order-listing', itemsPerPage: limit, currentPage: p, totalItems:totalItems }; let i=index">
+                                                    <td>{{ serial + i}}</td>
+                                                    <td>#{{ user.vendor.id}}</td>
+                                                    <td>{{ user.vendor.name}}</td>
+                                                    <td>{{ user.vendor.address}}</td>
 
-                                                        <td>
+                                                    <td>
 
-                                                            <div class="dropdown">
-                                                                <a class="btn btn-outline-light btn-sm dropdown-toggle"
-                                                                    type="button" id="dropdownMenuButton"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false"></a>
-                                                                <div class="dropdown-menu"
-                                                                    aria-labelledby="dropdownMenuButton"
-                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-outline-lights btn-sm dropdown-toggle"
+                                                               type="button" id="dropdownMenuButton"
+                                                               data-toggle="dropdown" aria-haspopup="true"
+                                                               aria-expanded="false"></a>
+                                                            <div class="dropdown-content"
+                                                                 aria-labelledby="dropdownMenuButton"
+                                                                 style="border: 1px solid #efefef; background: #efefef; position: absolute; left: -69px; text-align: center;">
 
-                                                                    <a  class="dropdown-item"  (click)="viewSupplier(user)" 
-                                                                class="btn btn-outline-primary">View</a>
-                                                                </div>
+                                                                <a routerLink="#" class="dropdown-item"  (click)="viewSupplier(user)">View</a>
+                                                                <!-- <a routerLink="#" (click)="viewSupplier(user)"
+                                                               class="btn btn-outline-primary">View</a> -->
                                                             </div>
-                                                            <button (click)="viewSupplier(user)" 
-                                                                class="btn btn-outline-primary">View</button>
-                                                        </td> 
+                                                        </div>
 
-                                                    </tr>
+                                                    </td>
+
+                                                </tr>
 
                                                 </tbody>
 
                                             </table>
-                                           
+                                            <div class="colm-6 text-right pull-right">
+                                                <pagination-controls id="order-listing"
+                                                                     (pageChange)="pageChanged($event)"
+                                                                     (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
+                                                                     directionLinks="true" autoHide="true" responsive="true"
+                                                                     previousLabel="Previous" nextLabel="Next"
+                                                                     screenReaderPaginationLabel="Pagination"
+                                                                     screenReaderPageLabel="page"
+                                                                     screenReaderCurrentLabel="You're on page">
+                                                </pagination-controls>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

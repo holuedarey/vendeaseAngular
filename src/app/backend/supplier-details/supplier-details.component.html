@@ -8,6 +8,7 @@
         <!-- end::navigation -->
         <div class="content-body">
             <div class="content">
+                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
                 <div class="row">
                     <div class="col-12 mb-3">
                         <div class="card">
@@ -48,13 +49,13 @@
                                     {% endif %} -->
                                     <div class="col-md-3 grid-margin stretch-card">
                                         <a href="{% url 'invoice_list' type id skip limit %}"
-                                            style="text-decoration: none;">
+                                           style="text-decoration: none;">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <p class="card-title text-md-center text-xl-left text-primary">All
                                                         Unpaid Invoices</p>
                                                     <div
-                                                        class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                                                            class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
                                                         <h4 class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
                                                             {{ invoiceUnpaidAmount | currency : '₦'}}
                                                         </h4>
@@ -68,16 +69,16 @@
 
                                     <div class="col-md-3 grid-margin stretch-card">
                                         <a href="{% url 'invoice_list' type id skip limit %}"
-                                            style="text-decoration: none;">
+                                           style="text-decoration: none;">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <p class="card-title text-md-center text-xl-left text-primary">All
                                                         Receipts </p>
                                                     <div
-                                                        class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                                                            class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
                                                         <h4
-                                                            class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
-                                                             {{ receiptsAmount | currency : '₦'}}</h4>
+                                                                class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
+                                                            {{ receiptsAmount | currency : '₦'}}</h4>
                                                     </div>
                                                     <p class="mb-0 mt-2 text-success"><span
                                                             class="text-black ml-1"><small>{{receiptsCount}} Receipts
@@ -90,15 +91,15 @@
 
                                     <div class="col-md-3 grid-margin stretch-card">
                                         <a href="{% url 'delivery' type id skip limit %}"
-                                            style="text-decoration: none;">
+                                           style="text-decoration: none;">
                                             <div class="card">
                                                 <div class="card-body">
                                                     <p class="card-title text-md-center text-xl-left text-primary">All
                                                         Delivery Received</p>
                                                     <div
-                                                        class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
+                                                            class="d-flex flex-wrap justify-content-between justify-content-md-center justify-content-xl-between align-items-center">
                                                         <h4
-                                                            class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
+                                                                class="mb-0 mb-md-2 mb-xl-0 order-md-1 order-xl-0 text-success">
                                                             {{ deliveryAmount | currency : '₦'}} </h4>
                                                     </div>
                                                     <p class="mb-0 mt-2 text-success"><span
@@ -121,22 +122,22 @@
                                         <div class="table-responsive">
                                             <table id="order-listing" class="table">
                                                 <thead>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Permission</th>
-                                                        <th>Phone</th>
-                                                        <th>Email</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Permission</th>
+                                                    <th>Phone</th>
+                                                    <th>Email</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody *ngIf="theUsers.length">
-                                                    <tr *ngFor="let user of theUsers">
-                                                        <td>{{ user.name }}</td>
-                                                        <td>{{ user.permissions }}</td>
-                                                        <td>{{ user.phone }}</td>
-                                                        <td>{{ user.email }}</td>
-                                                        <td>
-                                                        </td>
-                                                    </tr>
+                                                <tr *ngFor="let user of theUsers">
+                                                    <td>{{ user.name }}</td>
+                                                    <td>{{ user.permissions }}</td>
+                                                    <td>{{ user.phone }}</td>
+                                                    <td>{{ user.email }}</td>
+                                                    <td>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
 
                                             </table>

@@ -8,7 +8,7 @@
         <!-- end::navigation -->
         <div class="content-body">
             <div class="content">
-
+                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
                 <a href="#" data-toggle="modal" data-target="#newUser">
                     <button class="btn btn-primary">Add New</button>
                 </a>
@@ -28,140 +28,140 @@
                                         <div class="table-responsive">
                                             <table id="order-listing" class="table">
                                                 <thead>
-                                                    <tr>
-                                                        <th>S/N</th>
-                                                        <th>Name</th>
-                                                        <th>Phone</th>
-                                                        <th>Email</th>
-                                                        <th>Company/Permission</th>
-                                                        <th *ngIf="userData.type == 'system'">Type</th>
-                                                        <th *ngIf="userData.type == 'system'">Account</th>
-                                                        <th *ngIf="userData.type == 'system'">PayLater</th>
-                                                        <th>#Action</th>
-                                                    </tr>
+                                                <tr>
+                                                    <th>S/N</th>
+                                                    <th>Name</th>
+                                                    <th>Phone</th>
+                                                    <th>Email</th>
+                                                    <th>Company/Permission</th>
+                                                    <th *ngIf="userData.type == 'system'">Type</th>
+                                                    <th *ngIf="userData.type == 'system'">Account</th>
+                                                    <th *ngIf="userData.type == 'system'">PayLater</th>
+                                                    <th>#Action</th>
+                                                </tr>
                                                 </thead>
                                                 <div *ngIf="isLoadingUserList"
-                                                    class="offset-lg-5 offset-md-5 offset-sm-5">
+                                                     class="offset-lg-5 offset-md-5 offset-sm-5">
                                                     <mat-progress-spinner mode="indeterminate" diameter='40'
-                                                        strokeWidth='3'>
+                                                                          strokeWidth='3'>
                                                     </mat-progress-spinner>
                                                 </div>
                                                 <tbody *ngIf="!isLoadingUserList">
 
 
-                                                    <tr *ngFor="let user of users | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i = index">
-                                                        <td>{{ i + 1 }}</td>
-                                                        <td>{{ user.name }}</td>
-                                                        <td>{{ user.phone }}</td>
-                                                        <td>{{ user.email }}</td>
-                                                        <td>
+                                                <tr *ngFor="let user of users | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i = index">
+                                                    <td>{{ serial + i }}</td>
+                                                    <td>{{ user.name }}</td>
+                                                    <td>{{ user.phone }}</td>
+                                                    <td>{{ user.email }}</td>
+                                                    <td>
                                                             <span *ngIf="user.type == 'vendor'">{{ user.vendor.name}}
                                                                 -
                                                                 {{ user.vendor.permissions }}</span>
-                                                            <span *ngIf="user.type == 'company'">{{ user.company.name }}
-                                                                -
-                                                                {{ user.company.permissions }}</span>
-                                                            <span *ngIf="user.type == 'system'">{{ user.system.name }}
-                                                                -
-                                                                {{ user.system.permissions }}</span>
-                                                        </td>
+                                                        <span *ngIf="user.type == 'company'">{{ user.company.name }}
+                                                            -
+                                                            {{ user.company.permissions }}</span>
+                                                        <span *ngIf="user.type == 'system'">{{ user.system.name }}
+                                                            -
+                                                            {{ user.system.permissions }}</span>
+                                                    </td>
 
-                                                        <td *ngIf="userData.type == 'system'">{{ user.type }}</td>
-                                                        <td *ngIf="userData.type == 'system'">
+                                                    <td *ngIf="userData.type == 'system'">{{ user.type }}</td>
+                                                    <td *ngIf="userData.type == 'system'">
 
-                                                            <div class="dropdown">
-                                                                <a class="btn btn-outline- btn-sm dropdown-toggle"
-                                                                    type="button" id="dropdownMenuButton"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false"></a>
-                                                                <div class="dropdown-menu"
-                                                                    aria-labelledby="dropdownMenuButton"
-                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-outline- btn-sm dropdown-toggle"
+                                                               type="button" id="dropdownMenuButton"
+                                                               data-toggle="dropdown" aria-haspopup="true"
+                                                               aria-expanded="false"></a>
+                                                            <div class="dropdown-content"
+                                                                 aria-labelledby="dropdownMenuButton"
+                                                                 style="border: 1px solid #efefef; background: #efefef; position: absolute; left: -69px; text-align: center;">
 
-                                                                    <a *ngIf="user.activated == false"
-                                                                        (click)="activateUser(user._id)"
-                                                                        title="Click to activate user access"><button
+                                                                <a *ngIf="user.activated == false"
+                                                                   (click)="activateUser(user._id)"
+                                                                   title="Click to activate user access"><button
                                                                         class="dropdown-item">Restricted</button></a>
 
-                                                                    <a *ngIf="user.activated == true"
-                                                                        (click)="deactivateUser(user._id)"
-                                                                        title="Click to restrict user access"><button
+                                                                <a *ngIf="user.activated == true"
+                                                                   (click)="deactivateUser(user._id)"
+                                                                   title="Click to restrict user access"><button
                                                                         class="dropdown-item">Active</button></a>
 
 
-                                                                </div>
                                                             </div>
+                                                        </div>
 
 
-                                                        </td>
-                                                        <td *ngIf="userData.type == 'system'">
+                                                    </td>
+                                                    <td *ngIf="userData.type == 'system'">
 
-                                                            <div class="dropdown">
-                                                                <a class="btn btn-outline- btn-sm dropdown-toggle"
-                                                                    type="button" id="dropdownMenuButton"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false"></a>
-                                                                <div class="dropdown-menu"
-                                                                    aria-labelledby="dropdownMenuButton"
-                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-outline- btn-sm dropdown-toggle"
+                                                               type="button" id="dropdownMenuButton"
+                                                               data-toggle="dropdown" aria-haspopup="true"
+                                                               aria-expanded="false"></a>
+                                                            <div class="dropdown-content"
+                                                                 aria-labelledby="dropdownMenuButton"
+                                                                 style="border: 1px solid #efefef; background: #efefef; position: absolute; left: -69px; text-align: center;">
 
 
-                                                                    <a *ngIf="user.type == 'company' && user.payLater==true"
-                                                                        (click)="deactivatePaylater(user._id)"
-                                                                        title="Click to restrict paylater option">
-                                                                        <button
-                                                                        class="dropdown-item">True</button>
-                                                                    </a>
+                                                                <a *ngIf="user.type == 'company' && user.payLater==true"
+                                                                   (click)="deactivatePaylater(user._id)"
+                                                                   title="Click to restrict paylater option">
+                                                                    <button
+                                                                            class="dropdown-item">True</button>
+                                                                </a>
 
-                                                                    <a *ngIf="user.type == 'company' && user.payLater==false"
-                                                                        (click)="activatePaylater(user._id)"
-                                                                        title="Click to allow paylater option"><button
+                                                                <a *ngIf="user.type == 'company' && user.payLater==false"
+                                                                   (click)="activatePaylater(user._id)"
+                                                                   title="Click to allow paylater option"><button
                                                                         class="dropdown-item">False</button>
-                                                                    </a>
+                                                                </a>
 
-                                                                    <span *ngIf="user.type != 'company'">N/A</span>
+                                                                <span *ngIf="user.type != 'company'">N/A</span>
 
 
-                                                                </div>
                                                             </div>
+                                                        </div>
 
-                                                        </td>
-
-
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <a class="btn btn-outline- btn-sm dropdown-toggle"
-                                                                    type="button" id="dropdownMenuButton"
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false"></a>
-                                                                <div class="dropdown-menu"
-                                                                    aria-labelledby="dropdownMenuButton"
-                                                                    style="padding: 5px; background: rgba(243, 246, 249); text-align: center; font-family: roboto; font-weight: 700;">
-
-                                                                    <a href="" class="dropdown-item" data-toggle="modal"
-                                                                        (click)="showEdit(user)">Edit
-                                                                    </a>
-                                                                    <a href="" type="button"
-                                                                        (click)="deleteUser(user._id)"
-                                                                        class="dropdown-item">Delete</a>
+                                                    </td>
 
 
-                                                                </div>
+                                                    <td>
+                                                        <div class="dropdown">
+                                                            <a class="btn btn-outline- btn-sm dropdown-toggle"
+                                                               type="button" id="dropdownMenuButton"
+                                                               data-toggle="dropdown" aria-haspopup="true"
+                                                               aria-expanded="false"></a>
+                                                            <div class="dropdown-content"
+                                                                 aria-labelledby="dropdownMenuButton"
+                                                                 style="border: 1px solid #efefef; background: #efefef; position: absolute; left: -69px; text-align: center;">
+
+                                                                <a href="" class="dropdown-item" data-toggle="modal"
+                                                                   (click)="showEdit(user)">Edit
+                                                                </a>
+                                                                <a href="" type="button"
+                                                                   (click)="deleteUser(user._id)"
+                                                                   class="dropdown-item">Delete</a>
+
+
                                                             </div>
+                                                        </div>
 
-                                                        </td>
-                                                    </tr>
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
                                             <div class="colm-6 text-right pull-right">
                                                 <pagination-controls id="order-listing"
-                                                    (pageChange)="pageChanged($event)"
-                                                    (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
-                                                    directionLinks="true" autoHide="true" responsive="true"
-                                                    previousLabel="Previous" nextLabel="Next"
-                                                    screenReaderPaginationLabel="Pagination"
-                                                    screenReaderPageLabel="page"
-                                                    screenReaderCurrentLabel="You're on page">
+                                                                     (pageChange)="pageChanged($event)"
+                                                                     (pageBoundsCorrection)="pageChanged($event)" maxSize="9"
+                                                                     directionLinks="true" autoHide="true" responsive="true"
+                                                                     previousLabel="Previous" nextLabel="Next"
+                                                                     screenReaderPaginationLabel="Pagination"
+                                                                     screenReaderPageLabel="page"
+                                                                     screenReaderCurrentLabel="You're on page">
                                                 </pagination-controls>
                                             </div>
                                         </div>
@@ -194,7 +194,7 @@
 
                     <div class="form-group">
                         <select formControlName="permissions" class="form-control" style="height: 35px"
-                            class="js-example-basic-single w-100" required id="#">
+                                class="js-example-basic-single w-100" required id="#">
                             <option selected value="">Assign Permission</option>
 
                             <option *ngIf="userData.type == 'system' " value="superadmin">Super Admin</option>
@@ -206,19 +206,19 @@
                     </div>
                     <div class="form-group">
                         <input formControlName="name" type="text" class="form-control name" id="name"
-                            placeholder="Name">
+                               placeholder="Name">
                     </div>
                     <div class="form-group">
                         <input formControlName="phone" type="number" class="form-control phone" id="phone"
-                            placeholder="Phone">
+                               placeholder="Phone">
                     </div>
                     <div class="form-group">
                         <input formControlName="email" type="email" class="form-control email" id="email"
-                            placeholder="Email">
+                               placeholder="Email">
                     </div>
                     <div class="form-group">
                         <input formControlName="password" type="password" class="form-control email" id="password"
-                            placeholder="Password">
+                               placeholder="Password">
                     </div>
                     <button type="submit" (click)="createUser()" class="btn btn-primary">Add</button>
                 </form>
@@ -247,7 +247,7 @@
                     <div class="form-group">
                         <label for="user"> Please select account manager</label>
                         <select formControlName="user" id="user" style="width: 450px"
-                            class="form-control js-example-basic-single w-100" required>
+                                class="form-control js-example-basic-single w-100" required>
                             <option selected value="">Please Select </option>
                             <option *ngFor="let user of users;" value="{{ user._id }}">{{ user.name }}</option>
 
@@ -257,7 +257,7 @@
                     <div class="form-group">
                         <label for="company"> Please select business</label>
                         <select formControlName="company" id="company" style="width: 450px"
-                            class="form-control js-example-basic-single w-100" required>
+                                class="form-control js-example-basic-single w-100" required>
                             <option selected value="">Select Business</option>
 
                             <option *ngFor="let user of business" value="{{ user.company.id }}">{{ user.company.name }}
@@ -266,7 +266,7 @@
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary " id="closeModal"
-                        (click)="assignManager()">Submit</button>
+                            (click)="assignManager()">Submit</button>
                 </form>
 
             </div>
