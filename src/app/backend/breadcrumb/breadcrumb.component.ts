@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./breadcrumb.component.css']
 })
 export class BreadcrumbComponent implements OnInit {
-  @Input() breadCrumb:any;
+  @Input() breadCrumb: any;
   // @Input() label:string;
   // @Input() url:string;
   constructor() { }

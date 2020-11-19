@@ -6,21 +6,10 @@ import { MainComponent } from './layout/backend/main/main.component';
 import { LoginRegisterComponent } from './layout/frontend/loginRegister/login-register/login-register.component';
 import { AuthGuard } from './guard/auth.guard';
 import { UserManagementComponent } from './backend/user-management/user-management.component';
-import { ProductListComponent } from './backend/product-list/product-list.component';
-import { CompanyListComponent } from './backend/company-list/company-list.component';
 import { SupplierListComponent } from './backend/supplier-list/supplier-list.component';
 import { SupplierDetailsComponent } from './backend/supplier-details/supplier-details.component';
 import { CompanyDetailsComponent } from './backend/company-details/company-details.component';
-import { CreateProductComponent } from './backend/create-product/create-product.component';
-import { OrderListComponent } from './backend/order-list/order-list.component';
-import { CreateOrderComponent } from './backend/create-order/create-order.component';
 import { SingleInvoiceComponent } from './backend/single-invoice/single-invoice.component';
-import { InvoiceListComponent } from './backend/invoice-list/invoice-list.component';
-import { SingleOrderComponent } from './backend/single-order/single-order.component';
-import { SingleDeliveryComponent } from './backend/single-delivery/single-delivery.component';
-import { DeliveryListComponent } from './backend/delivery-list/delivery-list.component';
-import { SingleClaimComponent } from './backend/single-claim/single-claim.component';
-import { ClaimListComponent } from './backend/claim-list/claim-list.component';
 import { UserReportComponent } from './backend/user-report/user-report.component';
 
 
@@ -46,23 +35,29 @@ const routes: Routes = [
       { path: 'dashboard', loadChildren: () => import('./backend/dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'report', component: UserReportComponent },
       { path: 'user-list', component: UserManagementComponent },
-      { path: 'company-list', component: CompanyListComponent },
+      { path: 'company-list', loadChildren: () => import('./backend/company-list/company-list.module').then(m => m.CompanyListModule) },
       { path: 'supplier-list', component: SupplierListComponent },
       { path: 'view/supplier', component: SupplierDetailsComponent },
       { path: 'view/company', component: CompanyDetailsComponent },
-      { path: 'product-list', component: ProductListComponent },
-      { path: 'create-product', component: CreateProductComponent },
-      { path: 'invoice-list', component: InvoiceListComponent },
-      { path: 'view/invoice', component: SingleInvoiceComponent },
-      { path: 'purchase-order', component: OrderListComponent },
-      { path: 'create-purchase', component: CreateOrderComponent },
-      { path: 'view/order', component: SingleOrderComponent },
+      { path: 'product-list', loadChildren: () => import('./backend/product-list/product-list.module').then(m => m.ProductListModule) },
+      { path: 'create-product', loadChildren: () => {
+          return import('./backend/create-product/create-product.module').then(m => m.CreateProductModule);
+        } },
+      { path: 'invoice-list', loadChildren: () => import('./backend/invoice-list/invoice-list.module').then(m => m.InvoiceListModule) },
+      { path: 'view/invoice', loadChildren: () => {
+          return import('./backend/single-invoice/single-invoice.module').then(m => m.SingleInvoiceModule);
+        } },
+      { path: 'purchase-order', loadChildren: () => import('./backend/order-list/order-list.module').then(m => m.OrderListModule) },
+      { path: 'create-purchase', loadChildren: () => import('./backend/create-order/create-order.module').then(m => m.CreateOrderModule) },
+      { path: 'view/order', loadChildren: () => import('./backend/single-order/single-order.module').then(m => m.SingleOrderModule) },
 
-      { path: 'view/delivery', component: SingleDeliveryComponent },
-      { path: 'delivery-list', component: DeliveryListComponent },
+      { path: 'view/delivery', loadChildren: () => {
+          return import('./backend/single-delivery/single-delivery.module').then(m => m.SingleDeliveryModule);
+        } },
+      { path: 'delivery-list', loadChildren: () => import('./backend/delivery-list/delivery-list.module').then(m => m.DeliveryListModule) },
 
-      { path: 'view/claim', component: SingleClaimComponent },
-      { path: 'claim-list', component: ClaimListComponent },
+      { path: 'view/claim', loadChildren: () => import('./backend/single-claim/single-claim.module').then(m => m.SingleClaimModule) },
+      { path: 'claim-list', loadChildren: () => import('./backend/claim-list/claim-list.module').then(m => m.ClaimListModule) },
     ]
   },
   {
