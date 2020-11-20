@@ -63,7 +63,7 @@ export class AuthService {
   }
 
   forgotPassword(payload): Observable<any> {
-    return this.http.post(Endpoint.AUTH.login, payload,
+    return this.http.post(Endpoint.AUTH.authManagement, payload,
       {
         headers: {
           'Content-Type': 'application/json'

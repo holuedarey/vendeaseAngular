@@ -82,6 +82,8 @@ import { SingleClaimModule } from './backend/single-claim/single-claim.module';
 import { SingleDeliveryModule } from './backend/single-delivery/single-delivery.module';
 import { SingleInvoiceModule } from './backend/single-invoice/single-invoice.module';
 import { SingleOrderModule } from './backend/single-order/single-order.module';
+import { ForgetPasswordConfirmComponent } from './frontend/forget-password-confirm/forget-password-confirm.component';
+import { ForgetPasswordConfirmModule } from './frontend/forget-password-confirm/forget-password-confirm.module';
 
 @NgModule({
   declarations: [
@@ -111,6 +113,7 @@ import { SingleOrderModule } from './backend/single-order/single-order.module';
     RepurchaseComponent,
     AddProductComponent,
     UserReportComponent,
+    
   ],
 
   imports: [
@@ -166,6 +169,7 @@ import { SingleOrderModule } from './backend/single-order/single-order.module';
     SingleDeliveryModule,
     SingleInvoiceModule,
     SingleOrderModule,
+    ForgetPasswordConfirmModule,
 
 
   ],

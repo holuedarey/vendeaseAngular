@@ -6,6 +6,7 @@ export const Endpoint = {
     AUTH: {
         login: `${BASE_URL}/authentication`,
         users: `${BASE_URL}/users`,
+        authManagement: `${BASE_URL}/authManagement`,
         create_user: `${BASE_URL}/users`,
 
     },

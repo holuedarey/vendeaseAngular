@@ -24,6 +24,7 @@ const routes: Routes = [
   { path: 'login', loadChildren: () => import('./frontend/login/login.module').then(m => m.LoginModule) },
   // tslint:disable-next-line:max-line-length
   { path: 'forget-password',  loadChildren: () => import('./frontend/forget-password/forget-password.module').then(m => m.ForgetPasswordModule) },
+  { path: 'reset/:token',  loadChildren: () => import('./frontend/forget-password-confirm/forget-password-confirm.module').then(m => m.ForgetPasswordConfirmModule) },
   { path: 'register',  loadChildren: () => import('./frontend/register/register.module').then(m => m.RegisterModule)},
   // tslint:disable-next-line:max-line-length
   { path: 'vendor_register',  loadChildren: () => import('./frontend/register-vendor/register-vendor-routing.module').then(m => m.RegisterVendorRoutingModule) },
