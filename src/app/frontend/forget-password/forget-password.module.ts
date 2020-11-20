@@ -5,6 +5,7 @@ import { ForgetPasswordRoutingModule } from './forget-password-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {ForgetPasswordComponent} from './forget-password.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -14,7 +15,9 @@ import {ForgetPasswordComponent} from './forget-password.component';
     ForgetPasswordRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinnerModule,
+    MatProgressSpinnerModule
   ]
 })
 export class ForgetPasswordModule { }

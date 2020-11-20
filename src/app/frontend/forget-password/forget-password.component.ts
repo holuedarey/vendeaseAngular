@@ -37,11 +37,10 @@ export class ForgetPasswordComponent implements OnInit {
     this.authService.forgotPassword(payload).subscribe(message => {
       //hide loader and navigate to dash board Page
       this.display = false;
-      this.toastr.success(message.message, 'Successful', {
-        timeOut: 3000,
-        closeButton:true
+      this.toastr.success('Mail Sent check yur inbox to proceed', 'Successful', {
+        timeOut: 10000,
+        closeButton: true
       });
-      this.router.navigate(['/reset/5f8f552480218c6fcaee6e35___5370056afb77836198534fda555714']);
     }, error => {
       console.log('Error : ', error.error)
       this.display = false;

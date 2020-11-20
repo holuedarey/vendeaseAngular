@@ -58,12 +58,12 @@ export class ForgetPasswordConfirmComponent implements OnInit {
         timeOut: 3000,
         closeButton:true
       });
-      // this.router.navigate(['/forget-password-confirm']);
+      this.router.navigate(['/login']);
     }, error => {
       console.log('Error : ', error.error)
       this.display = false;
-      // console.log('error : ', error.error.data.message);
-      this.toastr.error(error.error.data.message || 'error', 'Error', {
+      console.log('error : ', error.error.data.message);
+      this.toastr.error(error.error.message, 'Error', {
         timeOut: 3000,
         closeButton: true
       });
