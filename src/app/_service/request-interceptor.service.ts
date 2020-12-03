@@ -32,6 +32,7 @@ export class RequestInterceptorService implements HttpInterceptor {
 
         let token = this.storageService.get(Constants.STORAGE_VARIABLES.TOKEN);
         let state = this.auth.isAuthenticated();
+    
         if (!state) {
             // this.router.navigate(['/login']);
         }
@@ -40,10 +41,15 @@ export class RequestInterceptorService implements HttpInterceptor {
         }
 
         if (!request.headers.has('Content-Type')) {
-            request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
+            // request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
         }
 
-        request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+        if(request.url == '/product/uploads'){
+            console.log('product upload');
+            
+        }
+        console.log('product upload', request.url);
+        // request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
 
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {

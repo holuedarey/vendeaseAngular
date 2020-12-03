@@ -1,1 +1,18 @@
-<p>assign-order works!</p>
+<form  [formGroup]="AssignPoForm">
+    <div class="form-group">
+        <label>Please select a supplier</label>
+        <select formControlName="vendor" style="width: 450px"  class="form-control js-example-basic-single w-100"  required>
+          
+             <option *ngFor="let item of vendors" value="{{ item.vendor.id }}">{{ item.vendor.name }}</option>
+          
+        </select>
+    </div>
+    <div class="row" style="margin-top: 48px;">
+      <div class="col-md-6">
+          <button type="button" class="btn btn-primary" (click)="save()">Submit Edit</button>
+      </div>
+      <div class="col-md-6">
+          <button type="button" class="btn btn-warning pull-right" (click)="close()">Close</button>
+      </div>
+  </div>
+  </form>

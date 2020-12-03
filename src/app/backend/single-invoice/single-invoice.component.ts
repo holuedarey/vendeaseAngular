@@ -69,7 +69,7 @@ export class SingleInvoiceComponent implements OnInit {
     }
   };
   isShow: boolean = true;
-  visible:boolean;
+  visible: boolean;
   constructor(
     private exportAsService: ExportAsService,
     private dashboard: DasboardService,
@@ -99,7 +99,7 @@ export class SingleInvoiceComponent implements OnInit {
     }, 1000);
   }
 
-   exportAs(type: SupportedExtensions, opt?: string){
+  exportAs(type: SupportedExtensions, opt?: string) {
     this.isShow = false;
     this.visible = true;
     this.config.type = type;
@@ -110,19 +110,6 @@ export class SingleInvoiceComponent implements OnInit {
       // save started
 
     });
-
-    // location.reload()
-    // this.exportAsService.get(this.config).subscribe(content => {
-    //   const link = document.createElement('a');
-    //   const fileName = `${this.detail}.pdf`;
-
-    //   link.href = content;
-    //   link.download = fileName;
-    //   link.click();
-    //   console.log(content);
-    //   this.isShow = true;
-
-    // }); 
   }
 
   pdfCallbackFn(pdf: any) {
@@ -150,7 +137,7 @@ export class SingleInvoiceComponent implements OnInit {
     this.dashboard.getInvoice(this.detail).subscribe((invoice) => {
       this.isLoadingDetail = false;
       console.log('invoice single data :', invoice)
-      this.invoice = invoice.data;
+      this.invoice = invoice;
       this.invoiceNumber = invoice.invoice_number;
       this.order_number = invoice.order_number;
       this.companyId = invoice.company_details.id;
@@ -172,16 +159,24 @@ export class SingleInvoiceComponent implements OnInit {
     })
   }
 
-  // exportAs() {
-  //   // download the file using old school javascript method
-  //   this.exportAsService.save(this.exportAsConfig, this.detail).subscribe(() => {
-  //     // save started
-  //   });
-  //   // get the data as base64 or json object for json type - this will be helpful in ionic or SSR
-  //   this.exportAsService.get(this.exportAsConfig).subscribe(content => {
-  //     console.log(content);
-  //   });
-  // }
+
+  markAsPaid() {
+    console.log('invoice : ', this.invoice);
+
+    const payload = {
+      "invoice_number": this.invoiceNumber,
+      "company": this.invoice.company_details.id,
+      "grand_total": this.grand_total
+    }
+
+    this.dashboard.markInvoiceAsPaid(payload).subscribe(receipt => {
+      console.log('data :', receipt);
+      this.invoiceDetails();
+    }, error => {
+      console.log('Error :', error)
+    })
+  }
+
 
   approveInvoice() {
     // return;
@@ -277,6 +272,11 @@ export class SingleInvoiceComponent implements OnInit {
           details: delivery._id
         }
       };
+      let navigationExtrasInvoice: NavigationExtras = {
+        queryParams: {
+          details: delivery.long_order_no
+        }
+      }
       this.router.navigate(['view/delivery'], navigationExtras)
     }, error => {
       console.log('Error :', error)

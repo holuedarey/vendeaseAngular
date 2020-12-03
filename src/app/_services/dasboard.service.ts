@@ -25,6 +25,12 @@ export class DasboardService {
       }));
   }
 
+  markInvoiceAsPaid(payload): Observable<any> {
+    return this.http.post(`${Endpoint.DASHBOARD.receipt}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
 
   approveInvoice(invoiceId, payload): Observable<any> {
     return this.http.patch(`${Endpoint.DASHBOARD.invoice}/${invoiceId}`, payload).pipe(

@@ -7,6 +7,7 @@ import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { Label, BaseChartDirective, Color } from 'ng2-charts';
 import { Router } from '@angular/router';
 import { OrdersService } from '../../_services/orders.service';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 
 @Component({
@@ -15,6 +16,10 @@ import { OrdersService } from '../../_services/orders.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  isHeaderView:boolean = true;
+  selectedDateOne;
+  selectedDateTwo;
 
   analytics: any[] = [];
   bulkAnalytics: any[] = [];
@@ -62,15 +67,9 @@ export class DashboardComponent implements OnInit {
   day: any;
   last7Days: any;
   isLoadingAnalytic: boolean;
+  isLoadingCompany:boolean;
 
-  public lineChartData: ChartDataSets[] = [
-    // { data: [65, 59, 60, 61, 67, 65, 69, 50, 62], label: 'Series A' },
-    // { data: [70, 78, 74, 69, 86, 76, 84, 78, 93], label: 'Series B' },
-    // { data: [47, 67, 57, 50, 60, 59, 56, 60, 70], label: 'Series C', },
-    // { data: [57, 69, 78, 58, 68, 69, 70, 74, 90], label: 'Series D' },
-    // { data: [52, 58, 52, 60, 63, 65, 68, 64, 69], label: 'Series E' },
-
-  ];
+  public lineChartData: ChartDataSets[] = [];
   public lineChartData2: ChartDataSets[] = [];
   public lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -83,6 +82,8 @@ export class DashboardComponent implements OnInit {
     tooltips: {
       callbacks: {
         label: function (tooltipItems, data) {
+          console.log('data : ', this.lineChartData);
+          
           return data.labels[tooltipItems.index] + " ₦" + data.datasets[0].data[tooltipItems.index].toLocaleString();
         }
       }
@@ -135,10 +136,17 @@ export class DashboardComponent implements OnInit {
       ],
     },
   };
+  public legendArrayColor = [
+    '../../../assets/dashboard/assets/media/image/1.png', 
+    '../../../assets/dashboard/assets/media/image/2.png', 
+    '../../../assets/dashboard/assets/media/image/3.png', 
+    '../../../assets/dashboard/assets/media/image/4.png', 
+    '../../../assets/dashboard/assets/media/image/5.png', 
+  ]
   public lineChartColors: Color[] = [
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
-      borderColor: '#FF9800',
+      borderColor: '#F39000',
       // pointHoverBackgroundColor: '#FF9800',
       // pointHoverBorderColor: '#FF9800'
     }, { // grey
@@ -149,13 +157,13 @@ export class DashboardComponent implements OnInit {
     },
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
-      borderColor: '#0033CC',
+      borderColor: '#0F3FCE',
       // pointHoverBackgroundColor: '#0033CC',
       // pointHoverBorderColor: '#0033CC'
     },
     { // grey
       backgroundColor: 'rgba(255,255,255,0.1)',
-      borderColor: 'rgb(73,191,167)',
+      borderColor: '#00CC98',
       // pointHoverBackgroundColor: 'rgb(73,191,167)',
 
       // pointHoverBorderColor: 'rgb(73,191,167)'
@@ -189,28 +197,42 @@ export class DashboardComponent implements OnInit {
   totalItems: any;
 
   displayLegend: any[] = []
+  selectDateForm:FormGroup;
+
   constructor(public dashboard: DasboardService, public storageService: StorageService, private router: Router, private fb: FormBuilder, private order: OrdersService) {
     this.sortRangesForm = this.fb.group({
       name: ['', Validators.compose([Validators.required])],
       range: [this.sortRanges[1], ''],
     });
+    this.selectDateForm = this.fb.group({
+      start: [this.startDate, ''],
+      end: [this.endDate, ''],
+    });
   }
 
+
+  addEventOne(type: string, event: MatDatepickerInputEvent<Date>) {
+  //  console.log(`${type}: ${event.value}`);
+   this.selectedDateOne = parseDate(event.value);
+  }
+
+  
+  addEventTwo(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.selectedDateTwo = parseDate(event.value);
+    console.log(`start Date : ${this.selectedDateOne} End Date: ${this.selectedDateTwo}`);
+    this.getAnalytics({selectedDateOne :this.selectedDateOne, selectedDateTwo : this.selectedDateTwo})
+  }
+   
   ngOnInit() {
     // this.getInvoice();
+    
     this.getOrders();
     this.getGraphData();
     this.getUser();
-    this.getBulkAnalytics();
-    this.getAnalytics();
+    this.getBulkAnalytics({selectedDateOne :this.startDate.value, selectedDateTwo : this.endDate.value});
+    this.getAnalytics({selectedDateOne :this.startDate.value, selectedDateTwo : this.endDate.value});
     this.loadGraph();
-    // this.getTopFiveCompany();
-    if (this.graphData == undefined) {
-      const height = document.getElementById('sideOne').style.getPropertyValue('max-height');
-      console.log('height for graph : ', height);
-    }
-
-
+    // this.getTopFiveCompany()
 
   }
 
@@ -224,13 +246,13 @@ export class DashboardComponent implements OnInit {
   }
 
   loadGraph() {
-    this.getTopFiveProduct();
+
+    // this.getTopFiveProduct();
     if (this.userData.type == 'company') {
-      // this.getTopFiveProduct();
-    } else if (this.userData.type == 'vendor') {
-      // this.getGraphData();
+      this.getTopFiveProduct();
     } else if (this.userData.type == 'system') {
-      // this.getTopFiveCompany();
+      console.log('system block');
+      this.getTopFiveCompany();
     }
   }
   getUser() {
@@ -260,6 +282,7 @@ export class DashboardComponent implements OnInit {
   pageChanged(event) {
     this.skip = (event - 1) * this.limit;
     // console.log('offset :', this.skip)
+    this.p = event;
     this.order.getOrders({ skip: this.skip, limit: this.limit }).subscribe(orders => {
       // console.log('orders data :', orders.data)
       this.totalItems = orders.total;
@@ -294,7 +317,7 @@ export class DashboardComponent implements OnInit {
       this.isLoadingGraph = false;
       // console.log('graph data new:', graphData)
       this.displayLegend = graphData.map(item => item.label)
-      console.log('line chart :', graphData.map(item => item.data.map(el => el.toLocaleString())))
+      // console.log('line chart :', graphData.map(item => item.data.map(el => el.toLocaleString())))
 
       this.lineChartData = graphData;
 
@@ -304,12 +327,14 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  async getAnalytics() {
+  async getAnalytics(params?) {
+    console.log("params :", params);
+    
     const payload = {
-      type: "invoice", startDate: this.startDate.value, endDate: this.endDate.value
+      type: "invoice", startDate: params.selectedDateOne, endDate: params.selectedDateTwo
     }
 
-    // console.log('payload :', payload)
+    console.log('payload :', payload)
     this.isLoadingAnalytic = true;
     this.dashboard.bulkAnalytics(payload).subscribe((analytic) => {
       this.isLoadingAnalytic = false;
@@ -325,17 +350,17 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  async getBulkAnalytics() {
+  async getBulkAnalytics(params?) {
     var payload = {};
     if (this.userData.type == 'system') {
       // console.log(' igot here');
       payload = {
-        action: "bulk-analytics", startDate: parseDate(this.startDate.value), endDate: parseDate(this.endDate.value),
+        action: "bulk-analytics", startDate: params.selectedDateOne, endDate: params.selectedDateTwo,
       };
     } else if (this.userData.type != 'system') {
       payload =
       {
-        action: "bulk-analytics", startDate: parseDate(this.startDate.value), endDate: parseDate(this.endDate.value), type: this.userData.type, id: this.userData[`${this.userData.type}`].id
+        action: "bulk-analytics", startDate: params.selectedDateOne, endDate: params.selectedDateTwo, type: this.userData.type, id: this.userData[`${this.userData.type}`].id
       };
     }
 
@@ -362,25 +387,11 @@ export class DashboardComponent implements OnInit {
     const payload = {
       action: "top_products", id: this.userData[this.userData.type].id, type: this.userData.type
     };
-    this.isLoadingBulk = true;
+
     this.isLoadingFusion = true;
-    // console.log('payload message product: ', payload);
-    // console.log('sample : ', { action: "top_products", type: "company", id: "JE158175" });
-
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
-      this.isLoadingBulk = false;
+     
       this.isLoadingFusion = false;
-      // console.log('top product data :', topFive)
-      this.pieChartLabels = topFive.amount_purchased.map(item => item.name)
-      this.pieChartData = topFive.amount_purchased.map(item => item.amount)
-
-      this.pieChartLabels2 = topFive.volume_purchased.map(item => item.name)
-      this.pieChartData2 = topFive.volume_purchased.map(item => item.quantity)
-
-      // const lineChartData = topFive.amount_purchased.map(item => item.amount)
-      // console.log('data : ', lineChartData)
-
-      // const lineChartData2 = topFive.amount_purchased.map(item => item.amount)
       const chartData = topFive.volume_purchased.map(item => {
         return { label: item.name.substring(0, 8), value: item.quantity }
       });
@@ -403,7 +414,7 @@ export class DashboardComponent implements OnInit {
       this.dataSource = dataSource;
 
     }, error => {
-      this.isLoadingBulk = false;
+      // this.isLoadingBulk = false;
       this.isLoadingFusion = false;
       console.log('Error : ', error)
     })
@@ -428,20 +439,34 @@ export class DashboardComponent implements OnInit {
     const payload = {
       action: "top_companies"
     };
-    this.isLoadingBulk = true;
-    // console.log('payload message company: ', payload);
+    this.isLoadingFusion = true;
 
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
-      // this.isLoadingBulk = false;
+      this.isLoadingFusion = false;
+      console.log('topFive copany: ', topFive.top_ranked);
+      const chartData = topFive.top_ranked.map(item => {
+        return { label: item.company_name.substring(0, 10), value: item.amount }
+      });
 
-      // console.log('getTopFive data company :', topFive)
-      this.pieChartLabelsCompany = topFive.top_ranked.map(item => item.company_name)
-      this.pieChartDataCompany = topFive.top_ranked.map(item => item.amount)
+      // STEP 3 - Chart Configuration
+      const dataSource = {
+        chart: {
+          showLegend: false,
+          "baseFont": "roboto",
+          "baseFontSize": "10",
+          "baseFontColor": "#0066cc",
+          width: "100%", //width of the chart
+          height: "100%", //height of the chart
+          //Set the theme for your chart
+          theme: "fusion"
+        },
+        // Chart Data - from step 2
+        data: chartData
+      };
+      this.dataSource = dataSource;
 
-      this.pieChartLabelsCompany2 = topFive.top_ranked.map(item => item.company_name)
-      this.pieChartDataCompany2 = topFive.top_ranked.map(item => item.amount)
     }, error => {
-      // this.isLoadingBulk = false
+      this.isLoadingFusion = false;
       console.log('Error : ', error)
     })
   }

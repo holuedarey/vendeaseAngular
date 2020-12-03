@@ -1,6 +1,6 @@
-<p>invoice-list works!</p>
 <!-- begin::main -->
 <div class="layout-wrapper">
+    <app-header [cart]="cart"></app-header>
     <div class="content-wrapper">
 
         <!-- end::navigation -->
@@ -11,17 +11,33 @@
                     <div class="col-lg-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Purchase Order Form</h4>
 
-                                <form  [formGroup]="purchaseOrderForm">
-                                    
+                                <h4 class="card-title">Purchase Order Form</h4>
+                                <form [formGroup]="searchProductForm">
+
+                                    <div class="input-group">
+                                        <input formControlName="search" class="form-control"
+                                            (keyup)="searchProductByName()" [(ngModel)] = "selectedProduct"
+                                            [class.invalid]="!searchProductForm.controls.search.valid && (searchProductForm.controls.search.dirty)"
+                                            placeholder="Search for products by name" />
+                                    </div>
+                                    <div *ngIf="searchDone == true">
+                                        <ul class="list-group list-group-flush">
+                                            <li *ngFor="let item of products" (click)="selectedItem(item)" style="border-bottom: 1px solid #aaa; padding: 6px;">{{ item.name }}({{ item.description }} - NGN{{ item.price }})</li>
+                                        </ul>
+                                    </div>
+                                </form>
+                                <form [formGroup]="purchaseOrderForm">
+                                    <!-- <input type="text" [value]="formatedValue" class="form-control" formControlName="product"> -->
+
                                     <div id="purchase_orderForm">
-                                        <div class="form-group col-lg-12 float-left">
+                                        <!-- <div class="form-group col-lg-12 float-left">
                                             <label for="product">Product<small style="color:darkred">* </small><small
                                                     style="color: darkred" class="float-right"> Product with price
                                                     only</small> </label><br />
-                                            <select formControlName="product"
-                                                class="form-control js-example-basic-singleS w-100" required>
+                                            <select class="form-control js-example-basic-single"
+                                                [(ngModel)]="selectedProduct" id="keywordsInput"
+                                                formControlName="product">
                                                 <option value="">Please select</option>
 
                                                 <option value="{{item._id}}#{{item.name}}#{{item.price}}"
@@ -30,7 +46,8 @@
                                                 </option>
 
                                             </select>
-                                        </div>
+                                        </div> -->
+                                        <div id="productValue"></div>
                                         <div class="form-group col-lg-12 float-left">
                                             <label for="quantity">Qty<small style="color:darkred">*</small></label>
                                             <input required formControlName="quantity" class="form-control" step="0.01"
@@ -44,7 +61,7 @@
                                         </div>
                                     </div>
                                     <button style="margin-left: 15px" class="btn btn-primary"
-                                    [disabled]="purchaseOrderForm.invalid"  (click)="addToCart()">Add to
+                                        [disabled]="purchaseOrderForm.invalid" (click)="addToCart()">Add to
                                         cart</button>
                                 </form>
                             </div>
@@ -115,7 +132,7 @@
                     <div class="form-group" *ngIf="userData.type == 'system'">
                         <label for="company">Select Company</label>
                         <select style="width: 100%" formControlName="company"
-                            class="form-control js-example-basic-single w-100 " required>
+                            class="form-control js-example-basic-singles w-100 " required>
                             <option value="">Please select </option>
                             <option *ngFor="let company of companies" value="{{ company.company.id }}">
                                 {{ company.company.name }}</option>

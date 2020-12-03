@@ -1,7 +1,5 @@
-<p>invoice-list works!</p>
 <!-- begin::main -->
 <div class="layout-wrapper">
-
     <div class="content-wrapper">
 
         <!-- end::navigation -->
@@ -28,7 +26,8 @@
 
                                     <a *ngIf="userData.type == 'company' " class="float-right"
                                         style="margin-top: -20px">
-                                        <button *ngIf="!isLoadingDetail" (click)="rePurchase()" class="btn btn-primary">Re-Purchase</button>
+                                        <button *ngIf="!isLoadingDetail" (click)="rePurchase()"
+                                            class="btn btn-primary">Re-Purchase</button>
                                     </a>
                                 </p>
 
@@ -86,7 +85,7 @@
                                         <div class="table-responsive">
                                             <table id="order-listing" class="table">
                                                 <thead>
-                                                    <tr class="bg-primary text-white">
+                                                    <tr>
                                                         <th>Name</th>
                                                         <th>Quantity</th>
                                                         <th>Desc</th>
@@ -98,12 +97,18 @@
                                                         <td>{{ item.name }}</td>
                                                         <td>{{ item.quantity }}</td>
                                                         <td>{{ item.description }}</td>
+
                                                         <td *ngIf="paid == false">
-                                                            <button class="btn btn-outline-warning"
-                                                                (click)="EditOrder(item)">Edit</button>
-                                                            <a type="button"
-                                                                class="btn btn-outline-danger confirm-delete"
-                                                                (click)="deletePo(item._id)">Delete</a>
+                                                            <div class="dropdown">
+                                                                <a class="btn btn-outline-lights btn-sm dropdown-toggle"
+                                                                    type="button" id="dropdownMenuButton"
+                                                                    data-toggle="dropdown" aria-haspopup="true"
+                                                                    aria-expanded="false"></a>
+                                                                <div class="dropdown-content" style="border: 1px solid #efefef; background: #efefef; position: absolute; left: -69px; text-align: center;">
+                                                                    <a (click)="EditOrder(item)">Edit</a>
+                                                                    <a (click)="deletePo(item._id)">Delete</a>
+                                                                </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 </tbody>

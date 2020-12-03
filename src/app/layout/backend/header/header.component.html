@@ -26,21 +26,21 @@
             <ul class="navbar-nav">
                 <!-- begin::header search -->
                 <li class="nav-item text-black-50 mr-3">
-                    <a routerLink="/create-purchase" class="text-primary">
+                    <a (click)="goToCart()" class="text-primary">
                         <div class="cart-shop" *ngIf="cart"><i class="inner-count-cart">{{ cart }}</i></div>
                         <i class="feather-shopping-cart"></i>
                     </a>
                 </li>
                 
                 <li class="nav-item text-black-50 mr-3">
-                    <a routerLink="change_password" class="text-primary" data-toggle="tooltip"
+                    <a routerLink="/change_password" class="text-primary" data-toggle="tooltip"
                         data-placement="top" title="My Settings">
                         <i class="feather-user"></i>
                     </a>
                 </li>
                 
                 <li class="nav-item text-black-50 mr-3" *ngIf="userData.type == 'system'">
-                    <a routerLink="settings" class="text-primary" data-toggle="tooltip" data-placement="top"
+                    <a routerLink="/settings" class="text-primary" data-toggle="tooltip" data-placement="top"
                         title="System Settings">
                         <i class="feather-settings"></i>
                     </a>

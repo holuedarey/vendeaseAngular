@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../_service/auth.service';
 
 
@@ -14,9 +15,11 @@ export class RegisterComponent implements OnInit {
   signUpForm: FormGroup;
   submitAttempt: boolean;
   payload;
+  display:boolean;
   constructor(
     private formBuilder: FormBuilder,
     public router: Router,
+    private toastr: ToastrService,
     private authService: AuthService, ) {
 
     document.body.style.background = "#efefef";
@@ -44,6 +47,8 @@ export class RegisterComponent implements OnInit {
 
   signUp() {
     this.submitAttempt = true;
+    this.display = true;
+
     // this.loader.showLoader();
     this.payload = {    
       password: this.signUpForm.value.password,
@@ -61,12 +66,18 @@ export class RegisterComponent implements OnInit {
     this.authService.signUpBusiness(this.payload).subscribe(user => {
       //hide loader and navigate to dash board Page
       console.log('returnd data : ', user)
+      this.display = false;
+      this.toastr.success("Thank You for signing up. One of our account managers will contact you shortly for your first order", 'Successful', {
+        timeOut: 3000,
+        closeButton: true
+      });
       this.router.navigate(['/login'])
-      // this.loader.hideLoader();
     }, error => {
       console.log('Error :', error)
-      // this.loader.presentToast(error.error.message);
-      // this.loader.hideLoader();
+      this.toastr.warning(error.error.message || "No Internet Connection", 'Error', {
+        timeOut: 3000,
+        closeButton: true
+      });
 
     });
   }

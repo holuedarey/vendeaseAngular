@@ -93,7 +93,7 @@ export class RegisterVendorComponent implements OnInit {
 
      console.log('payload data : ', this.payload)
     this.submitAttempt = true;
-    // this.loader.showLoader();
+    
     // this.payload = {    
     //   password: this.signUpForm1.value.password,
     //   name:  `${this.signUpForm.value.firstName} ${this.signUpForm.value.lastName}`,

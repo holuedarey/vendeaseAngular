@@ -6,7 +6,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CompanyService } from '../../_services/company.service';
 import { OrdersService } from '../../_services/orders.service';
 import { Router, NavigationExtras } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-create-order',
   templateUrl: './create-order.component.html',
@@ -29,21 +29,36 @@ export class CreateOrderComponent implements OnInit {
   address = '';
   purchaseOrderForm: FormGroup;
   OrderAddressForm: FormGroup;
-  selected:any;
+  searchProductForm: FormGroup;
+
+  selected: any;
   @ViewChild('closebutton') closebutton;
+  @ViewChild('keywordsInput') keywordsInput;
+
+  selectedProduct:any;
+  searchDone:boolean = false;
+  formatedValue:any;
+    _id :any;
+    name :any;
+    price: any;
+
   constructor(
-      private storageService: StorageService,
-      private orderService: OrdersService,
-      private productService: ProductService,
-      private fb: FormBuilder,
-      private comanyServ: CompanyService,
-      private router: Router
+    private storageService: StorageService,
+    private orderService: OrdersService,
+    private productService: ProductService,
+    private fb: FormBuilder,
+    private comanyServ: CompanyService,
+    private router: Router,
+    private toastr:ToastrService
   ) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
 
+    this.searchProductForm = this.fb.group({
+      search: ['', Validators.compose([Validators.required])],
+    });
     this.purchaseOrderForm = this.fb.group({
-      product: ['', Validators.compose([Validators.required])],
+      product: ['', ""],
       quantity: ['', Validators.compose([Validators.required])],
       description: ['', ''],
     });
@@ -58,7 +73,23 @@ export class CreateOrderComponent implements OnInit {
     this.companyList();
     this.items = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.CART)) || [];
     this.productListUser();
-    // console.log('items :', this.items)
+    console.log('items :', this.selectedProduct);
+  }
+
+  searchProductByName(){
+    const payload = this.searchProductForm.value.search;
+    // if(payload == undefined) this.productListUser();
+    this.productService.searchProduct(payload).subscribe(searchProduct => {
+      if(searchProduct.data){
+        this.searchDone = true;
+      }
+      console.log('response :', this.searchDone);
+    
+      return this.products = searchProduct.data.slice().reverse();
+    }, error => {
+      console.log('error : ', error);
+
+    })
   }
 
   addAddress() {
@@ -103,32 +134,56 @@ export class CreateOrderComponent implements OnInit {
     })
   }
   companyList() {
-    this.comanyServ.getCompanyList({skip:0, limit:Number.MAX_SAFE_INTEGER}).subscribe((company) => {
+    this.comanyServ.getCompanyList({ skip: 0, limit: Number.MAX_SAFE_INTEGER }).subscribe((company) => {
       this.companies = company.data;
       // console.log('companies ; ', this.companies);
     }, error => {
       console.log('Error :', error)
     })
   }
-
+  
+  selectedItem(product){
+    this.searchDone = false;
+    this.selectedProduct = product.name;
+    this.formatedValue = `${product._id}#${product.name}#${product.price}`;
+    //attach the product to the id
+    this._id = product._id;
+    this.name = product.name;
+    this.price = product.price;
+    console.log('selected Product : ', this.formatedValue );
+    
+  }
+  
   addToCart() {
-    const product = this.purchaseOrderForm.value.product.split('#');
-    console.log('data reload : ', product)
-    const _id = product[0];
-    const name = product[1];
-    const price = product[2]
-    const item = {
-      item: _id,
-      name: name,
-      price: price,
-      quantity: this.purchaseOrderForm.value.quantity,
-      description: this.purchaseOrderForm.value.description,
+    // const product = this.purchaseOrderForm.value.product.split('#');
+    // console.log('selected Product : ', product);
+    if(this._id  == undefined || this.name  == undefined || this.price == undefined){
+      this.toastr.warning("Select A Product", 'Warning', {
+        timeOut: 3000,
+        closeButton: true
+      });
+    }else{
+      const _id = this._id;
+      const name = this.name;
+      const price = this.price;
+      const item = {
+        item: _id,
+        name: name,
+        price: price,
+        quantity: this.purchaseOrderForm.value.quantity,
+        description: this.purchaseOrderForm.value.description,
+      }
+  
+      this.items = this.items.concat(item)
+      this.storageService.set(Constants.STORAGE_VARIABLES.CART, JSON.stringify(this.items))
+      this.cart = this.items.length;
+      this._id = "";
+      this.name= "";
+      this.price = "";
+      this.selectedProduct = "";
+      this.purchaseOrderForm.reset();
     }
-
-    this.items = this.items.concat(item)
-    this.storageService.set(Constants.STORAGE_VARIABLES.CART, JSON.stringify(this.items))
-    this.cart = this.items.length;
-    this.purchaseOrderForm.reset();
+    
   }
 
 

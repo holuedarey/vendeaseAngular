@@ -1,6 +1,6 @@
 <div class="container-scroller">
-    
-    <div class="container-fluid page-body-wrapper full-page-wrapper" >
+
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
         <div class="content-wrapper d-flex align-items-stretch auth auth-img-bg">
             <div class="row flex-grow">
                 <div class="col-lg-4 d-flex align-items-center justify-content-center">
@@ -24,7 +24,7 @@
                         <div class="auth-form- text-left p-3">
                             <div class="brand-logo">
                                 <a routerLink="/">
-                                    <img  src="../../../assets/front_end/assets/img/brand/logo.png" alt="logo">
+                                    <img src="../../../assets/front_end/assets/img/brand/logo.png" alt="logo">
                                 </a>
 
                             </div>
@@ -33,7 +33,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text"  class="form-control form-control-lg"
+                                            <input type="text" class="form-control form-control-lg"
                                                 placeholder="First Name" formControlName="firstName"
                                                 [class.invalid]="!signUpForm.controls.firstName.valid && (signUpForm.controls.firstName.dirty || submitAttempt)">
                                         </div>
@@ -47,15 +47,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email"  class="form-control form-control-lg"
-                                        placeholder="Email" formControlName="email"
+                                    <input type="email" class="form-control form-control-lg" placeholder="Email"
+                                        formControlName="email"
                                         [class.invalid]="!signUpForm.controls.email.valid && (signUpForm.controls.email.dirty || submitAttempt)">
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="password"  class="form-control form-control-lg"
+                                            <input type="password" class="form-control form-control-lg"
                                                 placeholder="Password" formControlName="password"
                                                 [class.invalid]="!signUpForm.controls.password.valid && (signUpForm.controls.password.dirty || submitAttempt)">
                                         </div>
@@ -63,24 +63,24 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="password" 
-                                                class="form-control form-control-lg" placeholder="Confirm Password" formControlName="ConfrimPassword"
-                                                [class.invalid]="!signUpForm.controls.ConfrimPassword.valid && (signUpForm.controls.ConfrimPassword.dirty || submitAttempt)" >
+                                            <input type="password" class="form-control form-control-lg"
+                                                placeholder="Confirm Password" formControlName="ConfrimPassword"
+                                                [class.invalid]="!signUpForm.controls.ConfrimPassword.valid && (signUpForm.controls.ConfrimPassword.dirty || submitAttempt)">
                                         </div>
                                     </div>
                                 </div>
 
 
                                 <div class="form-group">
-                                    <input type="text"  class="form-control form-control-lg"
-                                        placeholder="Company"  formControlName="company"
+                                    <input type="text" class="form-control form-control-lg" placeholder="Company"
+                                        formControlName="company"
                                         [class.invalid]="!signUpForm.controls.company.valid && (signUpForm.controls.company.dirty || submitAttempt)">
                                 </div>
 
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="number"  class="form-control form-control-lg"
+                                            <input type="number" class="form-control form-control-lg"
                                                 placeholder="Phone" formControlName="phone"
                                                 [class.invalid]="!signUpForm.controls.phone.valid && (signUpForm.controls.phone.dirty || submitAttempt)">
                                         </div>
@@ -88,8 +88,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="text"  class="form-control form-control-lg"
-                                                placeholder="Address"formControlName="address"
+                                            <input type="text" class="form-control form-control-lg"
+                                                placeholder="Address" formControlName="address"
                                                 [class.invalid]="!signUpForm.controls.address.valid && (signUpForm.controls.address.dirty || submitAttempt)">
                                         </div>
                                     </div>
@@ -98,6 +98,10 @@
                                     <div class="text-left mt-3 font-weight-light col-md-6">
                                         <small>Get an account?</small>
                                         <a routerLink="/login">Sign In</a>
+                                    </div>
+                                    <div *ngIf="display" class=" offset-lg-5 offset-md-5 offset-sm-5">
+                                        <mat-progress-spinner mode="indeterminate" diameter='40' strokeWidth='3'>
+                                        </mat-progress-spinner>
                                     </div>
                                     <div class="col-md-6">
                                         <button type="submit"

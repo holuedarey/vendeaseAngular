@@ -23,7 +23,7 @@
                         <div class="auth-form- text-left p-3">
                             <div class="brand-logo" style="margin-bottom: 9px;">
                                 <a routerLink="/">
-                                    <img src="../../../assets/front_end/assets/img/brand/logo-white.svg" alt="logo">
+                                    <img  src="../../../assets/front_end/assets/img/brand/logo.png" alt="logo">
                                 </a>
                             </div>
                             <form class="pt-3" >
@@ -33,14 +33,14 @@
                                             class="body current"  [formGroup]=signUpForm1>
                                             <h3>Business Info</h3>
                                             <div class="form-group">
-                                                <label>Name</label>
+                                                <label>Business Name</label>
                                                 <input type="text" formControlName="business_name"
                                                     [class.invalid]="!signUpForm1.controls.business_name.valid && (signUpForm1.controls.business_name.dirty || submitAttempt)"
                                                     class="form-control form-control-lg" placeholder="Business Name"
                                                     required>
                                             </div>
                                             <div class="form-group">
-                                                <label>Address</label>
+                                                <label>Business Address</label>
                                                 <input type="text" formControlName="address"
                                                     class="form-control form-control-lg" placeholder="Address"
                                                     required>
@@ -52,7 +52,7 @@
                                                     placeholder="Business Registration Number" required>
                                             </div>
                                             <div class="form-group">
-                                                <label>Tax Identification</label>
+                                                <label>Tax Identification Number</label>
                                                 <input type="text" formControlName="tin"
                                                     class="form-control form-control-lg" placeholder="Tin" required>
                                             </div>
@@ -155,7 +155,7 @@
 
                                         </section>
                                     </wizard-step>
-                                    <wizard-step [title]="'Payment'" (onComplete)="onComplete($event)" >
+                                    <wizard-step [title]="'Payment'" [isValid]="signUpForm4.valid" (onComplete)="onComplete($event)" >
                                         <h3 id="steps-uid-0-h-3" tabindex="-1" class="title">Payment</h3>
                                         <section [formGroup]=signUpForm4>
                                             <h3>Bank Details</h3>
@@ -241,8 +241,8 @@
                                             <div class="form-group">
                                                 <input type="checkbox" formControlName="terms" class=""
                                                     placeholder="Terms" required="" id="id_terms">I have read and agreed
-                                                to the <a routerLink="#" data-toggle="modal"
-                                                    data-target="#termsCondition">terms
+                                                to the <a href="#" data-toggle="modal"
+                                                    data-target="#termsCondition" style="color: #000000;">terms
                                                     &amp;
                                                     conditions </a>
                                             </div>

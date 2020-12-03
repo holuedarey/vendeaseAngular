@@ -20,7 +20,7 @@
                                         </p>
                                         <p class="neg-magin-2 roboto-700 neg-margin-3 uppercase">ToDay</p>
 
-                                        <div class="box-right pull-right">
+                                        <div class="box-right pull-right" style="float: right !important;">
                                             <div class="dropup">
                                                 <div class="dropbtn">
                                                     <img src="../../../assets/images/calendar.png"
@@ -44,7 +44,7 @@
                                         </p>
                                         <p class="neg-magin-2 roboto-700 neg-margin-3 uppercase">Last 7 Days</p>
 
-                                        <div class="box-right pull-right">
+                                        <div class="box-right pull-right" style="float: right !important">
                                             <div class="dropup">
                                                 <div class="dropbtn">
                                                     <img src="../../../assets/images/calendar.png"
@@ -68,7 +68,7 @@
                                         </p>
                                         <p class="neg-magin-2 roboto-700 neg-margin-3 uppercase">Last 30 Days</p>
 
-                                        <div class="box-right pull-right">
+                                        <div class="" style="float: right !important;">
                                             <div class="dropup">
                                                 <div class="dropbtn">
                                                     <img src="../../../assets/images/calendar.png"
@@ -100,17 +100,17 @@
                     <h4 class="roboto-900 font-size-20" style="margin-top: 15px;">Invoice</h4>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                    <div class="box-date pull-right">
-                        <form style="margin-top: -3px;">
+                    <div class="col-md-6 offset-md-6 box-date pull-right">
+                        <form style="margin-top: -3px;" [formGroup]="selectDateForm">
                             <div class="input-group input-daterange d-flex align-items-center">
                                 <mat-form-field appearance="blank">
                                     <mat-label>Search Invoice</mat-label>
                                     <mat-date-range-input [rangePicker]="picker">
-                                        <input matStartDate placeholder="Start date">
-                                        <input matEndDate placeholder="End date">
+                                        <input matStartDate placeholder="Start date" [value]="startDate" formControlName="start" (dateInput)="addEventOne('input', $event)" (dateChange)="addEventOne('change', $event)" >
+                                        <input matEndDate placeholder="End date"  [value]="endDate" formControlName="end" (dateInput)="addEventTwo('input', $event)" (dateChange)="addEventTwo('change', $event)" >
                                     </mat-date-range-input>
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-date-range-picker #picker></mat-date-range-picker>
+                                    <mat-date-range-picker #picker ></mat-date-range-picker>
                                 </mat-form-field>
                             </div>
                         </form>
@@ -201,11 +201,12 @@
                             </div>
                         </div>
                         <div class="card-body">
-
                             <div style="position: relative; top: -22px;" class="text-center">
-                                   <span *ngFor="let item of displayLegend" class="roboto-400"
-                                         style=" margin-right: 5px; font-size: 12px;">  <img src="../../../assets/dashboard/assets/media/image/Line.png" style="position: relative; top: -1px; left: -4px; width: 16px; margin-left:3px" alt="">{{ item }}</span>
-                            </div>
+                                <span *ngFor="let item of displayLegend; let index = index" class="roboto-400"
+                                     style=" margin-right: 5px; font-size: 12px;">  
+                                     <img [src]="legendArrayColor[index]" style="position: relative; top: -1px; left: 1px; width: 16px; margin-left:3px" alt="">
+                                     {{ item }}</span>
+                             </div>
 
                             <div class="col-md-4 offset-md-4" style="margin-top: 25%;" *ngIf="isLoadingGraph    ">
                                 <mat-progress-spinner mode="indeterminate" diameter='70' strokeWidth='7'>

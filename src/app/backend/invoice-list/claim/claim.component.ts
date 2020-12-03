@@ -14,13 +14,12 @@ export class ClaimComponent implements OnInit {
   ClaimForm:FormGroup;
   userData:any;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     public storageService:StorageService,
     private dialogRef: MatDialogRef<ClaimComponent>,
     @Inject(MAT_DIALOG_DATA) data) {
     this.description = JSON.parse(data.data);
-    // this.name = this.description.name;
-    // this.phone = this.description.phone
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
   }

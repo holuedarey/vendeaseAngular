@@ -34,4 +34,8 @@ export class HeaderComponent implements OnInit {
     this.storageService.clear(Constants.STORAGE_VARIABLES.CART);
     this.router.navigate(['/login']);
   }
+
+  goToCart(){
+    this.router.navigate(['/create-purchase'])
+  }
 }

@@ -12,42 +12,42 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ClaimListComponent implements OnInit {
 
-  isLoadingClaimList:boolean;
+  isLoadingClaimList: boolean;
   breadCrumb: any = {
     firstLabel: 'Claim List',
-    secondLabel:'Claim List',
+    secondLabel: 'Claim List',
     url: 'claim-list',
-    secondLevel:false
+    secondLevel: false
   };
-  claims:any[] = [];
-  secondLevel:boolean = true;
-  label:'test';
-  url:'test'
+  claims: any[] = [];
+  secondLevel: boolean = true;
+  label: 'test';
+  url: 'test'
   p: number = 1;
-  limit:any = 50;
-  skip:any;
-  totalItems:any;
-  serial:any;
+  limit: any = 50;
+  skip: any;
+  totalItems: any;
+  serial: any;
 
   constructor(
-      private claimService:ClaimsService,
-      private router:Router,
-      private dialog: MatDialog,
-      private toastr: ToastrService) { }
+    private claimService: ClaimsService,
+    private router: Router,
+    private dialog: MatDialog,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getClaims()
   }
 
-  getClaims(){
+  getClaims() {
     this.isLoadingClaimList = true;
-    this.claimService.listClaims({skip: 0, limit: this.limit}).subscribe(claims => {
+    this.claimService.listClaims({ skip: 0, limit: this.limit }).subscribe(claims => {
       console.log('claims data : ', claims.total)
       this.totalItems = claims.total;
       this.claims = claims.data.slice().reverse();
 
       this.isLoadingClaimList = false;
-      this.serial = 1 + (this.p  - 1) * this.limit;
+      this.serial = 1 + (this.p - 1) * this.limit;
       console.log('serial no :', this.serial)
       this.serial = this.serial;
     }, error => {
@@ -56,14 +56,14 @@ export class ClaimListComponent implements OnInit {
     });
   }
 
-  pageChanged(event){
+  pageChanged(event) {
     this.skip = (event - 1) * this.limit;
     this.p = event;
-    this.claimService.listClaims({skip: 0, limit: this.limit}).subscribe(delivery => {
+    this.claimService.listClaims({ skip: 0, limit: this.limit }).subscribe(delivery => {
       console.log('invoice data :', delivery.data)
       this.isLoadingClaimList = false;
       this.claims = delivery.data.slice().reverse();
-      this.serial = 1 + (this.p  - 1) * this.limit;
+      this.serial = 1 + (this.p - 1) * this.limit;
       console.log('serial no :', this.serial)
       this.serial = this.serial;
     }, error => {
@@ -104,28 +104,28 @@ export class ClaimListComponent implements OnInit {
     const dialogRef = this.dialog.open(ClaimComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
-        payloadData => {
-          console.log('status : ', payloadData)
-          if (payloadData) {
-            this.claimService.openClaims(payloadData).subscribe(users => {
-              this.toastr.success("Claim Updated Successfully", 'Successful', {
-                timeOut: 3000,
-                closeButton: true
-              });
-              this.getClaims();
-            }, error => {
-              console.log('Error :', error);
-              this.isLoadingClaimList = false;
-
-              this.toastr.warning(error.error.message, 'Error', {
-                timeOut: 3000,
-                closeButton: true
-              });
-
+      payloadData => {
+        console.log('status : ', payloadData)
+        if (payloadData) {
+          this.claimService.openClaims(payloadData).subscribe(users => {
+            this.toastr.success("Claim Updated Successfully", 'Successful', {
+              timeOut: 3000,
+              closeButton: true
             });
-          }
+            this.getClaims();
+          }, error => {
+            console.log('Error :', error);
+            this.isLoadingClaimList = false;
 
+            this.toastr.warning(error.error.message, 'Error', {
+              timeOut: 3000,
+              closeButton: true
+            });
+
+          });
         }
+
+      }
     );
   }
 

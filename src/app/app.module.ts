@@ -3,8 +3,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HeaderComponent } from './layout/backend/header/header.component';
-import { SidebarComponent } from './layout/backend/sidebar/sidebar.component';
+// import { SidebarComponent } from './layout/backend/sidebar/sidebar.component';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -68,7 +67,6 @@ import { LoginModule } from './frontend/login/login.module';
 import { RegisterVendorModule } from './frontend/register-vendor/register-vendor.module';
 import { ForgetPasswordModule } from './frontend/forget-password/forget-password.module';
 import { ResetPasswordModule } from './frontend/reset-password/reset-password.module';
-import {MainComponent} from './layout/backend/main/main.component';
 import { ClaimListModule } from './backend/claim-list/claim-list.module';
 import { BreadcrumbModule } from './backend/breadcrumb/breadcrumb.module';
 import { CompanyListModule } from './backend/company-list/company-list.module';
@@ -82,15 +80,15 @@ import { SingleClaimModule } from './backend/single-claim/single-claim.module';
 import { SingleDeliveryModule } from './backend/single-delivery/single-delivery.module';
 import { SingleInvoiceModule } from './backend/single-invoice/single-invoice.module';
 import { SingleOrderModule } from './backend/single-order/single-order.module';
-import { ForgetPasswordConfirmComponent } from './frontend/forget-password-confirm/forget-password-confirm.component';
 import { ForgetPasswordConfirmModule } from './frontend/forget-password-confirm/forget-password-confirm.module';
+import { HeaderModule } from './layout/backend/header/header.module';
+import { MainModule } from './layout/backend/main/main.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
-    MainComponent,
-    SidebarComponent,
+    // SidebarComponent,
     HeaderWelcomeComponent,
     FooterWelcomeComponent,
     LoginRegisterComponent,
@@ -112,7 +110,7 @@ import { ForgetPasswordConfirmModule } from './frontend/forget-password-confirm/
     EditPoComponent,
     RepurchaseComponent,
     AddProductComponent,
-    UserReportComponent,
+    UserReportComponent,   
     
   ],
 
@@ -170,14 +168,16 @@ import { ForgetPasswordConfirmModule } from './frontend/forget-password-confirm/
     SingleInvoiceModule,
     SingleOrderModule,
     ForgetPasswordConfirmModule,
-
-
+    HeaderModule,
+    MainModule,
+    MatDialogModule,
+    
   ],
   exports: [
-    HeaderComponent,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS,
+    { 
+      provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptorService,
       multi: true
     }

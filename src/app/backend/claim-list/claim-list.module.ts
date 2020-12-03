@@ -9,6 +9,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {HttpClientModule} from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {BreadcrumbModule} from '../breadcrumb/breadcrumb.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -23,7 +24,8 @@ import {BreadcrumbModule} from '../breadcrumb/breadcrumb.module';
     MatProgressBarModule,
     HttpClientModule,
     NgxPaginationModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    MatDialogModule
 
   ]
 })

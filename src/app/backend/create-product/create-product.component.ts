@@ -81,8 +81,7 @@ export class CreateProductComponent implements OnInit {
 
   onFileChange(event) {
     if (event.target.files.length > 0) {
-      let formData = new FormData();
-      this.selectedFiles = event.target.files;
+      this.selectedFiles = event.target.files[0];
       const currentFileUpload = this.selectedFiles;
       console.log(currentFileUpload)
       this.CreateProductFormUpload.get('documents').setValue(currentFileUpload);
@@ -97,12 +96,12 @@ export class CreateProductComponent implements OnInit {
     this.isLoadingProductUpload = true;
     // console.log('payload : ', this.CreateProductFormUpload.value.documents.name)
     var formData = new FormData();
-    formData.append('file', this.CreateProductFormUpload.get("documents").value);
+    formData.append("uri", this.CreateProductFormUpload.get("documents").value, this.CreateProductFormUpload.get("documents").value.name,);
 
-    console.log(JSON.stringify(formData))
-    // formData.append("test", "value")
+    console.log('form Data', JSON.stringify(formData), this.CreateProductFormUpload.get("documents").value,)
+    formData.append("test", "value")
     console.log('payload : ', formData)
-    this.product.createProductUpload(this.CreateProductFormUpload.value.documents).subscribe((event: HttpEvent<any>) => {
+    this.product.createProductUpload(formData).subscribe((event: HttpEvent<any>) => {
       switch (event.type) {
         case HttpEventType.Sent:
           console.log('Request has been made!');
@@ -116,11 +115,17 @@ export class CreateProductComponent implements OnInit {
           break;
         case HttpEventType.Response:
           console.log('User successfully created!', event.body);
+          this.toastr.success(event.body.message, 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          this.CreateProductFormUpload.reset();
           setTimeout(() => {
             this.progress = 0;
+           
           }, 1500);
-
       }
+     
     })
   }
 }

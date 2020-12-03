@@ -125,8 +125,6 @@ E<!-- begin::main -->
                                         class="btn btn-danger float-right mt-4 ml-2"><i
                                             class="fa fa-file-pdf-o mr-1"></i>PDF</button>
 
-                                    <!-- {% if invoice.approved %}
-                                    {% if user_details.user.type == 'company' and invoice.paid == 0 %} -->
                                     <div
                                         *ngIf="invoiceApproved == true && userData.type == 'company' && paid == false ">
                                         <div *ngIf="userData.type == 'company' && paid == false ">
@@ -161,6 +159,34 @@ E<!-- begin::main -->
                                                 <i class="mr-1 text-white"></i>Approve Invoice</button>
                                         </a>
                                     </div>
+
+                                    <div *ngIf="invoiceApproved == false">
+                                        <a *ngIf="userData.type  == 'system' " class="confirm"
+                                            (click)="approveInvoice()">
+                                            <button class="btn btn-success float-right mt-4 ml-2">
+                                                <i class="mr-1 text-white"></i>Approve Invoice</button>
+                                        </a>
+                                    </div>
+
+                                    <div
+                                        *ngIf="invoiceApproved == true && userData.type == 'system' && paid == false ">
+                                        <div>
+                                            
+                                            <button *ngIf="userData.type == 'system' && paid == false"
+                                            (click)="markAsPaid()"
+                                                class="btn btn-success float-right mt-4 ml-2">
+                                                <i class="mr-1 text-white"></i>Mark as Paid</button>
+
+
+
+                                            <button *ngIf="userData.type  == 'system'"
+                                                (click)="payLater()" class="btn btn-warning float-right mt-4 ml-2">
+                                                <i class="mr-1 noprint"></i>Pay Later</button>
+
+                                        </div>
+
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
