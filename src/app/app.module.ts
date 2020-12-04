@@ -169,9 +169,8 @@ import { MainModule } from './layout/backend/main/main.module';
     SingleOrderModule,
     ForgetPasswordConfirmModule,
     HeaderModule,
-    MainModule,
     MatDialogModule,
-    
+    MainModule
   ],
   exports: [
   ],

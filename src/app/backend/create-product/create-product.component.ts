@@ -61,6 +61,7 @@ export class CreateProductComponent implements OnInit {
     }
     this.isLoadingProduct = true;
     console.log('payload :', payload)
+    return;
     this.product.createProduct(payload).subscribe((product) => {
       console.log('product List data :', product)
       this.isLoadingProduct = false;

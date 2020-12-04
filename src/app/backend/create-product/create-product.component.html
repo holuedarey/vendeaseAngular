@@ -18,7 +18,7 @@
                                     <div *ngIf="userData.type != 'vendor' ">
                                         <div class="form-group">
                                             <select formControlName="category" class="form-control" required>
-                                                <option *ngFor="let item of categories" [ngValue]="item">{{ item}}
+                                                <option *ngFor="let item of categories" [value]="item">{{ item}}
                                                 </option>
                                             </select>
                                         </div>
