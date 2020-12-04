@@ -48,10 +48,10 @@
                                                     <td>
 
                                                         <label class="badge badge-success"
-                                                               *ngIf="order.paid == true ">{{ order.paid }}</label>
+                                                               *ngIf="order.paid == true ">Paid</label>
 
                                                         <label class="badge badge-danger"
-                                                               *ngIf="order.paid == false ">{{ order.paid }}</label>
+                                                               *ngIf="order.paid == false ">Un Paid</label>
 
                                                     </td>
                                                     <td>{{ order.company_details ? order.company_details.name : '' }}
