@@ -55,6 +55,7 @@ export class CreateProductComponent implements OnInit {
   async createPoduct() {
     const payload = {
       name: this.CreateProductForm.value.name,
+      category: this.CreateProductForm.value.catgory,
       description: this.CreateProductForm.value.description,
       brand: this.CreateProductForm.value.brand,
       price: this.CreateProductForm.value.price
