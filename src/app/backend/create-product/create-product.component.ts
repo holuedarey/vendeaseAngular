@@ -53,9 +53,11 @@ export class CreateProductComponent implements OnInit {
   }
 
   async createPoduct() {
+
+
     const payload = {
       name: this.CreateProductForm.value.name,
-      category: this.CreateProductForm.value.catgory,
+      category: this.CreateProductForm.value.category,
       description: this.CreateProductForm.value.description,
       brand: this.CreateProductForm.value.brand,
       price: this.CreateProductForm.value.price
@@ -71,7 +73,7 @@ export class CreateProductComponent implements OnInit {
       });
     }, error => {
       this.isLoadingProduct = false;
-      this.toastr.warning("an Error occured while creating  Product", 'Error', {
+      this.toastr.warning(error.error.message, 'Error', {
         timeOut: 3000,
         closeButton: true
       });

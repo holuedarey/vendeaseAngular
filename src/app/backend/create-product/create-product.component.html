@@ -18,7 +18,7 @@
                                     <div *ngIf="userData.type != 'vendor' ">
                                         <div class="form-group">
                                             <select formControlName="category" class="form-control" required>
-                                                <option *ngFor="let item of categories" [value]="item">{{ item}}
+                                                <option *ngFor="let item of categories" value="{{item}}">{{ item}}
                                                 </option>
                                             </select>
                                         </div>
@@ -39,7 +39,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group p_price" *ngIf="userData.type != 'company' ">
+                                    <div class="form-group p_price">
                                         <input formControlName="price" type="number" step="0.01"
                                             class="form-control p_price" id="p_price" placeholder="Price"
                                             [class.invalid]="!CreateProductForm.controls.price.valid && CreateProductForm.controls.price.dirty">
@@ -48,7 +48,8 @@
                                         <mat-progress-spinner mode="indeterminate" diameter='40' strokeWidth='3'>
                                         </mat-progress-spinner>
                                     </div>
-                                    <button type="button" class="btn btn-primary" [disabled]="CreateProductForm.invalid"
+                                    <button type="button" class="btn btn-primary" 
+                                    [disabled]="CreateProductForm.invalid"
                                         (click)="createPoduct()">Submit</button>
                                 </form>
                             </div>
