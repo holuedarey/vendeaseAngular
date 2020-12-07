@@ -9,10 +9,10 @@
                     <div class="col-md-12">
                         <div class="cards">
 
-                            <div class="card-body" *ngIf="userData.type == 'system' ">
+                            <div class="card-body">
                                 <form [formGroup]="searchInvoiceForm">
                                     <input formControlName="search" class="form-control" (keyup)="searchInvoice()"
-                                           placeholder="Search for Invoice by company ID" />
+                                           placeholder="Search for Invoice by company Name" />
                                 </form>
                             </div>
 

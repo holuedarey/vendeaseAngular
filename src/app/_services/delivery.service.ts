@@ -49,7 +49,7 @@ export class DeliveryService {
   }
 
   searchDelivery(payload): Observable<any> {
-    return this.http.get(`${Endpoint.DELIVERY.delivery}/?company[$search]=${payload}`, payload).pipe(
+    return this.http.get(`${Endpoint.DELIVERY.delivery}/?name=${payload}&$search=true`).pipe(
       map(data => {
         return data;
       }));  

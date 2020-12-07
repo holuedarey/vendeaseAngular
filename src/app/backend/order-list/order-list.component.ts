@@ -54,7 +54,15 @@ export class OrderListComponent implements OnInit {
 
 
   async searchPo() {
+    const payload = this.searchPoForm.value.search;
+    if(payload == undefined) this.orderLists();
+    this.purchaseOrders.searchPo(payload).subscribe(searchPo => {
+      console.log('response :', searchPo);
+      this.orders = searchPo.data.slice().reverse();
+    }, error => {
+      console.log('error : ', error);
 
+    })
   }
 
   async orderLists() {
@@ -97,7 +105,7 @@ export class OrderListComponent implements OnInit {
       this.isLoadingOrder = true;
       this.purchaseOrders.deleteOrder(order._id).subscribe((order) => {
         this.isLoadingOrder = false;
-        this.toastr.success("Order Successfully", 'Successful', {
+        this.toastr.success("Order Deleted Successfully", 'Successful', {
           timeOut: 3000,
           closeButton: true
         });

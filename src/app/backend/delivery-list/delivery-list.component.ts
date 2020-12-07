@@ -137,7 +137,9 @@ export class DeliveryListComponent implements OnInit {
     const payload = this.searchDeliveryForm.value.search;
     if(payload == undefined) this.getDeliveries();
     this.dleivery.searchDelivery(payload).subscribe(searchDelivery => {
-      this.deliveries = searchDelivery.data;
+      this.deliveries = searchDelivery.data.slice().reverse();
+      console.log('delivert ; ', this.deliveries);
+      
     }, error => {
       console.log('error : ', error);
 

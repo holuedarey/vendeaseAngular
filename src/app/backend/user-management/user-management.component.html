@@ -18,6 +18,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="cards">
+                            <div class="card-body" *ngIf="userData.type == 'system' ">
+                                <form [formGroup]="searchUserForm">
+                                    <input formControlName="search" class="form-control" (keyup)="searchUser()"
+                                           placeholder="Search for User by company Name" />
+                                </form>
+                            </div>
+
                             <div class="card-body">
                                 <h2 class="card-title">User List </h2>
                                 <div class="row">

@@ -55,4 +55,11 @@ export class OrdersService {
         return data;
       }));
   }
+
+  searchPo(payload): Observable<any> {
+    return this.http.get(`${Endpoint.PURCHASE.purchase_orders}?name=${payload}&$search=true`).pipe(
+        map(data => {
+          return data;
+        }));
+  }
 }

@@ -24,6 +24,7 @@ export class UserManagementComponent implements OnInit {
   signUpForm: FormGroup;
 
   assignManagerForm: FormGroup;
+  searchUserForm:FormGroup;
 
   isLoadingUserList: boolean;
 
@@ -75,6 +76,9 @@ export class UserManagementComponent implements OnInit {
       company: ['', Validators.compose([Validators.required])],
     });
 
+    this.searchUserForm = this.formBuilder.group({
+      search: ['', Validators.compose([Validators.required])]
+    });
 
     // this.username = theData.name || "";
   }
@@ -144,6 +148,18 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
+
+  searchUser(){
+    const payload = this.searchUserForm.value.search;
+    if(payload == undefined) this.getUserLists();
+    this.authService.searchUser(payload).subscribe(searchUsers => {
+      console.log('response :', searchUsers);
+      this.users = searchUsers.data;
+    }, error => {
+      console.log('error : ', error);
+
+    })
+  }
 
   getUserLists() {
     this.isLoadingUserList = true;

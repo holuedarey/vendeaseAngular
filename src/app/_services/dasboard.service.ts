@@ -41,7 +41,7 @@ export class DasboardService {
 
 
   searchInvoice(payload): Observable<any> {
-    return this.http.get(`${Endpoint.DASHBOARD.invoice}/?company[$search]=${payload}`).pipe(
+    return this.http.get(`${Endpoint.DASHBOARD.invoice}/?name=${payload}&$search=true`).pipe(
       map(data => {
         return data;
       }));

@@ -10,10 +10,11 @@
                     <div class="col-md-12">
                         <div class="cards">
 
-                            <div class="card-body" *ngIf="userData.type == 'system'">
+                            <div class="card-body">
                                 <form [formGroup]="searchPoForm">
                                     <input formControlName="search" class="form-control"
-                                           placeholder="Search for PO by company ID" />
+                                    (keyup)="searchPo()"
+                                           placeholder="Search for PO by company Name" />
                                 </form>
                             </div>
 

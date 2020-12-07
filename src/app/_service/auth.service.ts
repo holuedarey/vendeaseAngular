@@ -163,4 +163,12 @@ export class AuthService {
     return !this.jwtHelper.isTokenExpired(this.storageService.get(Constants.STORAGE_VARIABLES.TOKEN));
    
   }
+
+  searchUser(payload): Observable<any> {
+    return this.http.get(`${Endpoint.AUTH.users}/?[company.name][$search]=${payload}&type=company_search
+    `).pipe(
+      map(data => {
+        return data;
+      }));
+  }
 }
