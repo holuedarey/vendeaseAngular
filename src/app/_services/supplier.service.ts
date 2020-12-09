@@ -18,4 +18,12 @@ export class SupplierService {
           return data;
         }));
   }
+
+  searchSupplier(payload): Observable<any> {
+    return this.http.get(`${Endpoint.AUTH.users}/?[vendor.name][$search]=${payload}&type=vendor_search
+    `).pipe(
+      map(data => {
+        return data;
+      }));  
+  }
 }

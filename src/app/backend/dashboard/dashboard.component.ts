@@ -385,7 +385,8 @@ export class DashboardComponent implements OnInit {
 
   async getTopFiveProduct() {
     const payload = {
-      action: "top_products", id: this.userData[this.userData.type].id, type: this.userData.type
+      action: "top_products", 
+      // id: this.userData[this.userData.type].id, type: this.userData.type
     };
 
     this.isLoadingFusion = true;
@@ -443,27 +444,27 @@ export class DashboardComponent implements OnInit {
 
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
       this.isLoadingFusion = false;
-      console.log('topFive copany: ', topFive.top_ranked);
-      const chartData = topFive.top_ranked.map(item => {
-        return { label: item.company_name.substring(0, 10), value: item.amount }
-      });
+      console.log('topFive company: ', topFive);
+      // const chartData = topFive.top_ranked.map(item => {
+      //   return { label: item.company_name.substring(0, 10), value: item.amount }
+      // });
 
-      // STEP 3 - Chart Configuration
-      const dataSource = {
-        chart: {
-          showLegend: false,
-          "baseFont": "roboto",
-          "baseFontSize": "10",
-          "baseFontColor": "#0066cc",
-          width: "100%", //width of the chart
-          height: "100%", //height of the chart
-          //Set the theme for your chart
-          theme: "fusion"
-        },
-        // Chart Data - from step 2
-        data: chartData
-      };
-      this.dataSource = dataSource;
+      // // STEP 3 - Chart Configuration
+      // const dataSource = {
+      //   chart: {
+      //     showLegend: false,
+      //     "baseFont": "roboto",
+      //     "baseFontSize": "10",
+      //     "baseFontColor": "#0066cc",
+      //     width: "100%", //width of the chart
+      //     height: "100%", //height of the chart
+      //     //Set the theme for your chart
+      //     theme: "fusion"
+      //   },
+      //   // Chart Data - from step 2
+      //   data: chartData
+      // };
+      // this.dataSource = dataSource;
 
     }, error => {
       this.isLoadingFusion = false;

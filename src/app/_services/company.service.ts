@@ -32,7 +32,7 @@ export class CompanyService {
   }
 
   searchCompany(payload): Observable<any> {
-    return this.http.get(`${Endpoint.DELIVERY.delivery}/?name=${payload}&$search=true`).pipe(
+    return this.http.get(`${Endpoint.AUTH.users}/?[vendor.name][$search]=${payload}&type=company_search`).pipe(
       map(data => {
         return data;
       }));  

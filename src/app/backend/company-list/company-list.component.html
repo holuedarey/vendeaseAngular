@@ -1,5 +1,4 @@
 <!-- begin::main -->
-<script src="../user-report/user-report.component.ts"></script>
 <div class="layout-wrapper">
     <div class="content-wrapper">
 
@@ -10,6 +9,16 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="">
+                            <div class="card-body" *ngIf="userData.type == 'system' ">
+                                <form [formGroup]="searchCompanyForm">
+
+                                    <div class="input-group">
+                                        <input formControlName="search" class="form-control" (keyup)="searchCompany()"
+                                               [class.invalid]="!searchCompanyForm.controls.search.valid && (searchCompanyForm.controls.search.dirty)"
+                                               placeholder="Search for Company by company Name" />
+                                    </div>
+                                </form>
+                            </div>
                             <div class="card-body">
                                 <h2 class="card-title">Company List </h2>
                                 <div class="row">

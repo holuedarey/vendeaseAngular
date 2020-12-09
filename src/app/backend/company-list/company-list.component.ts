@@ -7,6 +7,7 @@ import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { AddfeeModalComponent } from './addfee-modal/addfee-modal.component';
 import { AuthService } from '../../_service/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-company-list',
@@ -30,13 +31,20 @@ export class CompanyListComponent implements OnInit {
     url: 'company-list',
     secondLevel:false
   };
-  constructor(private companyService: CompanyService, public storageService: StorageService,
+
+  searchCompanyForm:FormGroup;
+
+  constructor(private fb:FormBuilder, private companyService: CompanyService, public storageService: StorageService,
               private router: Router,
               private authService: AuthService,
               private toastr: ToastrService,
               private dialog: MatDialog) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
+
+    this.searchCompanyForm = this.fb.group({
+      search: ['', Validators.compose([Validators.required])],
+    });
   }
 
   ngOnInit(): void {
@@ -49,7 +57,7 @@ export class CompanyListComponent implements OnInit {
       console.log('business data : ', compannies)
       this.totalItems = compannies.total;
       this.compannies = compannies.data;
-
+ 
       this.isLoadingCompanyList = false;
       this.serial = 1 + (this.p  - 1) * this.limit;
       console.log('serial no :', this.serial)
@@ -134,5 +142,16 @@ export class CompanyListComponent implements OnInit {
     this.router.navigate(['view/company'], { state: user })
   }
 
+  searchCompany(){
+    const payload = this.searchCompanyForm.value.search;
+    if(payload == undefined) this.getCompanyLists();
+    this.authService.searchUser(payload).subscribe(searchUsers => {
+      console.log('response :', searchUsers);
+      this.compannies = searchUsers.data;
+    }, error => {
+      console.log('error : ', error);
+
+    })
+  }
 
 }
