@@ -44,13 +44,7 @@ export class RequestInterceptorService implements HttpInterceptor {
             // request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
         }
 
-        if(request.url == '/product/uploads'){
-            console.log('product upload');
-            
-        }
-        console.log('product upload', request.url);
-        // request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
-
+       
         return next.handle(request).pipe(
             map((event: HttpEvent<any>) => {
                 if (event instanceof HttpResponse) {
