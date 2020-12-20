@@ -431,7 +431,7 @@ export class DashboardComponent implements OnInit {
 
     this.dashboard.bulkAnalytics(payload).subscribe(topFive => {
       this.isLoadingFusion = false;
-      // console.log('topFive company: ', topFive);
+      console.log('topFive company: ', topFive);
       const chartData = topFive.top_ranked.map(item => {
         return { label: item.company_name.substring(0, 10), value: item.amount }
       });

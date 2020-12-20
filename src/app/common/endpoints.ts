@@ -1,7 +1,7 @@
 import { environment } from "../../environments/environment.prod";
 
-// const BASE_URL = environment.production ? "https://api.vendease.co" : "https://api.vendease.co";
-const BASE_URL = environment.production ? "https://vendease-stg.herokuapp.com" : "https://vendease-stg.herokuapp.com";
+const BASE_URL = environment.production ? "https://api.vendease.co" : "https://api.vendease.co";
+// const BASE_URL = environment.production ? "https://vendease-stg.herokuapp.com" : "https://vendease-stg.herokuapp.com";
 
 
 export const Endpoint = {
