@@ -460,4 +460,4 @@ export class DashboardComponent implements OnInit {
   }
 }
 
-const parseDate = (dateInput) => `${dateInput.getMonth() + 1}-${dateInput.getDate()}-${dateInput.getFullYear()}`
+const parseDate = (dateInput) => `${dateInput.getMonth() + 1}/${dateInput.getDate()}/${dateInput.getFullYear()}`
