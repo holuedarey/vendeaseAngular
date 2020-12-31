@@ -58,10 +58,6 @@ import { ExportAsModule } from 'ngx-export-as';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { HomeModule } from './frontend/home/home.module';
-import { AboutUsModule } from './frontend/about-us/about-us.module';
-import { ContactUsModule } from './frontend/contact-us/contact-us.module';
-import { GuaranteeModule } from './frontend/guarantee/guarantee.module';
 import { RegisterModule } from './frontend/register/register.module';
 import { LoginModule } from './frontend/login/login.module';
 import { RegisterVendorModule } from './frontend/register-vendor/register-vendor.module';
@@ -145,10 +141,6 @@ import { MainModule } from './layout/backend/main/main.module';
       easing: 'ease-in',
       progressAnimation: 'decreasing'
     }),
-    HomeModule,
-    AboutUsModule,
-    ContactUsModule,
-    GuaranteeModule,
     RegisterModule,
     LoginModule,
     RegisterVendorModule,

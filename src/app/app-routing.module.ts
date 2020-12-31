@@ -9,8 +9,8 @@ import { UserManagementComponent } from './backend/user-management/user-manageme
 import { SupplierListComponent } from './backend/supplier-list/supplier-list.component';
 import { SupplierDetailsComponent } from './backend/supplier-details/supplier-details.component';
 import { CompanyDetailsComponent } from './backend/company-details/company-details.component';
-import { SingleInvoiceComponent } from './backend/single-invoice/single-invoice.component';
 import { UserReportComponent } from './backend/user-report/user-report.component';
+import { LoginComponent } from './frontend/login/login.component';
 
 
 
@@ -18,10 +18,10 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'welcome',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
-  { path: 'login', loadChildren: () => import('./frontend/login/login.module').then(m => m.LoginModule) },
+  { path: 'login', component:LoginComponent },
   // tslint:disable-next-line:max-line-length
   { path: 'forget-password',  loadChildren: () => import('./frontend/forget-password/forget-password.module').then(m => m.ForgetPasswordModule) },
   { path: 'reset/:token',  loadChildren: () => import('./frontend/forget-password-confirm/forget-password-confirm.module').then(m => m.ForgetPasswordConfirmModule) },
@@ -61,17 +61,7 @@ const routes: Routes = [
       { path: 'claim-list', loadChildren: () => import('./backend/claim-list/claim-list.module').then(m => m.ClaimListModule) },
     ]
   },
-  {
-    path: '',
-    component: LoginRegisterComponent,
-    children: [
-      { path: 'welcome',  loadChildren: () => import('./frontend/home/home.module').then(m => m.HomeModule) },
-      { path: 'about',  loadChildren: () => import('./frontend/about-us/about-us.module').then(m => m.AboutUsModule) },
-      { path: 'contact',  loadChildren: () => import('./frontend/contact-us/contact-us.module').then(m => m.ContactUsModule) },
-      { path: 'guarantee',  loadChildren: () => import('./frontend/guarantee/guarantee.module').then(m => m.GuaranteeModule) },
-    ]
-  },
-  { path: '**', redirectTo: '/welcome' }
+  { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({
