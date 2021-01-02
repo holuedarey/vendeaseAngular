@@ -216,6 +216,7 @@ export class DashboardComponent implements OnInit {
   addEventTwo(type: string, event: MatDatepickerInputEvent<Date>) {
     this.selectedDateTwo = parseDate(event.value);
     this.getAnalytics({selectedDateOne :this.selectedDateOne, selectedDateTwo : this.selectedDateTwo})
+    this.getBulkAnalytics({selectedDateOne :this.selectedDateOne, selectedDateTwo : this.selectedDateTwo})
   }
    
   ngOnInit() {

@@ -8,7 +8,7 @@ import { AuthGuard } from './guard/auth.guard';
 import { UserManagementComponent } from './backend/user-management/user-management.component';
 import { SupplierListComponent } from './backend/supplier-list/supplier-list.component';
 import { SupplierDetailsComponent } from './backend/supplier-details/supplier-details.component';
-import { CompanyDetailsComponent } from './backend/company-details/company-details.component';
+import { CompanyDetailsComponent } from './backend/company-details/company-details.component';  
 import { UserReportComponent } from './backend/user-report/user-report.component';
 import { LoginComponent } from './frontend/login/login.component';
 
