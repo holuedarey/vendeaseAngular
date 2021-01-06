@@ -2,7 +2,9 @@
 <div class="navigation" style="width: 195px; height: 100%;">
 
     <div class="navigation-menu-tab" style="width: 98%; height: 94%; overflow: scroll;">
-        <img class="profile-image m-t-20" src="{{ avatar != undefined ? avatar : '../../../../../../assets/dashboard/assets/media/image/user_icon.png' }}" alt="Profile" />
+        <img class="profile-image m-t-20"
+            src="{{ avatar != undefined ? avatar : '../../../../../../assets/dashboard/assets/media/image/user_icon.png' }}"
+            alt="Profile" />
         <form [formGroup]="avatarForm" style="height: 0px;">
             <!-- <input formControlName="avatar" id="avatar" type="file" class="btn btn-primary btn-sm" style="position: relative; top: -128px; font-size: 9px; left:12px; width: 100px; height: 100px;" class="custom-file-input" -->
             <!-- (change)="onFileChange($event)"> -->
@@ -10,7 +12,7 @@
                 style="position: relative; top: -128px; font-size: 9px; left:12px; width: 100px; height: 100px;"
                 class="custom-file-input" />
         </form>
-        
+
         <!-- <div class="col-sm-9">
             <span class="hidden-file">
                 <input type="file" #fileInput ng2FileSelect 
@@ -122,7 +124,7 @@
             </li>
 
             <li>
-                <a style="justify-content: left;"(click)="logOut()" data-toggle="tooltip"
+                <a style="justify-content: left;" (click)="logOut()" data-toggle="tooltip" style="color: #ffffff;"
                     data-placement="right" data-nav-target="#dashboard" title="Log Out">
                     <i class="feather-log-out" style="margin-right: 5px"> </i> Log Out
                 </a>
@@ -193,7 +195,8 @@
                     </li>
 
                     <li *ngIf="userData != 'vendor' ">
-                        <a class="text-white" routerLink="create-purchase">New Purchase Order</a></li>
+                        <a class="text-white" routerLink="create-purchase">New Purchase Order</a>
+                    </li>
                     <li>
 
                         <a class="text-white" routerLink="purchase-order">All Purchase Order</a>
