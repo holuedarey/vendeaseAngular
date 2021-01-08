@@ -158,7 +158,6 @@ export class ProductListComponent implements OnInit {
         data => {
           if(data){
             console.log("Dialog output:", data)
-
             const productId = product._id;
             this.product.updateProduct(productId, data).subscribe((product) => {
               console.log('product List data :', product.data)

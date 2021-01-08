@@ -1,0 +1,60 @@
+<!-- begin::main -->
+<div class="layout-wrapper">
+    <div class="content-wrapper">
+
+        <!-- end::navigation -->
+        <div class="content-body">
+            <div class="content" style="padding-top: 50px;">
+                <app-breadcrumb [breadCrumb]="breadCrumb"></app-breadcrumb>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="card-title">Settings</h2>
+
+                        <div class="card">
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="table-responsive">
+                                            <div class="card-body">
+                                                <form [formGroup]="settingsForm">
+                                                    <div class="form-group">
+                                                        <label for="category">Category</label>
+                                                        <select formControlName="category" class="form-control"
+                                                            required>
+                                                            <option *ngFor="let item of categories" [ngValue]="item">
+                                                                {{ item}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="category">Discount Type</label>
+                                                        <select formControlName="discountType"
+                                                            style="text-transform: capitalize;" class="form-control"
+                                                            required>
+                                                            <option *ngFor="let item of discountTypes" [ngValue]="item">
+                                                                {{ item}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group p_price">
+                                                        <label for="category">Value</label>
+                                                        <input formControlName="discountValue" type="number" step="0.01"
+                                                            class="form-control p_price" placeholder="Value">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                       <button type="submit" (click)="submit()" class="btn btn-primary">Create</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

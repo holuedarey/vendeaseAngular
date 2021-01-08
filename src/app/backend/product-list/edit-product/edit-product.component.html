@@ -28,11 +28,22 @@
             <input formControlName="price" type="number" [(ngModel)]="price" step="0.01" class="form-control p_price" id="p_price"
                 placeholder="Price">
         </div>
-        <div class="row" style="margin-top: 48px;;" mat-dialog-actions>
+        
+        <div class="form-group">
+            <select formControlName="discountType" style="text-transform: capitalize;" class="form-control" required>
+                <option   *ngFor="let item of discountTypes" [ngValue]="item">{{ item}}</option>
+            </select>
+        </div>
+        
+        <div class="form-group p_price">
+            <input formControlName="discountValue" type="number" [(ngModel)]="discountValue" step="0.01" class="form-control p_price"
+                placeholder="Value">
+        </div> 
+        <div class="row" style="margin-top: 28px;" mat-dialog-actions>
             <div class="col-md-6">
                 <button type="button" class="btn btn-primary" (click)="save()">Submit Edit</button>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3 offset-md-3">
                 <button type="button" class="btn btn-warning pull-right" (click)="close()">Close</button>
             </div>
         </div>

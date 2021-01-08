@@ -35,6 +35,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  settings(){
+    this.router.navigate(['/settings'])
+  }
+
   goToCart(){
     this.router.navigate(['/create-purchase'])
   }

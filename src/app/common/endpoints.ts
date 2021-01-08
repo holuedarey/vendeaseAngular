@@ -1,10 +1,11 @@
 import { environment } from "../../environments/environment.prod";
 
-const BASE_URL = environment.production ? "https://api.vendease.co" : "https://api.vendease.co";
-// const BASE_URL = environment.production ? "https://vendease-stg.herokuapp.com" : "https://vendease-stg.herokuapp.com";
+// const BASE_URL = environment.production ? "https://api.vendease.co" : "https://api.vendease.co";
+const BASE_URL = environment.production ? "https://vendease-stg.herokuapp.com" : "https://vendease-stg.herokuapp.com";
 
 
 export const Endpoint = {
+    
     AUTH: {
         login: `${BASE_URL}/authentication`,
         users: `${BASE_URL}/users`,
@@ -45,6 +46,7 @@ export const Endpoint = {
 
     PRODUCTS: {
         product: `${BASE_URL}/product`,
+        category: `${BASE_URL}/category`,
     },
 
     PAYMENT: {

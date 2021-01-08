@@ -40,7 +40,7 @@
                 </li>
                 
                 <li class="nav-item text-black-50 mr-3" *ngIf="userData.type == 'system'">
-                    <a routerLink="/settings" class="text-primary" data-toggle="tooltip" data-placement="top"
+                    <a (click)="settings()" class="text-primary" data-toggle="tooltip" data-placement="top"
                         title="System Settings">
                         <i class="feather-settings"></i>
                     </a>

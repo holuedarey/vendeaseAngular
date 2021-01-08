@@ -59,6 +59,7 @@ const routes: Routes = [
 
       { path: 'view/claim', loadChildren: () => import('./backend/single-claim/single-claim.module').then(m => m.SingleClaimModule) },
       { path: 'claim-list', loadChildren: () => import('./backend/claim-list/claim-list.module').then(m => m.ClaimListModule) },
+      { path: 'settings', loadChildren: () => import('./backend/settings/settings.module').then(m => m.SettingsModule) },
     ]
   },
   { path: '**', redirectTo: '/login' }
