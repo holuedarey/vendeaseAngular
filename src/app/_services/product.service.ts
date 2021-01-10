@@ -11,7 +11,7 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
   produtCategories(): Observable<any> {
-    return this.http.post(`${Endpoint.PRODUCTS.product}/category`, {}).pipe(
+    return this.http.get(`${Endpoint.PRODUCTS.category}`,).pipe(
       map(data => {
         return data;
       }));

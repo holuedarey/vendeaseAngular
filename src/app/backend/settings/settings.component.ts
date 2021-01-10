@@ -28,10 +28,10 @@ export class SettingsComponent implements OnInit {
   getProductCategoriesList() {
     this.isLoadingProduct = true;
     this.product.produtCategories().subscribe((product) => {
-      console.log('product List data :', product);
+      console.log('product List data :', product.data);
 
       this.isLoadingProduct = false;
-      this.categories = product.categories;
+      this.categories = product.data;
     }, error => {
       this.isLoadingProduct = false;
       console.log('Error :', error)

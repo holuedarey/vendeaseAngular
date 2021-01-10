@@ -120,6 +120,10 @@ export class CreateOrderComponent implements OnInit {
 
       this.router.navigate(['view/invoice'], navigationExtras)
     }, error => {
+      this.toastr.warning("Error creating Invoice", 'Warning', {
+        timeOut: 3000,
+        closeButton: true
+      });
       console.log('Error :', error)
     })
 
