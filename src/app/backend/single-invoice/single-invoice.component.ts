@@ -152,7 +152,7 @@ export class SingleInvoiceComponent implements OnInit {
       this.sub_total = invoice.sub_total || 0;
       this.grand_total = invoice.grand_total || 0;
       this.delivery_address = invoice.delivery_address;
-      console.log('total :', this.payment_date)
+      console.log('item :', this.items)
     }, error => {
       this.isLoadingDetail = false
       console.log('Error : ', error)

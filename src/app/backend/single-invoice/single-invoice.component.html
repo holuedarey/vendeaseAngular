@@ -84,10 +84,11 @@ E<!-- begin::main -->
                                             </div>
 
                                             <thead>
-                                                <tr class="bg-dark text-white">
+                                                <tr class="">
                                                     <th>Product</th>
                                                     <th>Description</th>
                                                     <th>Quantity</th>
+                                                    <th>Discount</th>
                                                     <th class="text-right">Unit cost</th>
                                                     <th class="text-right">Total</th>
                                                 </tr>
@@ -98,6 +99,7 @@ E<!-- begin::main -->
                                                     <td class="text-left">{{ item.name }}</td>
                                                     <td class="text-left">{{ item.description }}</td>
                                                     <td class="text-left">{{ item.quantity }}</td>
+                                                    <td class="text-left">{{ item.discount.discount_value }}</td>
                                                     <td class="text-right">NGN {{ item.price }}</td>
                                                     <td class="text-right">NGN {{ item.total }}</td>
                                                 </tr>
