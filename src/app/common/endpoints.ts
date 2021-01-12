@@ -42,6 +42,7 @@ export const Endpoint = {
     },
     PURCHASE: {
         purchase_orders: `${BASE_URL}/purchase-orders`,
+        audit_trail: `${BASE_URL}/audit-trail`,
     },
 
     PRODUCTS: {

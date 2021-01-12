@@ -30,6 +30,9 @@ export class EditProductComponent implements OnInit {
   discountValue: any;
   isLoadingProduct:boolean;
 
+  weight:any;
+  weightUnit:any;
+
   constructor(
     private product:ProductService,
     private fb: FormBuilder,
@@ -39,18 +42,17 @@ export class EditProductComponent implements OnInit {
     this.data = JSON.parse(data.data);
     this.userData = this.data[1];
     this.productData = this.data[0];
+    // console.log('product data : ', this.productData.weight);
     
-    // console.log('product :', this.productData)
-
   }
 
   getProductCategoriesList() {
     this.isLoadingProduct = true;
     this.product.produtCategories().subscribe((product) => {
-      console.log('product List data :', product);
+      // console.log('product List data :', product);
      
       this.isLoadingProduct = false;
-      this.categories = product.categories;
+      this.categories = product.data;
     }, error => {
       this.isLoadingProduct = false;
       console.log('Error :', error)
@@ -61,7 +63,7 @@ export class EditProductComponent implements OnInit {
     this.getProductCategoriesList();
     const discountType = this.productData.discount  ? this.productData.discount.discount_type : this.discountTypes[0];
     const discountValue = this.productData.discount ? this.productData.discount.discount_value : "";
-    console.log('dv : ', discountType);
+    // console.log('dv : ', discountType);
     
     this.EditProductForm = this.fb.group({
       name: ['', Validators.compose([Validators.required])],
@@ -71,6 +73,8 @@ export class EditProductComponent implements OnInit {
       discountValue: [discountValue, ''],
       description: ['', Validators.compose([Validators.required])],
       price: ['', Validators.compose([Validators.required])],
+      weight: ['', Validators.compose([Validators.required])],
+      weightUnit: ['', Validators.compose([Validators.required])],
     });
 
     //form data
@@ -79,10 +83,11 @@ export class EditProductComponent implements OnInit {
     this.description = this.productData.description;
     this.price = this.productData.price;
     this.discountValue = discountValue;
-    console.log('discountType' , discountType);
+    this.weight = this.productData.weight;
+    this.weightUnit = this.productData.weight_unit;
+
+    console.log('discountType' , this.productData.weight_unit);
     
-    // this.discountType = discountType
-    // this.EditProductForm.setValue(this.category)
   }
 
 
@@ -96,7 +101,9 @@ export class EditProductComponent implements OnInit {
       "discount": {
         "discount_type": this.EditProductForm.value.discountType,
         "discount_value": this.EditProductForm.value.discountValue
-      }
+      },
+      weight: this.EditProductForm.value.weight,
+      weight_unit: this.EditProductForm.value.weightUnit
     }
     this.dialogRef.close(payload);
   }

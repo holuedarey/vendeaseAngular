@@ -1,0 +1,48 @@
+<!-- begin::main -->
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="cards">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <div class="card-body">
+                                <h3>Edit Catgory {{ title }}</h3>
+                                <form [formGroup]="settingsForm">
+
+                                    <div class="form-group">
+                                        <label for="category">Discount Type</label>
+                                        <select formControlName="discountType" style="text-transform: capitalize;"
+                                            class="form-control"  [(ngModel)]="discountType">
+                                            <option *ngFor="let item of discountTypes" [ngValue]="item" >
+                                                {{ item}}</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group p_price">
+                                        <label for="category">Value</label>
+                                        <input formControlName="discountValue" type="number" step="0.01"  [(ngModel)]="discountValue"
+                                            class="form-control" placeholder="Value">
+                                    </div>
+
+                                    <div class="row" style="margin-top: 48px;;">
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-primary" (click)="save()">Submit
+                                                Edit</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-warning pull-right"
+                                                (click)="close()">Close</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

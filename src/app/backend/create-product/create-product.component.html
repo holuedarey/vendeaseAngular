@@ -13,12 +13,11 @@
                                 <h4 class="card-title">New Product Form</h4>
 
                                 <form [formGroup]="CreateProductForm">
-
-
                                     <div *ngIf="userData.type != 'vendor' ">
                                         <div class="form-group">
                                             <select formControlName="category" class="form-control" required>
-                                                <option *ngFor="let item of categories" value="{{item}}">{{ item}}
+                                                <option value="">Select Product Catgories</option>
+                                                <option *ngFor="let item of categories" value="{{item._id}}">{{ item.name }}
                                                 </option>
                                             </select>
                                         </div>
@@ -39,17 +38,40 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group p_price">
+                                    <div class="form-group ">
                                         <input formControlName="price" type="number" step="0.01"
-                                            class="form-control p_price" id="p_price" placeholder="Price"
+                                            class="form-control p_price"  placeholder="Price"
                                             [class.invalid]="!CreateProductForm.controls.price.valid && CreateProductForm.controls.price.dirty">
                                     </div>
+
+                                    <div class="form-group">
+                                        <select formControlName="discountType" style="text-transform: capitalize;"
+                                            class="form-control" required>
+                                            <option value="">Select Discount Type</option>
+                                            <option *ngFor="let item of discountTypes" [ngValue]="item">{{ item}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input formControlName="discountValue" type="number" [(ngModel)]="discountValue"
+                                            step="0.01" class="form-control p_price" placeholder="Value">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input formControlName="weight" type="number" 
+                                            step="0.01" class="form-control p_price" placeholder="Weight">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input formControlName="weightUnit" type="text"  class="form-control" placeholder="Weight Unit">
+                                    </div>
+
                                     <div *ngIf="isLoadingProduct" class="offset-lg-5 offset-md-5 offset-sm-5">
                                         <mat-progress-spinner mode="indeterminate" diameter='40' strokeWidth='3'>
                                         </mat-progress-spinner>
                                     </div>
-                                    <button type="button" class="btn btn-primary" 
-                                    [disabled]="CreateProductForm.invalid"
+                                    <button type="button" class="btn btn-primary" [disabled]="CreateProductForm.invalid"
                                         (click)="createPoduct()">Submit</button>
                                 </form>
                             </div>
@@ -63,14 +85,18 @@
                                     But first download our template and prepare you sheet to match the template</p>
 
 
-                                <a *ngIf="userData.type == 'system' "  href="https://vendease.s3.us-east-2.amazonaws.com/Bulk+Inventory+for+Admin.xlsx" target="_blank">
-                                    <button  style="margin-bottom: 5px;" type="button" class="btn btn-success">Download Admin Template </button>
+                                <a *ngIf="userData.type == 'system' "
+                                    href="https://vendease.s3.us-east-2.amazonaws.com/Bulk+Inventory+for+Admin.xlsx"
+                                    target="_blank">
+                                    <button style="margin-bottom: 5px;" type="button" class="btn btn-success">Download
+                                        Admin Template </button>
                                 </a>
-                                
-                                <a href="https://vendease.s3.us-east-2.amazonaws.com/Bulk+Inventory+for+Company.xlsx" target="_blank">
+
+                                <a href="https://vendease.s3.us-east-2.amazonaws.com/Bulk+Inventory+for+Company.xlsx"
+                                    target="_blank">
                                     <button type="button" class="btn btn-success">Download Company Template </button>
                                 </a>
-                                <br /> 
+                                <br />
                                 <h3>Upload File </h3> <br />
 
                                 <form [formGroup]="CreateProductFormUpload" (ngSubmit)="createPoductUpload()">

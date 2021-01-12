@@ -14,7 +14,7 @@ import { HttpEventType, HttpEvent } from '@angular/common/http';
 export class CreateProductComponent implements OnInit {
 
   userData: any;
-  categories: any[] = ['perishable', 'non perishable', 'miscellaneous'];
+  categories: any[] = ['Select product catogory'];
 
   CreateProductForm: FormGroup;
   CreateProductFormUpload: FormGroup;
@@ -31,18 +31,12 @@ export class CreateProductComponent implements OnInit {
     secondLevel: true
   };
 
+  discountValue: any;
+  discountTypes: any[] = ['value', 'percentage'];
+
   constructor(public storageService: StorageService, private fb: FormBuilder, private product: ProductService, private toastr: ToastrService) {
     const theData = JSON.parse(this.storageService.get(Constants.STORAGE_VARIABLES.USER));
     this.userData = theData;
-
-    this.CreateProductForm = this.fb.group({
-      name: ['', Validators.compose([Validators.required])],
-      brand: ['', Validators.compose([Validators.required])],
-      category: [this.categories[0], ''],
-      description: ['', Validators.compose([Validators.required])],
-      price: ['', Validators.compose([Validators.required])],
-    });
-
 
     this.CreateProductFormUpload = this.fb.group({
       documents: [''],
@@ -50,18 +44,52 @@ export class CreateProductComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getProductCategoriesList();
+
+    
+    this.CreateProductForm = this.fb.group({
+      name: ['', Validators.compose([Validators.required])],
+      brand: ['', Validators.compose([Validators.required])],
+      category: [this.categories[0], ''],
+      description: ['', Validators.compose([Validators.required])],
+      price: ['', Validators.compose([Validators.required])],
+      discountType: [this.discountTypes[0], ''],
+      discountValue: ['', Validators.compose([Validators.required])],
+      weight: ['', Validators.compose([Validators.required])],
+      weightUnit: ['', Validators.compose([Validators.required])],
+
+    });
+
   }
 
+  getProductCategoriesList() {
+    this.isLoadingProduct = true;
+    this.product.produtCategories().subscribe((product) => {
+      console.log('product List data :', product);
+     
+      this.isLoadingProduct = false;
+      this.categories = product.data;
+    }, error => {
+      this.isLoadingProduct = false;
+      console.log('Error :', error)
+    })
+  }
+  
   async createPoduct() {
-
-
     const payload = {
       name: this.CreateProductForm.value.name,
       category: this.CreateProductForm.value.category,
-      description: this.CreateProductForm.value.description,
       brand: this.CreateProductForm.value.brand,
-      price: this.CreateProductForm.value.price
+      price: this.CreateProductForm.value.price,
+      category_id: this.CreateProductForm.value.category,
+      discount: {
+        discount_type: this.CreateProductForm.value.discountType,
+        discount_value: this.CreateProductForm.value.discountValue
+      },
+      weight: this.CreateProductForm.value.weight,
+      weight_unit: this.CreateProductForm.value.weightUnit
     }
+
     this.isLoadingProduct = true;
     console.log('payload :', payload)
     this.product.createProduct(payload).subscribe((product) => {
@@ -125,10 +153,10 @@ export class CreateProductComponent implements OnInit {
           this.CreateProductFormUpload.reset();
           setTimeout(() => {
             this.progress = 0;
-           
+
           }, 1500);
       }
-     
+
     })
   }
 }

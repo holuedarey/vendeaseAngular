@@ -140,8 +140,8 @@ export class ProductListComponent implements OnInit {
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.height = '600px';
-    dialogConfig.width = '550px';
+    dialogConfig.height = '620px';
+    dialogConfig.width = '650px';
     dialogConfig.position = {
       'top': '50px',
 

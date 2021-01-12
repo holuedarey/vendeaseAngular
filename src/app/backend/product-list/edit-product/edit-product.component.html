@@ -7,7 +7,7 @@
         <div *ngIf="userData.type != 'vendor' ">
             <div class="form-group">
                 <select formControlName="category" class="form-control" required>
-                    <option   *ngFor="let item of categories" [ngValue]="item">{{ item}}</option>
+                    <option   *ngFor="let item of categories" [ngValue]="item._id">{{ item.name}}</option>
                 </select>
             </div>
             <div class="form-group p_name">
@@ -38,7 +38,17 @@
         <div class="form-group p_price">
             <input formControlName="discountValue" type="number" [(ngModel)]="discountValue" step="0.01" class="form-control p_price"
                 placeholder="Value">
-        </div> 
+        </div>
+        
+        <div class="form-group">
+            <input formControlName="weight" type="number"  [(ngModel)]="weight"
+                step="0.01" class="form-control p_price" placeholder="Weight">
+        </div>
+
+        <div class="form-group">
+            <input formControlName="weightUnit" type="text"  [(ngModel)]="weightUnit" class="form-control" placeholder="Weight Unit">
+        </div>
+
         <div class="row" style="margin-top: 28px;" mat-dialog-actions>
             <div class="col-md-6">
                 <button type="button" class="btn btn-primary" (click)="save()">Submit Edit</button>

@@ -42,6 +42,13 @@ export class OrdersService {
       }));
   }
 
+  auditTrailOrder(orderId): Observable<any> {
+    return this.http.get(`${Endpoint.PURCHASE.audit_trail}?poNumber=${orderId}`).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
   editOrder(orderId, payload): Observable<any> {
     return this.http.patch(`${Endpoint.PURCHASE.purchase_orders}/${orderId}`, payload).pipe(
       map(data => {

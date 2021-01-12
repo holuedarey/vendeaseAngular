@@ -8,7 +8,6 @@ import { FormGroup } from '@angular/forms';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../user-management/confirm-dialog/confirm-dialog.component';
 import { ToastrService } from 'ngx-toastr';
-import { EditProductComponent } from '../product-list/edit-product/edit-product.component';
 import { EditPoComponent } from './edit-po/edit-po.component';
 import { RepurchaseComponent } from './repurchase/repurchase.component';
 import { AddProductComponent } from './add-product/add-product.component';
@@ -77,6 +76,7 @@ export class SingleOrderComponent implements OnInit {
   ngOnInit(): void {
     this.breadCrumb.secondLabel = `Order #${this.detail}`;
     this.orderDetails();
+    
   }
 
   productListUser() {
@@ -101,6 +101,7 @@ export class SingleOrderComponent implements OnInit {
       this.orderProducts = purchaseOrder.items;
       this.delivery_address = purchaseOrder.delivery_address;
       console.log('order Product :', this.orderProducts)
+      this.getAuditTrail(this.order_number)
     }, error => {
       this.isLoadingDetail = false
       console.log('Error : ', error)
@@ -238,7 +239,7 @@ export class SingleOrderComponent implements OnInit {
   }
 
   getAuditTrail(PoId) {
-    this.orderService.viewOrder(PoId).subscribe(audit_trail => {
+    this.orderService.auditTrailOrder(PoId).subscribe(audit_trail => {
       this.auditTrail = audit_trail;
       console.log('details :', audit_trail)
     },

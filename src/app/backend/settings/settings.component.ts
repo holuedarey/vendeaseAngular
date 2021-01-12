@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../../_services/product.service';
+import { ConfirmDialogComponent } from '../user-management/confirm-dialog/confirm-dialog.component';
+import { EditCategoryComponent } from './edit-category/edit-category.component';
 
 @Component({
   selector: 'app-settings',
@@ -21,7 +24,7 @@ export class SettingsComponent implements OnInit {
   categories: any[] = ['perishable', 'non perishable', 'miscellaneous'];
   discountTypes: any[] = ['value', 'percentage'];
 
-  constructor(private fb: FormBuilder, private product: ProductService, private toastr: ToastrService) {
+  constructor( private dialog: MatDialog, private fb: FormBuilder, private product: ProductService, private toastr: ToastrService) {
 
   }
 
@@ -40,7 +43,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.settingsForm = this.fb.group({
-      category: [this.categories[0], ''],
+      category: ['', ''],
       discountType: [this.discountTypes[0], ''],
       discountValue: ['', ''],
     });
@@ -72,4 +75,87 @@ export class SettingsComponent implements OnInit {
       console.log('Error :', error)
     })
   }
+
+  editCategory(category){
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '400px';
+    dialogConfig.width = '600px';
+    dialogConfig.position = {
+      'top': '50px',
+    };
+
+    dialogConfig.data = {
+      data: JSON.stringify(category)
+    };
+
+    const dialogRef = this.dialog.open(EditCategoryComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        dialogRef.close();
+        console.log('Yes clicked');
+        this.isLoadingProduct = true;
+        console.log('second payload : ', result);
+        
+        this.product.updateProductCategory(category._id, result).subscribe((product) => {
+          console.log('product List data :', product)
+          this.toastr.success("Product Category Updated Successfully", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          this.settingsForm.reset();
+          this.getProductCategoriesList()
+        }, error => {
+          this.toastr.warning("Error Updating the Record", 'Failure', {
+            timeOut: 3000,
+            closeButton: true
+          });
+          console.log('Error :', error)
+        })
+      }
+    });
+
+   
+  }
+
+  deleteCategory(category) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.height = '150px';
+    dialogConfig.width = '300px';
+    dialogConfig.position = {
+      'top': '50px',
+    };
+
+    dialogConfig.data = {
+      data: JSON.stringify(category)
+    };
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        dialogRef.close();
+        console.log('Yes clicked');
+        this.isLoadingProduct = true;
+        this.product.deleteProductCategory(category._id, { "discount_deleted": true }).subscribe(users => {
+          // this.getUserLists();
+          this.toastr.success("Category Deleted Successfully", 'Successful', {
+            timeOut: 3000,
+            closeButton: true
+          });
+
+          this.isLoadingProduct = false;
+          this.getProductCategoriesList();
+
+        }, error => {
+          console.log('Error :', error);
+          this.isLoadingProduct = false;
+        });
+      }
+    });
+  }
+  
 }

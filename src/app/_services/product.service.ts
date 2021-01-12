@@ -10,8 +10,23 @@ import { map } from 'rxjs/operators';
 export class ProductService {
 
   constructor(private http: HttpClient) { }
+  
   produtCategories(): Observable<any> {
     return this.http.get(`${Endpoint.PRODUCTS.category}`,).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+  deleteProductCategory(categoryId, payload): Observable<any> {
+    return this.http.patch(`${Endpoint.PRODUCTS.category}/${categoryId}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
+  updateProductCategory(productId, payload): Observable<any> {
+    return this.http.patch(`${Endpoint.PRODUCTS.category}/${productId}`, payload).pipe(
       map(data => {
         return data;
       }));

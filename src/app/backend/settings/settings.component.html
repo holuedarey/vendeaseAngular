@@ -21,11 +21,7 @@
                                                 <form [formGroup]="settingsForm">
                                                     <div class="form-group">
                                                         <label for="category">Category</label>
-                                                        <select formControlName="category" class="form-control"
-                                                            required>
-                                                            <option *ngFor="let item of categories" [ngValue]="item.name">
-                                                                {{ item.name }}</option>
-                                                        </select>
+                                                        <input formControlName="category" class="form-control"  placeholder="Product Category" required/> 
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="category">Discount Type</label>
@@ -57,12 +53,17 @@
                                                 <th>Name</th>
                                                 <th>Type</th>
                                                 <th>Discount</th>
+                                                <th>#Action</th>
                                             </tr>
                                             <tr  *ngFor="let item of categories; let i= index">
                                                 <td>{{ i +1}}</td>
-                                                <td style="text-transform: capitalize;">{{ item['name'] }}</td>
+                                                <td style="text-transform: capitalize;">{{ item.name }}</td>
                                                 <td>{{ item.discount ?  item.discount.discount_type : ""}}</td>
                                                 <td>{{ item.discount ?  item.discount.discount_value : ""}}</td>
+                                                <td>
+                                                    <button class="btn btn-xs btn-danger" (click)="deleteCategory(item)"><i class="feather-trash"></i></button>
+                                                    <button class="btn btn-xs btn-warning" (click)="editCategory(item)"><i class="feather-edit-3"></i></button>
+                                                </td>
                                             </tr>
                                         </table>
                                         
