@@ -67,6 +67,7 @@ export class SettingsComponent implements OnInit {
         closeButton: true
       });
       this.settingsForm.reset();
+      this.getProductCategoriesList();
     }, error => {
       this.toastr.warning("Error Creating the Record", 'Failure', {
         timeOut: 3000,
