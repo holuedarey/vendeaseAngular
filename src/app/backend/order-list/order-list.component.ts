@@ -153,9 +153,9 @@ export class OrderListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
         payloadData => {
-          console.log('status : ', payloadData)
+          console.log('status : ', payloadData, order)
           if (payloadData) {
-            this.purchaseOrders.viewOrder(payloadData).subscribe(users => {
+            this.purchaseOrders.assignOrder(order, payloadData).subscribe(users => {
               this.toastr.success("Order Updated Successfully", 'Successful', {
                 timeOut: 3000,
                 closeButton: true

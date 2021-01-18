@@ -10,7 +10,8 @@ import { PaylaterComponent } from './paylater/paylater.component';
 import { PaymentService } from '../../_services/payment.service';
 import { DeliveryService } from '../../_services/delivery.service';
 import { ExportAsService, ExportAsConfig, SupportedExtensions } from 'ngx-export-as';
-import { Observable } from 'rxjs';
+import { FormControl, FormGroup } from '@angular/forms';
+import { reduce } from 'rxjs/operators';
 
 
 @Component({
@@ -58,6 +59,8 @@ export class SingleInvoiceComponent implements OnInit {
     secondLevel: true
   };
 
+  inputCheck: any = "";
+
   config: ExportAsConfig = {
     type: 'pdf',
     elementIdOrContent: 'exportData',
@@ -70,6 +73,11 @@ export class SingleInvoiceComponent implements OnInit {
   };
   isShow: boolean = true;
   visible: boolean;
+
+
+  discountValue: any;
+
+  DiscountForm: FormGroup;
   constructor(
     private exportAsService: ExportAsService,
     private dashboard: DasboardService,
@@ -129,12 +137,14 @@ export class SingleInvoiceComponent implements OnInit {
     this.reference = `ref-${Math.ceil(Math.random() * 10e13)}`;
     console.log('show :', this.isShow);
     this.visible = false;
+
+
   }
 
   invoiceDetails() {
     this.isLoadingDetail = true;
 
-    this.dashboard.getInvoice(this.detail).subscribe((invoice) => {
+    this.dashboard.getInvoice(this.detail).subscribe(async (invoice) => {
       this.isLoadingDetail = false;
       console.log('invoice single data :', invoice)
       this.invoice = invoice;
@@ -145,21 +155,63 @@ export class SingleInvoiceComponent implements OnInit {
       this.payment_date = invoice.payment_date;
       this.overDue = date_diff_indays(this.deafaultDate, this.payment_date);
       this.company_details_name = invoice.company_details.name || null;
-      this.items = invoice.items || [];
+      this.items = await invoice.items || [];
       this.others = invoice.other || [];
       this.createdAt = invoice.createdAt;
       this.invoiceApproved = invoice.approved;
       this.sub_total = invoice.sub_total || 0;
       this.grand_total = invoice.grand_total || 0;
       this.delivery_address = invoice.delivery_address;
-      console.log('item :', this.items)
+
+
+      let group = {}
+      for (const item in this.items) {
+        group[`discountField_${item}`] = new FormControl('');
+      }
+      this.DiscountForm = new FormGroup(group);
+      // console.log('item :', this.items)
     }, error => {
       this.isLoadingDetail = false
       console.log('Error : ', error)
     })
   }
 
+  getDiscount() {
+    console.log(this.DiscountForm.value);
+    let payload = {};
+    payload["discount_per_item"] = [];
+    payload["total_discount"] = 0;
+    for(const item in this.items){
+      payload["total_discount"] += parseInt( this.DiscountForm.value[`discountField_${item}`] )
+      payload["discount_per_item"].push({
+          "item": this.items[item]._id,
+          "total_discount_applied": this.DiscountForm.value[`discountField_${item}`]
+        })
+    }
+   console.log("payload data : ", payload);
+   this.dashboard.discountInvoice(this.detail, payload).subscribe(async (invoice) => {
+    this.isLoadingDetail = false;
+    console.log('invoice single data :', invoice)
+    this.invoiceDetails();
+    this.toastr.success("Discount Apply Successfully", 'Successful', {
+      timeOut: 3000,
+      closeButton: true
+    });
 
+    // console.log('item :', this.items)
+  }, error => {
+    this.isLoadingDetail = false
+    console.log('Error : ', error)
+    this.toastr.error("An Error Occured", 'Successful', {
+      timeOut: 3000,
+      closeButton: true
+    });
+  })
+  }
+
+  doCheck(check1) {
+    this.inputCheck = this.DiscountForm.value[`discountField_${check1}`];
+  }
   markAsPaid() {
     console.log('invoice : ', this.invoice);
 

@@ -141,15 +141,14 @@ export class SettingsComponent implements OnInit {
         dialogRef.close();
         console.log('Yes clicked');
         this.isLoadingProduct = true;
-        this.product.deleteProductCategory(category._id, { "discount_deleted": true }).subscribe(users => {
-          // this.getUserLists();
+        this.product.deleteProductCategory(category._id, { discount_deleted: true }).subscribe(users => {
+          this.getProductCategoriesList();
           this.toastr.success("Category Deleted Successfully", 'Successful', {
             timeOut: 3000,
             closeButton: true
           });
 
           this.isLoadingProduct = false;
-          this.getProductCategoriesList();
 
         }, error => {
           console.log('Error :', error);

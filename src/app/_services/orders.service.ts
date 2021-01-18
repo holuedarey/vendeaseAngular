@@ -26,6 +26,15 @@ export class OrdersService {
       }));
   }
 
+
+  
+  assignOrder(id, payload): Observable<any> {
+    return this.http.patch(`${Endpoint.PURCHASE.purchase_orders}/${id}`, payload).pipe(
+      map(data => {
+        return data;
+      }));
+  }
+
   
   repurchaseOrder(payload): Observable<any> {
     return this.http.post(Endpoint.PURCHASE.purchase_orders, payload).pipe(
