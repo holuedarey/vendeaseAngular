@@ -88,7 +88,7 @@ E<!-- begin::main -->
                                                     <th>Product</th>
                                                     <th>Description</th>
                                                     <th>Quantity</th>
-                                                    <th *ngIf="userData.type == 'system' ">Discount</th>
+                                                    <th *ngIf="userData.type == 'system'  && discounntTotal == 0 " >Discount</th>
                                                     <th class="text-right">Unit cost</th>
                                                     <th class="text-right">Total</th>
                                                 </tr>
@@ -99,7 +99,7 @@ E<!-- begin::main -->
                                                     <td class="text-left">{{ item.name }}</td>
                                                     <td class="text-left">{{ item.description }}</td>
                                                     <td class="text-left">{{ item.quantity }}</td>
-                                                    <td class="text-left" *ngIf="userData.type == 'system' ">
+                                                    <td class="text-left" *ngIf="userData.type == 'system' && discounntTotal == 0 ">
                                                         <form [formGroup]="DiscountForm">
                                                             <span style="position: relative; top: -6px;" class="text-info" *ngIf="item.discount.discount_type == 'percentage'"> Maximum Discount - {{ item.discount.discount_value }} %</span>
                                                             <span style="position: relative; top: -6px;" class="text-info" *ngIf="item.discount.discount_type == 'value'"> Maximum Discount - #{{ item.discount.discount_value }} </span>    

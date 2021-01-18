@@ -76,6 +76,7 @@ export class SingleInvoiceComponent implements OnInit {
 
 
   discountValue: any;
+  discounntTotal:any = 0;
 
   DiscountForm: FormGroup;
   constructor(
@@ -162,8 +163,9 @@ export class SingleInvoiceComponent implements OnInit {
       this.sub_total = invoice.sub_total || 0;
       this.grand_total = invoice.grand_total || 0;
       this.delivery_address = invoice.delivery_address;
-
-
+      this.discounntTotal = invoice.total_discount;
+      console.log(' discounntTotal : ', this.discounntTotal);
+      
       let group = {}
       for (const item in this.items) {
         group[`discountField_${item}`] = new FormControl('');
