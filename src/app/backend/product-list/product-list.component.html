@@ -32,11 +32,10 @@
                                                 <tr>
                                                     <th>S/N</th>
                                                     <th>Name</th>
-                                                    <th>Brand</th>
+                                                    <!-- <th>Brand</th> -->
                                                     <th>Market Price</th>
                                                     <th>Category</th>
                                                     <th>Description</th>
-
                                                     <th *ngIf="userData.type == 'system' ">Assigned To</th>
                                                     <th>#Action</th>
                                                 </tr>
@@ -51,12 +50,12 @@
                                                 <tr *ngFor="let product of products | paginate: { id: 'order-listing', itemsPerPage: 50, currentPage: p, totalItems:totalItems } let i=index">
                                                     <td>{{ serial + i }}</td>
                                                     <td>{{ product.name }}</td>
-                                                    <td>{{ product.brand }}</td>
+                                                    <!-- <td>{{ product.brand }}</td> -->
                                                     <td>
                                                         <label class="badge badge-dark"
-                                                               *ngIf="product.price == undefined || product.price == null ">pending</label>
-                                                        <label *ngIf="product.price !== undefined">
-                                                            {{ product.price | currency : '₦'   }}</label>
+                                                               *ngIf="product.vendor_price == undefined || product.vendor_price == null ">pending</label>
+                                                        <label *ngIf="product.vendor_price !== undefined">
+                                                            {{ product.vendor_price | currency : '₦'   }}</label>
                                                     </td>
                                                     <td>{{ product.category }}</td>
                                                     <td>{{ product.description ?  product.description : 'Nil'}}</td>

@@ -53,7 +53,7 @@ export class ProductListComponent implements OnInit {
       console.log('product List data :', product.data);
       this.totalItems = product.total;
       this.isLoadingProduct = false;
-      this.products = product.data.slice().reverse();
+      this.products = product.data;
       this.serial = 1 + (this.p  - 1) * this.limit;
       console.log('serial no :', this.serial)
       this.serial = this.serial;

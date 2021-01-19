@@ -149,11 +149,11 @@ export class CreateOrderComponent implements OnInit {
   selectedItem(product){
     this.searchDone = false;
     this.selectedProduct = product.name;
-    this.formatedValue = `${product._id}#${product.name}#${product.price}`;
+    this.formatedValue = `${product._id}#${product.name}#${product.vendease_price}`;
     //attach the product to the id
     this._id = product._id;
     this.name = product.name;
-    this.price = product.price;
+    this.price = product.vendease_price;
     console.log('selected Product : ', this.formatedValue );
     
   }

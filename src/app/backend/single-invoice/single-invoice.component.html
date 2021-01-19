@@ -88,7 +88,7 @@ E<!-- begin::main -->
                                                     <th>Product</th>
                                                     <th>Description</th>
                                                     <th>Quantity</th>
-                                                    <th *ngIf="userData.type == 'system'  && discounntTotal == 0 " >Discount</th>
+                                                    <th *ngIf="userData.type == 'system' ">Discount</th>
                                                     <th class="text-right">Unit cost</th>
                                                     <th class="text-right">Total</th>
                                                 </tr>
@@ -99,7 +99,7 @@ E<!-- begin::main -->
                                                     <td class="text-left">{{ item.name }}</td>
                                                     <td class="text-left">{{ item.description }}</td>
                                                     <td class="text-left">{{ item.quantity }}</td>
-                                                    <td class="text-left" *ngIf="userData.type == 'system' && discounntTotal == 0 ">
+                                                    <td class="text-left" *ngIf="userData.type == 'system'">
                                                         <form [formGroup]="DiscountForm">
                                                             <span style="position: relative; top: -6px;" class="text-info" *ngIf="item.discount.discount_type == 'percentage'"> Maximum Discount - {{ item.discount.discount_value }} %</span>
                                                             <span style="position: relative; top: -6px;" class="text-info" *ngIf="item.discount.discount_type == 'value'"> Maximum Discount - #{{ item.discount.discount_value }} </span>    
@@ -109,23 +109,23 @@ E<!-- begin::main -->
                                                        
                                                       
                                                     </td>
-                                                    <td class="text-right">NGN {{ item.price }}</td>
-                                                    <td class="text-right">NGN {{ item.total }}</td>
+                                                    <td class="text-right"> {{ item.price | currency : "&#x20A6;" || '0' }}</td>
+                                                    <td class="text-right"> {{ item.total | currency : "&#x20A6;" || '0' }}</td>
                                                 </tr>
 
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
-                                <button class="btn btn-info" (click)="getDiscount()">get discount</button>
+                                <button class="btn btn-info" (click)="getDiscount()" *ngIf="userData.type == 'system'" >get discount</button>
                                 <div class="container-fluid mt-5 w-100">
-                                    <p class="text-right mb-2">Sub - Total amount: NGN {{ sub_total }} </p>
+                                    <p class="text-right mb-2">Sub - Total amount:  {{ sub_total | currency : "&#x20A6;" || '0' }} </p>
 
                                     <div *ngIf="items.length">
                                         <p class=" text-right" *ngFor="let item of others | keyvalue">{{ item.key }} :
-                                            NGN {{ item.value }} </p>
+                                             {{ item.value | currency : "&#x20A6;" || '0' }} </p>
                                     </div>
-                                    <h4 class="text-right mb-5">Total : NGN {{ grand_total }}</h4>
+                                    <h4 class="text-right mb-5">Total :  {{ grand_total| currency : "&#x20A6;" || '0' }}</h4>
                                     <hr>
                                 </div>
                                 <div class="container-fluid w-100" id="button" *ngIf="isShow">

@@ -33,7 +33,7 @@ export class ProductService {
   }
 
   produtList(params?): Observable<any> {
-    return this.http.get(`${Endpoint.PRODUCTS.product}?$skip=${params.skip || 0}&$limit=${params.limit || 50}&price[$gte]=${params.price || 0}`).pipe(
+    return this.http.get(`${Endpoint.PRODUCTS.product}?$skip=${params.skip || 0}&$limit=${params.limit || 50}&vendor_price[$gte]=${params.price || 0}`).pipe(
       map(data => {
         return data;
       }));
@@ -87,7 +87,8 @@ export class ProductService {
   }
 
   searchProduct(query): Observable<any> {
-    return this.http.get(`${Endpoint.PRODUCTS.product}?category[$ne]=${null}&name[$search]=${query}`).pipe(
+    // return this.http.get(`${Endpoint.PRODUCTS.product}?category[$ne]=${null}&name[$search]=${query}`).pipe(
+      return this.http.get(`${Endpoint.PRODUCTS.product}?name[$search]=${query}`).pipe(
       map(data => {
         return data;
       }));
